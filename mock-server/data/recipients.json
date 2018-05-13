@@ -1,0 +1,37 @@
+[
+  {
+    "id": "1",
+    "firstName": "Kjell Kari",
+    "lastName": "Svendsen",
+    "school": "Bryne videregåande skule",
+    "mainGroup": "1STA"
+  },
+  {
+    "id": "2",
+    "firstName": "Banjo",
+    "lastName": "Kari",
+    "school": "Bryne videregåande skule",
+    "mainGroup": "1STA"
+  },
+  {
+    "id": "3",
+    "firstName": "Kåre Svein",
+    "lastName": "Håland",
+    "school": "Bryne videregåande skule",
+    "mainGroup": "1STA"
+  },
+  {
+    "id": "4",
+    "firstName": "Harry Jan",
+    "lastName": "Varhaug",
+    "school": "Bryne videregåande skule",
+    "mainGroup": "1STA"
+  },
+  {
+    "id": "5",
+    "firstName": "Berit Anne",
+    "lastName": "Vigrestad",
+    "school": "Bryne videregåande skule",
+    "mainGroup": "1STA"
+  }
+]
