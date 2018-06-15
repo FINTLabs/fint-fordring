@@ -42,6 +42,11 @@ const styles = theme => ({
     menuLink: {
         textDecoration: 'none',
     },
+    logo: {
+        height: '8%',
+        width: '8%',
+        marginRight: theme.spacing.unit * 4,
+      },
 });
 
 class Main extends Component {
@@ -55,8 +60,9 @@ class Main extends Component {
                 <div className={classes.root}>
                     <AppBar position="absolute" className={classes.appBar} color="primary">
                         <Toolbar>
+                        <img src="fint.svg" alt="logo" className={classes.logo}/>
                             <Typography variant="title" color="inherit" noWrap>
-                                FINT - Fordringer
+                                Betaling
                             </Typography>
                         </Toolbar>
                     </AppBar>

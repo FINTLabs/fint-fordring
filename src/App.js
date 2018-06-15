@@ -7,20 +7,20 @@ import PropTypes from 'prop-types';
 
 const theme = createMuiTheme({
     palette: {
-        secondary: {
-            light: '#bef67a',
-            main: '#8bc34a',
-            dark: '#5a9216',
-            contrastText: '#000',
-        },
-        primary: {
-            light: '#67daff',
-            main: '#03a9f4',
-            dark: '#007ac1',
-            contrastText: '#000000',
-        },
+      primary: {
+        light: '#f05545',
+        main: '#b71c1c',
+        dark: '#7f0000',
+        contrastText: '#fff',
+      },
+      secondary: {
+        light: '#98ee99',
+        main: '#66bb6a',
+        dark: '#338a3e',
+        contrastText: '#000',
+      },
     },
-});
+  });
 
 const styles = theme => ({
     root: {
