@@ -89,7 +89,7 @@ class ResultTablePerson extends Component {
                                     <TableCell>{n.mainGroup}</TableCell>
                                     <TableCell>{n.school}</TableCell>
                                     <TableCell>
-                                        <Button mini variant="fab" color="primary" aria-label="add"
+                                        <Button mini variant="fab" color="primary" aria-label="add" onClick={() => this.props.sendData(n)}
                                                 className={classes.button}>
                                             <Add/>
                                         </Button>
