@@ -29,7 +29,7 @@ class ResultTablePerson extends Component {
     constructor(props) {
         super(props);
 
-        this.state = {
+        /*this.state = {
             result: [
                 {
                     "id": "1",
@@ -67,7 +67,7 @@ class ResultTablePerson extends Component {
                     "mainGroup": "1STA"
                 }
             ]
-        };
+        };*/
 
     }
 
@@ -86,7 +86,7 @@ class ResultTablePerson extends Component {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {this.state.result.map(n => {
+                        {this.props.testData.map(n => {
                             return (
                                 <TableRow key={n.id}>
                                     <TableCell>{n.firstName} {n.lastName}</TableCell>

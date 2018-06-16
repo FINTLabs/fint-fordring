@@ -22,13 +22,6 @@ const styles = theme => ({
 class SearchResultPerson extends Component {
     constructor(props) {
         super(props);
-        this.state = {personer: []};
-    }
-
-    getData = (val) => {
-        let old = this.state.personer;
-        old.push(val);
-        this.setState({personer: old});
     }
 
     render() {
@@ -36,9 +29,7 @@ class SearchResultPerson extends Component {
         const {classes} = this.props;
         return (
             <div>
-                <ResultTablePerson
-                sendData={this.getData}
-                />
+                <ResultTablePerson sendData={this.props.sendData} testData={this.props.testData}/>
             </div>
 
         );

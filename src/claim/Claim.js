@@ -69,7 +69,6 @@ class Claim extends Component {
     render() {
         const { classes } = this.props;
         const steps = getSteps();
-        console.log(`Steps: ${steps}`);
         const { activeStep } = this.state;
 
         return (

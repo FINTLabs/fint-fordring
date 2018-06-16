@@ -19,34 +19,21 @@ const styles = theme => ({
 });
 
 class SelectedPerson extends React.Component {
-  state = {
-    chipData: [
-      { key: 0, label: 'Angular' },
-      { key: 1, label: 'jQuery' },
-      { key: 2, label: 'Polymer' },
-      { key: 3, label: 'React' },
-      { key: 4, label: 'Vue.js' },
-    ],
-  };
 
-  handleDelete = data => () => {
-    if (data.label === 'React') {
-      alert('Why would you want to delete React?! :)'); // eslint-disable-line no-alert
-      return;
-    }
 
-    const chipData = [...this.state.chipData];
+  /*handleDelete = data => () => {
+    const chipData = [...this.props.listSelectedPerson];
     const chipToDelete = chipData.indexOf(data);
     chipData.splice(chipToDelete, 1);
     this.setState({ chipData });
-  };
+  };*/
 
   render() {
     const { classes } = this.props;
 
     return (
       <Paper className={classes.root}>
-        {this.state.chipData.map(data => {
+        {this.props.listSelectedPerson.map(data => {
           let avatar = null;
 
           if (data.label === 'React') {
@@ -59,10 +46,10 @@ class SelectedPerson extends React.Component {
 
           return (
             <Chip
-              key={data.key}
+              key={data.id}
               avatar={avatar}
-              label={data.label}
-              onDelete={this.handleDelete(data)}
+              label={data.firstName}
+              onDelete={() => this.props.sendChips(data)}
               className={classes.chip}
             />
           );
