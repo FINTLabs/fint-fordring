@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import './App.css';
 import Main from "./main/Main";
-import {createMuiTheme, MuiThemeProvider, withStyles} from "material-ui";
+import {createMuiTheme, MuiThemeProvider, withStyles} from "@material-ui/core";
 import PropTypes from 'prop-types';
 
 

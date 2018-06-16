@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
-import {Button, Input, withStyles} from "material-ui";
+import {withStyles} from "@material-ui/core/styles";
+import Button from "@material-ui/core/Button";
+import Input from "@material-ui/core/Input";
 import {Search} from '@material-ui/icons';
 
 

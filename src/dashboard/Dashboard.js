@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
-import {withStyles} from "material-ui";
-import {green} from 'material-ui/colors';
+import {withStyles} from "@material-ui/core";
+import {green} from '@material-ui/core/colors';
 import PropTypes from "prop-types";
 
 

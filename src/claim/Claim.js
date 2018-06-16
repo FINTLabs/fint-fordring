@@ -1,9 +1,11 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import { withStyles } from 'material-ui/styles';
-import Stepper, { Step, StepLabel } from 'material-ui/Stepper';
-import Button from 'material-ui/Button';
-import Typography from 'material-ui/Typography';
+import { withStyles } from '@material-ui/core/styles';
+import Stepper from '@material-ui/core/Stepper';
+import Step from '@material-ui/core/Step';
+import StepLabel from '@material-ui/core/StepLabel';
+import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
 import Step1 from "./steps/step1/step1";
 import Step2 from "./steps/step2";
 import Step3 from "./steps/step3";
@@ -67,11 +69,12 @@ class Claim extends Component {
     render() {
         const { classes } = this.props;
         const steps = getSteps();
+        console.log(`Steps: ${steps}`);
         const { activeStep } = this.state;
 
         return (
             <div className={classes.root}>
-                <Stepper activeStep={activeStep} alternativeLabel >
+                <Stepper activeStep={activeStep} >
                     {steps.map(label => {
                         return (
                             <Step key={label}>

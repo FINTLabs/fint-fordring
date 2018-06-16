@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {withStyles} from "material-ui/styles/index";
+import {withStyles} from "@material-ui/core/styles";
 import SearchTabs from "./search/SearchTabs";
 import SearchResultPerson from "./search/SearchResultPerson";
 import SelectedPerson from "./search/SelectedPerson"
