@@ -57,10 +57,10 @@ class SearchResultGroup extends React.Component {
                             <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
                                 <Typography className={classes.heading}>{n.mainGroup}</Typography>
                                 <Typography className={classes.secondaryHeading}>{n.school}</Typography>
-                                <Typography>
+                                <Typography className={classes.heading}>
                                     <Button mini variant="fab" color="primary" aria-label="add" onClick={() => this.props.addAll(n)}
                                         className={classes.button}>
-                                        {this.props.allIsSelected ? (
+                                        {(this.props.checkIfAllAreSelected(n)) ? (
                                             <Add />
                                         ) : (
                                                 <Remove />

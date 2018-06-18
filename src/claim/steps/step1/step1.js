@@ -7,7 +7,6 @@ import SearchResultGroup from "./search/SearchResultGroup";
 
 
 const styles = theme => ({});
-let allIsSelected = false;
 const testDataGruppe = [
     {
         "id": "1",
@@ -281,7 +280,7 @@ class Step1 extends Component {
     };
     
     addAll = (group) => {
-        allIsSelected = false;
+        let allIsSelected = false;
         for (let i = 0; i < group.members.length; i++) {
             if (!group.members[i].selected) {
                 allIsSelected = true;
@@ -305,6 +304,16 @@ class Step1 extends Component {
         this.setState({ groups: updateState });
     }
 
+    checkIfAllAreSelected = (group) => {
+        let allIsSelected = false;
+        for (let i = 0; i < group.members.length; i++) {
+            if (!group.members[i].selected) {
+                allIsSelected = true;
+            }
+        }
+        return allIsSelected;
+    }
+
     getSearchMethod = (val) => {
         console.log(val);
         this.setState({ searchMethod: val });
@@ -316,7 +325,7 @@ class Step1 extends Component {
             <div>
                 <SearchTabs getSearchMethod={this.getSearchMethod} />
                 {this.state.searchMethod === 0 ? (
-                    <SearchResultGroup listGroup={this.state.groups} addMethod={this.addToSelection} removeMethod={this.removeFromSelection} addAll={this.addAll} allIsSelected={allIsSelected}/>
+                    <SearchResultGroup listGroup={this.state.groups} addMethod={this.addToSelection} removeMethod={this.removeFromSelection} addAll={this.addAll} checkIfAllAreSelected={this.checkIfAllAreSelected}/>
                 ) : (
                         <SearchResultPerson addMethod={this.addToSelection} listGroup={this.state.groups} removeMethod={this.removeFromSelection} />
                     )}
