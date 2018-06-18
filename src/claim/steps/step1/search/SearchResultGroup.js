@@ -57,16 +57,6 @@ class SearchResultGroup extends React.Component {
                             <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
                                 <Typography className={classes.heading}>{n.mainGroup}</Typography>
                                 <Typography className={classes.secondaryHeading}>{n.school}</Typography>
-                                <Typography className={classes.heading}>
-                                    <Button mini variant="fab" color="primary" aria-label="add" onClick={() => this.props.addAll(n)}
-                                        className={classes.button}>
-                                        {(this.props.checkIfAllAreSelected(n)) ? (
-                                            <Add />
-                                        ) : (
-                                                <Remove />
-                                            )}
-                                    </Button>
-                                </Typography>
                             </ExpansionPanelSummary>
                             <ExpansionPanelDetails>
                                 <Paper className={classes.root}>
@@ -75,7 +65,16 @@ class SearchResultGroup extends React.Component {
                                             <TableRow>
                                                 <TableCell>Navn</TableCell>
                                                 <TableCell>Klasse</TableCell>
-                                                <TableCell></TableCell>
+                                                <TableCell>
+                                                    <Button mini variant="fab" color="secondary" aria-label="add" onClick={() => this.props.addAll(n)}
+                                                        className={classes.button}>
+                                                        {(this.props.checkIfAllAreSelected(n)) ? (
+                                                            <Add />
+                                                        ) : (
+                                                                <Remove />
+                                                            )}
+                                                    </Button>
+                                                </TableCell>
                                             </TableRow>
                                         </TableHead>
                                         <TableBody>
