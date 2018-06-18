@@ -57,12 +57,12 @@ class ResultTablePerson extends Component {
                                                 <TableCell>{n.school}</TableCell>
                                                 <TableCell>
                                                     {!n.selected ? (
-                                                        <Button mini variant="fab" color="primary" aria-label="add" onClick={() => this.props.addMethod(n)}
+                                                        <Button mini variant="fab" color="primary" aria-label="add" onClick={() => this.props.addMethod(m,n)}
                                                             className={classes.button}>
                                                             <Add />
                                                         </Button>
                                                     ) : (
-                                                            <Button mini variant="fab" color="primary" aria-label="add" onClick={() => this.props.removeMethod(n)}
+                                                            <Button mini variant="fab" color="primary" aria-label="add" onClick={() => this.props.removeMethod(m,n)}
                                                                 className={classes.button}>
                                                                 <Cancel />
                                                             </Button>

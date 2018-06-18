@@ -26,7 +26,7 @@ class SelectedPerson extends React.Component {
     return (
       <Paper className={classes.root}>
         {this.props.listGroup.map(n => {
-          {
+          { return(
             n.members.map(data => {
               let avatar = null;
 
@@ -45,11 +45,11 @@ class SelectedPerson extends React.Component {
                   key={data.id}
                   avatar={avatar}
                   label={data.firstName}
-                  onDelete={() => this.props.removeMethod(data)}
+                  onDelete={() => this.props.removeMethod(n,data)}
                   className={classes.chip}
                 />
               );
-            })
+            }));
           }
         })}
       </Paper>
