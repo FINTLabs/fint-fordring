@@ -257,9 +257,7 @@ class Step1 extends Component {
         this.state = {
             groups: testDataGruppe,
             searchMethod: 0,
-            personSearchFilter: [
-                testDataGruppe.forEach(e => e.members)
-            ]
+            searchFilter: []
         };
         console.log(this.state);
     }
@@ -318,17 +316,21 @@ class Step1 extends Component {
     }
 
     getSearchMethod = (val) => {
-        console.log(val);
+        console.log(val,1);
         this.setState({ searchMethod: val });
     };
 
     getSearchInput = (val) => {
         let filteredGroupArr = [];
-        console.log(val);
-        for (let i = 0; i < this.state.groups.length; i++) {
-            filteredGroupArr = filteredGroupArr.concat(this.state.groups[i].members.filter(e => (e.firstName + " " + e.lastName).toLowerCase().indexOf(val) !== -1));
-        }
-        this.setState({personSearchFilter: filteredGroupArr});
+        console.log(val,2);
+        if (this.state.searchMethod === 0) {
+            filteredGroupArr = this.state.groups.filter(e => e.mainGroup.toLowerCase().indexOf(val) !== -1);
+        } else {
+            for (let i = 0; i < this.state.groups.length; i++) {
+                filteredGroupArr = filteredGroupArr.concat(this.state.groups[i].members.filter(e => (e.firstName + " " + e.lastName).toLowerCase().indexOf(val) !== -1));
+            }
+        }console.log(filteredGroupArr);
+        this.setState({ searchFilter: filteredGroupArr });
     }
 
     render() {
@@ -337,9 +339,19 @@ class Step1 extends Component {
             <div>
                 <SearchTabs getSearchMethod={this.getSearchMethod} getSearchInput={this.getSearchInput} />
                 {this.state.searchMethod === 0 ? (
-                    <SearchResultGroup listGroup={this.state.groups} addMethod={this.addToSelection} removeMethod={this.removeFromSelection} addAll={this.addAll} checkIfAllAreSelected={this.checkIfAllAreSelected}/>
+                    <SearchResultGroup 
+                    listGroup={this.state.groups} 
+                    addMethod={this.addToSelection} 
+                    removeMethod={this.removeFromSelection} 
+                    addAll={this.addAll} 
+                    checkIfAllAreSelected={this.checkIfAllAreSelected} 
+                    searchFilter={this.state.searchFilter}/>
                 ) : (
-                        <SearchResultPerson addMethod={this.addToSelection} listGroup={this.state.groups} removeMethod={this.removeFromSelection} personSearchFilter={this.state.personSearchFilter}/>
+                        <SearchResultPerson 
+                        addMethod={this.addToSelection} 
+                        listGroup={this.state.groups} 
+                        removeMethod={this.removeFromSelection} 
+                        searchFilter={this.state.searchFilter} />
                     )}
                 <SelectedPerson listGroup={this.state.groups} removeMethod={this.removeFromSelection} />
             </div>

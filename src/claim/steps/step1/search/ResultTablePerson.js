@@ -50,8 +50,7 @@ class ResultTablePerson extends Component {
                             {
                                 return (
                                     m.members.map(n => {
-                                        console.log(this.props.personSearchFilter[0], n)
-                                        if (this.props.personSearchFilter.indexOf(n) === -1) {
+                                        if (this.props.searchFilter.indexOf(n) === -1) {
                                             return;
                                         }
                                         return (

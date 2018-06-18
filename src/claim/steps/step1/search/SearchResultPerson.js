@@ -34,7 +34,7 @@ class SearchResultPerson extends Component {
                 listGroup={this.props.listGroup} 
                 removeMethod={this.props.removeMethod} 
                 checkIfAllAreSelected={this.props.checkIfAllAreSelected} 
-                personSearchFilter={this.props.personSearchFilter}/>
+                searchFilter={this.props.searchFilter}/>
             </div>
 
         );
