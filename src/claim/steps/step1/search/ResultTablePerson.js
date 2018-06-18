@@ -47,29 +47,31 @@ class ResultTablePerson extends Component {
                     </TableHead>
                     <TableBody>
                         {this.props.listGroup.map(m => {
-                            { console.log(m);
-                                m.members.map(n => {
-                                    return (
-                                        <TableRow key={n.id}>
-                                            <TableCell>{n.firstName}{n.lastName}</TableCell>
-                                            <TableCell>{n.mainGroup}</TableCell>
-                                            <TableCell>{n.school}</TableCell>
-                                            <TableCell>
-                                                {!n.selected ? (
-                                                    <Button mini variant="fab" color="primary" aria-label="add" onClick={() => this.props.addMethod(n)}
-                                                        className={classes.button}>
-                                                        <Add />
-                                                    </Button>
-                                                ) : (
-                                                        <Button mini variant="fab" color="primary" aria-label="add" onClick={() => this.props.removeMethod(n)}
+                            {
+                                return (
+                                    m.members.map(n => {
+                                        return (
+                                            <TableRow key={n.id}>
+                                                <TableCell>{n.firstName}{n.lastName}</TableCell>
+                                                <TableCell>{n.mainGroup}</TableCell>
+                                                <TableCell>{n.school}</TableCell>
+                                                <TableCell>
+                                                    {!n.selected ? (
+                                                        <Button mini variant="fab" color="primary" aria-label="add" onClick={() => this.props.addMethod(n)}
                                                             className={classes.button}>
-                                                            <Cancel />
+                                                            <Add />
                                                         </Button>
-                                                    )}
-                                            </TableCell>
-                                        </TableRow>
-                                    );
-                                })
+                                                    ) : (
+                                                            <Button mini variant="fab" color="primary" aria-label="add" onClick={() => this.props.removeMethod(n)}
+                                                                className={classes.button}>
+                                                                <Cancel />
+                                                            </Button>
+                                                        )}
+                                                </TableCell>
+                                            </TableRow>
+                                        );
+                                    })
+                                );
                             }
                         })
                         }
