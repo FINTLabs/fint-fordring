@@ -7,6 +7,7 @@ import SearchResultGroup from "./search/SearchResultGroup";
 
 
 const styles = theme => ({});
+let allIsSelected = false;
 const testDataGruppe = [
     {
         "id": "1",
@@ -256,11 +257,12 @@ class Step1 extends Component {
         super(props);
         this.state = {
             groups: testDataGruppe,
-            searchMethod: 0
+            searchMethod: 0,
+
         };
     }
 
-    addToSelection = (group,person) => {
+    addToSelection = (group, person) => {
         let updateState = this.state.groups;
         let groupIndex = updateState.indexOf(group);
         let personIndex = updateState[groupIndex].members.indexOf(person);
@@ -269,7 +271,7 @@ class Step1 extends Component {
         console.log(this.state);
     }
 
-    removeFromSelection = (group,person) => {
+    removeFromSelection = (group, person) => {
         let updateState = this.state.groups;
         let groupIndex = updateState.indexOf(group);
         let personIndex = updateState[groupIndex].members.indexOf(person);
@@ -277,6 +279,31 @@ class Step1 extends Component {
         this.setState({ groups: updateState });
         console.log(this.state);
     };
+    
+    addAll = (group) => {
+        allIsSelected = false;
+        for (let i = 0; i < group.members.length; i++) {
+            if (!group.members[i].selected) {
+                allIsSelected = true;
+            }
+        }
+        if (allIsSelected) {
+            for (let i = 0; i < group.members.length; i++) {
+                if (group.members[i].selected) {
+                }
+                group.members[i].selected = true;
+            }
+        } else {
+            for (let i = 0; i < group.members.length; i++) {
+                if (group.members[i].selected) {
+                }
+                group.members[i].selected = false;
+            }
+        }
+        let updateState = this.state.groups;
+        updateState[updateState.indexOf(group)] = group;
+        this.setState({ groups: updateState });
+    }
 
     getSearchMethod = (val) => {
         console.log(val);
@@ -289,9 +316,9 @@ class Step1 extends Component {
             <div>
                 <SearchTabs getSearchMethod={this.getSearchMethod} />
                 {this.state.searchMethod === 0 ? (
-                    <SearchResultGroup listGroup={this.state.groups} addMethod={this.addToSelection} removeMethod={this.removeFromSelection}/>
+                    <SearchResultGroup listGroup={this.state.groups} addMethod={this.addToSelection} removeMethod={this.removeFromSelection} addAll={this.addAll} allIsSelected={allIsSelected}/>
                 ) : (
-                    <SearchResultPerson addMethod={this.addToSelection} listGroup={this.state.groups} removeMethod={this.removeFromSelection} />
+                        <SearchResultPerson addMethod={this.addToSelection} listGroup={this.state.groups} removeMethod={this.removeFromSelection} />
                     )}
                 <SelectedPerson listGroup={this.state.groups} removeMethod={this.removeFromSelection} />
             </div>

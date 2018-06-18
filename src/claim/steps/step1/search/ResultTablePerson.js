@@ -9,7 +9,7 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Button from "@material-ui/core/Button";
 import { Add } from '@material-ui/icons';
-import { Cancel } from '@material-ui/icons';
+import { Remove } from '@material-ui/icons';
 
 
 const styles = theme => ({
@@ -64,7 +64,7 @@ class ResultTablePerson extends Component {
                                                     ) : (
                                                             <Button mini variant="fab" color="primary" aria-label="add" onClick={() => this.props.removeMethod(m,n)}
                                                                 className={classes.button}>
-                                                                <Cancel />
+                                                                <Remove />
                                                             </Button>
                                                         )}
                                                 </TableCell>

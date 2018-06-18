@@ -13,8 +13,8 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Button from "@material-ui/core/Button";
-import {Add} from '@material-ui/icons';
-import {Cancel} from '@material-ui/icons';
+import { Add } from '@material-ui/icons';
+import { Remove } from '@material-ui/icons';
 
 const styles = theme => ({
     root: {
@@ -37,6 +37,9 @@ class SearchResultGroup extends React.Component {
     };
 
     handleChange = panel => (event, expanded) => {
+        if (event.target.type === "button") {
+            return;
+        }
         this.setState({
             expanded: expanded ? panel : false,
         });
@@ -54,6 +57,16 @@ class SearchResultGroup extends React.Component {
                             <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
                                 <Typography className={classes.heading}>{n.mainGroup}</Typography>
                                 <Typography className={classes.secondaryHeading}>{n.school}</Typography>
+                                <Typography>
+                                    <Button mini variant="fab" color="primary" aria-label="add" onClick={() => this.props.addAll(n)}
+                                        className={classes.button}>
+                                        {this.props.allIsSelected ? (
+                                            <Add />
+                                        ) : (
+                                                <Remove />
+                                            )}
+                                    </Button>
+                                </Typography>
                             </ExpansionPanelSummary>
                             <ExpansionPanelDetails>
                                 <Paper className={classes.root}>
@@ -62,7 +75,6 @@ class SearchResultGroup extends React.Component {
                                             <TableRow>
                                                 <TableCell>Navn</TableCell>
                                                 <TableCell>Klasse</TableCell>
-                                                <TableCell>Skole</TableCell>
                                                 <TableCell></TableCell>
                                             </TableRow>
                                         </TableHead>
@@ -72,17 +84,16 @@ class SearchResultGroup extends React.Component {
                                                     <TableRow key={m.id}>
                                                         <TableCell>{m.firstName} {m.lastName}</TableCell>
                                                         <TableCell>{m.mainGroup}</TableCell>
-                                                        <TableCell>{m.school}</TableCell>
                                                         <TableCell>
                                                             {!m.selected ? (
-                                                                <Button mini variant="fab" color="primary" aria-label="add" onClick={() => this.props.addMethod(n,m)}
+                                                                <Button mini variant="fab" color="primary" aria-label="add" onClick={() => this.props.addMethod(n, m)}
                                                                     className={classes.button}>
                                                                     <Add />
                                                                 </Button>
                                                             ) : (
-                                                                    <Button mini variant="fab" color="primary" aria-label="add" onClick={() => this.props.removeMethod(n,m)}
+                                                                    <Button mini variant="fab" color="primary" aria-label="add" onClick={() => this.props.removeMethod(n, m)}
                                                                         className={classes.button}>
-                                                                        <Cancel />
+                                                                        <Remove />
                                                                     </Button>
                                                                 )}
                                                         </TableCell>
