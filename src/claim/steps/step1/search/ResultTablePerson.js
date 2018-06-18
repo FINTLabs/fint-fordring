@@ -9,6 +9,7 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Button from "@material-ui/core/Button";
 import {Add} from '@material-ui/icons';
+import {Cancel} from '@material-ui/icons';
 
 
 const styles = theme => ({
@@ -93,10 +94,17 @@ class ResultTablePerson extends Component {
                                     <TableCell>{n.mainGroup}</TableCell>
                                     <TableCell>{n.school}</TableCell>
                                     <TableCell>
-                                        <Button mini variant="fab" color="primary" aria-label="add" onClick={() => this.props.sendData(n)}
+                                        {!n.selected ? (
+                                            <Button mini variant="fab" color="primary" aria-label="add" onClick={() => this.props.addMethod(n)}
                                                 className={classes.button}>
                                             <Add/>
                                         </Button>
+                                        ) : (
+                                            <Button mini variant="fab" color="primary" aria-label="add" onClick={() => this.props.removeMethod(n)}
+                                                className={classes.button}>
+                                            <Cancel/>
+                                        </Button>
+                                        )}
                                     </TableCell>
                                 </TableRow>
                             );

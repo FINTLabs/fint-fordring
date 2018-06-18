@@ -54,21 +54,25 @@ class Step1 extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {personer: []};
+        this.state = {personer: testData};
     }
 
-    getData = (val) => {
-        let old = this.state.personer;
-        old.push(val);
-        this.setState({personer: old});
-        console.log(this.state); 
+    addToSelection = (val) => {
+        let updateState = this.state.personer;
+        updateState[updateState.indexOf(val)]["selected"] = true;
+        this.setState({personer: updateState});
+        console.log(this.state);
     }
 
-    handleDelete = (data) => {
-        const chipData = [...this.state.personer];
+    removeFromSelection = (val) => {
+        let updateState = this.state.personer;
+        updateState[updateState.indexOf(val)]["selected"] = false;
+        this.setState({personer: updateState});
+        console.log(this.state);
+        /*const chipData = [...this.state.personer];
         const chipToDelete = chipData.indexOf(data);
         chipData.splice(chipToDelete, 1);
-        this.setState({ personer:chipData });
+        this.setState({ personer:chipData });*/
     };
 
     render() {
@@ -76,8 +80,8 @@ class Step1 extends Component {
         return (
             <div>
                 <SearchTabs />
-                <SearchResultPerson sendData={this.getData} listSelectedPerson={this.state.personer} testData={testData}/>
-                <SelectedPerson listSelectedPerson={this.state.personer} sendChips={this.handleDelete}/>
+                <SearchResultPerson addMethod={this.addToSelection} listSelectedPerson={this.state.personer} testData={testData} removeMethod={this.removeFromSelection}/>
+                <SelectedPerson listSelectedPerson={this.state.personer} removeMethod={this.removeFromSelection}/>
             </div>
         );
     }

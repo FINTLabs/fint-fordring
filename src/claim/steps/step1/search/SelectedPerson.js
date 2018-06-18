@@ -43,13 +43,15 @@ class SelectedPerson extends React.Component {
               </Avatar>
             );
           }
-
+          if(!data.selected) {
+            return;
+          }
           return (
             <Chip
               key={data.id}
               avatar={avatar}
               label={data.firstName}
-              onDelete={() => this.props.sendChips(data)}
+              onDelete={() => this.props.removeMethod(data)}
               className={classes.chip}
             />
           );

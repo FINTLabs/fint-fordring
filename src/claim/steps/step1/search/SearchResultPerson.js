@@ -29,7 +29,7 @@ class SearchResultPerson extends Component {
         const {classes} = this.props;
         return (
             <div>
-                <ResultTablePerson sendData={this.props.sendData} testData={this.props.testData}/>
+                <ResultTablePerson addMethod={this.props.addMethod} testData={this.props.testData} removeMethod={this.props.removeMethod}/>
             </div>
 
         );
