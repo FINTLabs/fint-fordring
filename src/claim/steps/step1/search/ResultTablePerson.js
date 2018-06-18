@@ -50,19 +50,23 @@ class ResultTablePerson extends Component {
                             {
                                 return (
                                     m.members.map(n => {
+                                        console.log(this.props.personSearchFilter[0], n)
+                                        if (this.props.personSearchFilter.indexOf(n) === -1) {
+                                            return;
+                                        }
                                         return (
                                             <TableRow key={n.id}>
-                                                <TableCell>{n.firstName}{n.lastName}</TableCell>
+                                                <TableCell>{n.firstName} {n.lastName}</TableCell>
                                                 <TableCell>{n.mainGroup}</TableCell>
                                                 <TableCell>{n.school}</TableCell>
                                                 <TableCell>
                                                     {!n.selected ? (
-                                                        <Button mini variant="fab" color="primary" aria-label="add" onClick={() => this.props.addMethod(m,n)}
+                                                        <Button mini variant="fab" color="primary" aria-label="add" onClick={() => this.props.addMethod(m, n)}
                                                             className={classes.button}>
                                                             <Add />
                                                         </Button>
                                                     ) : (
-                                                            <Button mini variant="fab" color="primary" aria-label="add" onClick={() => this.props.removeMethod(m,n)}
+                                                            <Button mini variant="fab" color="primary" aria-label="add" onClick={() => this.props.removeMethod(m, n)}
                                                                 className={classes.button}>
                                                                 <Remove />
                                                             </Button>

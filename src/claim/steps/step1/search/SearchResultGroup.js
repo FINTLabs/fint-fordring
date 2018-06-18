@@ -57,6 +57,7 @@ class SearchResultGroup extends React.Component {
                             <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
                                 <Typography className={classes.heading}>{n.mainGroup}</Typography>
                                 <Typography className={classes.secondaryHeading}>{n.school}</Typography>
+                                <Typography className={classes.heading}>{n.members.length} Elever</Typography>
                             </ExpansionPanelSummary>
                             <ExpansionPanelDetails>
                                 <Paper className={classes.root}>

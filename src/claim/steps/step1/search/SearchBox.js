@@ -37,7 +37,7 @@ class SearchBox extends Component {
             <div>
                 <div className={classes.searchContainer}>
                     <Input
-                        onChange={(event) => this.props.getSearchInput(event.target.value)}
+                        onChange={(event) => this.props.getSearchInput(event.target.value.toLowerCase())}
                         placeholder={placeHolder}
                         className={classes.searchInput}
                         inputProps={{
@@ -49,7 +49,6 @@ class SearchBox extends Component {
                     </Button>
                 </div>
             </div>
-
         );
     }
 

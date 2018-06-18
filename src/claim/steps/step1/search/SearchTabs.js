@@ -22,6 +22,7 @@ class SearchTabs extends React.Component {
     handleChange = (event, value) => {
         this.setState({value});
         this.props.getSearchMethod(value);
+        this.props.getSearchInput("");
     };
 
     render() {
