@@ -20,7 +20,6 @@ class SearchBox extends Component {
 
     render() {
 
-        console.log(this);
         const {classes, placeHolder} = this.props;
         return (
 

@@ -20,41 +20,37 @@ const styles = theme => ({
 
 class SelectedPerson extends React.Component {
 
-
-  /*handleDelete = data => () => {
-    const chipData = [...this.props.listSelectedPerson];
-    const chipToDelete = chipData.indexOf(data);
-    chipData.splice(chipToDelete, 1);
-    this.setState({ chipData });
-  };*/
-
   render() {
     const { classes } = this.props;
 
     return (
       <Paper className={classes.root}>
-        {this.props.listSelectedPerson.map(data => {
-          let avatar = null;
+        {this.props.listGroup.map(n => {
+          {
+            n.members.map(data => {
+              let avatar = null;
 
-          if (data.label === 'React') {
-            avatar = (
-              <Avatar>
-                <TagFacesIcon className={classes.svgIcon} />
-              </Avatar>
-            );
+              if (data.label === 'React') {
+                avatar = (
+                  <Avatar>
+                    <TagFacesIcon className={classes.svgIcon} />
+                  </Avatar>
+                );
+              }
+              if (!data.selected) {
+                return;
+              }
+              return (
+                <Chip
+                  key={data.id}
+                  avatar={avatar}
+                  label={data.firstName}
+                  onDelete={() => this.props.removeMethod(data)}
+                  className={classes.chip}
+                />
+              );
+            })
           }
-          if(!data.selected) {
-            return;
-          }
-          return (
-            <Chip
-              key={data.id}
-              avatar={avatar}
-              label={data.firstName}
-              onDelete={() => this.props.removeMethod(data)}
-              className={classes.chip}
-            />
-          );
         })}
       </Paper>
     );

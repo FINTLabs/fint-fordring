@@ -1,6 +1,6 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import {withStyles} from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -8,8 +8,8 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Button from "@material-ui/core/Button";
-import {Add} from '@material-ui/icons';
-import {Cancel} from '@material-ui/icons';
+import { Add } from '@material-ui/icons';
+import { Cancel } from '@material-ui/icons';
 
 
 const styles = theme => ({
@@ -29,51 +29,10 @@ class ResultTablePerson extends Component {
 
     constructor(props) {
         super(props);
-
-        /*this.state = {
-            result: [
-                {
-                    "id": "1",
-                    "firstName": "Kjell Kari",
-                    "lastName": "Svendsen",
-                    "school": "Bryne videregåande skule",
-                    "mainGroup": "1STA"
-                },
-                {
-                    "id": "2",
-                    "firstName": "Banjo",
-                    "lastName": "Kari",
-                    "school": "Bryne videregåande skule",
-                    "mainGroup": "1STA"
-                },
-                {
-                    "id": "3",
-                    "firstName": "Kåre Svein",
-                    "lastName": "Håland",
-                    "school": "Bryne videregåande skule",
-                    "mainGroup": "1STA"
-                },
-                {
-                    "id": "4",
-                    "firstName": "Harry Jan",
-                    "lastName": "Varhaug",
-                    "school": "Bryne videregåande skule",
-                    "mainGroup": "1STA"
-                },
-                {
-                    "id": "5",
-                    "firstName": "Berit Anne",
-                    "lastName": "Vigrestad",
-                    "school": "Bryne videregåande skule",
-                    "mainGroup": "1STA"
-                }
-            ]
-        };*/
-
     }
 
     render() {
-        const {classes} = this.props;
+        const { classes } = this.props;
 
         return (
             <Paper className={classes.root}>
@@ -87,28 +46,33 @@ class ResultTablePerson extends Component {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {this.props.testData.map(n => {
-                            return (
-                                <TableRow key={n.id}>
-                                    <TableCell>{n.firstName} {n.lastName}</TableCell>
-                                    <TableCell>{n.mainGroup}</TableCell>
-                                    <TableCell>{n.school}</TableCell>
-                                    <TableCell>
-                                        {!n.selected ? (
-                                            <Button mini variant="fab" color="primary" aria-label="add" onClick={() => this.props.addMethod(n)}
-                                                className={classes.button}>
-                                            <Add/>
-                                        </Button>
-                                        ) : (
-                                            <Button mini variant="fab" color="primary" aria-label="add" onClick={() => this.props.removeMethod(n)}
-                                                className={classes.button}>
-                                            <Cancel/>
-                                        </Button>
-                                        )}
-                                    </TableCell>
-                                </TableRow>
-                            );
-                        })}
+                        {this.props.listGroup.map(m => {
+                            { console.log(m);
+                                m.members.map(n => {
+                                    return (
+                                        <TableRow key={n.id}>
+                                            <TableCell>{n.firstName}{n.lastName}</TableCell>
+                                            <TableCell>{n.mainGroup}</TableCell>
+                                            <TableCell>{n.school}</TableCell>
+                                            <TableCell>
+                                                {!n.selected ? (
+                                                    <Button mini variant="fab" color="primary" aria-label="add" onClick={() => this.props.addMethod(n)}
+                                                        className={classes.button}>
+                                                        <Add />
+                                                    </Button>
+                                                ) : (
+                                                        <Button mini variant="fab" color="primary" aria-label="add" onClick={() => this.props.removeMethod(n)}
+                                                            className={classes.button}>
+                                                            <Cancel />
+                                                        </Button>
+                                                    )}
+                                            </TableCell>
+                                        </TableRow>
+                                    );
+                                })
+                            }
+                        })
+                        }
                     </TableBody>
                 </Table>
             </Paper>
