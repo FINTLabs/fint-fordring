@@ -36,8 +36,8 @@ class SearchTabs extends React.Component {
                         <Tab label="Personer"/>
                     </Tabs>
                 </Paper>
-                {value === 0 && <SearchBox placeHolder="Søk etter grupper"/>}
-                {value === 1 && <SearchBox placeHolder="Søk etter personer"/>}
+                {value === 0 && <SearchBox placeHolder="Søk etter grupper" getSearchInput={this.props.getSearchInput}/>}
+                {value === 1 && <SearchBox placeHolder="Søk etter personer" getSearchInput={this.props.getSearchInput}/>}
             </div>
         );
     }

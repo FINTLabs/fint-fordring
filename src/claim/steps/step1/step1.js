@@ -256,8 +256,7 @@ class Step1 extends Component {
         super(props);
         this.state = {
             groups: testDataGruppe,
-            searchMethod: 0,
-
+            searchMethod: 0
         };
     }
 
@@ -278,7 +277,7 @@ class Step1 extends Component {
         this.setState({ groups: updateState });
         console.log(this.state);
     };
-    
+
     addAll = (group) => {
         let allIsSelected = false;
         for (let i = 0; i < group.members.length; i++) {
@@ -319,13 +318,22 @@ class Step1 extends Component {
         this.setState({ searchMethod: val });
     };
 
+    getSearchInput = (val) => {
+        let filteredGroupArr = [];
+        console.log(val);
+        for (let i = 0; i < this.state.groups.length; i++) {
+            filteredGroupArr = filteredGroupArr.concat(this.state.groups[i].members.filter(e => (e.firstName + " " + e.lastName).indexOf(val) !== -1));
+        }
+        console.log(filteredGroupArr);
+    }
+
     render() {
         const { classes } = this.props;
         return (
             <div>
-                <SearchTabs getSearchMethod={this.getSearchMethod} />
+                <SearchTabs getSearchMethod={this.getSearchMethod} getSearchInput={this.getSearchInput} />
                 {this.state.searchMethod === 0 ? (
-                    <SearchResultGroup listGroup={this.state.groups} addMethod={this.addToSelection} removeMethod={this.removeFromSelection} addAll={this.addAll} checkIfAllAreSelected={this.checkIfAllAreSelected}/>
+                    <SearchResultGroup listGroup={this.state.groups} addMethod={this.addToSelection} removeMethod={this.removeFromSelection} addAll={this.addAll} checkIfAllAreSelected={this.checkIfAllAreSelected} />
                 ) : (
                         <SearchResultPerson addMethod={this.addToSelection} listGroup={this.state.groups} removeMethod={this.removeFromSelection} />
                     )}

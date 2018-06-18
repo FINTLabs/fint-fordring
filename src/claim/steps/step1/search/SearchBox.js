@@ -18,14 +18,26 @@ const styles = theme => ({
 
 class SearchBox extends Component {
 
-    render() {
+    constructor() {
+        super();
+        this.state = {
+            search: ""
+        };
+    }
 
+    /*updateSearch(event) {
+        this.setState({search: event.target.value.substr(0,40)});
+
+    }*/
+
+    render() {
         const {classes, placeHolder} = this.props;
         return (
 
             <div>
                 <div className={classes.searchContainer}>
                     <Input
+                        onChange={(event) => this.props.getSearchInput(event.target.value)}
                         placeholder={placeHolder}
                         className={classes.searchInput}
                         inputProps={{
