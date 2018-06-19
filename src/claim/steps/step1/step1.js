@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { withStyles } from "@material-ui/core/styles";
 import SearchTabs from "./search/SearchTabs";
 import SearchResultPerson from "./search/SearchResultPerson";
-import SelectedPerson from "./search/SelectedPerson";
+import SelectedPerson from "./SelectedPerson";
 import SearchResultGroup from "./search/SearchResultGroup";
 
 
@@ -590,7 +590,7 @@ class Step1 extends Component {
                             addMethod={this.addToSelection}
                             listGroup={this.state.groups}
                             removeMethod={this.removeFromSelection}
-                            searchFilter={this.state.searchFilter} />
+                            searchFilter={this.state.searchFilter}/>
                     )}
                 <SelectedPerson
                     listGroup={this.state.groups}

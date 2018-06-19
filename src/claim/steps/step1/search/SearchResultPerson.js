@@ -1,39 +1,87 @@
-import React, {Component} from "react";
-import {withStyles} from "@material-ui/core";
-import ResultTablePerson from "./ResultTablePerson";
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import Paper from '@material-ui/core/Paper';
+import Button from "@material-ui/core/Button";
+import { Add } from '@material-ui/icons';
+import { Remove } from '@material-ui/icons';
 
 
 const styles = theme => ({
-    card: {
-        width: '90%',
-        margin: '0 auto',
-        padding: theme.spacing.unit,
+    root: {
+        width: '100%',
+        marginTop: theme.spacing.unit * 3,
+        overflowX: 'auto',
     },
-    content: {
-        textAlign: 'left',
-        verticalAlign: 'bottom',
+    table: {
+        minWidth: 700,
     },
-    actions: {
-        textAlign: 'right',
-    },
-    button: {}
 });
 
-class SearchResultPerson extends Component {
-    render() {
-        return (
-            <div>
-                <ResultTablePerson 
-                addMethod={this.props.addMethod} 
-                listGroup={this.props.listGroup} 
-                removeMethod={this.props.removeMethod} 
-                checkIfAllAreSelected={this.props.checkIfAllAreSelected} 
-                searchFilter={this.props.searchFilter}/>
-            </div>
 
+
+class ResultTablePerson extends Component {
+
+    render() {
+        const { classes } = this.props;
+
+        return (
+            <Paper className={classes.root}>
+                <Table className={classes.table}>
+                    <TableHead>
+                        <TableRow>
+                            <TableCell>Navn</TableCell>
+                            <TableCell>Klasse</TableCell>
+                            <TableCell>Skole</TableCell>
+                            <TableCell></TableCell>
+                        </TableRow>
+                    </TableHead>
+                    <TableBody>
+                        {this.props.listGroup.map(m => {
+                            return (
+                                m.members.map(n => {
+                                    if (this.props.searchFilter.indexOf(n) === -1) {
+                                        return null;
+                                    }
+                                    return (
+                                        <TableRow key={n.id}>
+                                            <TableCell>{n.firstName} {n.lastName}</TableCell>
+                                            <TableCell>{n.mainGroup}</TableCell>
+                                            <TableCell>{n.school}</TableCell>
+                                            <TableCell>
+                                                {!n.selected ? (
+                                                    <Button mini variant="fab" color="secondary" aria-label="add" onClick={() => this.props.addMethod(m, n)}
+                                                        className={classes.button}>
+                                                        <Add />
+                                                    </Button>
+                                                ) : (
+                                                        <Button mini variant="fab" color="primary" aria-label="add" onClick={() => this.props.removeMethod(m, n)}
+                                                            className={classes.button}>
+                                                            <Remove />
+                                                        </Button>
+                                                    )}
+                                            </TableCell>
+                                        </TableRow>
+                                    );
+                                })
+                            );
+
+                        })
+                        }
+                    </TableBody>
+                </Table>
+            </Paper>
         );
     }
 }
 
+ResultTablePerson.propTypes = {
+    classes: PropTypes.object.isRequired,
+};
 
-export default withStyles(styles)(SearchResultPerson);
+export default withStyles(styles)(ResultTablePerson);
