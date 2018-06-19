@@ -27,6 +27,26 @@ const styles = theme => ({
 
 class SearchResultProduct extends Component {
 
+    constructor(props) {
+        super(props);
+        this.state = {
+            sort: {
+                "productName": 1,
+                "producer": 1,
+                "model": 1,
+                "price": 1
+            }
+        }
+    }
+
+    triggerSort = (val, isNumber) => {
+        this.props.sortMethod(
+            this.props.listProduct,
+            (this.state.sort.val === 1) ?
+                (this.setState({ sort: { val: -1 } }), 1) :
+                (this.setState({ sort: { val: 1 } }), -1),
+            val, isNumber);
+    }
     render() {
         const { classes } = this.props;
 
@@ -35,10 +55,10 @@ class SearchResultProduct extends Component {
                 <Table className={classes.table}>
                     <TableHead>
                         <TableRow>
-                            <TableCell>Produkt</TableCell>
-                            <TableCell>Produsent</TableCell>
-                            <TableCell>Modell</TableCell>
-                            <TableCell>Pris</TableCell>
+                            <TableCell onClick={() => this.triggerSort("productName", false)}>Produkt</TableCell>
+                            <TableCell onClick={() => this.triggerSort("producer", false)}>Produsent</TableCell>
+                            <TableCell onClick={() => this.triggerSort("model", false)}>Modell</TableCell>
+                            <TableCell onClick={() => this.triggerSort("price", true)}>Pris</TableCell>
                             <TableCell></TableCell>
                         </TableRow>
                     </TableHead>

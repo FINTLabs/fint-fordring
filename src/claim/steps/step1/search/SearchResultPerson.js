@@ -27,6 +27,33 @@ const styles = theme => ({
 
 class ResultTablePerson extends Component {
 
+    constructor(props) {
+        super(props);
+        this.state = {
+            sort: {
+                "firstName": 1,
+                "mainGroup": 1,
+                "school": 1
+            }
+        }
+    }
+
+    triggerSort = (val, isNumber) => {
+        let listPerson = [];
+        for (let i = 0; i < this.props.listGroup.length; i++) {
+            for (let j = 0; j < this.props.listGroup[i].members.length; j++) {
+                listPerson.push(this.props.listGroup[i].members[j]);
+            }
+        }
+        //listPerson har alle elever
+        this.props.sortMethod(
+            listPerson,
+            (this.state.sort.val === 1) ?
+                (this.setState({ sort: { val: -1 } }), 1) :
+                (this.setState({ sort: { val: 1 } }), -1),
+            val, isNumber);
+    }
+
     render() {
         const { classes } = this.props;
 
@@ -35,7 +62,7 @@ class ResultTablePerson extends Component {
                 <Table className={classes.table}>
                     <TableHead>
                         <TableRow>
-                            <TableCell>Navn</TableCell>
+                            <TableCell onClick={() => this.triggerSort("firstName", false)}>Navn</TableCell>
                             <TableCell>Klasse</TableCell>
                             <TableCell>Skole</TableCell>
                             <TableCell></TableCell>

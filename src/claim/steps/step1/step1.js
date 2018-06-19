@@ -489,6 +489,12 @@ const testDataGruppe = [
         ]
     },
 ];
+const testDataPersoner = [
+
+]
+/* Skal endre hvordan ting i forhold til personer fungerer, slik at vi slipper dobbel-loops osv for å
+plukke ut elever fra gruppene. Kan alltid bruke en 
+*/
 
 class Step1 extends Component {
 
@@ -497,7 +503,8 @@ class Step1 extends Component {
         this.state = {
             groups: testDataGruppe,
             searchMethod: 0,
-            searchFilter: testDataGruppe
+            searchFilter: testDataGruppe,
+            sortedPersonList: []
         };
     }
 
@@ -553,7 +560,7 @@ class Step1 extends Component {
     }
 
     getSearchMethod = (val) => {
-        this.setState({searchMethod: val}, () => {
+        this.setState({ searchMethod: val }, () => {
             this.getSearchInput("");
         });
     };
@@ -568,6 +575,32 @@ class Step1 extends Component {
             }
         }
         this.setState({ searchFilter: filteredGroupArr });
+    }
+
+    sortMethod = (array, order, sortByValue, isNumber) => {
+        if (isNumber) {
+            function compare(a, b) {
+                if (eval("Number(a." + sortByValue + ")<" + "Number(b." + sortByValue + ")")) {
+                    return -1 * order; //order is either -1 or 1
+                }
+                if (eval("Number(a." + sortByValue + ")>" + "Number(b." + sortByValue + ")")) {
+                    return 1 * order;
+                }
+                return 0;
+            }
+            this.setState({ sortedPersonList: array.sort(compare) });
+        } else {
+            function compare(a, b) {
+                if (eval("a." + sortByValue + "<" + "b." + sortByValue)) {
+                    return -1 * order; //order is either -1 or 1
+                }
+                if (eval("a." + sortByValue + ">" + "b." + sortByValue)) {
+                    return 1 * order;
+                }
+                return 0;
+            }
+            this.setState({ sortedPersonList: array.sort(compare) });
+        }
     }
 
     render() {
@@ -587,10 +620,12 @@ class Step1 extends Component {
                         searchFilter={this.state.searchFilter} />
                 ) : (
                         <SearchResultPerson
+                            sortedPersonList={this.state.sortedPersonList}
+                            sortMethod={this.sortMethod}
                             addMethod={this.addToSelection}
                             listGroup={this.state.groups}
                             removeMethod={this.removeFromSelection}
-                            searchFilter={this.state.searchFilter}/>
+                            searchFilter={this.state.searchFilter} />
                     )}
                 <SelectedPerson
                     listGroup={this.state.groups}
