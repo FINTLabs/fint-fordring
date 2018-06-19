@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {withStyles} from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/core/styles';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import SearchBox from "./SearchBox";
@@ -20,25 +20,24 @@ class SearchTabs extends React.Component {
     };
 
     handleChange = (event, value) => {
-        this.setState({value});
+        this.setState({ value });
         this.props.getSearchMethod(value);
-        this.props.getSearchInput("");
     };
 
     render() {
-        const {classes} = this.props;
-        const {value} = this.state;
+        const { classes } = this.props;
+        const { value } = this.state;
 
         return (
             <div className={classes.root}>
                 <Paper elevation="0">
                     <Tabs value={value} onChange={this.handleChange} centered>
-                        <Tab label="Grupper"/>
-                        <Tab label="Personer"/>
+                        <Tab label="Grupper" />
+                        <Tab label="Personer" />
                     </Tabs>
                 </Paper>
-                {value === 0 && <SearchBox placeHolder="Søk etter grupper" getSearchInput={this.props.getSearchInput}/>}
-                {value === 1 && <SearchBox placeHolder="Søk etter personer" getSearchInput={this.props.getSearchInput}/>}
+                {value === 0 && <SearchBox placeHolder="Søk etter grupper" getSearchInput={this.props.getSearchInput} />}
+                {value === 1 && <SearchBox placeHolder="Søk etter personer" getSearchInput={this.props.getSearchInput} />}
             </div>
         );
     }

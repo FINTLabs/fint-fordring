@@ -92,7 +92,8 @@ class Claim extends Component {
                         </div>
                     ) : (
                         <div>
-                            <Typography className={classes.instructions}>{getStepContent(activeStep)}</Typography>
+                            <div className={classes.instructions}>{getStepContent(activeStep)}</div>
+                            {/*changed from "Typography tag to div tag to avoid warnings in console, not sure if it breaks something*/}
                             <div>
                                 <Button
                                     disabled={activeStep === 0}

@@ -248,6 +248,246 @@ const testDataGruppe = [
             }
         ]
     },
+    {
+        "id": "6",
+        "mainGroup": "1STB",
+        "school": "Bryne videregåande skule",
+        "showMembers": false,
+        "members": [
+            {
+                "id": "1",
+                "firstName": "Kjell Kari",
+                "lastName": "Svendsen",
+                "school": "Bryne videregåande skule",
+                "mainGroup": "2STA",
+                "selected": false
+            },
+            {
+                "id": "2",
+                "firstName": "Banjo",
+                "lastName": "Kari",
+                "school": "Bryne videregåande skule",
+                "mainGroup": "1STA",
+                "selected": false
+            },
+            {
+                "id": "3",
+                "firstName": "Kåre Svein",
+                "lastName": "Håland",
+                "school": "Bryne videregåande skule",
+                "mainGroup": "1STA",
+                "selected": false
+            },
+            {
+                "id": "4",
+                "firstName": "Harry Jan",
+                "lastName": "Varhaug",
+                "school": "Bryne videregåande skule",
+                "mainGroup": "1STA",
+                "selected": false
+            },
+            {
+                "id": "5",
+                "firstName": "Berit Anne",
+                "lastName": "Vigrestad",
+                "school": "Bryne videregåande skule",
+                "mainGroup": "1STA",
+                "selected": false
+            }
+        ]
+    },
+    {
+        "id": "7",
+        "mainGroup": "2STB",
+        "school": "Bryne videregåande skule",
+        "showMembers": false,
+        "members": [
+            {
+                "id": "6",
+                "firstName": "Kjell Kari",
+                "lastName": "Svendsen",
+                "school": "Bryne videregåande skule",
+                "mainGroup": "2STA",
+                "selected": false
+            },
+            {
+                "id": "7",
+                "firstName": "Banjo",
+                "lastName": "Kari",
+                "school": "Bryne videregåande skule",
+                "mainGroup": "1STA",
+                "selected": false
+            },
+            {
+                "id": "8",
+                "firstName": "Kåre Svein",
+                "lastName": "Håland",
+                "school": "Bryne videregåande skule",
+                "mainGroup": "1STA",
+                "selected": false
+            },
+            {
+                "id": "9",
+                "firstName": "Harry Jan",
+                "lastName": "Varhaug",
+                "school": "Bryne videregåande skule",
+                "mainGroup": "1STA",
+                "selected": false
+            },
+            {
+                "id": "10",
+                "firstName": "Berit Anne",
+                "lastName": "Vigrestad",
+                "school": "Bryne videregåande skule",
+                "mainGroup": "1STA",
+                "selected": false
+            }
+        ]
+    },
+    {
+        "id": "8",
+        "mainGroup": "3STB",
+        "school": "Bryne videregåande skule",
+        "showMembers": false,
+        "members": [
+            {
+                "id": "11",
+                "firstName": "Kjell Kari",
+                "lastName": "Svendsen",
+                "school": "Bryne videregåande skule",
+                "mainGroup": "2STA",
+                "selected": false
+            },
+            {
+                "id": "12",
+                "firstName": "Banjo",
+                "lastName": "Kari",
+                "school": "Bryne videregåande skule",
+                "mainGroup": "1STA",
+                "selected": false
+            },
+            {
+                "id": "13",
+                "firstName": "Kåre Svein",
+                "lastName": "Håland",
+                "school": "Bryne videregåande skule",
+                "mainGroup": "1STA",
+                "selected": false
+            },
+            {
+                "id": "14",
+                "firstName": "Harry Jan",
+                "lastName": "Varhaug",
+                "school": "Bryne videregåande skule",
+                "mainGroup": "1STA",
+                "selected": false
+            },
+            {
+                "id": "15",
+                "firstName": "Berit Anne",
+                "lastName": "Vigrestad",
+                "school": "Bryne videregåande skule",
+                "mainGroup": "1STA",
+                "selected": false
+            }
+        ]
+    },
+    {
+        "id": "9",
+        "mainGroup": "4STB",
+        "school": "Bryne videregåande skule",
+        "showMembers": false,
+        "members": [
+            {
+                "id": "16",
+                "firstName": "Kjell Kari",
+                "lastName": "Svendsen",
+                "school": "Bryne videregåande skule",
+                "mainGroup": "2STA",
+                "selected": false
+            },
+            {
+                "id": "17",
+                "firstName": "Banjo",
+                "lastName": "Kari",
+                "school": "Bryne videregåande skule",
+                "mainGroup": "1STA",
+                "selected": false
+            },
+            {
+                "id": "18",
+                "firstName": "Kåre Svein",
+                "lastName": "Håland",
+                "school": "Bryne videregåande skule",
+                "mainGroup": "1STA",
+                "selected": false
+            },
+            {
+                "id": "19",
+                "firstName": "Harry Jan",
+                "lastName": "Varhaug",
+                "school": "Bryne videregåande skule",
+                "mainGroup": "1STA",
+                "selected": false
+            },
+            {
+                "id": "20",
+                "firstName": "Berit Anne",
+                "lastName": "Vigrestad",
+                "school": "Bryne videregåande skule",
+                "mainGroup": "1STA",
+                "selected": false
+            }
+        ]
+    },
+    {
+        "id": "10",
+        "mainGroup": "5STB",
+        "school": "Bryne videregåande skule",
+        "showMembers": false,
+        "members": [
+            {
+                "id": "21",
+                "firstName": "Kjell Kari",
+                "lastName": "Svendsen",
+                "school": "Bryne videregåande skule",
+                "mainGroup": "2STA",
+                "selected": false
+            },
+            {
+                "id": "22",
+                "firstName": "Banjo",
+                "lastName": "Kari",
+                "school": "Bryne videregåande skule",
+                "mainGroup": "1STA",
+                "selected": false
+            },
+            {
+                "id": "23",
+                "firstName": "Kåre Svein",
+                "lastName": "Håland",
+                "school": "Bryne videregåande skule",
+                "mainGroup": "1STA",
+                "selected": false
+            },
+            {
+                "id": "24",
+                "firstName": "Harry Jan",
+                "lastName": "Varhaug",
+                "school": "Bryne videregåande skule",
+                "mainGroup": "1STA",
+                "selected": false
+            },
+            {
+                "id": "25",
+                "firstName": "Berit Anne",
+                "lastName": "Vigrestad",
+                "school": "Bryne videregåande skule",
+                "mainGroup": "1STA",
+                "selected": false
+            }
+        ]
+    },
 ];
 
 class Step1 extends Component {
@@ -257,9 +497,8 @@ class Step1 extends Component {
         this.state = {
             groups: testDataGruppe,
             searchMethod: 0,
-            searchFilter: []
+            searchFilter: testDataGruppe
         };
-        console.log(this.state);
     }
 
     addToSelection = (group, person) => {
@@ -268,7 +507,6 @@ class Step1 extends Component {
         let personIndex = updateState[groupIndex].members.indexOf(person);
         updateState[groupIndex].members[personIndex]["selected"] = true;
         this.setState({ groups: updateState });
-        console.log(this.state);
     }
 
     removeFromSelection = (group, person) => {
@@ -277,7 +515,6 @@ class Step1 extends Component {
         let personIndex = updateState[groupIndex].members.indexOf(person);
         updateState[groupIndex].members[personIndex]["selected"] = false;
         this.setState({ groups: updateState });
-        console.log(this.state);
     };
 
     addAll = (group) => {
@@ -316,20 +553,20 @@ class Step1 extends Component {
     }
 
     getSearchMethod = (val) => {
-        console.log(val,1);
-        this.setState({ searchMethod: val });
+        this.setState({searchMethod: val}, () => {
+            this.getSearchInput("");
+        });
     };
 
     getSearchInput = (val) => {
         let filteredGroupArr = [];
-        console.log(val,2);
         if (this.state.searchMethod === 0) {
             filteredGroupArr = this.state.groups.filter(e => e.mainGroup.toLowerCase().indexOf(val) !== -1);
         } else {
             for (let i = 0; i < this.state.groups.length; i++) {
                 filteredGroupArr = filteredGroupArr.concat(this.state.groups[i].members.filter(e => (e.firstName + " " + e.lastName).toLowerCase().indexOf(val) !== -1));
             }
-        }console.log(filteredGroupArr);
+        }
         this.setState({ searchFilter: filteredGroupArr });
     }
 
@@ -337,23 +574,27 @@ class Step1 extends Component {
         const { classes } = this.props;
         return (
             <div>
-                <SearchTabs getSearchMethod={this.getSearchMethod} getSearchInput={this.getSearchInput} />
+                <SearchTabs
+                    getSearchInput={this.getSearchInput}
+                    getSearchMethod={this.getSearchMethod} />
                 {this.state.searchMethod === 0 ? (
-                    <SearchResultGroup 
-                    listGroup={this.state.groups} 
-                    addMethod={this.addToSelection} 
-                    removeMethod={this.removeFromSelection} 
-                    addAll={this.addAll} 
-                    checkIfAllAreSelected={this.checkIfAllAreSelected} 
-                    searchFilter={this.state.searchFilter}/>
-                ) : (
-                        <SearchResultPerson 
-                        addMethod={this.addToSelection} 
-                        listGroup={this.state.groups} 
-                        removeMethod={this.removeFromSelection} 
+                    <SearchResultGroup
+                        listGroup={this.state.groups}
+                        addMethod={this.addToSelection}
+                        removeMethod={this.removeFromSelection}
+                        addAll={this.addAll}
+                        checkIfAllAreSelected={this.checkIfAllAreSelected}
                         searchFilter={this.state.searchFilter} />
+                ) : (
+                        <SearchResultPerson
+                            addMethod={this.addToSelection}
+                            listGroup={this.state.groups}
+                            removeMethod={this.removeFromSelection}
+                            searchFilter={this.state.searchFilter} />
                     )}
-                <SelectedPerson listGroup={this.state.groups} removeMethod={this.removeFromSelection} />
+                <SelectedPerson
+                    listGroup={this.state.groups}
+                    removeMethod={this.removeFromSelection} />
             </div>
         );
     }

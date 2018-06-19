@@ -20,13 +20,7 @@ const styles = theme => ({
 });
 
 class SearchResultPerson extends Component {
-    constructor(props) {
-        super(props);
-    }
-
     render() {
-
-        const {classes} = this.props;
         return (
             <div>
                 <ResultTablePerson 

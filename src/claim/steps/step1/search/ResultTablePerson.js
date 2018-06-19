@@ -27,10 +27,6 @@ const styles = theme => ({
 
 class ResultTablePerson extends Component {
 
-    constructor(props) {
-        super(props);
-    }
-
     render() {
         const { classes } = this.props;
 
@@ -47,35 +43,34 @@ class ResultTablePerson extends Component {
                     </TableHead>
                     <TableBody>
                         {this.props.listGroup.map(m => {
-                            {
-                                return (
-                                    m.members.map(n => {
-                                        if (this.props.searchFilter.indexOf(n) === -1) {
-                                            return;
-                                        }
-                                        return (
-                                            <TableRow key={n.id}>
-                                                <TableCell>{n.firstName} {n.lastName}</TableCell>
-                                                <TableCell>{n.mainGroup}</TableCell>
-                                                <TableCell>{n.school}</TableCell>
-                                                <TableCell>
-                                                    {!n.selected ? (
-                                                        <Button mini variant="fab" color="primary" aria-label="add" onClick={() => this.props.addMethod(m, n)}
+                            return (
+                                m.members.map(n => {
+                                    if (this.props.searchFilter.indexOf(n) === -1) {
+                                        return null;
+                                    }
+                                    return (
+                                        <TableRow key={n.id}>
+                                            <TableCell>{n.firstName} {n.lastName}</TableCell>
+                                            <TableCell>{n.mainGroup}</TableCell>
+                                            <TableCell>{n.school}</TableCell>
+                                            <TableCell>
+                                                {!n.selected ? (
+                                                    <Button mini variant="fab" color="primary" aria-label="add" onClick={() => this.props.addMethod(m, n)}
+                                                        className={classes.button}>
+                                                        <Add />
+                                                    </Button>
+                                                ) : (
+                                                        <Button mini variant="fab" color="primary" aria-label="add" onClick={() => this.props.removeMethod(m, n)}
                                                             className={classes.button}>
-                                                            <Add />
+                                                            <Remove />
                                                         </Button>
-                                                    ) : (
-                                                            <Button mini variant="fab" color="primary" aria-label="add" onClick={() => this.props.removeMethod(m, n)}
-                                                                className={classes.button}>
-                                                                <Remove />
-                                                            </Button>
-                                                        )}
-                                                </TableCell>
-                                            </TableRow>
-                                        );
-                                    })
-                                );
-                            }
+                                                    )}
+                                            </TableCell>
+                                        </TableRow>
+                                    );
+                                })
+                            );
+
                         })
                         }
                     </TableBody>

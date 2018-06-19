@@ -15,6 +15,8 @@ import Paper from '@material-ui/core/Paper';
 import Button from "@material-ui/core/Button";
 import { Add } from '@material-ui/icons';
 import { Remove } from '@material-ui/icons';
+import { CheckBox } from '@material-ui/icons';
+import { CheckBoxOutlineBlank } from '@material-ui/icons';
 
 const styles = theme => ({
     root: {
@@ -52,6 +54,9 @@ class SearchResultGroup extends React.Component {
         return (
             <div className={classes.root}>
                 {this.props.listGroup.map(n => {
+                    if (this.props.searchFilter.indexOf(n) === -1) {
+                        return;
+                    }
                     return (
                         <ExpansionPanel expanded={expanded === n.id} onChange={this.handleChange(n.id)}>
                             <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
@@ -67,12 +72,12 @@ class SearchResultGroup extends React.Component {
                                                 <TableCell>Navn</TableCell>
                                                 <TableCell>Klasse</TableCell>
                                                 <TableCell>
-                                                    <Button mini variant="fab" color="secondary" aria-label="add" onClick={() => this.props.addAll(n)}
+                                                    <Button mini variant="fab" aria-label="add" onClick={() => this.props.addAll(n)}
                                                         className={classes.button}>
                                                         {(this.props.checkIfAllAreSelected(n)) ? (
-                                                            <Add />
+                                                            <CheckBoxOutlineBlank />
                                                         ) : (
-                                                                <Remove />
+                                                                <CheckBox />
                                                             )}
                                                     </Button>
                                                 </TableCell>
@@ -86,7 +91,7 @@ class SearchResultGroup extends React.Component {
                                                         <TableCell>{m.mainGroup}</TableCell>
                                                         <TableCell>
                                                             {!m.selected ? (
-                                                                <Button mini variant="fab" color="primary" aria-label="add" onClick={() => this.props.addMethod(n, m)}
+                                                                <Button mini variant="fab" color="secondary" aria-label="add" onClick={() => this.props.addMethod(n, m)}
                                                                     className={classes.button}>
                                                                     <Add />
                                                                 </Button>
