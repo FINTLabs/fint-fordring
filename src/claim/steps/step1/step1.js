@@ -116,7 +116,7 @@ const testDataPerson = [
     {
         "kundenummer": "14029923273",
         "navn": {
-            "etternavn": "Støa",
+            "etternavn": "Støl",
             "fornavn": "Rose",
             "mellomnavn": "Kåre"
         },
@@ -138,9 +138,9 @@ const testDataPerson = [
     {
         "kundenummer": "18010197461",
         "navn": {
-            "etternavn": "Hansen",
-            "fornavn": "Leona",
-            "mellomnavn": null
+            "etternavn": "Støa",
+            "fornavn": "Rose",
+            "mellomnavn": "Kåre"
         },
         "kontaktinformasjon": {
             "epostadresse": "LeonaHansen@dayrep.com",
@@ -160,9 +160,9 @@ const testDataPerson = [
     {
         "kundenummer": "11010159115",
         "navn": {
-            "etternavn": "Hofseth",
-            "fornavn": "Gustav",
-            "mellomnavn": null
+            "etternavn": "Støe",
+            "fornavn": "Rose",
+            "mellomnavn": "Kåre"
         },
         "kontaktinformasjon": {
             "epostadresse": "GustavHofseth@rhyta.com",
@@ -303,7 +303,7 @@ class Step1 extends Component {
     sortMethod = (array, order, sortByValue, isNumber) => {
         if (isNumber) {
             function compare(a, b) {
-                
+
                 if (eval("Number(a." + sortByValue + ")<" + "Number(b." + sortByValue + ")")) {
                     return -1 * order; //order is either -1 or 1
                 }
@@ -315,10 +315,10 @@ class Step1 extends Component {
             this.setState({ sortedPersonList: array.sort(compare) });
         } else {
             function compare(a, b) {
-                if (eval("a." + sortByValue + "<" + "b." + sortByValue)) {
+                if (eval(sortByValue.map(f => "a." + f ).join("+") + "<" + sortByValue.map(f => "b." + f ).join("+"))) {
                     return -1 * order; //order is either -1 or 1
                 }
-                if (eval("a." + sortByValue + ">" + "b." + sortByValue)) {
+                if (eval(sortByValue.map(f => "a." + f ).join("+") + ">" + sortByValue.map(f => "b." + f ).join("+"))) {
                     return 1 * order;
                 }
                 return 0;

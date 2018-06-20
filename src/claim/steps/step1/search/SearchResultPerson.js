@@ -32,7 +32,7 @@ class ResultTablePerson extends Component {
         this.state = {
             sort: {
                 "navn.fornavn": 1,
-                "navn.etternavn":1,
+                "navn.etternavn": 1,
                 "klassenavn": 1,
             }
         }
@@ -55,38 +55,38 @@ class ResultTablePerson extends Component {
                 <Table className={classes.table}>
                     <TableHead>
                         <TableRow>
-                            <TableCell onClick={() => this.triggerSort("navn.fornavn", false)}>Fornavn</TableCell>
-                            <TableCell onClick={() => this.triggerSort("navn.etternavn", false)}>Etternavn</TableCell>
-                            <TableCell onClick={() => this.triggerSort("klassenavn", false)}>Klasse</TableCell>
+                            <TableCell onClick={() => this.triggerSort(["navn.fornavn", "navn.mellomnavn", "navn.etternavn"], false)}>Fornavn</TableCell>
+                            <TableCell onClick={() => this.triggerSort(["navn.etternavn", "navn.fornavn", "navn.mellomnavn"], false)}>Etternavn</TableCell>
+                            <TableCell onClick={() => this.triggerSort(["klassenavn"], false)}>Klasse</TableCell>
                             <TableCell></TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                                {this.props.testDataPerson.map(n => {
-                                    if (this.props.searchFilter.indexOf(n) === -1) {
-                                        return null;
-                                    }
-                                    return (
-                                        <TableRow key={n.kundenummer}>
-                                            <TableCell>{n.navn.fornavn} {n.navn.mellomnavn}</TableCell>
-                                            <TableCell>{n.navn.etternavn}</TableCell>
-                                            <TableCell>{n.klassenavn}</TableCell>
-                                            <TableCell>
-                                                {!this.props.selectedPersonList[n.kundenummer] ? (
-                                                    <Button mini variant="fab" color="secondary" aria-label="add" onClick={() => this.props.addMethod(n)}
-                                                        className={classes.button}>
-                                                        <Add />
-                                                    </Button>
-                                                ) : (
-                                                        <Button mini variant="fab" color="primary" aria-label="add" onClick={() => this.props.removeMethod(n)}
-                                                            className={classes.button}>
-                                                            <Remove />
-                                                        </Button>
-                                                    )}
-                                            </TableCell>
-                                        </TableRow>
-                                    );
-                                })}
+                        {this.props.testDataPerson.map(n => {
+                            if (this.props.searchFilter.indexOf(n) === -1) {
+                                return null;
+                            }
+                            return (
+                                <TableRow key={n.kundenummer}>
+                                    <TableCell>{n.navn.fornavn} {n.navn.mellomnavn}</TableCell>
+                                    <TableCell>{n.navn.etternavn}</TableCell>
+                                    <TableCell>{n.klassenavn}</TableCell>
+                                    <TableCell>
+                                        {!this.props.selectedPersonList[n.kundenummer] ? (
+                                            <Button mini variant="fab" color="secondary" aria-label="add" onClick={() => this.props.addMethod(n)}
+                                                className={classes.button}>
+                                                <Add />
+                                            </Button>
+                                        ) : (
+                                                <Button mini variant="fab" color="primary" aria-label="add" onClick={() => this.props.removeMethod(n)}
+                                                    className={classes.button}>
+                                                    <Remove />
+                                                </Button>
+                                            )}
+                                    </TableCell>
+                                </TableRow>
+                            );
+                        })}
                     </TableBody>
                 </Table>
             </Paper>
