@@ -24,26 +24,21 @@ class SelectedPerson extends React.Component {
 
     return (
       <Paper className={classes.root}>
-        {this.props.listGroup.map(n => {
-          {
-            return (
-              n.members.map(data => {
+        {this.props.testDataPerson.map(n => {
                 let avatar = null;
 
-                if (!data.selected) {
+                if (!n.selected) {
                   return;
                 }
                 return (
                   <Chip
-                    key={data.id}
+                    key={n.kundenummer}
                     avatar={avatar}
-                    label={data.firstName}
-                    onDelete={() => this.props.removeMethod(n, data)}
+                    label={n.navn.fornavn +" "+ n.navn.etternavn}
+                    //onDelete={() => this.props.removeMethod(n)}
                     className={classes.chip}
                   />
                 );
-              }));
-          }
         })}
       </Paper>
     );

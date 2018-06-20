@@ -38,7 +38,7 @@ class ResultTablePerson extends Component {
         }
     }
 
-    triggerSort = (val, isNumber) => {
+    /*triggerSort = (val, isNumber) => {
         let listPerson = [];
         for (let i = 0; i < this.props.listGroup.length; i++) {
             for (let j = 0; j < this.props.listGroup[i].members.length; j++) {
@@ -52,7 +52,7 @@ class ResultTablePerson extends Component {
                 (this.setState({ sort: { val: -1 } }), 1) :
                 (this.setState({ sort: { val: 1 } }), -1),
             val, isNumber);
-    }
+    }*/
 
     render() {
         const { classes } = this.props;
@@ -62,32 +62,30 @@ class ResultTablePerson extends Component {
                 <Table className={classes.table}>
                     <TableHead>
                         <TableRow>
-                            <TableCell onClick={() => this.triggerSort("firstName", false)}>Navn</TableCell>
+                            <TableCell /*onClick={() => this.triggerSort("firstName", false)}*/>Navn</TableCell>
                             <TableCell>Klasse</TableCell>
                             <TableCell>Skole</TableCell>
                             <TableCell></TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {this.props.listGroup.map(m => {
-                            return (
-                                m.members.map(n => {
+                                {this.props.testDataPerson.map(n => {
                                     if (this.props.searchFilter.indexOf(n) === -1) {
                                         return null;
                                     }
                                     return (
-                                        <TableRow key={n.id}>
-                                            <TableCell>{n.firstName} {n.lastName}</TableCell>
-                                            <TableCell>{n.mainGroup}</TableCell>
-                                            <TableCell>{n.school}</TableCell>
+                                        <TableRow key={n.kundenummer}>
+                                            <TableCell>{n.navn.fornavn} {n.navn.mellomnavn} {n.navn.etternavn}</TableCell>
+                                            <TableCell>{n.klassnavn}</TableCell>
+                                            <TableCell>{/*n.school*/}</TableCell>
                                             <TableCell>
-                                                {!n.selected ? (
-                                                    <Button mini variant="fab" color="secondary" aria-label="add" onClick={() => this.props.addMethod(m, n)}
+                                                {!this.props.selectedPersonList[n.kundenummer] ? (
+                                                    <Button mini variant="fab" color="secondary" aria-label="add" onClick={() => this.props.addMethod(n)}
                                                         className={classes.button}>
                                                         <Add />
                                                     </Button>
                                                 ) : (
-                                                        <Button mini variant="fab" color="primary" aria-label="add" onClick={() => this.props.removeMethod(m, n)}
+                                                        <Button mini variant="fab" color="primary" aria-label="add" onClick={() => this.props.removeMethod(n)}
                                                             className={classes.button}>
                                                             <Remove />
                                                         </Button>
@@ -95,11 +93,7 @@ class ResultTablePerson extends Component {
                                             </TableCell>
                                         </TableRow>
                                     );
-                                })
-                            );
-
-                        })
-                        }
+                                })}
                     </TableBody>
                 </Table>
             </Paper>

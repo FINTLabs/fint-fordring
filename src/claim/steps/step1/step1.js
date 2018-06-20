@@ -7,10 +7,12 @@ import SearchResultGroup from "./search/SearchResultGroup";
 
 
 const styles = theme => ({});
+//antar at denne er basisgruppe
 const testDataGruppe = [
     {
         "navn": "1STA",
         "beskrivelse": "1. trinn Studiespesialisering 2018-2019",
+        "id": "1",
         "kundeliste": [
             {
                 "kundenummer": "14029923273",
@@ -83,6 +85,7 @@ const testDataGruppe = [
     {
         "navn": "3STF",
         "beskrivelse": "3. trinn Studiespesialisering 2018-2019",
+        "id": "2",
         "kundeliste": [
             {
                 "kundenummer": "12345678909",
@@ -109,13 +112,13 @@ const testDataGruppe = [
         ]
     }
 ];
-const testDataPersoner = [
+const testDataPerson = [
     {
         "kundenummer": "14029923273",
         "navn": {
             "etternavn": "Støa",
             "fornavn": "Rose",
-            "mellomnavn": null
+            "mellomnavn": "Kåre"
         },
         "kontaktinformasjon": {
             "epostadresse": "RoseSta@jourrapide.com",
@@ -207,59 +210,69 @@ class Step1 extends Component {
 
     constructor(props) {
         super(props);
+        //Dette bør kanskje ligge en annen plass enn constructor
+        let basisGruppeKundenummer = {};
+        for (let i = 0; i < testDataGruppe.length; i++) {
+            for (let j = 0; j < testDataGruppe[i]["kundeliste"].length; j++) {
+                basisGruppeKundenummer[testDataGruppe[i]["kundeliste"][j]["kundenummer"]] = testDataGruppe[i]["navn"];
+            }
+        }
+        const initialSelectedState = {};
+        testDataPerson.forEach(person => {
+            initialSelectedState[person["kundenummer"]] = false;
+            person["klassenavn"] = basisGruppeKundenummer[person["kundenummer"]];
+        });
+        //må nok bruke samme metode for å finne ut hvilke skoler elevene hører til
         this.state = {
-            groups: testDataGruppe,
+            selectedPersonList: initialSelectedState,
             searchMethod: 0,
             searchFilter: testDataGruppe,
             sortedPersonList: []
         };
+        console.log(basisGruppeKundenummer);
+        console.log(testDataPerson);
     }
 
-    addToSelection = (group, person) => {
-        let updateState = this.state.groups;
-        let groupIndex = updateState.indexOf(group);
-        let personIndex = updateState[groupIndex].members.indexOf(person);
-        updateState[groupIndex].members[personIndex]["selected"] = true;
-        this.setState({ groups: updateState });
+    addToSelection = (person) => {
+        let updateList = this.state.selectedPersonList;
+        updateList[person["kundenummer"]] = true;
+        this.setState({ selectedPersonList: updateList });
     }
 
-    removeFromSelection = (group, person) => {
-        let updateState = this.state.groups;
-        let groupIndex = updateState.indexOf(group);
-        let personIndex = updateState[groupIndex].members.indexOf(person);
-        updateState[groupIndex].members[personIndex]["selected"] = false;
-        this.setState({ groups: updateState });
+    removeFromSelection = (person) => {
+        let updateList = this.state.selectedPersonList;
+        updateList[person["kundenummer"]] = false;
+        this.setState({ selectedPersonList: updateList });
     };
 
     addAll = (group) => {
         let allIsSelected = false;
-        for (let i = 0; i < group.members.length; i++) {
-            if (!group.members[i].selected) {
+        let updateState = this.state.selectedPersonList;
+        for (let i = 0; i < group.kundeliste.length; i++) {
+            if (!updateState[group.kundeliste[i]["kundenummer"]]) {
                 allIsSelected = true;
             }
         }
         if (allIsSelected) {
-            for (let i = 0; i < group.members.length; i++) {
-                if (group.members[i].selected) {
+            for (let i = 0; i < group.kundeliste.length; i++) {
+                if (updateState[group.kundeliste[i]["kundenummer"]]) {
                 }
-                group.members[i].selected = true;
+                updateState[group.kundeliste[i]["kundenummer"]] = true;
             }
         } else {
-            for (let i = 0; i < group.members.length; i++) {
-                if (group.members[i].selected) {
+            for (let i = 0; i < group.kundeliste.length; i++) {
+                if (updateState[group.kundeliste[i]["kundenummer"]]) {
                 }
-                group.members[i].selected = false;
+                updateState[group.kundeliste[i]["kundenummer"]] = false;
             }
         }
-        let updateState = this.state.groups;
-        updateState[updateState.indexOf(group)] = group;
-        this.setState({ groups: updateState });
+        this.setState({ selectedPersonList: updateState });
     }
 
     checkIfAllAreSelected = (group) => {
         let allIsSelected = false;
-        for (let i = 0; i < group.members.length; i++) {
-            if (!group.members[i].selected) {
+        for (let i = 0; i < group.kundeliste.length; i++) {
+            if (!this.state.selectedPersonList[group.kundeliste[i]["kundenummer"]]) {
                 allIsSelected = true;
             }
         }
@@ -275,11 +288,13 @@ class Step1 extends Component {
     getSearchInput = (val) => {
         let filteredGroupArr = [];
         if (this.state.searchMethod === 0) {
-            filteredGroupArr = this.state.groups.filter(e => e.mainGroup.toLowerCase().indexOf(val) !== -1);
+            filteredGroupArr = testDataGruppe.filter(e => e.navn.toLowerCase().indexOf(val) !== -1);
         } else {
-            for (let i = 0; i < this.state.groups.length; i++) {
-                filteredGroupArr = filteredGroupArr.concat(this.state.groups[i].members.filter(e => (e.firstName + " " + e.lastName).toLowerCase().indexOf(val) !== -1));
-            }
+            filteredGroupArr = testDataPerson.filter(e =>
+                (e.navn.fornavn + " " +
+                    ((e.navn.mellomnavn) ? (e.navn.mellomnavn + " ") : ("")) +
+                    e.navn.etternavn).toLowerCase().indexOf(val) !== -1
+            );
         }
         this.setState({ searchFilter: filteredGroupArr });
     }
@@ -319,7 +334,9 @@ class Step1 extends Component {
                     getSearchMethod={this.getSearchMethod} />
                 {this.state.searchMethod === 0 ? (
                     <SearchResultGroup
-                        listGroup={this.state.groups}
+                        selectedPersonList={this.state.selectedPersonList}
+                        testDataGruppe={testDataGruppe}
+
                         addMethod={this.addToSelection}
                         removeMethod={this.removeFromSelection}
                         addAll={this.addAll}
@@ -327,15 +344,17 @@ class Step1 extends Component {
                         searchFilter={this.state.searchFilter} />
                 ) : (
                         <SearchResultPerson
+                            selectedPersonList={this.state.selectedPersonList}
+                            testDataPerson={testDataPerson}
+
                             sortedPersonList={this.state.sortedPersonList}
                             sortMethod={this.sortMethod}
                             addMethod={this.addToSelection}
-                            listGroup={this.state.groups}
                             removeMethod={this.removeFromSelection}
                             searchFilter={this.state.searchFilter} />
                     )}
                 <SelectedPerson
-                    listGroup={this.state.groups}
+                    testDataPerson={testDataPerson}
                     removeMethod={this.removeFromSelection} />
             </div>
         );

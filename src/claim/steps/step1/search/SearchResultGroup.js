@@ -53,16 +53,16 @@ class SearchResultGroup extends React.Component {
 
         return (
             <div className={classes.root}>
-                {this.props.listGroup.map(n => {
+                {this.props.testDataGruppe.map(n => {
                     if (this.props.searchFilter.indexOf(n) === -1) {
                         return;
                     }
                     return (
                         <ExpansionPanel expanded={expanded === n.id} onChange={this.handleChange(n.id)}>
                             <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-                                <Typography className={classes.heading}>{n.mainGroup}</Typography>
-                                <Typography className={classes.secondaryHeading}>{n.school}</Typography>
-                                <Typography className={classes.heading}>{n.members.length} Elever</Typography>
+                                <Typography className={classes.heading}>{n.navn}</Typography>
+                                <Typography className={classes.secondaryHeading}>{/*n.school*/}Ingen skole</Typography>
+                                <Typography className={classes.heading}>{n.kundeliste.length} Elever</Typography>
                             </ExpansionPanelSummary>
                             <ExpansionPanelDetails>
                                 <Paper className={classes.root}>
@@ -84,19 +84,19 @@ class SearchResultGroup extends React.Component {
                                             </TableRow>
                                         </TableHead>
                                         <TableBody>
-                                            {n.members.map(m => {
+                                            {n.kundeliste.map(m => {
                                                 return (
-                                                    <TableRow key={m.id}>
-                                                        <TableCell>{m.firstName} {m.lastName}</TableCell>
-                                                        <TableCell>{m.mainGroup}</TableCell>
+                                                    <TableRow key={m.kundenummer}>
+                                                        <TableCell>{m.navn.fornavn} {m.navn.mellomnavn} {m.navn.etternavn}</TableCell>
+                                                        <TableCell>{m.klassenavn}</TableCell>
                                                         <TableCell>
-                                                            {!m.selected ? (
-                                                                <Button mini variant="fab" color="secondary" aria-label="add" onClick={() => this.props.addMethod(n, m)}
+                                                            {!this.props.selectedPersonList[m.kundenummer] ? (
+                                                                <Button mini variant="fab" color="secondary" aria-label="add" onClick={() => this.props.addMethod(m)}
                                                                     className={classes.button}>
                                                                     <Add />
                                                                 </Button>
                                                             ) : (
-                                                                    <Button mini variant="fab" color="primary" aria-label="add" onClick={() => this.props.removeMethod(n, m)}
+                                                                    <Button mini variant="fab" color="primary" aria-label="add" onClick={() => this.props.removeMethod(m)}
                                                                         className={classes.button}>
                                                                         <Remove />
                                                                     </Button>
