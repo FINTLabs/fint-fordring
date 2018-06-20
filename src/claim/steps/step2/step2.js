@@ -111,6 +111,9 @@ class Step2 extends Component {
                 <SearchBox
                     placeHolder="Søk etter varer"
                     getSearchInput={this.getSearchInput} />
+                <SelectedProduct
+                    listProduct={this.state.products}
+                    removeMethod={this.removeMethod} />
                 <SearchResultProduct
                     addMethod={this.addMethod}
                     listProduct={this.state.products}
@@ -118,9 +121,6 @@ class Step2 extends Component {
                     searchFilter={this.state.searchFilter}
                     sortMethod={this.sortMethod}
                 />
-                <SelectedProduct
-                    listProduct={this.state.products}
-                    removeMethod={this.removeMethod} />
             </div>
         );
     }

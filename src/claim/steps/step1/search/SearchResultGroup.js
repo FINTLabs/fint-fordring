@@ -21,6 +21,8 @@ import { CheckBoxOutlineBlank } from '@material-ui/icons';
 const styles = theme => ({
     root: {
         width: '100%',
+        marginTop: theme.spacing.unit * 3,
+        overflowX: 'auto',
     },
     heading: {
         fontSize: theme.typography.pxToRem(15),
@@ -98,7 +100,6 @@ class SearchResultGroup extends React.Component {
                                             {n.kundeliste.map(m => {
                                                 return (
                                                     <TableRow key={m.kundenummer}>
-                                                        
                                                         <TableCell>{m.navn.fornavn} {m.navn.mellomnavn}</TableCell>
                                                         <TableCell>{m.navn.etternavn}</TableCell>
                                                         <TableCell>{m.klassenavn}</TableCell>

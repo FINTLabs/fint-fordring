@@ -389,7 +389,7 @@ for (let i = 0; i < testBasisGruppe.length; i++) {
         basisGruppeKundenummer[testBasisGruppe[i]["kundeliste"][j]["kundenummer"]] = testBasisGruppe[i]["navn"];
     }
 }
-for(let i = 0; i < testDataGruppe.length; i++) {
+for (let i = 0; i < testDataGruppe.length; i++) {
     for (let j = 0; j < testDataGruppe[i]["kundeliste"].length; j++) {
         testDataGruppe[i]["kundeliste"][j]["klassenavn"] = basisGruppeKundenummer[testDataGruppe[i]["kundeliste"][j]["kundenummer"]]
     }
@@ -497,10 +497,10 @@ class Step1 extends Component {
             this.setState({ sortedPersonList: array.sort(compare) });
         } else {
             function compare(a, b) {
-                if (eval(sortByValue.map(f => "a." + f ).join("+") + "<" + sortByValue.map(f => "b." + f ).join("+"))) {
+                if (eval(sortByValue.map(f => "a." + f).join("+") + "<" + sortByValue.map(f => "b." + f).join("+"))) {
                     return -1 * order; //order is either -1 or 1
                 }
-                if (eval(sortByValue.map(f => "a." + f ).join("+") + ">" + sortByValue.map(f => "b." + f ).join("+"))) {
+                if (eval(sortByValue.map(f => "a." + f).join("+") + ">" + sortByValue.map(f => "b." + f).join("+"))) {
                     return 1 * order;
                 }
                 return 0;
@@ -516,6 +516,10 @@ class Step1 extends Component {
                 <SearchTabs
                     getSearchInput={this.getSearchInput}
                     getSearchMethod={this.getSearchMethod} />
+                <SelectedPerson
+                    selectedPersonList={this.state.selectedPersonList}
+                    testDataPerson={testDataPerson}
+                    removeMethod={this.removeFromSelection} />
                 {this.state.searchMethod === 0 ? (
                     <SearchResultGroup
                         selectedPersonList={this.state.selectedPersonList}
@@ -538,11 +542,6 @@ class Step1 extends Component {
                             removeMethod={this.removeFromSelection}
                             searchFilter={this.state.searchFilter} />
                     )}
-                <SelectedPerson
-                    selectedPersonList={this.state.selectedPersonList}
-                    testDataPerson={testDataPerson}
-
-                    removeMethod={this.removeFromSelection} />
             </div>
         );
     }

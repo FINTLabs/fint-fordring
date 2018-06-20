@@ -13,7 +13,7 @@ import Step3 from "./steps/step3";
 const styles = theme => ({
     root: {
         width: '90%',
-        marginTop: '100px',
+        marginTop: '65px',
     },
     backButton: {
         marginRight: theme.spacing.unit,
