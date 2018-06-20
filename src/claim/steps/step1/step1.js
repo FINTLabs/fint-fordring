@@ -9,6 +9,18 @@ import SearchResultGroup from "./search/SearchResultGroup";
 const styles = theme => ({});
 const testDataGruppe = [
     {
+        "navn": "1STA",
+        "beskrivelse": "1. trinn Studiespesialisering 2018-2019",
+        "kundeliste": [
+                            
+                            LISTE MED ELEVER
+                            
+                        ]
+                    }
+    
+    
+    Add Comment
+    {
         "id": "1",
         "mainGroup": "1STA",
         "school": "Bryne videregåande skule",
@@ -58,48 +70,48 @@ const testDataGruppe = [
     },
     {
         "id": "2",
-        "mainGroup": "2STA",
-        "school": "Bryne videregåande skule",
+        "mainGroup": "3STG",
+        "school": "Skeisvang videregåande skule",
         "showMembers": false,
         "members": [
             {
                 "id": "6",
-                "firstName": "Kjell Kari",
-                "lastName": "Svendsen",
-                "school": "Bryne videregåande skule",
-                "mainGroup": "2STA",
+                "firstName": "Thomas Tommy",
+                "lastName": "Thomsen",
+                "school": "Skeisvang videregåande skule",
+                "mainGroup": "3STG",
                 "selected": false
             },
             {
                 "id": "7",
-                "firstName": "Banjo",
-                "lastName": "Kari",
-                "school": "Bryne videregåande skule",
-                "mainGroup": "1STA",
+                "firstName": "Birger Bobby",
+                "lastName": "Bentsen",
+                "school": "Skeisvang videregåande skule",
+                "mainGroup": "3STG",
                 "selected": false
             },
             {
                 "id": "8",
-                "firstName": "Kåre Svein",
-                "lastName": "Håland",
-                "school": "Bryne videregåande skule",
-                "mainGroup": "1STA",
+                "firstName": "Kjell Kåre",
+                "lastName": "Kveiteland",
+                "school": "Skeisvang videregåande skule",
+                "mainGroup": "3STG",
                 "selected": false
             },
             {
                 "id": "9",
-                "firstName": "Harry Jan",
-                "lastName": "Varhaug",
-                "school": "Bryne videregåande skule",
-                "mainGroup": "1STA",
+                "firstName": "Harry Hole",
+                "lastName": "Hansen",
+                "school": "Skeisvang videregåande skule",
+                "mainGroup": "3STG",
                 "selected": false
             },
             {
                 "id": "10",
-                "firstName": "Berit Anne",
-                "lastName": "Vigrestad",
-                "school": "Bryne videregåande skule",
-                "mainGroup": "1STA",
+                "firstName": "Ida Inga",
+                "lastName": "Ildre",
+                "school": "Skeisvang videregåande skule",
+                "mainGroup": "3STG",
                 "selected": false
             }
         ]
@@ -490,7 +502,28 @@ const testDataGruppe = [
     },
 ];
 const testDataPersoner = [
-
+    {
+        "kundenummer": "14029923273",
+        "navn": {
+          "etternavn": "Støa",
+          "fornavn": "Rose",
+          "mellomnavn": null
+        },
+        "kontaktinformasjon": {
+          "epostadresse": "RoseSta@jourrapide.com",
+          "mobiltelefonnummer": "48213268",
+          "nettsted": null,
+          "sip": null,
+          "telefonnummer": null
+        },
+        "postadresse": {
+          "adresselinje": [
+            "Setra vei 207"
+          ],
+          "postnummer": "0786",
+          "poststed": "Oslo"
+        }
+      }
 ]
 /* Skal endre hvordan ting i forhold til personer fungerer, slik at vi slipper dobbel-loops osv for å
 plukke ut elever fra gruppene. Kan alltid bruke en 
