@@ -31,9 +31,6 @@ class ResultTablePerson extends Component {
         super(props);
         this.state = {
             sort: {
-                "navn.fornavn": 1,
-                "navn.etternavn": 1,
-                "klassenavn": 1,
             }
         }
     }

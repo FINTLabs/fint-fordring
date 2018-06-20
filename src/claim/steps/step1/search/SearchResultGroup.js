@@ -36,6 +36,7 @@ const styles = theme => ({
 class SearchResultGroup extends React.Component {
     state = {
         expanded: null,
+        sort: {}
     };
 
     handleChange = panel => (event, expanded) => {
@@ -46,6 +47,15 @@ class SearchResultGroup extends React.Component {
             expanded: expanded ? panel : false,
         });
     };
+
+    triggerSort = (val, isNumber, personArr) => {
+        this.props.sortMethod(
+            personArr,
+            (this.state.sort.val === 1) ?
+                (this.setState({ sort: { val: -1 } }), 1) :
+                (this.setState({ sort: { val: 1 } }), -1),
+            val, isNumber);
+    }
 
     render() {
         const { classes } = this.props;
@@ -69,8 +79,9 @@ class SearchResultGroup extends React.Component {
                                     <Table className={classes.table}>
                                         <TableHead>
                                             <TableRow>
-                                                <TableCell>Navn</TableCell>
-                                                <TableCell>Klasse</TableCell>
+                                                <TableCell onClick={() => this.triggerSort(["navn.fornavn", "navn.mellomnavn", "navn.etternavn"], false, n.kundeliste)}>Fornavn</TableCell>
+                                                <TableCell onClick={() => this.triggerSort(["navn.etternavn", "navn.fornavn", "navn.mellomnavn"], false, n.kundeliste)}>Etternavn</TableCell>
+                                                <TableCell onClick={() => this.triggerSort(["klassenavn"], false, n.kundeliste)}>Klasse</TableCell>
                                                 <TableCell>
                                                     <Button mini variant="fab" aria-label="add" onClick={() => this.props.addAll(n)}
                                                         className={classes.button}>
@@ -87,7 +98,9 @@ class SearchResultGroup extends React.Component {
                                             {n.kundeliste.map(m => {
                                                 return (
                                                     <TableRow key={m.kundenummer}>
-                                                        <TableCell>{m.navn.fornavn} {m.navn.mellomnavn} {m.navn.etternavn}</TableCell>
+                                                        
+                                                        <TableCell>{m.navn.fornavn} {m.navn.mellomnavn}</TableCell>
+                                                        <TableCell>{m.navn.etternavn}</TableCell>
                                                         <TableCell>{m.klassenavn}</TableCell>
                                                         <TableCell>
                                                             {!this.props.selectedPersonList[m.kundenummer] ? (

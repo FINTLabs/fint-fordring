@@ -10,6 +10,79 @@ const styles = theme => ({});
 //antar at denne er basisgruppe
 const testDataGruppe = [
     {
+        "navn": "3REA2",
+        "beskrivelse": "Matte!",
+        "id": "4",
+        "kundeliste": [
+            {
+                "kundenummer": "12345678909",
+                "navn": {
+                    "etternavn": "Kjell Kåre",
+                    "fornavn": "Kveiteland",
+                    "mellomnavn": null
+                },
+                "kontaktinformasjon": {
+                    "epostadresse": "Kjellkå@hotmail.com",
+                    "mobiltelefonnummer": "12345678",
+                    "nettsted": null,
+                    "sip": null,
+                    "telefonnummer": null
+                },
+                "postadresse": {
+                    "adresselinje": [
+                        "Skole vei 207"
+                    ],
+                    "postnummer": "4260",
+                    "poststed": "Torvastad"
+                }
+            },
+            {
+                "kundenummer": "14029923273",
+                "navn": {
+                    "etternavn": "Støa",
+                    "fornavn": "Rose",
+                    "mellomnavn": "mellom"
+                },
+                "kontaktinformasjon": {
+                    "epostadresse": "RoseSta@jourrapide.com",
+                    "mobiltelefonnummer": "48213268",
+                    "nettsted": null,
+                    "sip": null,
+                    "telefonnummer": null
+                },
+                "postadresse": {
+                    "adresselinje": [
+                        "Setra vei 207"
+                    ],
+                    "postnummer": "0786",
+                    "poststed": "Oslo"
+                }
+            },
+            {
+                "kundenummer": "11010159115",
+                "navn": {
+                    "etternavn": "Hofseth",
+                    "fornavn": "Gustav",
+                    "mellomnavn": null
+                },
+                "kontaktinformasjon": {
+                    "epostadresse": "GustavHofseth@rhyta.com",
+                    "mobiltelefonnummer": "94259236",
+                    "nettsted": null,
+                    "sip": null,
+                    "telefonnummer": null
+                },
+                "postadresse": {
+                    "adresselinje": [
+                        "Kikkutveien 91"
+                    ],
+                    "postnummer": "0491",
+                    "poststed": "Oslo"
+                }
+            }
+        ]
+    },
+    {
         "navn": "1STA",
         "beskrivelse": "1. trinn Studiespesialisering 2018-2019",
         "id": "1",
@@ -19,7 +92,7 @@ const testDataGruppe = [
                 "navn": {
                     "etternavn": "Støa",
                     "fornavn": "Rose",
-                    "mellomnavn": null
+                    "mellomnavn": "mellom"
                 },
                 "kontaktinformasjon": {
                     "epostadresse": "RoseSta@jourrapide.com",
@@ -111,7 +184,112 @@ const testDataGruppe = [
             }
         ]
     }
-];
+
+]
+const testBasisGruppe = [
+    {
+        "navn": "1STA",
+        "beskrivelse": "1. trinn Studiespesialisering 2018-2019",
+        "id": "1",
+        "kundeliste": [
+            {
+                "kundenummer": "14029923273",
+                "navn": {
+                    "etternavn": "Støa",
+                    "fornavn": "Rose",
+                    "mellomnavn": "mellom"
+                },
+                "kontaktinformasjon": {
+                    "epostadresse": "RoseSta@jourrapide.com",
+                    "mobiltelefonnummer": "48213268",
+                    "nettsted": null,
+                    "sip": null,
+                    "telefonnummer": null
+                },
+                "postadresse": {
+                    "adresselinje": [
+                        "Setra vei 207"
+                    ],
+                    "postnummer": "0786",
+                    "poststed": "Oslo"
+                }
+            },
+            {
+                "kundenummer": "18010197461",
+                "navn": {
+                    "etternavn": "Hansen",
+                    "fornavn": "Leona",
+                    "mellomnavn": null
+                },
+                "kontaktinformasjon": {
+                    "epostadresse": "LeonaHansen@dayrep.com",
+                    "mobiltelefonnummer": "41109815",
+                    "nettsted": null,
+                    "sip": null,
+                    "telefonnummer": null
+                },
+                "postadresse": {
+                    "adresselinje": [
+                        "Scheitlies gate 48"
+                    ],
+                    "postnummer": "3045",
+                    "poststed": "Drammen"
+                }
+            },
+            {
+                "kundenummer": "11010159115",
+                "navn": {
+                    "etternavn": "Hofseth",
+                    "fornavn": "Gustav",
+                    "mellomnavn": null
+                },
+                "kontaktinformasjon": {
+                    "epostadresse": "GustavHofseth@rhyta.com",
+                    "mobiltelefonnummer": "94259236",
+                    "nettsted": null,
+                    "sip": null,
+                    "telefonnummer": null
+                },
+                "postadresse": {
+                    "adresselinje": [
+                        "Kikkutveien 91"
+                    ],
+                    "postnummer": "0491",
+                    "poststed": "Oslo"
+                }
+            }
+        ]
+    },
+    {
+        "navn": "3STF",
+        "beskrivelse": "3. trinn Studiespesialisering 2018-2019",
+        "id": "2",
+        "kundeliste": [
+            {
+                "kundenummer": "12345678909",
+                "navn": {
+                    "etternavn": "Kjell Kåre",
+                    "fornavn": "Kveiteland",
+                    "mellomnavn": null
+                },
+                "kontaktinformasjon": {
+                    "epostadresse": "Kjellkå@hotmail.com",
+                    "mobiltelefonnummer": "12345678",
+                    "nettsted": null,
+                    "sip": null,
+                    "telefonnummer": null
+                },
+                "postadresse": {
+                    "adresselinje": [
+                        "Skole vei 207"
+                    ],
+                    "postnummer": "4260",
+                    "poststed": "Torvastad"
+                }
+            }
+        ]
+    }
+]
 const testDataPerson = [
     {
         "kundenummer": "14029923273",
@@ -202,14 +380,18 @@ const testDataPerson = [
         }
     }
 ]
-/* Skal endre hvordan ting i forhold til personer fungerer, slik at vi slipper dobbel-loops osv for å
-plukke ut elever fra gruppene. Kan alltid bruke en 
-*/
+
+//wcag test
 
 let basisGruppeKundenummer = {};
-for (let i = 0; i < testDataGruppe.length; i++) {
+for (let i = 0; i < testBasisGruppe.length; i++) {
+    for (let j = 0; j < testBasisGruppe[i]["kundeliste"].length; j++) {
+        basisGruppeKundenummer[testBasisGruppe[i]["kundeliste"][j]["kundenummer"]] = testBasisGruppe[i]["navn"];
+    }
+}
+for(let i = 0; i < testDataGruppe.length; i++) {
     for (let j = 0; j < testDataGruppe[i]["kundeliste"].length; j++) {
-        basisGruppeKundenummer[testDataGruppe[i]["kundeliste"][j]["kundenummer"]] = testDataGruppe[i]["navn"];
+        testDataGruppe[i]["kundeliste"][j]["klassenavn"] = basisGruppeKundenummer[testDataGruppe[i]["kundeliste"][j]["kundenummer"]]
     }
 }
 let initialSelectedState = {};
@@ -231,7 +413,7 @@ class Step1 extends Component {
             sortedPersonList: []
         };
         console.log(basisGruppeKundenummer);
-        console.log(testDataPerson);
+        console.log(testDataGruppe);
     }
 
     addToSelection = (person) => {
@@ -339,6 +521,7 @@ class Step1 extends Component {
                         selectedPersonList={this.state.selectedPersonList}
                         testDataGruppe={testDataGruppe}
 
+                        sortMethod={this.sortMethod}
                         addMethod={this.addToSelection}
                         removeMethod={this.removeFromSelection}
                         addAll={this.addAll}
