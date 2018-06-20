@@ -31,28 +31,21 @@ class ResultTablePerson extends Component {
         super(props);
         this.state = {
             sort: {
-                "firstName": 1,
-                "mainGroup": 1,
-                "school": 1
+                "navn.fornavn": 1,
+                "navn.etternavn":1,
+                "klassenavn": 1,
             }
         }
     }
 
-    /*triggerSort = (val, isNumber) => {
-        let listPerson = [];
-        for (let i = 0; i < this.props.listGroup.length; i++) {
-            for (let j = 0; j < this.props.listGroup[i].members.length; j++) {
-                listPerson.push(this.props.listGroup[i].members[j]);
-            }
-        }
-        //listPerson har alle elever
+    triggerSort = (val, isNumber) => {
         this.props.sortMethod(
-            listPerson,
+            this.props.testDataPerson,
             (this.state.sort.val === 1) ?
                 (this.setState({ sort: { val: -1 } }), 1) :
                 (this.setState({ sort: { val: 1 } }), -1),
             val, isNumber);
-    }*/
+    }
 
     render() {
         const { classes } = this.props;
@@ -62,9 +55,9 @@ class ResultTablePerson extends Component {
                 <Table className={classes.table}>
                     <TableHead>
                         <TableRow>
-                            <TableCell /*onClick={() => this.triggerSort("firstName", false)}*/>Navn</TableCell>
-                            <TableCell>Klasse</TableCell>
-                            <TableCell>Skole</TableCell>
+                            <TableCell onClick={() => this.triggerSort("navn.fornavn", false)}>Fornavn</TableCell>
+                            <TableCell onClick={() => this.triggerSort("navn.etternavn", false)}>Etternavn</TableCell>
+                            <TableCell onClick={() => this.triggerSort("klassenavn", false)}>Klasse</TableCell>
                             <TableCell></TableCell>
                         </TableRow>
                     </TableHead>
@@ -75,9 +68,9 @@ class ResultTablePerson extends Component {
                                     }
                                     return (
                                         <TableRow key={n.kundenummer}>
-                                            <TableCell>{n.navn.fornavn} {n.navn.mellomnavn} {n.navn.etternavn}</TableCell>
-                                            <TableCell>{n.klassnavn}</TableCell>
-                                            <TableCell>{/*n.school*/}</TableCell>
+                                            <TableCell>{n.navn.fornavn} {n.navn.mellomnavn}</TableCell>
+                                            <TableCell>{n.navn.etternavn}</TableCell>
+                                            <TableCell>{n.klassenavn}</TableCell>
                                             <TableCell>
                                                 {!this.props.selectedPersonList[n.kundenummer] ? (
                                                     <Button mini variant="fab" color="secondary" aria-label="add" onClick={() => this.props.addMethod(n)}

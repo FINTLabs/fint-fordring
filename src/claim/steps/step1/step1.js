@@ -206,23 +206,24 @@ const testDataPerson = [
 plukke ut elever fra gruppene. Kan alltid bruke en 
 */
 
+let basisGruppeKundenummer = {};
+for (let i = 0; i < testDataGruppe.length; i++) {
+    for (let j = 0; j < testDataGruppe[i]["kundeliste"].length; j++) {
+        basisGruppeKundenummer[testDataGruppe[i]["kundeliste"][j]["kundenummer"]] = testDataGruppe[i]["navn"];
+    }
+}
+let initialSelectedState = {};
+testDataPerson.forEach(person => {
+    initialSelectedState[person["kundenummer"]] = false;
+    person["klassenavn"] = basisGruppeKundenummer[person["kundenummer"]];
+});
+//Dette bør kanskje ligge en annen plass enn constructor
+//må nok bruke samme metode for å finne ut hvilke skoler elevene hører til
+
 class Step1 extends Component {
 
     constructor(props) {
         super(props);
-        //Dette bør kanskje ligge en annen plass enn constructor
-        let basisGruppeKundenummer = {};
-        for (let i = 0; i < testDataGruppe.length; i++) {
-            for (let j = 0; j < testDataGruppe[i]["kundeliste"].length; j++) {
-                basisGruppeKundenummer[testDataGruppe[i]["kundeliste"][j]["kundenummer"]] = testDataGruppe[i]["navn"];
-            }
-        }
-        const initialSelectedState = {};
-        testDataPerson.forEach(person => {
-            initialSelectedState[person["kundenummer"]] = false;
-            person["klassenavn"] = basisGruppeKundenummer[person["kundenummer"]];
-        });
-        //må nok bruke samme metode for å finne ut hvilke skoler elevene hører til
         this.state = {
             selectedPersonList: initialSelectedState,
             searchMethod: 0,
@@ -302,6 +303,7 @@ class Step1 extends Component {
     sortMethod = (array, order, sortByValue, isNumber) => {
         if (isNumber) {
             function compare(a, b) {
+                
                 if (eval("Number(a." + sortByValue + ")<" + "Number(b." + sortByValue + ")")) {
                     return -1 * order; //order is either -1 or 1
                 }
@@ -354,7 +356,9 @@ class Step1 extends Component {
                             searchFilter={this.state.searchFilter} />
                     )}
                 <SelectedPerson
+                    selectedPersonList={this.state.selectedPersonList}
                     testDataPerson={testDataPerson}
+
                     removeMethod={this.removeFromSelection} />
             </div>
         );

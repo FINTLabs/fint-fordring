@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Chip from '@material-ui/core/Chip';
 import Paper from '@material-ui/core/Paper';
-import TagFacesIcon from '@material-ui/icons/TagFaces';
 
 const styles = theme => ({
   root: {
@@ -27,7 +26,7 @@ class SelectedPerson extends React.Component {
         {this.props.testDataPerson.map(n => {
                 let avatar = null;
 
-                if (!n.selected) {
+                if (!this.props.selectedPersonList[n.kundenummer]) {
                   return;
                 }
                 return (
@@ -35,7 +34,7 @@ class SelectedPerson extends React.Component {
                     key={n.kundenummer}
                     avatar={avatar}
                     label={n.navn.fornavn +" "+ n.navn.etternavn}
-                    //onDelete={() => this.props.removeMethod(n)}
+                    onDelete={() => this.props.removeMethod(n)}
                     className={classes.chip}
                   />
                 );
