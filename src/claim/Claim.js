@@ -8,7 +8,7 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Step1 from "./steps/step1/step1";
 import Step2 from "./steps/step2/step2";
-import Step3 from "./steps/step3";
+import Step3 from "./steps/step3/step3";
 
 const styles = theme => ({
     root: {
@@ -26,19 +26,6 @@ const styles = theme => ({
 
 function getSteps() {
     return ['Velg mottakere', 'Velg varer', 'Send'];
-}
-
-function getStepContent(stepIndex) {
-    switch (stepIndex) {
-        case 0:
-            return <Step1/>;
-        case 1:
-            return <Step2/>;
-        case 2:
-            return <Step3/>;
-        default:
-            return 'Uknown stepIndex';
-    }
 }
 
 class Claim extends Component {
@@ -65,6 +52,30 @@ class Claim extends Component {
             activeStep: 0,
         });
     };
+    getCheckoutDataStep1 = (val) => {
+        //Sets state in claim
+        console.log(val);
+    }
+    getCheckoutDataStep2 = (val) => {
+        //Sets state in claim
+    }
+    sendCheckoutData = () => { //denne kalles fra step3 når det skal leveres
+        this.getCheckoutDataStep1(); //denne må nok kjøres fra step 1, slik at den kan gi parametre, usikker på hvordan det skal gjøres...
+        this.getCheckoutDataStep2(); //https://stackoverflow.com/questions/37949981/call-child-method-from-parent
+        //send to step3
+    }
+    getStepContent(stepIndex) {
+        switch (stepIndex) {
+            case 0:
+                return <Step1 getCheckoutDataStep1 = {this.getCheckoutDataStep1}/>;
+            case 1:
+                return <Step2/>;
+            case 2:
+                return <Step3/>;
+            default:
+                return 'Uknown stepIndex';
+        }
+    }
 
     render() {
         const { classes } = this.props;
@@ -92,7 +103,7 @@ class Claim extends Component {
                         </div>
                     ) : (
                         <div>
-                            <div className={classes.instructions}>{getStepContent(activeStep)}</div>
+                            <div className={classes.instructions}>{this.getStepContent(activeStep)}</div>
                             {/*changed from "Typography tag to div tag to avoid warnings in console, not sure if it breaks something*/}
                             <div>
                                 <Button

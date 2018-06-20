@@ -399,6 +399,7 @@ testDataPerson.forEach(person => {
     initialSelectedState[person["kundenummer"]] = false;
     person["klassenavn"] = basisGruppeKundenummer[person["kundenummer"]];
 });
+
 //Dette bør kanskje ligge en annen plass enn constructor
 //må nok bruke samme metode for å finne ut hvilke skoler elevene hører til
 
@@ -414,6 +415,7 @@ class Step1 extends Component {
         };
         console.log(basisGruppeKundenummer);
         console.log(testDataGruppe);
+        this.props.getCheckoutDataStep1("hei");
     }
 
     addToSelection = (person) => {
