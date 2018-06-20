@@ -12,518 +12,192 @@ const testDataGruppe = [
         "navn": "1STA",
         "beskrivelse": "1. trinn Studiespesialisering 2018-2019",
         "kundeliste": [
-                            
-                            LISTE MED ELEVER
-                            
-                        ]
-                    }
-    
-    
-    Add Comment
-    {
-        "id": "1",
-        "mainGroup": "1STA",
-        "school": "Bryne videregåande skule",
-        "showMembers": false,
-        "members": [
             {
-                "id": "1",
-                "firstName": "Kjell Kari",
-                "lastName": "Svendsen",
-                "school": "Bryne videregåande skule",
-                "mainGroup": "2STA",
-                "selected": false
+                "kundenummer": "14029923273",
+                "navn": {
+                    "etternavn": "Støa",
+                    "fornavn": "Rose",
+                    "mellomnavn": null
+                },
+                "kontaktinformasjon": {
+                    "epostadresse": "RoseSta@jourrapide.com",
+                    "mobiltelefonnummer": "48213268",
+                    "nettsted": null,
+                    "sip": null,
+                    "telefonnummer": null
+                },
+                "postadresse": {
+                    "adresselinje": [
+                        "Setra vei 207"
+                    ],
+                    "postnummer": "0786",
+                    "poststed": "Oslo"
+                }
             },
             {
-                "id": "2",
-                "firstName": "Banjo",
-                "lastName": "Kari",
-                "school": "Bryne videregåande skule",
-                "mainGroup": "1STA",
-                "selected": false
+                "kundenummer": "18010197461",
+                "navn": {
+                    "etternavn": "Hansen",
+                    "fornavn": "Leona",
+                    "mellomnavn": null
+                },
+                "kontaktinformasjon": {
+                    "epostadresse": "LeonaHansen@dayrep.com",
+                    "mobiltelefonnummer": "41109815",
+                    "nettsted": null,
+                    "sip": null,
+                    "telefonnummer": null
+                },
+                "postadresse": {
+                    "adresselinje": [
+                        "Scheitlies gate 48"
+                    ],
+                    "postnummer": "3045",
+                    "poststed": "Drammen"
+                }
             },
             {
-                "id": "3",
-                "firstName": "Kåre Svein",
-                "lastName": "Håland",
-                "school": "Bryne videregåande skule",
-                "mainGroup": "1STA",
-                "selected": false
-            },
-            {
-                "id": "4",
-                "firstName": "Harry Jan",
-                "lastName": "Varhaug",
-                "school": "Bryne videregåande skule",
-                "mainGroup": "1STA",
-                "selected": false
-            },
-            {
-                "id": "5",
-                "firstName": "Berit Anne",
-                "lastName": "Vigrestad",
-                "school": "Bryne videregåande skule",
-                "mainGroup": "1STA",
-                "selected": false
+                "kundenummer": "11010159115",
+                "navn": {
+                    "etternavn": "Hofseth",
+                    "fornavn": "Gustav",
+                    "mellomnavn": null
+                },
+                "kontaktinformasjon": {
+                    "epostadresse": "GustavHofseth@rhyta.com",
+                    "mobiltelefonnummer": "94259236",
+                    "nettsted": null,
+                    "sip": null,
+                    "telefonnummer": null
+                },
+                "postadresse": {
+                    "adresselinje": [
+                        "Kikkutveien 91"
+                    ],
+                    "postnummer": "0491",
+                    "poststed": "Oslo"
+                }
             }
         ]
     },
     {
-        "id": "2",
-        "mainGroup": "3STG",
-        "school": "Skeisvang videregåande skule",
-        "showMembers": false,
-        "members": [
+        "navn": "3STF",
+        "beskrivelse": "3. trinn Studiespesialisering 2018-2019",
+        "kundeliste": [
             {
-                "id": "6",
-                "firstName": "Thomas Tommy",
-                "lastName": "Thomsen",
-                "school": "Skeisvang videregåande skule",
-                "mainGroup": "3STG",
-                "selected": false
-            },
-            {
-                "id": "7",
-                "firstName": "Birger Bobby",
-                "lastName": "Bentsen",
-                "school": "Skeisvang videregåande skule",
-                "mainGroup": "3STG",
-                "selected": false
-            },
-            {
-                "id": "8",
-                "firstName": "Kjell Kåre",
-                "lastName": "Kveiteland",
-                "school": "Skeisvang videregåande skule",
-                "mainGroup": "3STG",
-                "selected": false
-            },
-            {
-                "id": "9",
-                "firstName": "Harry Hole",
-                "lastName": "Hansen",
-                "school": "Skeisvang videregåande skule",
-                "mainGroup": "3STG",
-                "selected": false
-            },
-            {
-                "id": "10",
-                "firstName": "Ida Inga",
-                "lastName": "Ildre",
-                "school": "Skeisvang videregåande skule",
-                "mainGroup": "3STG",
-                "selected": false
+                "kundenummer": "12345678909",
+                "navn": {
+                    "etternavn": "Kjell Kåre",
+                    "fornavn": "Kveiteland",
+                    "mellomnavn": null
+                },
+                "kontaktinformasjon": {
+                    "epostadresse": "Kjellkå@hotmail.com",
+                    "mobiltelefonnummer": "12345678",
+                    "nettsted": null,
+                    "sip": null,
+                    "telefonnummer": null
+                },
+                "postadresse": {
+                    "adresselinje": [
+                        "Skole vei 207"
+                    ],
+                    "postnummer": "4260",
+                    "poststed": "Torvastad"
+                }
             }
         ]
-    },
-    {
-        "id": "3",
-        "mainGroup": "3STA",
-        "school": "Bryne videregåande skule",
-        "showMembers": false,
-        "members": [
-            {
-                "id": "11",
-                "firstName": "Kjell Kari",
-                "lastName": "Svendsen",
-                "school": "Bryne videregåande skule",
-                "mainGroup": "2STA",
-                "selected": false
-            },
-            {
-                "id": "12",
-                "firstName": "Banjo",
-                "lastName": "Kari",
-                "school": "Bryne videregåande skule",
-                "mainGroup": "1STA",
-                "selected": false
-            },
-            {
-                "id": "13",
-                "firstName": "Kåre Svein",
-                "lastName": "Håland",
-                "school": "Bryne videregåande skule",
-                "mainGroup": "1STA",
-                "selected": false
-            },
-            {
-                "id": "14",
-                "firstName": "Harry Jan",
-                "lastName": "Varhaug",
-                "school": "Bryne videregåande skule",
-                "mainGroup": "1STA",
-                "selected": false
-            },
-            {
-                "id": "15",
-                "firstName": "Berit Anne",
-                "lastName": "Vigrestad",
-                "school": "Bryne videregåande skule",
-                "mainGroup": "1STA",
-                "selected": false
-            }
-        ]
-    },
-    {
-        "id": "4",
-        "mainGroup": "4STA",
-        "school": "Bryne videregåande skule",
-        "showMembers": false,
-        "members": [
-            {
-                "id": "16",
-                "firstName": "Kjell Kari",
-                "lastName": "Svendsen",
-                "school": "Bryne videregåande skule",
-                "mainGroup": "2STA",
-                "selected": false
-            },
-            {
-                "id": "17",
-                "firstName": "Banjo",
-                "lastName": "Kari",
-                "school": "Bryne videregåande skule",
-                "mainGroup": "1STA",
-                "selected": false
-            },
-            {
-                "id": "18",
-                "firstName": "Kåre Svein",
-                "lastName": "Håland",
-                "school": "Bryne videregåande skule",
-                "mainGroup": "1STA",
-                "selected": false
-            },
-            {
-                "id": "19",
-                "firstName": "Harry Jan",
-                "lastName": "Varhaug",
-                "school": "Bryne videregåande skule",
-                "mainGroup": "1STA",
-                "selected": false
-            },
-            {
-                "id": "20",
-                "firstName": "Berit Anne",
-                "lastName": "Vigrestad",
-                "school": "Bryne videregåande skule",
-                "mainGroup": "1STA",
-                "selected": false
-            }
-        ]
-    },
-    {
-        "id": "5",
-        "mainGroup": "5STA",
-        "school": "Bryne videregåande skule",
-        "showMembers": false,
-        "members": [
-            {
-                "id": "21",
-                "firstName": "Kjell Kari",
-                "lastName": "Svendsen",
-                "school": "Bryne videregåande skule",
-                "mainGroup": "2STA",
-                "selected": false
-            },
-            {
-                "id": "22",
-                "firstName": "Banjo",
-                "lastName": "Kari",
-                "school": "Bryne videregåande skule",
-                "mainGroup": "1STA",
-                "selected": false
-            },
-            {
-                "id": "23",
-                "firstName": "Kåre Svein",
-                "lastName": "Håland",
-                "school": "Bryne videregåande skule",
-                "mainGroup": "1STA",
-                "selected": false
-            },
-            {
-                "id": "24",
-                "firstName": "Harry Jan",
-                "lastName": "Varhaug",
-                "school": "Bryne videregåande skule",
-                "mainGroup": "1STA",
-                "selected": false
-            },
-            {
-                "id": "25",
-                "firstName": "Berit Anne",
-                "lastName": "Vigrestad",
-                "school": "Bryne videregåande skule",
-                "mainGroup": "1STA",
-                "selected": false
-            }
-        ]
-    },
-    {
-        "id": "6",
-        "mainGroup": "1STB",
-        "school": "Bryne videregåande skule",
-        "showMembers": false,
-        "members": [
-            {
-                "id": "1",
-                "firstName": "Kjell Kari",
-                "lastName": "Svendsen",
-                "school": "Bryne videregåande skule",
-                "mainGroup": "2STA",
-                "selected": false
-            },
-            {
-                "id": "2",
-                "firstName": "Banjo",
-                "lastName": "Kari",
-                "school": "Bryne videregåande skule",
-                "mainGroup": "1STA",
-                "selected": false
-            },
-            {
-                "id": "3",
-                "firstName": "Kåre Svein",
-                "lastName": "Håland",
-                "school": "Bryne videregåande skule",
-                "mainGroup": "1STA",
-                "selected": false
-            },
-            {
-                "id": "4",
-                "firstName": "Harry Jan",
-                "lastName": "Varhaug",
-                "school": "Bryne videregåande skule",
-                "mainGroup": "1STA",
-                "selected": false
-            },
-            {
-                "id": "5",
-                "firstName": "Berit Anne",
-                "lastName": "Vigrestad",
-                "school": "Bryne videregåande skule",
-                "mainGroup": "1STA",
-                "selected": false
-            }
-        ]
-    },
-    {
-        "id": "7",
-        "mainGroup": "2STB",
-        "school": "Bryne videregåande skule",
-        "showMembers": false,
-        "members": [
-            {
-                "id": "6",
-                "firstName": "Kjell Kari",
-                "lastName": "Svendsen",
-                "school": "Bryne videregåande skule",
-                "mainGroup": "2STA",
-                "selected": false
-            },
-            {
-                "id": "7",
-                "firstName": "Banjo",
-                "lastName": "Kari",
-                "school": "Bryne videregåande skule",
-                "mainGroup": "1STA",
-                "selected": false
-            },
-            {
-                "id": "8",
-                "firstName": "Kåre Svein",
-                "lastName": "Håland",
-                "school": "Bryne videregåande skule",
-                "mainGroup": "1STA",
-                "selected": false
-            },
-            {
-                "id": "9",
-                "firstName": "Harry Jan",
-                "lastName": "Varhaug",
-                "school": "Bryne videregåande skule",
-                "mainGroup": "1STA",
-                "selected": false
-            },
-            {
-                "id": "10",
-                "firstName": "Berit Anne",
-                "lastName": "Vigrestad",
-                "school": "Bryne videregåande skule",
-                "mainGroup": "1STA",
-                "selected": false
-            }
-        ]
-    },
-    {
-        "id": "8",
-        "mainGroup": "3STB",
-        "school": "Bryne videregåande skule",
-        "showMembers": false,
-        "members": [
-            {
-                "id": "11",
-                "firstName": "Kjell Kari",
-                "lastName": "Svendsen",
-                "school": "Bryne videregåande skule",
-                "mainGroup": "2STA",
-                "selected": false
-            },
-            {
-                "id": "12",
-                "firstName": "Banjo",
-                "lastName": "Kari",
-                "school": "Bryne videregåande skule",
-                "mainGroup": "1STA",
-                "selected": false
-            },
-            {
-                "id": "13",
-                "firstName": "Kåre Svein",
-                "lastName": "Håland",
-                "school": "Bryne videregåande skule",
-                "mainGroup": "1STA",
-                "selected": false
-            },
-            {
-                "id": "14",
-                "firstName": "Harry Jan",
-                "lastName": "Varhaug",
-                "school": "Bryne videregåande skule",
-                "mainGroup": "1STA",
-                "selected": false
-            },
-            {
-                "id": "15",
-                "firstName": "Berit Anne",
-                "lastName": "Vigrestad",
-                "school": "Bryne videregåande skule",
-                "mainGroup": "1STA",
-                "selected": false
-            }
-        ]
-    },
-    {
-        "id": "9",
-        "mainGroup": "4STB",
-        "school": "Bryne videregåande skule",
-        "showMembers": false,
-        "members": [
-            {
-                "id": "16",
-                "firstName": "Kjell Kari",
-                "lastName": "Svendsen",
-                "school": "Bryne videregåande skule",
-                "mainGroup": "2STA",
-                "selected": false
-            },
-            {
-                "id": "17",
-                "firstName": "Banjo",
-                "lastName": "Kari",
-                "school": "Bryne videregåande skule",
-                "mainGroup": "1STA",
-                "selected": false
-            },
-            {
-                "id": "18",
-                "firstName": "Kåre Svein",
-                "lastName": "Håland",
-                "school": "Bryne videregåande skule",
-                "mainGroup": "1STA",
-                "selected": false
-            },
-            {
-                "id": "19",
-                "firstName": "Harry Jan",
-                "lastName": "Varhaug",
-                "school": "Bryne videregåande skule",
-                "mainGroup": "1STA",
-                "selected": false
-            },
-            {
-                "id": "20",
-                "firstName": "Berit Anne",
-                "lastName": "Vigrestad",
-                "school": "Bryne videregåande skule",
-                "mainGroup": "1STA",
-                "selected": false
-            }
-        ]
-    },
-    {
-        "id": "10",
-        "mainGroup": "5STB",
-        "school": "Bryne videregåande skule",
-        "showMembers": false,
-        "members": [
-            {
-                "id": "21",
-                "firstName": "Kjell Kari",
-                "lastName": "Svendsen",
-                "school": "Bryne videregåande skule",
-                "mainGroup": "2STA",
-                "selected": false
-            },
-            {
-                "id": "22",
-                "firstName": "Banjo",
-                "lastName": "Kari",
-                "school": "Bryne videregåande skule",
-                "mainGroup": "1STA",
-                "selected": false
-            },
-            {
-                "id": "23",
-                "firstName": "Kåre Svein",
-                "lastName": "Håland",
-                "school": "Bryne videregåande skule",
-                "mainGroup": "1STA",
-                "selected": false
-            },
-            {
-                "id": "24",
-                "firstName": "Harry Jan",
-                "lastName": "Varhaug",
-                "school": "Bryne videregåande skule",
-                "mainGroup": "1STA",
-                "selected": false
-            },
-            {
-                "id": "25",
-                "firstName": "Berit Anne",
-                "lastName": "Vigrestad",
-                "school": "Bryne videregåande skule",
-                "mainGroup": "1STA",
-                "selected": false
-            }
-        ]
-    },
+    }
 ];
 const testDataPersoner = [
     {
         "kundenummer": "14029923273",
         "navn": {
-          "etternavn": "Støa",
-          "fornavn": "Rose",
-          "mellomnavn": null
+            "etternavn": "Støa",
+            "fornavn": "Rose",
+            "mellomnavn": null
         },
         "kontaktinformasjon": {
-          "epostadresse": "RoseSta@jourrapide.com",
-          "mobiltelefonnummer": "48213268",
-          "nettsted": null,
-          "sip": null,
-          "telefonnummer": null
+            "epostadresse": "RoseSta@jourrapide.com",
+            "mobiltelefonnummer": "48213268",
+            "nettsted": null,
+            "sip": null,
+            "telefonnummer": null
         },
         "postadresse": {
-          "adresselinje": [
-            "Setra vei 207"
-          ],
-          "postnummer": "0786",
-          "poststed": "Oslo"
+            "adresselinje": [
+                "Setra vei 207"
+            ],
+            "postnummer": "0786",
+            "poststed": "Oslo"
         }
-      }
+    },
+    {
+        "kundenummer": "18010197461",
+        "navn": {
+            "etternavn": "Hansen",
+            "fornavn": "Leona",
+            "mellomnavn": null
+        },
+        "kontaktinformasjon": {
+            "epostadresse": "LeonaHansen@dayrep.com",
+            "mobiltelefonnummer": "41109815",
+            "nettsted": null,
+            "sip": null,
+            "telefonnummer": null
+        },
+        "postadresse": {
+            "adresselinje": [
+                "Scheitlies gate 48"
+            ],
+            "postnummer": "3045",
+            "poststed": "Drammen"
+        }
+    },
+    {
+        "kundenummer": "11010159115",
+        "navn": {
+            "etternavn": "Hofseth",
+            "fornavn": "Gustav",
+            "mellomnavn": null
+        },
+        "kontaktinformasjon": {
+            "epostadresse": "GustavHofseth@rhyta.com",
+            "mobiltelefonnummer": "94259236",
+            "nettsted": null,
+            "sip": null,
+            "telefonnummer": null
+        },
+        "postadresse": {
+            "adresselinje": [
+                "Kikkutveien 91"
+            ],
+            "postnummer": "0491",
+            "poststed": "Oslo"
+        }
+    },
+    {
+        "kundenummer": "12345678909",
+        "navn": {
+            "etternavn": "Kjell Kåre",
+            "fornavn": "Kveiteland",
+            "mellomnavn": null
+        },
+        "kontaktinformasjon": {
+            "epostadresse": "Kjellkå@hotmail.com",
+            "mobiltelefonnummer": "12345678",
+            "nettsted": null,
+            "sip": null,
+            "telefonnummer": null
+        },
+        "postadresse": {
+            "adresselinje": [
+                "Skole vei 207"
+            ],
+            "postnummer": "4260",
+            "poststed": "Torvastad"
+        }
+    }
 ]
 /* Skal endre hvordan ting i forhold til personer fungerer, slik at vi slipper dobbel-loops osv for å
 plukke ut elever fra gruppene. Kan alltid bruke en 
