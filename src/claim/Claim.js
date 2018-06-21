@@ -31,6 +31,8 @@ function getSteps() {
 class Claim extends Component {
     state = {
         activeStep: 0,
+        selectedPersonData: {},
+        selectedProductData: {},
     };
 
     handleNext = () => {
@@ -51,7 +53,6 @@ class Claim extends Component {
     handleReset = () => {
         this.setState({
             activeStep: 0,
-            selectedPersonData: {},
         });
     };
 
@@ -62,7 +63,7 @@ class Claim extends Component {
             case 1:
                 return <Step2 sendProductDataToClaim={this.sendProductDataToClaim}/>;
             case 2:
-                return <Step3 />;
+                return <Step3 selectedPersonData={this.state.selectedPersonData} selectedProductData={this.state.selectedProductData}/>;
             default:
                 return 'Uknown stepIndex';
         }

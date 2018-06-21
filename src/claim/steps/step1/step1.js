@@ -59,25 +59,25 @@ const testDataGruppe = [
                 }
             },
             {
-                "kundenummer": "11010159115",
+                "kundenummer": "18010197461",
                 "navn": {
-                    "etternavn": "Hofseth",
-                    "fornavn": "Gustav",
+                    "etternavn": "Hansen",
+                    "fornavn": "Leona",
                     "mellomnavn": null
                 },
                 "kontaktinformasjon": {
-                    "epostadresse": "GustavHofseth@rhyta.com",
-                    "mobiltelefonnummer": "94259236",
+                    "epostadresse": "LeonaHansen@dayrep.com",
+                    "mobiltelefonnummer": "41109815",
                     "nettsted": null,
                     "sip": null,
                     "telefonnummer": null
                 },
                 "postadresse": {
                     "adresselinje": [
-                        "Kikkutveien 91"
+                        "Scheitlies gate 48"
                     ],
-                    "postnummer": "0491",
-                    "poststed": "Oslo"
+                    "postnummer": "3045",
+                    "poststed": "Drammen"
                 }
             }
         ]
@@ -292,72 +292,6 @@ const testBasisGruppe = [
 ]
 const testDataPerson = [
     {
-        "kundenummer": "14029923273",
-        "navn": {
-            "etternavn": "Støl",
-            "fornavn": "Rose",
-            "mellomnavn": "Kåre"
-        },
-        "kontaktinformasjon": {
-            "epostadresse": "RoseSta@jourrapide.com",
-            "mobiltelefonnummer": "48213268",
-            "nettsted": null,
-            "sip": null,
-            "telefonnummer": null
-        },
-        "postadresse": {
-            "adresselinje": [
-                "Setra vei 207"
-            ],
-            "postnummer": "0786",
-            "poststed": "Oslo"
-        }
-    },
-    {
-        "kundenummer": "18010197461",
-        "navn": {
-            "etternavn": "Støa",
-            "fornavn": "Rose",
-            "mellomnavn": "Kåre"
-        },
-        "kontaktinformasjon": {
-            "epostadresse": "LeonaHansen@dayrep.com",
-            "mobiltelefonnummer": "41109815",
-            "nettsted": null,
-            "sip": null,
-            "telefonnummer": null
-        },
-        "postadresse": {
-            "adresselinje": [
-                "Scheitlies gate 48"
-            ],
-            "postnummer": "3045",
-            "poststed": "Drammen"
-        }
-    },
-    {
-        "kundenummer": "11010159115",
-        "navn": {
-            "etternavn": "Støe",
-            "fornavn": "Rose",
-            "mellomnavn": "Kåre"
-        },
-        "kontaktinformasjon": {
-            "epostadresse": "GustavHofseth@rhyta.com",
-            "mobiltelefonnummer": "94259236",
-            "nettsted": null,
-            "sip": null,
-            "telefonnummer": null
-        },
-        "postadresse": {
-            "adresselinje": [
-                "Kikkutveien 91"
-            ],
-            "postnummer": "0491",
-            "poststed": "Oslo"
-        }
-    },
-    {
         "kundenummer": "12345678909",
         "navn": {
             "etternavn": "Kjell Kåre",
@@ -377,6 +311,72 @@ const testDataPerson = [
             ],
             "postnummer": "4260",
             "poststed": "Torvastad"
+        }
+    },
+    {
+        "kundenummer": "14029923273",
+        "navn": {
+            "etternavn": "Støa",
+            "fornavn": "Rose",
+            "mellomnavn": "mellom"
+        },
+        "kontaktinformasjon": {
+            "epostadresse": "RoseSta@jourrapide.com",
+            "mobiltelefonnummer": "48213268",
+            "nettsted": null,
+            "sip": null,
+            "telefonnummer": null
+        },
+        "postadresse": {
+            "adresselinje": [
+                "Setra vei 207"
+            ],
+            "postnummer": "0786",
+            "poststed": "Oslo"
+        }
+    },
+    {
+        "kundenummer": "18010197461",
+        "navn": {
+            "etternavn": "Hansen",
+            "fornavn": "Leona",
+            "mellomnavn": null
+        },
+        "kontaktinformasjon": {
+            "epostadresse": "LeonaHansen@dayrep.com",
+            "mobiltelefonnummer": "41109815",
+            "nettsted": null,
+            "sip": null,
+            "telefonnummer": null
+        },
+        "postadresse": {
+            "adresselinje": [
+                "Scheitlies gate 48"
+            ],
+            "postnummer": "3045",
+            "poststed": "Drammen"
+        }
+    },
+    {
+        "kundenummer": "11010159115",
+        "navn": {
+            "etternavn": "Hofseth",
+            "fornavn": "Gustav",
+            "mellomnavn": null
+        },
+        "kontaktinformasjon": {
+            "epostadresse": "GustavHofseth@rhyta.com",
+            "mobiltelefonnummer": "94259236",
+            "nettsted": null,
+            "sip": null,
+            "telefonnummer": null
+        },
+        "postadresse": {
+            "adresselinje": [
+                "Kikkutveien 91"
+            ],
+            "postnummer": "0491",
+            "poststed": "Oslo"
         }
     }
 ]
@@ -411,7 +411,8 @@ class Step1 extends Component {
             selectedPersonList: initialSelectedState,
             searchMethod: 0,
             searchFilter: testDataGruppe,
-            sortedPersonList: []
+            sortedPersonList: [],
+            orderedBySelection: []
         };
         console.log(basisGruppeKundenummer);
         console.log(testDataGruppe);
@@ -419,43 +420,58 @@ class Step1 extends Component {
 
     addToSelection = (person) => {
         let updateList = this.state.selectedPersonList;
+        let updateOrderedList = this.state.orderedBySelection;
         updateList[person["kundenummer"]] = true;
-        this.setState({ selectedPersonList: updateList }, () => {
-            this.props.sendPersonDataToClaim(this.state.selectedPersonList);
+        this.setState({ selectedPersonList: updateList });
+        updateOrderedList.push(person);
+        this.setState({ orderedBySelection: updateOrderedList }, () => {
+            this.props.sendPersonDataToClaim(this.state.orderedBySelection);
         });
     }
 
     removeFromSelection = (person) => {
         let updateList = this.state.selectedPersonList;
+        let updateOrderedList = this.state.orderedBySelection;
         updateList[person["kundenummer"]] = false;
-        this.setState({ selectedPersonList: updateList }, () => {
-            this.props.sendPersonDataToClaim(this.state.selectedPersonList);
+        this.setState({ selectedPersonList: updateList });
+        for (let i = 0; i < updateOrderedList.length; i++) {
+            if (JSON.stringify(updateOrderedList[i]) === JSON.stringify(person)) {
+                updateOrderedList.splice(i, 1);
+            }
+        }
+        this.setState({ orderedBySelection: updateOrderedList }, () => {
+            this.props.sendPersonDataToClaim(this.state.orderedBySelection);
         });
     };
 
     addAll = (group) => {
         let allIsSelected = false;
+        let updateOrderedList = this.state.orderedBySelection;
         let updateList = this.state.selectedPersonList;
         for (let i = 0; i < group.kundeliste.length; i++) {
             if (!updateList[group.kundeliste[i]["kundenummer"]]) {
                 allIsSelected = true;
+                updateOrderedList.push(group.kundeliste[i]);
             }
         }
         if (allIsSelected) {
             for (let i = 0; i < group.kundeliste.length; i++) {
-                if (updateList[group.kundeliste[i]["kundenummer"]]) {
-                }
                 updateList[group.kundeliste[i]["kundenummer"]] = true;
             }
         } else {
             for (let i = 0; i < group.kundeliste.length; i++) {
-                if (updateList[group.kundeliste[i]["kundenummer"]]) {
-                }
+                //console.log(group.kundeliste[i]);
                 updateList[group.kundeliste[i]["kundenummer"]] = false;
+                for (let j = 0; j < updateOrderedList.length; j++) {
+                    if (JSON.stringify(updateOrderedList[j]) === JSON.stringify(group.kundeliste[i])) {
+                        updateOrderedList.splice(j, 1);
+                    }
+                }
             }
         }
-        this.setState({ selectedPersonList: updateList }, () => {
-            this.props.sendPersonDataToClaim(this.state.selectedPersonList);
+        this.setState({ selectedPersonList: updateList });
+        this.setState({ orderedBySelection: updateOrderedList }, () => {
+            this.props.sendPersonDataToClaim(this.state.orderedBySelection);
         });
     }
 
@@ -523,6 +539,7 @@ class Step1 extends Component {
         }
     }
 
+
     render() {
         const { classes } = this.props;
         return (
@@ -532,8 +549,7 @@ class Step1 extends Component {
                     getSearchMethod={this.getSearchMethod} />
                 {this.checkIfNoneAreSelected(this.state.selectedPersonList) ? (
                     <SelectedPerson
-                        selectedPersonList={this.state.selectedPersonList}
-                        testDataPerson={testDataPerson}
+                        orderedBySelection={this.state.orderedBySelection}
                         removeMethod={this.removeFromSelection} />
                 ) : (<div />)}
                 {this.state.searchMethod === 0 ? (

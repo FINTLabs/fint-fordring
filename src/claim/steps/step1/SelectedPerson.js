@@ -24,17 +24,14 @@ class SelectedPerson extends React.Component {
 
     return (
       <Paper className={classes.root} elevation={0}>
-        {this.props.testDataPerson.map(n => {
+        {this.props.orderedBySelection.map(n => {
                 let avatar = null;
 
-                if (!this.props.selectedPersonList[n.kundenummer]) {
-                  return;
-                }
                 return (
                   <Chip
                     key={n.kundenummer}
                     avatar={avatar}
-                    label={n.navn.fornavn +" "+ n.navn.etternavn}
+                    label={n.navn.fornavn + ((n.navn.mellomnavn) ? ( " " + n.navn.mellomnavn + " ") : (" ")) + n.navn.etternavn}
                     onDelete={() => this.props.removeMethod(n)}
                     className={classes.chip}
                   />
