@@ -15,9 +15,13 @@ const styles = theme => ({
 });
 
 class SearchTabs extends React.Component {
-    state = {
-        value: 0,
-    };
+
+    constructor() {
+        super();
+        this.state = {
+            value: 0,
+        };
+    }
 
     handleChange = (event, value) => {
         this.setState({ value });

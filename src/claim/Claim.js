@@ -29,11 +29,15 @@ function getSteps() {
 }
 
 class Claim extends Component {
-    state = {
-        activeStep: 0,
-        selectedPersonData: {},
-        selectedProductData: {},
-    };
+
+    constructor() {
+        super();
+        this.state = {
+            activeStep: 0,
+            selectedPersonData: [],
+            selectedProductData: [],
+        };
+    }
 
     handleNext = () => {
         const { activeStep } = this.state;
@@ -59,11 +63,13 @@ class Claim extends Component {
     getStepContent(stepIndex) {
         switch (stepIndex) {
             case 0:
-                return <Step1 sendPersonDataToClaim={this.sendPersonDataToClaim} />;
+                return <Step1 
+                sendPersonDataToClaim={this.sendPersonDataToClaim} 
+                selectedPersonData={this.state.selectedPersonData}/>;
             case 1:
-                return <Step2 sendProductDataToClaim={this.sendProductDataToClaim}/>;
+                return <Step2 sendProductDataToClaim={this.sendProductDataToClaim} />;
             case 2:
-                return <Step3 selectedPersonData={this.state.selectedPersonData} selectedProductData={this.state.selectedProductData}/>;
+                return <Step3 selectedPersonData={this.state.selectedPersonData} selectedProductData={this.state.selectedProductData} />;
             default:
                 return 'Uknown stepIndex';
         }

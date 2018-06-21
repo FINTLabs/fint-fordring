@@ -400,38 +400,52 @@ testDataPerson.forEach(person => {
     person["klassenavn"] = basisGruppeKundenummer[person["kundenummer"]];
 });
 
+let testObj = {
+    "hei": "2",
+    "hola": "3"
+}
+
 //Dette bør kanskje ligge en annen plass enn constructor
 //må nok bruke samme metode for å finne ut hvilke skoler elevene hører til
-
 class Step1 extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            selectedPersonList: initialSelectedState,
+            selectedPersonList: initialSelectedState, //this state seems to be global, it isnt reevaluated when we change from one step to another, im confused
             searchMethod: 0,
             searchFilter: testDataGruppe,
             sortedPersonList: [],
-            orderedBySelection: []
-        };
-        console.log(basisGruppeKundenummer);
-        console.log(testDataGruppe);
+            testState: testObj //denne staten forblir
+            //orderedBySelection: props.selectedPersonData //for some reason this is updated when you go back to previous page, while selectedPersonList is for some reason remembered...
+        }; //må da sannsynligvis sende denne dataen opp til claim (eller lagre den der til å begynne med), og sende den ned til step1 via prop
+        console.log(this.state.testState);
+        /**
+         Kanskje vi må si at selectedPersonList : {} til å starte med, også her
+         skrive: this.setState(Initial) etc. Kanskje den vil være uavhengig av initial da?
+         */
     }
 
     addToSelection = (person) => {
         let updateList = this.state.selectedPersonList;
-        let updateOrderedList = this.state.orderedBySelection;
+        let updateOrderedList = this.props.selectedPersonData;
         updateList[person["kundenummer"]] = true;
         this.setState({ selectedPersonList: updateList });
         updateOrderedList.push(person);
         this.setState({ orderedBySelection: updateOrderedList }, () => {
-            this.props.sendPersonDataToClaim(this.state.orderedBySelection);
+            this.props.sendPersonDataToClaim(this.props.selectedPersonData);
+            console.log(this.props.selectedPersonData);
+        });
+        let newTestState = this.state.testState;
+        newTestState["hei"] = "4";
+        this.setState({ testState: newTestState }, () => {
+            console.log(this.state.testState, testObj);
         });
     }
 
     removeFromSelection = (person) => {
         let updateList = this.state.selectedPersonList;
-        let updateOrderedList = this.state.orderedBySelection;
+        let updateOrderedList = this.props.selectedPersonData;
         updateList[person["kundenummer"]] = false;
         this.setState({ selectedPersonList: updateList });
         for (let i = 0; i < updateOrderedList.length; i++) {
@@ -440,13 +454,13 @@ class Step1 extends Component {
             }
         }
         this.setState({ orderedBySelection: updateOrderedList }, () => {
-            this.props.sendPersonDataToClaim(this.state.orderedBySelection);
+            this.props.sendPersonDataToClaim(this.props.selectedPersonData);
         });
     };
 
     addAll = (group) => {
         let allIsSelected = false;
-        let updateOrderedList = this.state.orderedBySelection;
+        let updateOrderedList = this.props.selectedPersonData;
         let updateList = this.state.selectedPersonList;
         for (let i = 0; i < group.kundeliste.length; i++) {
             if (!updateList[group.kundeliste[i]["kundenummer"]]) {
@@ -471,7 +485,7 @@ class Step1 extends Component {
         }
         this.setState({ selectedPersonList: updateList });
         this.setState({ orderedBySelection: updateOrderedList }, () => {
-            this.props.sendPersonDataToClaim(this.state.orderedBySelection);
+            this.props.sendPersonDataToClaim(this.props.selectedPersonData);
         });
     }
 
@@ -549,7 +563,7 @@ class Step1 extends Component {
                     getSearchMethod={this.getSearchMethod} />
                 {this.checkIfNoneAreSelected(this.state.selectedPersonList) ? (
                     <SelectedPerson
-                        orderedBySelection={this.state.orderedBySelection}
+                        orderedBySelection={this.props.selectedPersonData}
                         removeMethod={this.removeFromSelection} />
                 ) : (<div />)}
                 {this.state.searchMethod === 0 ? (

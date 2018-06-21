@@ -36,10 +36,14 @@ const styles = theme => ({
 });
 
 class SearchResultGroup extends React.Component {
-    state = {
-        expanded: null,
-        sort: {}
-    };
+
+    constructor() {
+        super();
+        this.state = {
+            expanded: null,
+            sort: {}
+        };
+    }
 
     handleChange = panel => (event, expanded) => {
         if (event.target.type === "button") {

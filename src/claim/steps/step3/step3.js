@@ -16,7 +16,12 @@ class Step3 extends Component {
                 }
                 <h1>Valgte Personer</h1>
                 <PersonOverview selectedPersonData={this.props.selectedPersonData}/>
-                {//Gruppering etter klasse?
+                {/*Gruppering etter klasse?
+                Hvis det kan det på hver klasse vise oversikt over hvor mange av totalt som er valgt, for eksempel:
+                3STB: 26/28
+                3STF: 1/27
+
+                */
                 }
             </div>
         );
