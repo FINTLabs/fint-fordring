@@ -15,8 +15,8 @@ import { Remove } from '@material-ui/icons';
 const styles = theme => ({
     root: {
         width: '100%',
-        marginTop: theme.spacing.unit * 3,
         overflowX: 'auto',
+        marginTop: theme.spacing.unit,
     },
     table: {
         minWidth: 700,

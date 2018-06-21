@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Stepper from '@material-ui/core/Stepper';
@@ -38,6 +38,7 @@ class Claim extends Component {
         this.setState({
             activeStep: activeStep + 1,
         });
+
     };
 
     handleBack = () => {
@@ -50,31 +51,30 @@ class Claim extends Component {
     handleReset = () => {
         this.setState({
             activeStep: 0,
+            selectedPersonData: {},
         });
     };
-    getCheckoutDataStep1 = (val) => {
-        //Sets state in claim
-        console.log(val);
-    }
-    getCheckoutDataStep2 = (val) => {
-        //Sets state in claim
-    }
-    sendCheckoutData = () => { //denne kalles fra step3 når det skal leveres
-        this.getCheckoutDataStep1(); //denne må nok kjøres fra step 1, slik at den kan gi parametre, usikker på hvordan det skal gjøres...
-        this.getCheckoutDataStep2(); //https://stackoverflow.com/questions/37949981/call-child-method-from-parent
-        //send to step3
-    }
+
     getStepContent(stepIndex) {
         switch (stepIndex) {
             case 0:
-                return <Step1 getCheckoutDataStep1 = {this.getCheckoutDataStep1}/>;
+                return <Step1 sendPersonDataToClaim={this.sendPersonDataToClaim} />;
             case 1:
-                return <Step2/>;
+                return <Step2 sendProductDataToClaim={this.sendProductDataToClaim}/>;
             case 2:
-                return <Step3/>;
+                return <Step3 />;
             default:
                 return 'Uknown stepIndex';
         }
+    }
+
+    sendPersonDataToClaim = (data) => {
+        this.setState({ selectedPersonData: data });
+    }
+    sendProductDataToClaim = (data) => {
+        this.setState({ selectedProductData: data }, () => {
+            console.log(this.state);
+        });
     }
 
     render() {
@@ -102,23 +102,23 @@ class Claim extends Component {
                             <Button onClick={this.handleReset}>Reset</Button>
                         </div>
                     ) : (
-                        <div>
-                            <div className={classes.instructions}>{this.getStepContent(activeStep)}</div>
-                            {/*changed from "Typography tag to div tag to avoid warnings in console, not sure if it breaks something*/}
                             <div>
-                                <Button
-                                    disabled={activeStep === 0}
-                                    onClick={this.handleBack}
-                                    className={classes.backButton}
-                                >
-                                    Back
+                                <div className={classes.instructions}>{this.getStepContent(activeStep)}</div>
+                                {/*changed from "Typography tag to div tag to avoid warnings in console, not sure if it breaks something*/}
+                                <div>
+                                    <Button
+                                        disabled={activeStep === 0}
+                                        onClick={this.handleBack}
+                                        className={classes.backButton}
+                                    >
+                                        Back
                                 </Button>
-                                <Button variant="raised" color="primary" onClick={this.handleNext}>
-                                    {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
-                                </Button>
+                                    <Button variant="raised" color="primary" onClick={this.handleNext}>
+                                        {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
+                                    </Button>
+                                </div>
                             </div>
-                        </div>
-                    )}
+                        )}
                 </div>
             </div>
         );

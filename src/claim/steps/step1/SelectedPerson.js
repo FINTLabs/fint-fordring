@@ -10,7 +10,7 @@ const styles = theme => ({
     justifyContent: 'center',
     flexWrap: 'wrap',
     padding: theme.spacing.unit / 2,
-    marginTop: theme.spacing.unit * 3,
+    marginTop: theme.spacing.unit,
   },
   chip: {
     margin: theme.spacing.unit / 2,
@@ -23,7 +23,7 @@ class SelectedPerson extends React.Component {
     const { classes } = this.props;
 
     return (
-      <Paper className={classes.root}>
+      <Paper className={classes.root} elevation={0}>
         {this.props.testDataPerson.map(n => {
                 let avatar = null;
 

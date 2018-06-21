@@ -10,6 +10,7 @@ const styles = theme => ({
     justifyContent: 'center',
     flexWrap: 'wrap',
     padding: theme.spacing.unit / 2,
+    marginTop: theme.spacing.unit,
   },
   chip: {
     margin: theme.spacing.unit / 2,

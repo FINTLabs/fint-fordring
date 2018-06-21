@@ -21,8 +21,8 @@ import { CheckBoxOutlineBlank } from '@material-ui/icons';
 const styles = theme => ({
     root: {
         width: '100%',
-        marginTop: theme.spacing.unit * 3,
         overflowX: 'auto',
+        marginTop: theme.spacing.unit * 2,
     },
     heading: {
         fontSize: theme.typography.pxToRem(15),
@@ -32,7 +32,7 @@ const styles = theme => ({
     secondaryHeading: {
         fontSize: theme.typography.pxToRem(15),
         color: theme.palette.text.secondary,
-    },
+    }
 });
 
 class SearchResultGroup extends React.Component {
@@ -70,14 +70,14 @@ class SearchResultGroup extends React.Component {
                         return;
                     }
                     return (
-                        <ExpansionPanel expanded={expanded === n.id} onChange={this.handleChange(n.id)}>
+                        <ExpansionPanel expanded={expanded === n.id} onChange={this.handleChange(n.id)} elevation={2} key={n.id}>
                             <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
                                 <Typography className={classes.heading}>{n.navn}</Typography>
                                 <Typography className={classes.secondaryHeading}>{/*n.school*/}Ingen skole</Typography>
                                 <Typography className={classes.heading}>{n.kundeliste.length} Elever</Typography>
                             </ExpansionPanelSummary>
                             <ExpansionPanelDetails>
-                                <Paper className={classes.root}>
+                                <Paper className={classes.root} elevation={2}>
                                     <Table className={classes.table}>
                                         <TableHead>
                                             <TableRow>

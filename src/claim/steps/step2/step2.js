@@ -62,14 +62,18 @@ class Step2 extends Component {
     addMethod = (product) => {
         let updateState = this.state.products;
         updateState[updateState.indexOf(product)]["selected"] = true;
-        this.setState({ products: updateState });
+        this.setState({ products: updateState }, () => {
+            this.props.sendProductDataToClaim(this.state.products);
+        });
     }
 
     removeMethod = (product) => {
         let updateState = this.state.products;
         updateState[updateState.indexOf(product)]["selected"] = false;
-        this.setState({ products: updateState });
-    };
+        this.setState({ products: updateState }, () => {
+            this.props.sendProductDataToClaim(this.state.products);
+        });
+    }
 
     getSearchInput = (val) => {
         let filteredProductArr = [];
@@ -78,7 +82,7 @@ class Step2 extends Component {
     }
 
     sortMethod = (array, order, sortByValue, isNumber) => {
-        if(isNumber) {
+        if (isNumber) {
             function compare(a, b) {
                 if (eval("Number(a." + sortByValue + ")<" + "Number(b." + sortByValue + ")")) {
                     return -1 * order; //order is either -1 or 1
@@ -103,6 +107,13 @@ class Step2 extends Component {
         }
     }
 
+    checkIfNoneAreSelected = (arr) => {
+        for (let i of arr) {
+            if (i.selected) return true;
+        }
+        return false;
+    }
+
     render() {
         const { classes } = this.props;
 
@@ -111,9 +122,11 @@ class Step2 extends Component {
                 <SearchBox
                     placeHolder="Søk etter varer"
                     getSearchInput={this.getSearchInput} />
-                <SelectedProduct
-                    listProduct={this.state.products}
-                    removeMethod={this.removeMethod} />
+                {this.checkIfNoneAreSelected(this.state.products) ? (
+                    <SelectedProduct
+                        listProduct={this.state.products}
+                        removeMethod={this.removeMethod} />
+                ) : (<div />)}
                 <SearchResultProduct
                     addMethod={this.addMethod}
                     listProduct={this.state.products}

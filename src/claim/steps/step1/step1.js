@@ -415,43 +415,48 @@ class Step1 extends Component {
         };
         console.log(basisGruppeKundenummer);
         console.log(testDataGruppe);
-        this.props.getCheckoutDataStep1("hei");
     }
 
     addToSelection = (person) => {
         let updateList = this.state.selectedPersonList;
         updateList[person["kundenummer"]] = true;
-        this.setState({ selectedPersonList: updateList });
+        this.setState({ selectedPersonList: updateList }, () => {
+            this.props.sendPersonDataToClaim(this.state.selectedPersonList);
+        });
     }
 
     removeFromSelection = (person) => {
         let updateList = this.state.selectedPersonList;
         updateList[person["kundenummer"]] = false;
-        this.setState({ selectedPersonList: updateList });
+        this.setState({ selectedPersonList: updateList }, () => {
+            this.props.sendPersonDataToClaim(this.state.selectedPersonList);
+        });
     };
 
     addAll = (group) => {
         let allIsSelected = false;
-        let updateState = this.state.selectedPersonList;
+        let updateList = this.state.selectedPersonList;
         for (let i = 0; i < group.kundeliste.length; i++) {
-            if (!updateState[group.kundeliste[i]["kundenummer"]]) {
+            if (!updateList[group.kundeliste[i]["kundenummer"]]) {
                 allIsSelected = true;
             }
         }
         if (allIsSelected) {
             for (let i = 0; i < group.kundeliste.length; i++) {
-                if (updateState[group.kundeliste[i]["kundenummer"]]) {
+                if (updateList[group.kundeliste[i]["kundenummer"]]) {
                 }
-                updateState[group.kundeliste[i]["kundenummer"]] = true;
+                updateList[group.kundeliste[i]["kundenummer"]] = true;
             }
         } else {
             for (let i = 0; i < group.kundeliste.length; i++) {
-                if (updateState[group.kundeliste[i]["kundenummer"]]) {
+                if (updateList[group.kundeliste[i]["kundenummer"]]) {
                 }
-                updateState[group.kundeliste[i]["kundenummer"]] = false;
+                updateList[group.kundeliste[i]["kundenummer"]] = false;
             }
         }
-        this.setState({ selectedPersonList: updateState });
+        this.setState({ selectedPersonList: updateList }, () => {
+            this.props.sendPersonDataToClaim(this.state.selectedPersonList);
+        });
     }
 
     checkIfAllAreSelected = (group) => {
@@ -462,6 +467,13 @@ class Step1 extends Component {
             }
         }
         return allIsSelected;
+    }
+
+    checkIfNoneAreSelected = (obj) => {
+        for (let o in obj) {
+            if (obj[o]) return true;
+        }
+        return false;
     }
 
     getSearchMethod = (val) => {
@@ -518,10 +530,12 @@ class Step1 extends Component {
                 <SearchTabs
                     getSearchInput={this.getSearchInput}
                     getSearchMethod={this.getSearchMethod} />
-                <SelectedPerson
-                    selectedPersonList={this.state.selectedPersonList}
-                    testDataPerson={testDataPerson}
-                    removeMethod={this.removeFromSelection} />
+                {this.checkIfNoneAreSelected(this.state.selectedPersonList) ? (
+                    <SelectedPerson
+                        selectedPersonList={this.state.selectedPersonList}
+                        testDataPerson={testDataPerson}
+                        removeMethod={this.removeFromSelection} />
+                ) : (<div />)}
                 {this.state.searchMethod === 0 ? (
                     <SearchResultGroup
                         selectedPersonList={this.state.selectedPersonList}
