@@ -24,6 +24,12 @@ const styles = theme => ({
         overflowX: 'auto',
         marginTop: theme.spacing.unit * 2,
     },
+    paper: {
+        width: '100%',
+        height: 150,
+        overflowX: 'auto',
+        marginTop: theme.spacing.unit * 2,
+    },
     heading: {
         fontSize: theme.typography.pxToRem(15),
         flexBasis: '33.33%',
@@ -81,7 +87,7 @@ class SearchResultGroup extends React.Component {
                                 <Typography className={classes.heading}>{n.kundeliste.length} Elever</Typography>
                             </ExpansionPanelSummary>
                             <ExpansionPanelDetails>
-                                <Paper className={classes.root} elevation={2}>
+                                <Paper className={classes.paper} elevation={2}>
                                     <Table className={classes.table}>
                                         <TableHead>
                                             <TableRow>
