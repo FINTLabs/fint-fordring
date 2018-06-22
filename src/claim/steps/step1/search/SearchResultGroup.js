@@ -38,6 +38,12 @@ const styles = theme => ({
     secondaryHeading: {
         fontSize: theme.typography.pxToRem(15),
         color: theme.palette.text.secondary,
+    },
+    rotate: {
+        transform: "rotate(180deg)"
+    },
+    table: {
+        minWidth:521
     }
 });
 
@@ -93,9 +99,18 @@ class SearchResultGroup extends React.Component {
                                     <Table className={classes.table}>
                                         <TableHead>
                                             <TableRow>
-                                                <TableCell onClick={() => this.triggerSort(["navn.fornavn", "navn.mellomnavn", "navn.etternavn"], false, n.kundeliste, "fornavn")}>Fornavn</TableCell>
-                                                <TableCell onClick={() => this.triggerSort(["navn.etternavn", "navn.fornavn", "navn.mellomnavn"], false, n.kundeliste, "etternavn")}>Etternavn</TableCell>
-                                                <TableCell onClick={() => this.triggerSort(["klassenavn"], false, n.kundeliste, "klasse")}>Klasse</TableCell>
+                                                <TableCell onClick={() => this.triggerSort(["navn.fornavn", "navn.mellomnavn", "navn.etternavn"], false, n.kundeliste, "fornavn")}>Fornavn {(this.state.last === "fornavn") ? (
+                                                    (this.state.sort === 1) ? (<svg className={classes.rotate} height="12" width="12" viewBox="3 5 24 24" aria-hidden="true"><path d="M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z"></path></svg>) : (<svg height="12" width="12" viewBox="-3 -5 24 24" aria-hidden="true"><path d="M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z"></path></svg>)
+                                                ) : (<svg height="12" width="12" viewBox="-3 -5 24 24" aria-hidden="true"></svg>)}
+                                                </TableCell>
+                                                <TableCell onClick={() => this.triggerSort(["navn.etternavn", "navn.fornavn", "navn.mellomnavn"], false, n.kundeliste, "etternavn")}>Etternavn {(this.state.last === "etternavn") ? (
+                                                    (this.state.sort === 1) ? (<svg className={classes.rotate} height="12" width="12" viewBox="3 5 24 24" aria-hidden="true"><path d="M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z"></path></svg>) : (<svg height="12" width="12" viewBox="-3 -5 24 24" aria-hidden="true"><path d="M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z"></path></svg>)
+                                                ) : (<svg height="12" width="12" viewBox="-3 -5 24 24" aria-hidden="true"></svg>)}
+                                                </TableCell>
+                                                <TableCell onClick={() => this.triggerSort(["klassenavn"], false, n.kundeliste, "klasse")}>Klasse {(this.state.last === "klasse") ? (
+                                                    (this.state.sort === 1) ? (<svg className={classes.rotate} height="12" width="12" viewBox="3 5 24 24" aria-hidden="true"><path d="M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z"></path></svg>) : (<svg height="12" width="12" viewBox="-3 -5 24 24" aria-hidden="true"><path d="M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z"></path></svg>)
+                                                ) : (<svg height="12" width="12" viewBox="-3 -5 24 24" aria-hidden="true"></svg>)}
+                                                </TableCell>
                                                 <TableCell>
                                                     <Button mini variant="fab" aria-label="add" onClick={() => this.props.addAll(n)}
                                                         className={classes.button}>

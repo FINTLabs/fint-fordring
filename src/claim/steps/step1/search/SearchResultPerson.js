@@ -22,8 +22,11 @@ const styles = theme => ({
         marginTop: theme.spacing.unit * 2,
     },
     table: {
-        minWidth: 600,
+        minWidth: 521,
     },
+    rotate: {
+        transform: "rotate(180deg)"
+    }
 });
 
 class ResultTablePerson extends Component {
@@ -53,25 +56,25 @@ class ResultTablePerson extends Component {
         return (
             <Paper className={classes.root}>
                 <Table className={classes.table}>
-                    <TableHead>
+                <TableHead>
                         <TableRow>
                             <TableCell onClick={() => this.triggerSort(["navn.fornavn", "navn.mellomnavn", "navn.etternavn"], false, "fornavn")}>
                                 Fornavn
                             {(this.state.last === "fornavn") ? (
-                                    (this.state.sort === 1) ? (<ArrowUpward viewBox="-12 -12 48 48" />) : (<ArrowDownward viewBox="-12 -12 48 48" />)
-                                ) : (<div />)}
+                                    (this.state.sort === 1) ? (<svg className={classes.rotate} height="12" width="12" viewBox="3 5 24 24" aria-hidden="true"><path d="M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z"></path></svg>) : (<svg height="12" width="12" viewBox="-3 -5 24 24" aria-hidden="true"><path d="M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z"></path></svg>)
+                                ) : (<svg height="12" width="12" viewBox="-3 -5 24 24" aria-hidden="true"></svg>)}
                             </TableCell>
                             <TableCell onClick={() => this.triggerSort(["navn.etternavn", "navn.fornavn", "navn.mellomnavn"], false, "etternavn")}>
                                 Etternavn
                             {(this.state.last === "etternavn") ? (
-                                    (this.state.sort === 1) ? (<ArrowUpward viewBox="-12 -12 48 48" />) : (<ArrowDownward viewBox="-12 -12 48 48" />)
-                                ) : (<div />)}
+                                    (this.state.sort === 1) ? (<svg className={classes.rotate} height="12" width="12" viewBox="3 5 24 24" aria-hidden="true"><path d="M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z"></path></svg>) : (<svg height="12" width="12" viewBox="-3 -5 24 24" aria-hidden="true"><path d="M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z"></path></svg>)
+                                ) : (<svg height="12" width="12" viewBox="-3 -5 24 24" aria-hidden="true"></svg>)}
                                 </TableCell>
                             <TableCell onClick={() => this.triggerSort(["klassenavn"], false, "klasse")}>
                                 Klasse
                                 {(this.state.last === "klasse") ? (
-                                    (this.state.sort === 1) ? (<ArrowUpward viewBox="-12 -12 48 48" />) : (<ArrowDownward viewBox="-12 -12 48 48" />)
-                                ) : (<div />)}
+                                    (this.state.sort === 1) ? (<svg className={classes.rotate} height="12" width="12" viewBox="3 5 24 24" aria-hidden="true"><path d="M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z"></path></svg>) : (<svg height="12" width="12" viewBox="-3 -5 24 24" aria-hidden="true"><path d="M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z"></path></svg>)
+                                ) : (<svg height="12" width="12" viewBox="-3 -5 24 24" aria-hidden="true"></svg>)}
                                 </TableCell>
                             <TableCell></TableCell>
                         </TableRow>
