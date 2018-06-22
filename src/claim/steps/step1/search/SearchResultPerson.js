@@ -60,29 +60,28 @@ class ResultTablePerson extends Component {
                     </TableHead>
                     <TableBody>
                         {this.props.testDataPerson.map(n => {
-                            if (this.props.searchFilter.indexOf(n) === -1) {
-                                return null;
-                            }
-                            return (
-                                <TableRow key={n.kundenummer}>
-                                    <TableCell>{n.navn.fornavn} {n.navn.mellomnavn}</TableCell>
-                                    <TableCell>{n.navn.etternavn}</TableCell>
-                                    <TableCell>{n.klassenavn}</TableCell>
-                                    <TableCell>
-                                        {!this.props.selectedPersonList[n.kundenummer] ? (
-                                            <Button mini variant="fab" color="secondary" aria-label="add" onClick={() => this.props.addMethod(n)}
-                                                className={classes.button}>
-                                                <Add />
-                                            </Button>
-                                        ) : (
-                                                <Button mini variant="fab" color="primary" aria-label="add" onClick={() => this.props.removeMethod(n)}
+                            if (this.props.searchFilter.indexOf(n) !== -1) {
+                                return (
+                                    <TableRow key={n.kundenummer}>
+                                        <TableCell>{n.navn.fornavn} {n.navn.mellomnavn}</TableCell>
+                                        <TableCell>{n.navn.etternavn}</TableCell>
+                                        <TableCell>{n.klassenavn}</TableCell>
+                                        <TableCell>
+                                            {!this.props.selectedPersonList[n.kundenummer] ? (
+                                                <Button mini variant="fab" color="secondary" aria-label="add" onClick={() => this.props.addMethod(n)}
                                                     className={classes.button}>
-                                                    <Remove />
+                                                    <Add />
                                                 </Button>
-                                            )}
-                                    </TableCell>
-                                </TableRow>
-                            );
+                                            ) : (
+                                                    <Button mini variant="fab" color="primary" aria-label="add" onClick={() => this.props.removeMethod(n)}
+                                                        className={classes.button}>
+                                                        <Remove />
+                                                    </Button>
+                                                )}
+                                        </TableCell>
+                                    </TableRow>
+                                );
+                            }
                         })}
                     </TableBody>
                 </Table>

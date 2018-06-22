@@ -15,7 +15,7 @@ class Step3 extends Component {
                 {//På bunn av denne tabellen kan en ha sum av produktpris; pris per elev
                 }
                 <h1>Valgte Personer</h1>
-                <PersonOverview selectedPersonData={this.props.selectedPersonData}/>
+                <PersonOverview orderedBySelection={this.props.orderedBySelection}/>
                 {/*Gruppering etter klasse?
                 Hvis det kan det på hver klasse vise oversikt over hvor mange av totalt som er valgt, for eksempel:
                 3STB: 26/28

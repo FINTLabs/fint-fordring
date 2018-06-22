@@ -28,16 +28,479 @@ function getSteps() {
     return ['Velg mottakere', 'Velg varer', 'Send'];
 }
 
+//testdata
+//antar at denne er basisgruppe
+const testDataGruppe = [
+    {
+        "navn": "3REA2",
+        "beskrivelse": "Matte!",
+        "id": "4",
+        "kundeliste": [
+            {
+                "kundenummer": "12345678909",
+                "navn": {
+                    "etternavn": "Kjell Kåre",
+                    "fornavn": "Kveiteland",
+                    "mellomnavn": null
+                },
+                "kontaktinformasjon": {
+                    "epostadresse": "Kjellkå@hotmail.com",
+                    "mobiltelefonnummer": "12345678",
+                    "nettsted": null,
+                    "sip": null,
+                    "telefonnummer": null
+                },
+                "postadresse": {
+                    "adresselinje": [
+                        "Skole vei 207"
+                    ],
+                    "postnummer": "4260",
+                    "poststed": "Torvastad"
+                }
+            },
+            {
+                "kundenummer": "14029923273",
+                "navn": {
+                    "etternavn": "Støa",
+                    "fornavn": "Rose",
+                    "mellomnavn": "mellom"
+                },
+                "kontaktinformasjon": {
+                    "epostadresse": "RoseSta@jourrapide.com",
+                    "mobiltelefonnummer": "48213268",
+                    "nettsted": null,
+                    "sip": null,
+                    "telefonnummer": null
+                },
+                "postadresse": {
+                    "adresselinje": [
+                        "Setra vei 207"
+                    ],
+                    "postnummer": "0786",
+                    "poststed": "Oslo"
+                }
+            },
+            {
+                "kundenummer": "18010197461",
+                "navn": {
+                    "etternavn": "Hansen",
+                    "fornavn": "Leona",
+                    "mellomnavn": null
+                },
+                "kontaktinformasjon": {
+                    "epostadresse": "LeonaHansen@dayrep.com",
+                    "mobiltelefonnummer": "41109815",
+                    "nettsted": null,
+                    "sip": null,
+                    "telefonnummer": null
+                },
+                "postadresse": {
+                    "adresselinje": [
+                        "Scheitlies gate 48"
+                    ],
+                    "postnummer": "3045",
+                    "poststed": "Drammen"
+                }
+            }
+        ]
+    },
+    {
+        "navn": "1STA",
+        "beskrivelse": "1. trinn Studiespesialisering 2018-2019",
+        "id": "1",
+        "kundeliste": [
+            {
+                "kundenummer": "14029923273",
+                "navn": {
+                    "etternavn": "Støa",
+                    "fornavn": "Rose",
+                    "mellomnavn": "mellom"
+                },
+                "kontaktinformasjon": {
+                    "epostadresse": "RoseSta@jourrapide.com",
+                    "mobiltelefonnummer": "48213268",
+                    "nettsted": null,
+                    "sip": null,
+                    "telefonnummer": null
+                },
+                "postadresse": {
+                    "adresselinje": [
+                        "Setra vei 207"
+                    ],
+                    "postnummer": "0786",
+                    "poststed": "Oslo"
+                }
+            },
+            {
+                "kundenummer": "18010197461",
+                "navn": {
+                    "etternavn": "Hansen",
+                    "fornavn": "Leona",
+                    "mellomnavn": null
+                },
+                "kontaktinformasjon": {
+                    "epostadresse": "LeonaHansen@dayrep.com",
+                    "mobiltelefonnummer": "41109815",
+                    "nettsted": null,
+                    "sip": null,
+                    "telefonnummer": null
+                },
+                "postadresse": {
+                    "adresselinje": [
+                        "Scheitlies gate 48"
+                    ],
+                    "postnummer": "3045",
+                    "poststed": "Drammen"
+                }
+            },
+            {
+                "kundenummer": "11010159115",
+                "navn": {
+                    "etternavn": "Hofseth",
+                    "fornavn": "Gustav",
+                    "mellomnavn": null
+                },
+                "kontaktinformasjon": {
+                    "epostadresse": "GustavHofseth@rhyta.com",
+                    "mobiltelefonnummer": "94259236",
+                    "nettsted": null,
+                    "sip": null,
+                    "telefonnummer": null
+                },
+                "postadresse": {
+                    "adresselinje": [
+                        "Kikkutveien 91"
+                    ],
+                    "postnummer": "0491",
+                    "poststed": "Oslo"
+                }
+            }
+        ]
+    },
+    {
+        "navn": "3STF",
+        "beskrivelse": "3. trinn Studiespesialisering 2018-2019",
+        "id": "2",
+        "kundeliste": [
+            {
+                "kundenummer": "12345678909",
+                "navn": {
+                    "etternavn": "Kjell Kåre",
+                    "fornavn": "Kveiteland",
+                    "mellomnavn": null
+                },
+                "kontaktinformasjon": {
+                    "epostadresse": "Kjellkå@hotmail.com",
+                    "mobiltelefonnummer": "12345678",
+                    "nettsted": null,
+                    "sip": null,
+                    "telefonnummer": null
+                },
+                "postadresse": {
+                    "adresselinje": [
+                        "Skole vei 207"
+                    ],
+                    "postnummer": "4260",
+                    "poststed": "Torvastad"
+                }
+            }
+        ]
+    }
+
+]
+const testBasisGruppe = [
+    {
+        "navn": "1STA",
+        "beskrivelse": "1. trinn Studiespesialisering 2018-2019",
+        "id": "1",
+        "kundeliste": [
+            {
+                "kundenummer": "14029923273",
+                "navn": {
+                    "etternavn": "Støa",
+                    "fornavn": "Rose",
+                    "mellomnavn": "mellom"
+                },
+                "kontaktinformasjon": {
+                    "epostadresse": "RoseSta@jourrapide.com",
+                    "mobiltelefonnummer": "48213268",
+                    "nettsted": null,
+                    "sip": null,
+                    "telefonnummer": null
+                },
+                "postadresse": {
+                    "adresselinje": [
+                        "Setra vei 207"
+                    ],
+                    "postnummer": "0786",
+                    "poststed": "Oslo"
+                }
+            },
+            {
+                "kundenummer": "18010197461",
+                "navn": {
+                    "etternavn": "Hansen",
+                    "fornavn": "Leona",
+                    "mellomnavn": null
+                },
+                "kontaktinformasjon": {
+                    "epostadresse": "LeonaHansen@dayrep.com",
+                    "mobiltelefonnummer": "41109815",
+                    "nettsted": null,
+                    "sip": null,
+                    "telefonnummer": null
+                },
+                "postadresse": {
+                    "adresselinje": [
+                        "Scheitlies gate 48"
+                    ],
+                    "postnummer": "3045",
+                    "poststed": "Drammen"
+                }
+            },
+            {
+                "kundenummer": "11010159115",
+                "navn": {
+                    "etternavn": "Hofseth",
+                    "fornavn": "Gustav",
+                    "mellomnavn": null
+                },
+                "kontaktinformasjon": {
+                    "epostadresse": "GustavHofseth@rhyta.com",
+                    "mobiltelefonnummer": "94259236",
+                    "nettsted": null,
+                    "sip": null,
+                    "telefonnummer": null
+                },
+                "postadresse": {
+                    "adresselinje": [
+                        "Kikkutveien 91"
+                    ],
+                    "postnummer": "0491",
+                    "poststed": "Oslo"
+                }
+            }
+        ]
+    },
+    {
+        "navn": "3STF",
+        "beskrivelse": "3. trinn Studiespesialisering 2018-2019",
+        "id": "2",
+        "kundeliste": [
+            {
+                "kundenummer": "12345678909",
+                "navn": {
+                    "etternavn": "Kjell Kåre",
+                    "fornavn": "Kveiteland",
+                    "mellomnavn": null
+                },
+                "kontaktinformasjon": {
+                    "epostadresse": "Kjellkå@hotmail.com",
+                    "mobiltelefonnummer": "12345678",
+                    "nettsted": null,
+                    "sip": null,
+                    "telefonnummer": null
+                },
+                "postadresse": {
+                    "adresselinje": [
+                        "Skole vei 207"
+                    ],
+                    "postnummer": "4260",
+                    "poststed": "Torvastad"
+                }
+            }
+        ]
+    }
+]
+const testDataPerson = [
+    {
+        "kundenummer": "12345678909",
+        "navn": {
+            "etternavn": "Kjell Kåre",
+            "fornavn": "Kveiteland",
+            "mellomnavn": null
+        },
+        "kontaktinformasjon": {
+            "epostadresse": "Kjellkå@hotmail.com",
+            "mobiltelefonnummer": "12345678",
+            "nettsted": null,
+            "sip": null,
+            "telefonnummer": null
+        },
+        "postadresse": {
+            "adresselinje": [
+                "Skole vei 207"
+            ],
+            "postnummer": "4260",
+            "poststed": "Torvastad"
+        }
+    },
+    {
+        "kundenummer": "14029923273",
+        "navn": {
+            "etternavn": "Støa",
+            "fornavn": "Rose",
+            "mellomnavn": "mellom"
+        },
+        "kontaktinformasjon": {
+            "epostadresse": "RoseSta@jourrapide.com",
+            "mobiltelefonnummer": "48213268",
+            "nettsted": null,
+            "sip": null,
+            "telefonnummer": null
+        },
+        "postadresse": {
+            "adresselinje": [
+                "Setra vei 207"
+            ],
+            "postnummer": "0786",
+            "poststed": "Oslo"
+        }
+    },
+    {
+        "kundenummer": "18010197461",
+        "navn": {
+            "etternavn": "Hansen",
+            "fornavn": "Leona",
+            "mellomnavn": null
+        },
+        "kontaktinformasjon": {
+            "epostadresse": "LeonaHansen@dayrep.com",
+            "mobiltelefonnummer": "41109815",
+            "nettsted": null,
+            "sip": null,
+            "telefonnummer": null
+        },
+        "postadresse": {
+            "adresselinje": [
+                "Scheitlies gate 48"
+            ],
+            "postnummer": "3045",
+            "poststed": "Drammen"
+        }
+    },
+    {
+        "kundenummer": "11010159115",
+        "navn": {
+            "etternavn": "Hofseth",
+            "fornavn": "Gustav",
+            "mellomnavn": null
+        },
+        "kontaktinformasjon": {
+            "epostadresse": "GustavHofseth@rhyta.com",
+            "mobiltelefonnummer": "94259236",
+            "nettsted": null,
+            "sip": null,
+            "telefonnummer": null
+        },
+        "postadresse": {
+            "adresselinje": [
+                "Kikkutveien 91"
+            ],
+            "postnummer": "0491",
+            "poststed": "Oslo"
+        }
+    }
+]
+
+//wcag test
+
+let basisGruppeKundenummer = {};
+for (let i = 0; i < testBasisGruppe.length; i++) {
+    for (let j = 0; j < testBasisGruppe[i]["kundeliste"].length; j++) {
+        basisGruppeKundenummer[testBasisGruppe[i]["kundeliste"][j]["kundenummer"]] = testBasisGruppe[i]["navn"];
+    }
+}
+for (let i = 0; i < testDataGruppe.length; i++) {
+    for (let j = 0; j < testDataGruppe[i]["kundeliste"].length; j++) {
+        testDataGruppe[i]["kundeliste"][j]["klassenavn"] = basisGruppeKundenummer[testDataGruppe[i]["kundeliste"][j]["kundenummer"]]
+    }
+}
+let initialSelectedState = {};
+testDataPerson.forEach(person => {
+    initialSelectedState[person["kundenummer"]] = false;
+    person["klassenavn"] = basisGruppeKundenummer[person["kundenummer"]];
+});
+
 class Claim extends Component {
 
     constructor() {
         super();
         this.state = {
             activeStep: 0,
-            selectedPersonData: [],
-            selectedProductData: [],
+            selectedProductData: [], //productdata where each product has a "selected" key
+            selectedPersonList: JSON.parse(JSON.stringify(initialSelectedState)), //{"393073":true, "234733":false etc.}
+            orderedBySelection: [] //bare personer som er valgt, i rekkefølgen de er valgt
         };
     }
+
+    ////Start step1 import
+    
+    addMethod = (person) => {
+        let updateList = this.state.selectedPersonList;
+        updateList[person["kundenummer"]] = true;
+        this.setState({ selectedPersonList: updateList });
+        
+        let updateOrderedList = this.state.orderedBySelection;
+        updateOrderedList.push(person);
+        this.setState({ orderedBySelection: updateOrderedList });
+    }
+
+    removeMethod = (person) => {
+        let updateList = this.state.selectedPersonList;
+        updateList[person["kundenummer"]] = false;
+        this.setState({ selectedPersonList: updateList });
+
+        let updateOrderedList = this.state.orderedBySelection;
+        for (let i = 0; i < updateOrderedList.length; i++) {
+            if (JSON.stringify(updateOrderedList[i]) === JSON.stringify(person)) {
+                updateOrderedList.splice(i, 1);
+            }
+        }
+        this.setState({ orderedBySelection: updateOrderedList });
+    };
+
+    addAll = (group) => {
+        let allIsSelected = false;
+        let updateList = this.state.selectedPersonList;
+        let updateOrderedList = this.state.orderedBySelection;
+        for (let i = 0; i < group.kundeliste.length; i++) {
+            if (!updateList[group.kundeliste[i]["kundenummer"]]) {
+                allIsSelected = true;
+                updateOrderedList.push(group.kundeliste[i]);
+            }
+        }
+        if (allIsSelected) {
+            for (let i = 0; i < group.kundeliste.length; i++) {
+                updateList[group.kundeliste[i]["kundenummer"]] = true;
+            }
+        } else {
+            for (let i = 0; i < group.kundeliste.length; i++) {
+                //console.log(group.kundeliste[i]);
+                updateList[group.kundeliste[i]["kundenummer"]] = false;
+                for (let j = 0; j < updateOrderedList.length; j++) {
+                    if (JSON.stringify(updateOrderedList[j]) === JSON.stringify(group.kundeliste[i])) {
+                        updateOrderedList.splice(j, 1);
+                    }
+                }
+            }
+        }
+        this.setState({ selectedPersonList: updateList });
+        this.setState({ orderedBySelection: updateOrderedList });
+    }
+
+    /*checkIfAllAreSelected = (group) => {
+        let allIsSelected = false;
+        for (let i = 0; i < group.kundeliste.length; i++) {
+            if (!this.state.selectedPersonList[group.kundeliste[i]["kundenummer"]]) {
+                allIsSelected = true;
+            }
+        }
+        return allIsSelected;
+    }//kan kanskje flytte ned*/
+
+    ////End step1 import
+
 
     handleNext = () => {
         const { activeStep } = this.state;
@@ -63,21 +526,26 @@ class Claim extends Component {
     getStepContent(stepIndex) {
         switch (stepIndex) {
             case 0:
-                return <Step1 
-                sendPersonDataToClaim={this.sendPersonDataToClaim} 
-                selectedPersonData={this.state.selectedPersonData}/>;
+                return <Step1
+                    orderedBySelection={this.state.orderedBySelection} 
+                    selectedPersonList={this.state.selectedPersonList}
+                    addMethod={this.addMethod}
+                    removeMethod={this.removeMethod}
+                    addAll={this.addAll}
+                    checkIfAllAreSelected={this.checkIfAllAreSelected}
+                    testDataGruppe={testDataGruppe}
+                    testDataPerson={testDataPerson}
+
+                    />;
             case 1:
                 return <Step2 sendProductDataToClaim={this.sendProductDataToClaim} />;
             case 2:
-                return <Step3 selectedPersonData={this.state.selectedPersonData} selectedProductData={this.state.selectedProductData} />;
+                return <Step3 orderedBySelection={this.state.orderedBySelection} selectedProductData={this.state.selectedProductData} />;
             default:
                 return 'Uknown stepIndex';
         }
     }
 
-    sendPersonDataToClaim = (data) => {
-        this.setState({ selectedPersonData: data });
-    }
     sendProductDataToClaim = (data) => {
         this.setState({ selectedProductData: data }, () => {
             console.log(this.state);
