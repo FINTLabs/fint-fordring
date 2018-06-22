@@ -433,8 +433,6 @@ class Claim extends Component {
             orderedBySelection: [] //bare personer som er valgt, i rekkefølgen de er valgt
         };
     }
-
-    ////Start step1 import
     
     addMethod = (person) => {
         let updateList = this.state.selectedPersonList;
@@ -476,7 +474,6 @@ class Claim extends Component {
             }
         } else {
             for (let i = 0; i < group.kundeliste.length; i++) {
-                //console.log(group.kundeliste[i]);
                 updateList[group.kundeliste[i]["kundenummer"]] = false;
                 for (let j = 0; j < updateOrderedList.length; j++) {
                     if (JSON.stringify(updateOrderedList[j]) === JSON.stringify(group.kundeliste[i])) {
@@ -488,19 +485,6 @@ class Claim extends Component {
         this.setState({ selectedPersonList: updateList });
         this.setState({ orderedBySelection: updateOrderedList });
     }
-
-    /*checkIfAllAreSelected = (group) => {
-        let allIsSelected = false;
-        for (let i = 0; i < group.kundeliste.length; i++) {
-            if (!this.state.selectedPersonList[group.kundeliste[i]["kundenummer"]]) {
-                allIsSelected = true;
-            }
-        }
-        return allIsSelected;
-    }//kan kanskje flytte ned*/
-
-    ////End step1 import
-
 
     handleNext = () => {
         const { activeStep } = this.state;
