@@ -10,6 +10,8 @@ import Paper from '@material-ui/core/Paper';
 import Button from "@material-ui/core/Button";
 import { Add } from '@material-ui/icons';
 import { Remove } from '@material-ui/icons';
+import { ArrowUpward } from '@material-ui/icons';
+import { ArrowDownward } from '@material-ui/icons';
 
 
 const styles = theme => ({
@@ -24,25 +26,25 @@ const styles = theme => ({
     },
 });
 
-
-
 class ResultTablePerson extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            sort: {
-            }
+            sort: -1,
+            last: "",
         }
     }
 
-    triggerSort = (val, isNumber) => {
+    triggerSort = (val, isNumber, sortKey) => {
+        console.log(this.state);
         this.props.sortMethod(
             this.props.testDataPerson,
-            (this.state.sort.val === 1) ?
-                (this.setState({ sort: { val: -1 } }), 1) :
-                (this.setState({ sort: { val: 1 } }), -1),
+            (this.state.sort === -1 && this.state.last === sortKey) ?
+                (this.setState({ sort: 1 }), -1) :
+                (this.setState({ sort: -1 }), 1),
             val, isNumber);
+        this.setState({ last: sortKey });
     }
 
     render() {
@@ -53,9 +55,24 @@ class ResultTablePerson extends Component {
                 <Table className={classes.table}>
                     <TableHead>
                         <TableRow>
-                            <TableCell onClick={() => this.triggerSort(["navn.fornavn", "navn.mellomnavn", "navn.etternavn"], false)}>Fornavn</TableCell>
-                            <TableCell onClick={() => this.triggerSort(["navn.etternavn", "navn.fornavn", "navn.mellomnavn"], false)}>Etternavn</TableCell>
-                            <TableCell onClick={() => this.triggerSort(["klassenavn"], false)}>Klasse</TableCell>
+                            <TableCell onClick={() => this.triggerSort(["navn.fornavn", "navn.mellomnavn", "navn.etternavn"], false, "fornavn")}>
+                                Fornavn
+                            {(this.state.last === "fornavn") ? (
+                                    (this.state.sort === 1) ? (<ArrowUpward viewBox="-12 -12 48 48" />) : (<ArrowDownward viewBox="-12 -12 48 48" />)
+                                ) : (<div />)}
+                            </TableCell>
+                            <TableCell onClick={() => this.triggerSort(["navn.etternavn", "navn.fornavn", "navn.mellomnavn"], false, "etternavn")}>
+                                Etternavn
+                            {(this.state.last === "etternavn") ? (
+                                    (this.state.sort === 1) ? (<ArrowUpward viewBox="-12 -12 48 48" />) : (<ArrowDownward viewBox="-12 -12 48 48" />)
+                                ) : (<div />)}
+                                </TableCell>
+                            <TableCell onClick={() => this.triggerSort(["klassenavn"], false, "klasse")}>
+                                Klasse
+                                {(this.state.last === "klasse") ? (
+                                    (this.state.sort === 1) ? (<ArrowUpward viewBox="-12 -12 48 48" />) : (<ArrowDownward viewBox="-12 -12 48 48" />)
+                                ) : (<div />)}
+                                </TableCell>
                             <TableCell></TableCell>
                         </TableRow>
                     </TableHead>
