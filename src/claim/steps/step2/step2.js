@@ -6,73 +6,13 @@ import SelectedProduct from './SelectedProduct';
 
 const styles = theme => ({});
 
-const testDataProduct = [
-    {
-        "id": "1",
-        "productName": "A",
-        "model": "B",
-        "producer": "C",
-        "price": "12999",
-        "selected": false
-    },
-    {
-        "id": "2",
-        "productName": "H",
-        "model": "G",
-        "producer": "Eple",
-        "price": "1229999",
-        "selected": false
-    },
-    {
-        "id": "3",
-        "productName": "Liten støsuger",
-        "model": "Iis",
-        "producer": "Apple",
-        "price": "29999",
-        "selected": false
-    },
-    {
-        "id": "4",
-        "productName": "Ostsuger",
-        "model": "Succer5000",
-        "producer": "Opple",
-        "price": "319999",
-        "selected": false
-    },
-    {
-        "id": "5",
-        "productName": "B",
-        "model": "Ucer5000",
-        "producer": "Ppple",
-        "price": "30000.000001",
-        "selected": false
-    },
-];
-
 class Step2 extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            products: testDataProduct,
-            searchFilter: testDataProduct
+            searchFilter: this.props.testDataProduct,
         };
-    }
-
-    addMethod = (product) => {
-        let updateState = this.state.products;
-        updateState[updateState.indexOf(product)]["selected"] = true;
-        this.setState({ products: updateState }, () => {
-            this.props.sendProductDataToClaim(this.state.products);
-        });
-    }
-
-    removeMethod = (product) => {
-        let updateState = this.state.products;
-        updateState[updateState.indexOf(product)]["selected"] = false;
-        this.setState({ products: updateState }, () => {
-            this.props.sendProductDataToClaim(this.state.products);
-        });
     }
 
     getSearchInput = (val) => {
@@ -107,9 +47,9 @@ class Step2 extends Component {
         }
     }
 
-    checkIfNoneAreSelected = (arr) => {
-        for (let i of arr) {
-            if (i.selected) return true;
+    checkIfNoneAreSelected = (obj) => {
+        for (let o in obj) {
+            if (obj[o]) return true;
         }
         return false;
     }
@@ -122,15 +62,16 @@ class Step2 extends Component {
                 <SearchBox
                     placeHolder="Søk etter varer"
                     getSearchInput={this.getSearchInput} />
-                {this.checkIfNoneAreSelected(this.state.products) ? (
+                {this.checkIfNoneAreSelected(this.props.selectedProductList) ? (
                     <SelectedProduct
-                        listProduct={this.state.products}
-                        removeMethod={this.removeMethod} />
+                        orderedBySelection={this.props.orderedBySelection}
+                        removeMethod={this.props.removeMethod} />
                 ) : (<div />)}
                 <SearchResultProduct
-                    addMethod={this.addMethod}
-                    listProduct={this.state.products}
-                    removeMethod={this.removeMethod}
+                    addMethod={this.props.addMethod}
+                    testDataProduct={this.props.testDataProduct}
+                    selectedProductList={this.props.selectedProductList}
+                    removeMethod={this.props.removeMethod}
                     searchFilter={this.state.searchFilter}
                     sortMethod={this.sortMethod}
                 />

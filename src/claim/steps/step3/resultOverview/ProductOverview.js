@@ -49,7 +49,7 @@ class ProductOverview extends Component {
 
         return (
             <Paper className={classes.root}>
-                {this.props.selectedProductData[0] ? (
+                {this.props.productOrderedBySelection[0] ? (
                     <Table className={classes.table}>
                         <TableHead>
                             <TableRow>
@@ -61,17 +61,15 @@ class ProductOverview extends Component {
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {this.props.selectedProductData.map(n => {
-                                if (n.selected) {
-                                    return (
-                                        <TableRow key={n.id}>
-                                            <TableCell>{n.productName}</TableCell>
-                                            <TableCell>{n.producer}</TableCell>
-                                            <TableCell>{n.model}</TableCell>
-                                            <TableCell>{n.price},-</TableCell>
-                                        </TableRow>
-                                    );
-                                }
+                            {this.props.productOrderedBySelection.map(n => {
+                                return (
+                                    <TableRow key={n.id}>
+                                        <TableCell>{n.productName}</TableCell>
+                                        <TableCell>{n.producer}</TableCell>
+                                        <TableCell>{n.model}</TableCell>
+                                        <TableCell>{n.price},-</TableCell>
+                                    </TableRow>
+                                );
                             })}
                         </TableBody>
                     </Table>

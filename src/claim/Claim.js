@@ -402,6 +402,48 @@ const testDataPerson = [
         }
     }
 ]
+const testDataProduct = [
+    {
+        "id": "1",
+        "productName": "A",
+        "model": "B",
+        "producer": "C",
+        "price": "12999",
+        "selected": false
+    },
+    {
+        "id": "2",
+        "productName": "H",
+        "model": "G",
+        "producer": "Eple",
+        "price": "1229999",
+        "selected": false
+    },
+    {
+        "id": "3",
+        "productName": "Liten støsuger",
+        "model": "Iis",
+        "producer": "Apple",
+        "price": "29999",
+        "selected": false
+    },
+    {
+        "id": "4",
+        "productName": "Ostsuger",
+        "model": "Succer5000",
+        "producer": "Opple",
+        "price": "319999",
+        "selected": false
+    },
+    {
+        "id": "5",
+        "productName": "B",
+        "model": "Ucer5000",
+        "producer": "Ppple",
+        "price": "30000.000001",
+        "selected": false
+    },
+];
 
 //wcag test
 
@@ -416,10 +458,14 @@ for (let i = 0; i < testDataGruppe.length; i++) {
         testDataGruppe[i]["kundeliste"][j]["klassenavn"] = basisGruppeKundenummer[testDataGruppe[i]["kundeliste"][j]["kundenummer"]]
     }
 }
-let initialSelectedState = {};
+let initialPersonSelectedState = {};
 testDataPerson.forEach(person => {
-    initialSelectedState[person["kundenummer"]] = false;
+    initialPersonSelectedState[person["kundenummer"]] = false;
     person["klassenavn"] = basisGruppeKundenummer[person["kundenummer"]];
+});
+let initialProductSelectedState = {};
+testDataProduct.forEach(product => {
+    initialProductSelectedState[product["id"]] = false;
 });
 
 class Claim extends Component {
@@ -428,40 +474,46 @@ class Claim extends Component {
         super();
         this.state = {
             activeStep: 0,
-            selectedProductData: [], //productdata where each product has a "selected" key
-            selectedPersonList: JSON.parse(JSON.stringify(initialSelectedState)), //{"393073":true, "234733":false etc.}
-            orderedBySelection: [] //bare personer som er valgt, i rekkefølgen de er valgt
+            //states for personer
+            selectedPersonList: JSON.parse(JSON.stringify(initialPersonSelectedState)), //{"393073":true, "234733":false etc.}
+            personOrderedBySelection: [], //bare personer som er valgt, i rekkefølgen de er valgt
+            //testdataperson+ gruppe
+
+            //states for produkter
+            selectedProductList: JSON.parse(JSON.stringify(initialProductSelectedState)),
+            productOrderedBySelection: [], //bare produkter som er valgt, i rekkefølgen de er valgt
+            //testdata
         };
     }
     
-    addMethod = (person) => {
+    addMethodPerson = (person) => {
         let updateList = this.state.selectedPersonList;
         updateList[person["kundenummer"]] = true;
         this.setState({ selectedPersonList: updateList });
         
-        let updateOrderedList = this.state.orderedBySelection;
+        let updateOrderedList = this.state.personOrderedBySelection;
         updateOrderedList.push(person);
-        this.setState({ orderedBySelection: updateOrderedList });
+        this.setState({ personOrderedBySelection: updateOrderedList });
     }
 
-    removeMethod = (person) => {
+    removeMethodPerson = (person) => {
         let updateList = this.state.selectedPersonList;
         updateList[person["kundenummer"]] = false;
         this.setState({ selectedPersonList: updateList });
 
-        let updateOrderedList = this.state.orderedBySelection;
+        let updateOrderedList = this.state.personOrderedBySelection;
         for (let i = 0; i < updateOrderedList.length; i++) {
             if (JSON.stringify(updateOrderedList[i]) === JSON.stringify(person)) {
                 updateOrderedList.splice(i, 1);
             }
         }
-        this.setState({ orderedBySelection: updateOrderedList });
+        this.setState({ personOrderedBySelection: updateOrderedList });
     };
 
-    addAll = (group) => {
+    addAllPerson = (group) => {
         let allIsSelected = false;
         let updateList = this.state.selectedPersonList;
-        let updateOrderedList = this.state.orderedBySelection;
+        let updateOrderedList = this.state.personOrderedBySelection;
         for (let i = 0; i < group.kundeliste.length; i++) {
             if (!updateList[group.kundeliste[i]["kundenummer"]]) {
                 allIsSelected = true;
@@ -483,7 +535,31 @@ class Claim extends Component {
             }
         }
         this.setState({ selectedPersonList: updateList });
-        this.setState({ orderedBySelection: updateOrderedList });
+        this.setState({ personOrderedBySelection: updateOrderedList });
+    }
+
+    addMethodProduct = (product) => {
+        let updateList = this.state.selectedProductList;
+        updateList[product["id"]] = true;
+        this.setState({ selectedProductList: updateList });
+
+        let updateOrderedList = this.state.productOrderedBySelection;
+        updateOrderedList.push(product);
+        this.setState({ productOrderedBySelection: updateOrderedList });
+    }
+
+    removeMethodProduct = (product) => {
+        let updateList = this.state.selectedProductList;
+        updateList[product["id"]] = false;
+        this.setState({ selectedProductList: updateList });
+
+        let updateOrderedList = this.state.productOrderedBySelection;
+        for (let i = 0; i < updateOrderedList.length; i++) {
+            if (JSON.stringify(updateOrderedList[i]) === JSON.stringify(product)) {
+                updateOrderedList.splice(i, 1);
+            }
+        }
+        this.setState({ productOrderedBySelection: updateOrderedList });
     }
 
     handleNext = () => {
@@ -511,29 +587,34 @@ class Claim extends Component {
         switch (stepIndex) {
             case 0:
                 return <Step1
-                    orderedBySelection={this.state.orderedBySelection} 
+                //data
+                    orderedBySelection={this.state.personOrderedBySelection} 
                     selectedPersonList={this.state.selectedPersonList}
-                    addMethod={this.addMethod}
-                    removeMethod={this.removeMethod}
-                    addAll={this.addAll}
-                    checkIfAllAreSelected={this.checkIfAllAreSelected}
                     testDataGruppe={testDataGruppe}
                     testDataPerson={testDataPerson}
-
+                //methods
+                    addMethod={this.addMethodPerson}
+                    removeMethod={this.removeMethodPerson}
+                    addAll={this.addAllPerson}
                     />;
             case 1:
-                return <Step2 sendProductDataToClaim={this.sendProductDataToClaim} />;
+                return <Step2 
+                //data
+                orderedBySelection={this.state.productOrderedBySelection}
+                selectedProductList={this.state.selectedProductList}
+                testDataProduct={testDataProduct}
+                //methods
+                addMethod={this.addMethodProduct}
+                removeMethod={this.removeMethodProduct}
+                />;
             case 2:
-                return <Step3 orderedBySelection={this.state.orderedBySelection} selectedProductData={this.state.selectedProductData} />;
+                return <Step3 
+                personOrderedBySelection={this.state.personOrderedBySelection}
+                productOrderedBySelection={this.state.productOrderedBySelection}
+                 />;
             default:
                 return 'Uknown stepIndex';
         }
-    }
-
-    sendProductDataToClaim = (data) => {
-        this.setState({ selectedProductData: data }, () => {
-            console.log(this.state);
-        });
     }
 
     render() {

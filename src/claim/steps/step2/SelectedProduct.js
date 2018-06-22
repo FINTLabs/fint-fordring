@@ -24,11 +24,7 @@ class SelectedProduct extends React.Component {
 
     return (
       <Paper className={classes.root}>
-        {this.props.listProduct.map(data => {
-
-          if (!data.selected) {
-            return;
-          }
+        {this.props.orderedBySelection.map(data => {
           return (
             <Chip
               key={data.id}

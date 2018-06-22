@@ -46,7 +46,7 @@ class PersonOverview extends Component {
 
         return (
             <Paper className={classes.root}>
-                {this.props.orderedBySelection[0] ? (
+                {this.props.personOrderedBySelection[0] ? (
                     <Table className={classes.table}>
                         <TableHead>
                             <TableRow>
@@ -57,7 +57,7 @@ class PersonOverview extends Component {
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {this.props.orderedBySelection.map(n => {
+                            {this.props.personOrderedBySelection.map(n => {
                                 return (
                                     <TableRow key={n.kundenummer}>
                                         <TableCell>{n.navn.fornavn} {n.navn.mellomnavn}</TableCell>

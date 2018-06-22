@@ -40,7 +40,7 @@ class SearchResultProduct extends Component {
 
     triggerSort = (val, isNumber, sortKey) => {
         this.props.sortMethod(
-            this.props.listProduct,
+            this.props.testDataProduct,
             (this.state.sort === -1 && this.state.last === sortKey) ?
                 (this.setState({ sort: 1 }), -1) :
                 (this.setState({ sort: -1 }), 1),
@@ -75,7 +75,7 @@ class SearchResultProduct extends Component {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {this.props.listProduct.map(n => {
+                        {this.props.testDataProduct.map(n => {
                             if (this.props.searchFilter.indexOf(n) === -1) {
                                 return null;
                             }
@@ -86,7 +86,7 @@ class SearchResultProduct extends Component {
                                     <TableCell>{n.model}</TableCell>
                                     <TableCell>{n.price},-</TableCell>
                                     <TableCell>
-                                        {!n.selected ? (
+                                        {!this.props.selectedProductList[n.id] ? (
                                             <Button mini variant="fab" color="secondary" aria-label="add" onClick={() => this.props.addMethod(n)}
                                                 className={classes.button}>
                                                 <Add />
