@@ -47,7 +47,8 @@ class SearchResultGroup extends React.Component {
         super();
         this.state = {
             expanded: null,
-            sort: {}
+            sort: -1,
+            last: "",
         };
     }
 
@@ -60,13 +61,14 @@ class SearchResultGroup extends React.Component {
         });
     };
 
-    triggerSort = (val, isNumber, personArr) => {
+    triggerSort = (val, isNumber, personArr, sortKey) => {
         this.props.sortMethod(
             personArr,
-            (this.state.sort.val === 1) ?
-                (this.setState({ sort: { val: -1 } }), 1) :
-                (this.setState({ sort: { val: 1 } }), -1),
+            (this.state.sort === -1 && this.state.last === sortKey) ?
+                (this.setState({ sort: 1 }), -1) :
+                (this.setState({ sort: -1 }), 1),
             val, isNumber);
+        this.setState({ last: sortKey });
     }
 
     render() {
@@ -91,9 +93,9 @@ class SearchResultGroup extends React.Component {
                                     <Table className={classes.table}>
                                         <TableHead>
                                             <TableRow>
-                                                <TableCell onClick={() => this.triggerSort(["navn.fornavn", "navn.mellomnavn", "navn.etternavn"], false, n.kundeliste)}>Fornavn</TableCell>
-                                                <TableCell onClick={() => this.triggerSort(["navn.etternavn", "navn.fornavn", "navn.mellomnavn"], false, n.kundeliste)}>Etternavn</TableCell>
-                                                <TableCell onClick={() => this.triggerSort(["klassenavn"], false, n.kundeliste)}>Klasse</TableCell>
+                                                <TableCell onClick={() => this.triggerSort(["navn.fornavn", "navn.mellomnavn", "navn.etternavn"], false, n.kundeliste, "fornavn")}>Fornavn</TableCell>
+                                                <TableCell onClick={() => this.triggerSort(["navn.etternavn", "navn.fornavn", "navn.mellomnavn"], false, n.kundeliste, "etternavn")}>Etternavn</TableCell>
+                                                <TableCell onClick={() => this.triggerSort(["klassenavn"], false, n.kundeliste, "klasse")}>Klasse</TableCell>
                                                 <TableCell>
                                                     <Button mini variant="fab" aria-label="add" onClick={() => this.props.addAll(n)}
                                                         className={classes.button}>

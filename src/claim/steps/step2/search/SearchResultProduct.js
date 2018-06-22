@@ -30,22 +30,19 @@ class SearchResultProduct extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            sort: {
-                "productName": 1,
-                "producer": 1,
-                "model": 1,
-                "price": 1
-            }
+            sort: -1,
+            last: "",
         }
     }
 
-    triggerSort = (val, isNumber) => {
+    triggerSort = (val, isNumber, sortKey) => {
         this.props.sortMethod(
             this.props.listProduct,
-            (this.state.sort.val === 1) ?
-                (this.setState({ sort: { val: -1 } }), 1) :
-                (this.setState({ sort: { val: 1 } }), -1),
+            (this.state.sort === -1 && this.state.last === sortKey) ?
+                (this.setState({ sort: 1 }), -1) :
+                (this.setState({ sort: -1 }), 1),
             val, isNumber);
+        this.setState({ last: sortKey });
     }
     render() {
         const { classes } = this.props;
@@ -55,10 +52,10 @@ class SearchResultProduct extends Component {
                 <Table className={classes.table}>
                     <TableHead>
                         <TableRow>
-                            <TableCell onClick={() => this.triggerSort("productName", false)}>Produkt</TableCell>
-                            <TableCell onClick={() => this.triggerSort("producer", false)}>Produsent</TableCell>
-                            <TableCell onClick={() => this.triggerSort("model", false)}>Modell</TableCell>
-                            <TableCell onClick={() => this.triggerSort("price", true)}>Pris</TableCell>
+                            <TableCell onClick={() => this.triggerSort("productName", false, "product")}>Produkt</TableCell>
+                            <TableCell onClick={() => this.triggerSort("producer", false, "producer")}>Produsent</TableCell>
+                            <TableCell onClick={() => this.triggerSort("model", false, "model")}>Modell</TableCell>
+                            <TableCell onClick={() => this.triggerSort("price", true, "price")}>Pris</TableCell>
                             <TableCell></TableCell>
                         </TableRow>
                     </TableHead>
