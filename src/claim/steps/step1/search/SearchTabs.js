@@ -34,7 +34,7 @@ class SearchTabs extends React.Component {
 
         return (
             <div className={classes.root}>
-                <Paper elevation="0">
+                <Paper elevation={0}>
                     <Tabs value={value} onChange={this.handleChange} centered>
                         <Tab label="Grupper" />
                         <Tab label="Personer" />

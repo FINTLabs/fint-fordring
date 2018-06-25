@@ -55,7 +55,6 @@ class Step2 extends Component {
     }
 
     render() {
-        const { classes } = this.props;
 
         return (
             <div>
