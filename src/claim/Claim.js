@@ -6,9 +6,9 @@ import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import Step1 from "./steps/step1/step1";
-import Step2 from "./steps/step2/step2";
-import Step3 from "./steps/step3/step3";
+import Step1 from "./steps/recipient/recipients";
+import Step2 from "./steps/order/orders";
+import Step3 from "./steps/send/send";
 
 const styles = theme => ({
     root: {

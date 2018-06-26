@@ -44,6 +44,13 @@ const styles = theme => ({
     },
     table: {
         minWidth:521
+    },
+    actionButton: {
+        height: "35px",
+        width: "35px",
+    },
+    actionButtonIcon: {
+        color: "#fff",
     }
 });
 
@@ -154,13 +161,11 @@ class SearchResultGroup extends React.Component {
                                                         <TableCell>{m.klassenavn}</TableCell>
                                                         <TableCell>
                                                             {!this.props.selectedPersonList[m.kundenummer] ? (
-                                                                <Button mini variant="fab" color="secondary" aria-label="add" onClick={() => this.props.addMethod(m)}
-                                                                    className={classes.button}>
-                                                                    <Add />
+                                                                <Button variant="fab" className={classes.actionButton} color="secondary" aria-label="add" onClick={() => this.props.addMethod(m)}>
+                                                                    <Add className={classes.actionButtonIcon} />
                                                                 </Button>
                                                             ) : (
-                                                                    <Button mini variant="fab" color="primary" aria-label="add" onClick={() => this.props.removeMethod(m)}
-                                                                        className={classes.button}>
+                                                                    <Button  className={classes.actionButton} variant="fab" color="primary" aria-label="add" onClick={() => this.props.removeMethod(m)}>
                                                                         <Remove />
                                                                     </Button>
                                                                 )}
