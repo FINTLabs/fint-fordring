@@ -14,6 +14,7 @@ const styles = theme => ({
     root: {
         width: '90%',
         marginTop: '65px',
+        minWidth: 350
     },
     backButton: {
         marginRight: theme.spacing.unit,

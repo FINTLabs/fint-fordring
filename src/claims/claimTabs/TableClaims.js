@@ -35,9 +35,12 @@ class TableClaims extends React.Component {
         }
     }
 
+
+
     render() {
 
         const { classes } = this.props;
+        
 
         let classGreen = {
             backgroundColor: "rgba(75, 181, 67, 0.5)"
@@ -96,12 +99,12 @@ class TableClaims extends React.Component {
                                 return;
                             }
                             if(n.farge === "green"){
-            classCurrent = classGreen;
-        } else if (n.farge === "yellow"){
-            classCurrent = classYellow;
-        } else if (n.farge === "red"){
-            classCurrent = classRed;
-        }
+                                classCurrent = classGreen;
+                            } else if (n.farge === "yellow"){
+                                classCurrent = classYellow;
+                            } else if (n.farge === "red"){
+                                classCurrent = classRed;
+                            }
                             return (
                                 <TableRow key={n.ordrenummer} style={classCurrent}>
                                     <TableCell>{n.ordrenummer}</TableCell>

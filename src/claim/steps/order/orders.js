@@ -24,10 +24,10 @@ class Step2 extends Component {
     sortMethod = (array, order, sortByValue, isNumber) => {
         if (isNumber) {
             function compare(a, b) {
-                if (eval("Number(a." + sortByValue + ")<" + "Number(b." + sortByValue + ")")) {
+                if (eval("Number(a." + sortByValue + ")<Number(b." + sortByValue + ")")) {
                     return -1 * order; //order is either -1 or 1
                 }
-                if (eval("Number(a." + sortByValue + ")>" + "Number(b." + sortByValue + ")")) {
+                if (eval("Number(a." + sortByValue + ")>Number(b." + sortByValue + ")")) {
                     return 1 * order;
                 }
                 return 0;
@@ -35,10 +35,10 @@ class Step2 extends Component {
             this.setState({ products: array.sort(compare) });
         } else {
             function compare(a, b) {
-                if (eval("a." + sortByValue + "<" + "b." + sortByValue)) {
+                if (eval("a." + sortByValue + "<b." + sortByValue)) {
                     return -1 * order; //order is either -1 or 1
                 }
-                if (eval("a." + sortByValue + ">" + "b." + sortByValue)) {
+                if (eval("a." + sortByValue + ">b." + sortByValue)) {
                     return 1 * order;
                 }
                 return 0;

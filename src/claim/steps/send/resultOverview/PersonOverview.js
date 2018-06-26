@@ -68,7 +68,7 @@ class PersonOverview extends Component {
                             })}
                         </TableBody>
                     </Table>
-                ) : (<TableBody />)}
+                ) : (<div/>)}
             </Paper>
         );
     }

@@ -73,7 +73,7 @@ class ProductOverview extends Component {
                             })}
                         </TableBody>
                     </Table>
-                ) : (<TableBody />)}
+                ) : (<div/>)}
             </Paper>
         );
     }

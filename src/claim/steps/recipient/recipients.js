@@ -61,10 +61,10 @@ class Step1 extends Component {
     sortMethod = (array, order, sortByValue, isNumber) => {
         if (isNumber) {
             function compare(a, b) {
-                if (eval("Number(a." + sortByValue + ")<" + "Number(b." + sortByValue + ")")) {
+                if (eval("Number(a." + sortByValue + ")<Number(b." + sortByValue + ")")) {
                     return -1 * order; //order is either -1 or 1
                 }
-                if (eval("Number(a." + sortByValue + ")>" + "Number(b." + sortByValue + ")")) {
+                if (eval("Number(a." + sortByValue + ")>Number(b." + sortByValue + ")")) {
                     return 1 * order;
                 }
                 return 0;
@@ -85,7 +85,7 @@ class Step1 extends Component {
     }
 
     render() {
-        const { classes } = this.props;
+       
         return (
             <div>
                 <SearchTabs
