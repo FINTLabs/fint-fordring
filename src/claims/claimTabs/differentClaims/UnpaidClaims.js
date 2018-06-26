@@ -9,58 +9,93 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 
 const styles = theme => ({
-  root: {
-    flexGrow: 1,
-    backgroundColor: theme.palette.background.paper,
-  },
-  red: {
-    backgroundColor: "rgba(204, 0, 0, 0.5)",
-  }
+    root: {
+        flexGrow: 1,
+        backgroundColor: theme.palette.background.paper,
+    },
+    red: {
+        backgroundColor: "rgba(204, 0, 0, 0.5)",
+    },
+    rotate: {
+        transform: "rotate(180deg)"
+    }
 });
 
+
 class AllClaims extends React.Component {
-    constructor(props){
+    constructor(props) {
         super(props)
         this.state = {
 
         }
     }
 
-  render() {
+    render() {
 
-    const { classes } = this.props;
+        const { classes } = this.props;
 
-    return (
-        <Paper className={classes.root}>
-                      <Table className={classes.table}>
-                          <TableHead>
-                              <TableRow>
-                                  <TableCell /*onClick={() => this.triggerSort(["navn.fornavn", "navn.mellomnavn", "navn.etternavn"], false)}*/>Ordrenummer</TableCell>
-                                  <TableCell /*onClick={() => this.triggerSort(["navn.etternavn", "navn.fornavn", "navn.mellomnavn"], false)}*/>Navn</TableCell>
-                                  <TableCell /*onClick={() => this.triggerSort(["klassenavn"], false)}*/>Har betalt</TableCell>
-                                  <TableCell /*onClick={() => this.triggerSort(["klassenavn"], false)}*/>Skal betale</TableCell>
-                              </TableRow>
-                          </TableHead>
-                          <TableBody>
-                              {this.props.listOfUnpaidClaims.map(n => {
-                                  return (
-                                      <TableRow key={n.ordrenummer} className={classes.red}>
-                                          <TableCell>{n.ordrenummer}</TableCell>
-                                          <TableCell>{n.kunde.navn.fornavn} {n.kunde.navn.etternavn}</TableCell>
-                                          <TableCell>{n.fakturagrunnlag.total - n.restBelop}</TableCell>
-                                          <TableCell>{n.restBelop}</TableCell>
-                                      </TableRow>
-                                  );
-                              })}
-                          </TableBody>
-                      </Table> 
-              </Paper>
-      );
-  }
+        return (
+            <Paper className={classes.root}>
+                <Table className={classes.table}>
+                    <TableHead>
+                    <TableRow>
+                            <TableCell onClick={() => this.props.triggerSort(["ordrenummer"], true, "ordrenummer")}>
+                                Ordrenummer {(this.props.last === "ordrenummer")?(
+                                (this.props.sort === 1) ? (<svg className={classes.rotate} height="12" width="12" viewBox="3 5 24 24" aria-hidden="true">
+                                <path d="M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z"></path></svg>):(
+                                <svg height="12" width="12" viewBox="-3 -5 24 24" aria-hidden="true">
+                                <path d="M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z"></path></svg>)):
+                                (<svg height="12" width="12" viewBox="-3 -5 24 24" aria-hidden="true"></svg>)}
+                            </TableCell>
+                            <TableCell onClick={() => this.props.triggerSort(["kunde.navn.etternavn", "kunde.navn.fornavn", "kunde.navn.mellomnavn"], false, "navn")}>
+                                Navn {(this.props.last === "navn")?(
+                                (this.props.sort === 1) ? (<svg className={classes.rotate} height="12" width="12" viewBox="3 5 24 24" aria-hidden="true">
+                                <path d="M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z"></path></svg>):(
+                                <svg height="12" width="12" viewBox="-3 -5 24 24" aria-hidden="true">
+                                <path d="M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z"></path></svg>)):
+                                (<svg height="12" width="12" viewBox="-3 -5 24 24" aria-hidden="true"></svg>)}
+                            </TableCell>
+                            <TableCell onClick={() => this.props.triggerSort(["fakturagrunnlag.total"], true, "totalpris")}>
+                                Totalpris {(this.props.last === "totalpris")?(
+                                (this.props.sort === 1) ? (<svg className={classes.rotate} height="12" width="12" viewBox="3 5 24 24" aria-hidden="true">
+                                <path d="M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z"></path></svg>):(
+                                <svg height="12" width="12" viewBox="-3 -5 24 24" aria-hidden="true">
+                                <path d="M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z"></path></svg>)):
+                                (<svg height="12" width="12" viewBox="-3 -5 24 24" aria-hidden="true"></svg>)}
+                            </TableCell>
+                            <TableCell onClick={() => this.props.triggerSort(["restBelop"], true, "betale")}>
+                                Har igjen å betale {(this.props.last === "betale")?(
+                                (this.props.sort === 1) ? (<svg className={classes.rotate} height="12" width="12" viewBox="3 5 24 24" aria-hidden="true">
+                                <path d="M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z"></path></svg>):(
+                                <svg height="12" width="12" viewBox="-3 -5 24 24" aria-hidden="true">
+                                <path d="M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z"></path></svg>)):
+                                (<svg height="12" width="12" viewBox="-3 -5 24 24" aria-hidden="true"></svg>)}
+                            </TableCell>
+                        </TableRow>
+                    </TableHead>
+                    <TableBody>
+                        {this.props.listOfUnpaidClaims.map(n => {
+                            if (this.props.searchFilter.indexOf(n) === -1) {
+                                return;
+                            }
+                            return (
+                                <TableRow key={n.ordrenummer} className={classes.red}>
+                                    <TableCell>{n.ordrenummer}</TableCell>
+                                    <TableCell>{n.kunde.navn.fornavn} {n.kunde.navn.mellomnavn} {n.kunde.navn.etternavn}</TableCell>
+                                    <TableCell>{n.fakturagrunnlag.total}</TableCell>
+                                    <TableCell>{n.restBelop}</TableCell>
+                                </TableRow>
+                            );
+                        })}
+                    </TableBody>
+                </Table>
+            </Paper>
+        );
+    }
 }
 
 AllClaims.propTypes = {
-  classes: PropTypes.object.isRequired,
+    classes: PropTypes.object.isRequired,
 };
 
 export default withStyles(styles)(AllClaims);

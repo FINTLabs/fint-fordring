@@ -27,7 +27,7 @@ let testDataFordring = [
             "navn": {
                 "etternavn": "Testesen",
                 "fornavn": "Pelle",
-                "mellomnavn": "Tester"
+                "mellomnavn": null
             },
             "kontaktinformasjon": {
                 "epostadresse": "string@string.string",

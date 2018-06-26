@@ -14,7 +14,7 @@ import Claims from "../claims/Claims";
 import Claim from "../claim/Claim";
 
 
-const drawerWidth = 300;
+const drawerWidth = 250;
 
 const styles = theme => ({
     root: {

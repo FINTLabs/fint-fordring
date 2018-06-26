@@ -16,12 +16,18 @@ const styles = theme => ({
     green: {
         backgroundColor: "rgba(75, 181, 67, 0.5)",
     },
+    yellow: {
+        backgroundColor: "rgba(240, 240, 0, 0.5)",
+    },
+    red: {
+        backgroundColor: "rgba(204, 0, 0, 0.5)",
+    },
     rotate: {
         transform: "rotate(180deg)"
     }
 });
 
-class AllClaims extends React.Component {
+class TableClaims extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -32,6 +38,18 @@ class AllClaims extends React.Component {
     render() {
 
         const { classes } = this.props;
+
+        let classGreen = {
+            backgroundColor: "rgba(75, 181, 67, 0.5)"
+        };
+        let classYellow = {
+            backgroundColor: "rgba(240, 240, 0, 0.5)"
+        };
+        let classRed = {
+            backgroundColor: "rgba(204, 0, 0, 0.5)"
+        };
+        let classCurrent = {};
+        
 
         return (
             <Paper className={classes.root}>
@@ -73,12 +91,19 @@ class AllClaims extends React.Component {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {this.props.listOfPaidClaims.map(n => {
+                        {this.props.listOfClaims.map(n => {
                             if (this.props.searchFilter.indexOf(n) === -1) {
                                 return;
                             }
+                            if(n.farge === "green"){
+            classCurrent = classGreen;
+        } else if (n.farge === "yellow"){
+            classCurrent = classYellow;
+        } else if (n.farge === "red"){
+            classCurrent = classRed;
+        }
                             return (
-                                <TableRow key={n.ordrenummer} className={classes.green}>
+                                <TableRow key={n.ordrenummer} style={classCurrent}>
                                     <TableCell>{n.ordrenummer}</TableCell>
                                     <TableCell>{n.kunde.navn.fornavn} {n.kunde.navn.mellomnavn} {n.kunde.navn.etternavn}</TableCell>
                                     <TableCell>{n.fakturagrunnlag.total}</TableCell>
@@ -93,8 +118,8 @@ class AllClaims extends React.Component {
     }
 }
 
-AllClaims.propTypes = {
+TableClaims.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(AllClaims);
+export default withStyles(styles)(TableClaims);
