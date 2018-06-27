@@ -9,6 +9,7 @@ import Typography from '@material-ui/core/Typography';
 import Step1 from "./steps/recipient/recipients";
 import Step2 from "./steps/order/orders";
 import Step3 from "./steps/send/send";
+import Snackbar from '@material-ui/core/Snackbar';
 
 const styles = theme => ({
     root: {
@@ -484,14 +485,19 @@ class Claim extends Component {
             selectedProductList: JSON.parse(JSON.stringify(initialProductSelectedState)),
             productOrderedBySelection: [], //bare produkter som er valgt, i rekkefølgen de er valgt
             //testdata
+
+            //needed for finish message
+            open: false,
+            vertical: null,
+            horizontal: null,
         };
     }
-    
+
     addMethodPerson = (person) => {
         let updateList = this.state.selectedPersonList;
         updateList[person["kundenummer"]] = true;
         this.setState({ selectedPersonList: updateList });
-        
+
         let updateOrderedList = this.state.personOrderedBySelection;
         updateOrderedList.push(person);
         this.setState({ personOrderedBySelection: updateOrderedList });
@@ -515,21 +521,22 @@ class Claim extends Component {
         let allIsSelected = false;
         let updateList = this.state.selectedPersonList;
         let updateOrderedList = this.state.personOrderedBySelection;
-        for (let i = 0; i < group.kundeliste.length; i++) {
-            if (!updateList[group.kundeliste[i]["kundenummer"]]) {
+        let list = (group.kundeliste) ? (group.kundeliste) : (group);
+        for (let i = 0; i < list.length; i++) {
+            if (!updateList[list[i]["kundenummer"]]) {
                 allIsSelected = true;
-                updateOrderedList.push(group.kundeliste[i]);
+                updateOrderedList.push(list[i]);
             }
         }
         if (allIsSelected) {
-            for (let i = 0; i < group.kundeliste.length; i++) {
-                updateList[group.kundeliste[i]["kundenummer"]] = true;
+            for (let i = 0; i < list.length; i++) {
+                updateList[list[i]["kundenummer"]] = true;
             }
         } else {
-            for (let i = 0; i < group.kundeliste.length; i++) {
-                updateList[group.kundeliste[i]["kundenummer"]] = false;
+            for (let i = 0; i < list.length; i++) {
+                updateList[list[i]["kundenummer"]] = false;
                 for (let j = 0; j < updateOrderedList.length; j++) {
-                    if (JSON.stringify(updateOrderedList[j]) === JSON.stringify(group.kundeliste[i])) {
+                    if (JSON.stringify(updateOrderedList[j]) === JSON.stringify(list[i])) {
                         updateOrderedList.splice(j, 1);
                     }
                 }
@@ -568,8 +575,8 @@ class Claim extends Component {
         this.setState({
             activeStep: activeStep + 1,
         });
-
     };
+
 
     handleBack = () => {
         const { activeStep } = this.state;
@@ -584,35 +591,51 @@ class Claim extends Component {
         });
     };
 
+    handleClose = () => {
+        this.setState({ open: false });
+    };
+
+    handleClickSnack = state => () => {
+        this.setState({ open: true, ...state });
+        this.handleNext();
+    };
+
+    handleCloseSnack = () => {
+        this.setState({ open: false });
+    };
+
     getStepContent(stepIndex) {
         switch (stepIndex) {
             case 0:
                 return <Step1
-                //data
-                    orderedBySelection={this.state.personOrderedBySelection} 
+                    //data
+                    orderedBySelection={this.state.personOrderedBySelection}
                     selectedPersonList={this.state.selectedPersonList}
                     testDataGruppe={testDataGruppe}
                     testDataPerson={testDataPerson}
-                //methods
+                    //methods
                     addMethod={this.addMethodPerson}
                     removeMethod={this.removeMethodPerson}
                     addAll={this.addAllPerson}
-                    />;
+                />;
             case 1:
-                return <Step2 
-                //data
-                orderedBySelection={this.state.productOrderedBySelection}
-                selectedProductList={this.state.selectedProductList}
-                testDataProduct={testDataProduct}
-                //methods
-                addMethod={this.addMethodProduct}
-                removeMethod={this.removeMethodProduct}
+                return <Step2
+                    //data
+                    orderedBySelection={this.state.productOrderedBySelection}
+                    selectedProductList={this.state.selectedProductList}
+                    testDataProduct={testDataProduct}
+                    //methods
+                    addMethod={this.addMethodProduct}
+                    removeMethod={this.removeMethodProduct}
                 />;
             case 2:
-                return <Step3 
-                personOrderedBySelection={this.state.personOrderedBySelection}
-                productOrderedBySelection={this.state.productOrderedBySelection}
-                 />;
+                return <Step3
+                    testDataPerson={testDataPerson}
+                    testDataGruppe={testDataGruppe}
+                    selectedPersonList={this.state.selectedPersonList}
+                    personOrderedBySelection={this.state.personOrderedBySelection}
+                    productOrderedBySelection={this.state.productOrderedBySelection}
+                />;
             default:
                 return 'Uknown stepIndex';
         }
@@ -622,6 +645,7 @@ class Claim extends Component {
         const { classes } = this.props;
         const steps = getSteps();
         const { activeStep } = this.state;
+        const { vertical, horizontal, open } = this.state;
 
         return (
             <div className={classes.root}>
@@ -638,9 +662,18 @@ class Claim extends Component {
                     {this.state.activeStep === steps.length ? (
                         <div>
                             <Typography className={classes.instructions}>
-                                All steps completed - you&quot;re finished
+                               Alle steg er fullførte - Du kan nå starte på nytt om du ønsker!
                             </Typography>
-                            <Button onClick={this.handleReset}>Reset</Button>
+                            <Button onClick={this.handleReset}>Start på nytt</Button>
+                            <Snackbar
+                                        anchorOrigin={{ vertical, horizontal }}
+                                        open={open}
+                                        onClose={this.handleCloseSnack}
+                                        ContentProps={{
+                                            'aria-describedby': 'message-id',
+                                        }}
+                                        message={<span id="message-id">Fakturaene er sendt</span>}
+                                    />
                         </div>
                     ) : (
                             <div>
@@ -654,10 +687,19 @@ class Claim extends Component {
                                     >
                                         Back
                                 </Button>
-                                    <Button variant="raised" color="primary" onClick={this.handleNext}>
+                                    {activeStep === steps.length - 1 ? (
+                                        <Button variant="raised" color="primary" onClick={this.handleClickSnack({ vertical: 'bottom', horizontal: 'right' })}>
+                                            finish
+                                        </Button>) : (
+                                            <Button variant="raised" color="primary" onClick={this.handleNext}>
+                                                next
+                                    </Button>)}
+                                    {/*<Button variant="raised" color="primary" onClick={this.handleNext}>
                                         {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
-                                    </Button>
+                                    </Button>*/}
+                                    
                                 </div>
+
                             </div>
                         )}
                 </div>

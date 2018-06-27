@@ -10,6 +10,8 @@ import Paper from '@material-ui/core/Paper';
 import Button from "@material-ui/core/Button";
 import { Add } from '@material-ui/icons';
 import { Remove } from '@material-ui/icons';
+import { CheckBox } from '@material-ui/icons';
+import { CheckBoxOutlineBlank } from '@material-ui/icons';
 
 
 const styles = theme => ({
@@ -48,39 +50,50 @@ class ResultTablePerson extends Component {
         this.setState({ last: sortKey });
     }
 
+
+
     render() {
         const { classes } = this.props;
 
         return (
             <Paper className={classes.root}>
                 <Table className={classes.table}>
-                <TableHead>
+                    <TableHead>
                         <TableRow>
                             <TableCell onClick={() => this.triggerSort(["navn.fornavn", "navn.mellomnavn", "navn.etternavn"], false, "fornavn")}>
-                                Fornavn {(this.state.last === "fornavn")?(
-                                (this.state.sort === 1) ? (<svg className={classes.rotate} height="12" width="12" viewBox="3 5 24 24" aria-hidden="true">
-                                <path d="M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z"></path></svg>):(
-                                <svg height="12" width="12" viewBox="-3 -5 24 24" aria-hidden="true">
-                                <path d="M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z"></path></svg>)):
-                                (<svg height="12" width="12" viewBox="-3 -5 24 24" aria-hidden="true"></svg>)}
+                                Fornavn {(this.state.last === "fornavn") ? (
+                                    (this.state.sort === 1) ? (<svg className={classes.rotate} height="12" width="12" viewBox="3 5 24 24" aria-hidden="true">
+                                        <path d="M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z"></path></svg>) : (
+                                            <svg height="12" width="12" viewBox="-3 -5 24 24" aria-hidden="true">
+                                                <path d="M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z"></path></svg>)) :
+                                    (<svg height="12" width="12" viewBox="-3 -5 24 24" aria-hidden="true"></svg>)}
                             </TableCell>
                             <TableCell onClick={() => this.triggerSort(["navn.etternavn", "navn.fornavn", "navn.mellomnavn"], false, "etternavn")}>
-                                Etternavn {(this.state.last === "etternavn")?(
-                                (this.state.sort === 1) ? (<svg className={classes.rotate} height="12" width="12" viewBox="3 5 24 24" aria-hidden="true">
-                                <path d="M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z"></path></svg>):(
-                                <svg height="12" width="12" viewBox="-3 -5 24 24" aria-hidden="true">
-                                <path d="M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z"></path></svg>)):
-                                (<svg height="12" width="12" viewBox="-3 -5 24 24" aria-hidden="true"></svg>)}
+                                Etternavn {(this.state.last === "etternavn") ? (
+                                    (this.state.sort === 1) ? (<svg className={classes.rotate} height="12" width="12" viewBox="3 5 24 24" aria-hidden="true">
+                                        <path d="M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z"></path></svg>) : (
+                                            <svg height="12" width="12" viewBox="-3 -5 24 24" aria-hidden="true">
+                                                <path d="M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z"></path></svg>)) :
+                                    (<svg height="12" width="12" viewBox="-3 -5 24 24" aria-hidden="true"></svg>)}
                             </TableCell>
                             <TableCell onClick={() => this.triggerSort(["klassenavn"], false, "klasse")}>
-                                Klasse {(this.state.last === "klasse")?(
-                                (this.state.sort === 1) ? (<svg className={classes.rotate} height="12" width="12" viewBox="3 5 24 24" aria-hidden="true">
-                                <path d="M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z"></path></svg>):(
-                                <svg height="12" width="12" viewBox="-3 -5 24 24" aria-hidden="true">
-                                <path d="M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z"></path></svg>)):
-                                (<svg height="12" width="12" viewBox="-3 -5 24 24" aria-hidden="true"></svg>)}
+                                Klasse {(this.state.last === "klasse") ? (
+                                    (this.state.sort === 1) ? (<svg className={classes.rotate} height="12" width="12" viewBox="3 5 24 24" aria-hidden="true">
+                                        <path d="M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z"></path></svg>) : (
+                                            <svg height="12" width="12" viewBox="-3 -5 24 24" aria-hidden="true">
+                                                <path d="M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z"></path></svg>)) :
+                                    (<svg height="12" width="12" viewBox="-3 -5 24 24" aria-hidden="true"></svg>)}
                             </TableCell>
-                            <TableCell></TableCell>
+                            <TableCell>
+                                <Button mini variant="fab" aria-label="add" onClick={() => this.props.addAll(this.props.testDataPerson)}
+                                    className={classes.button}>
+                                    {(this.props.checkIfAllAreSelected(this.props.testDataPerson)) ? (
+                                        <CheckBoxOutlineBlank />
+                                    ) : (
+                                            <CheckBox />
+                                        )}
+                                </Button>
+                            </TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>

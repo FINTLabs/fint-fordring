@@ -18,6 +18,9 @@ const styles = theme => ({
     table: {
         minWidth: 700,
     },
+    rotate: {
+        transform: "rotate(180deg)"
+    }
 });
 
 
@@ -27,19 +30,21 @@ class PersonOverview extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            sort: {
-            }
+            sort: -1,
+            last: ""
+            
         }
     }
 
-    /*triggerSort = (val, isNumber) => {
+    triggerSort = (val, isNumber, sortKey) => {
         this.props.sortMethod(
-            this.props.testDataPerson,
-            (this.state.sort.val === 1) ?
-                (this.setState({ sort: { val: -1 } }), 1) :
-                (this.setState({ sort: { val: 1 } }), -1),
+            this.props.personOrderedBySelection,
+            (this.state.sort === -1 && this.state.last === sortKey) ?
+                (this.setState({ sort: 1 }), -1) :
+                (this.setState({ sort: -1 }), 1),
             val, isNumber);
-    }*/
+        this.setState({ last: sortKey });
+    }
 
     render() {
         const { classes } = this.props;
@@ -50,10 +55,30 @@ class PersonOverview extends Component {
                     <Table className={classes.table}>
                         <TableHead>
                             <TableRow>
-                                <TableCell /*onClick={() => this.triggerSort(["navn.fornavn", "navn.mellomnavn", "navn.etternavn"], false)}*/>Fornavn</TableCell>
-                                <TableCell /*onClick={() => this.triggerSort(["navn.etternavn", "navn.fornavn", "navn.mellomnavn"], false)}*/>Etternavn</TableCell>
-                                <TableCell /*onClick={() => this.triggerSort(["klassenavn"], false)}*/>Klasse</TableCell>
-                                <TableCell></TableCell>
+                                <TableCell onClick={() => this.triggerSort(["navn.fornavn", "navn.mellomnavn", "navn.etternavn"], false, "fornavn")}>
+                                    Fornavn {(this.state.last === "fornavn") ? (
+                                        (this.state.sort === 1) ? (<svg className={classes.rotate} height="12" width="12" viewBox="3 5 24 24" aria-hidden="true">
+                                            <path d="M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z"></path></svg>) : (
+                                                <svg height="12" width="12" viewBox="-3 -5 24 24" aria-hidden="true">
+                                                    <path d="M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z"></path></svg>)) :
+                                        (<svg height="12" width="12" viewBox="-3 -5 24 24" aria-hidden="true"></svg>)}
+                                </TableCell>
+                                <TableCell onClick={() => this.triggerSort(["navn.etternavn", "navn.fornavn", "navn.mellomnavn"], false, "etternavn")}>
+                                    Etternavn {(this.state.last === "etternavn") ? (
+                                        (this.state.sort === 1) ? (<svg className={classes.rotate} height="12" width="12" viewBox="3 5 24 24" aria-hidden="true">
+                                            <path d="M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z"></path></svg>) : (
+                                                <svg height="12" width="12" viewBox="-3 -5 24 24" aria-hidden="true">
+                                                    <path d="M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z"></path></svg>)) :
+                                        (<svg height="12" width="12" viewBox="-3 -5 24 24" aria-hidden="true"></svg>)}
+                                </TableCell>
+                                <TableCell onClick={() => this.triggerSort(["klassenavn"], false, "klasse")}>
+                                    Klasse {(this.state.last === "klasse") ? (
+                                        (this.state.sort === 1) ? (<svg className={classes.rotate} height="12" width="12" viewBox="3 5 24 24" aria-hidden="true">
+                                            <path d="M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z"></path></svg>) : (
+                                                <svg height="12" width="12" viewBox="-3 -5 24 24" aria-hidden="true">
+                                                    <path d="M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z"></path></svg>)) :
+                                        (<svg height="12" width="12" viewBox="-3 -5 24 24" aria-hidden="true"></svg>)}
+                                </TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
@@ -68,7 +93,7 @@ class PersonOverview extends Component {
                             })}
                         </TableBody>
                     </Table>
-                ) : (<div/>)}
+                ) : (<div />)}
             </Paper>
         );
     }

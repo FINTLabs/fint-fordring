@@ -57,7 +57,6 @@ class ProductOverview extends Component {
                                 <TableCell /*onClick={() => this.triggerSort("producer", false)}*/>Produsent</TableCell>
                                 <TableCell /*onClick={() => this.triggerSort("model", false)}*/>Modell</TableCell>
                                 <TableCell /*onClick={() => this.triggerSort("price", true)}*/>Pris</TableCell>
-                                <TableCell></TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>

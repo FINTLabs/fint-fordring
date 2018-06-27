@@ -21,8 +21,10 @@ class Step1 extends Component {
 
     checkIfAllAreSelected = (group) => {
         let allIsSelected = false;
-        for (let i = 0; i < group.kundeliste.length; i++) {
-            if (!this.props.selectedPersonList[group.kundeliste[i]["kundenummer"]]) {
+        let list = (group.kundeliste) ? (group.kundeliste) : (group);
+
+        for (let i = 0; i < list.length; i++) {
+            if (!this.props.selectedPersonList[list[i]["kundenummer"]]) {
                 allIsSelected = true;
             }
         }
@@ -85,7 +87,7 @@ class Step1 extends Component {
     }
 
     render() {
-       
+
         return (
             <div>
                 <SearchTabs
@@ -115,6 +117,8 @@ class Step1 extends Component {
                             sortedPersonList={this.state.sortedPersonList}
                             sortMethod={this.sortMethod}
                             addMethod={this.props.addMethod}
+                            addAll={this.props.addAll}
+                            checkIfAllAreSelected={this.checkIfAllAreSelected}
                             removeMethod={this.props.removeMethod}
                             searchFilter={this.state.searchFilter} />
                     )}
