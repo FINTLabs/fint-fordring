@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import { withStyles } from '@material-ui/core/styles';
+
 import ProductOverview from "./resultOverview/ProductOverview";
 import PersonOverview from "./resultOverview/PersonOverview";
 import GroupOverview from "./resultOverview/GroupOverview";
+
 import ExpansionPanel from '@material-ui/core/ExpansionPanel';
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
@@ -99,8 +101,8 @@ class Step3 extends Component {
 
         return (
             <div>
-                <ExpansionPanel>
-                    <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+                <ExpansionPanel  defaultExpanded={true}>
+                    <ExpansionPanelSummary expandIcon={<ExpandMoreIcon /> }>
                         <Typography className={classes.optionHeading}>Valgte Produkter</Typography>
                     </ExpansionPanelSummary>
                     <ExpansionPanelDetails>

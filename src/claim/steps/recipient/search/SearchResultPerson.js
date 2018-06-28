@@ -17,7 +17,7 @@ import { CheckBoxOutlineBlank } from '@material-ui/icons';
 const styles = theme => ({
     root: {
         width: '100%',
-        height: 200,
+        maxHeight: 250,
         overflowX: 'auto',
         marginTop: theme.spacing.unit * 2,
     },

@@ -103,7 +103,95 @@ const testDataGruppe = [
                     "postnummer": "3045",
                     "poststed": "Drammen"
                 }
-            }
+            },
+            {
+                "kundenummer": "12345678902",
+                "navn": {
+                    "etternavn": "Kjell Kåre",
+                    "fornavn": "Kveiteland",
+                    "mellomnavn": null
+                },
+                "kontaktinformasjon": {
+                    "epostadresse": "Kjellkå@hotmail.com",
+                    "mobiltelefonnummer": "12345678",
+                    "nettsted": null,
+                    "sip": null,
+                    "telefonnummer": null
+                },
+                "postadresse": {
+                    "adresselinje": [
+                        "Skole vei 207"
+                    ],
+                    "postnummer": "4260",
+                    "poststed": "Torvastad"
+                }
+            },
+            {
+                "kundenummer": "14829923273",
+                "navn": {
+                    "etternavn": "Støa",
+                    "fornavn": "Rose",
+                    "mellomnavn": "mellom"
+                },
+                "kontaktinformasjon": {
+                    "epostadresse": "RoseSta@jourrapide.com",
+                    "mobiltelefonnummer": "48213268",
+                    "nettsted": null,
+                    "sip": null,
+                    "telefonnummer": null
+                },
+                "postadresse": {
+                    "adresselinje": [
+                        "Setra vei 207"
+                    ],
+                    "postnummer": "0786",
+                    "poststed": "Oslo"
+                }
+            },
+            {
+                "kundenummer": "18014197461",
+                "navn": {
+                    "etternavn": "Hansen",
+                    "fornavn": "Leona",
+                    "mellomnavn": null
+                },
+                "kontaktinformasjon": {
+                    "epostadresse": "LeonaHansen@dayrep.com",
+                    "mobiltelefonnummer": "41109815",
+                    "nettsted": null,
+                    "sip": null,
+                    "telefonnummer": null
+                },
+                "postadresse": {
+                    "adresselinje": [
+                        "Scheitlies gate 48"
+                    ],
+                    "postnummer": "3045",
+                    "poststed": "Drammen"
+                }
+            },
+            {
+                "kundenummer": "11012759115",
+                "navn": {
+                    "etternavn": "Hofseth",
+                    "fornavn": "Gustav",
+                    "mellomnavn": null
+                },
+                "kontaktinformasjon": {
+                    "epostadresse": "GustavHofseth@rhyta.com",
+                    "mobiltelefonnummer": "94259236",
+                    "nettsted": null,
+                    "sip": null,
+                    "telefonnummer": null
+                },
+                "postadresse": {
+                    "adresselinje": [
+                        "Kikkutveien 91"
+                    ],
+                    "postnummer": "0491",
+                    "poststed": "Oslo"
+                }
+            },
         ]
     },
     {
@@ -281,7 +369,95 @@ const testBasisGruppe = [
                     "postnummer": "0491",
                     "poststed": "Oslo"
                 }
-            }
+            },
+            {
+                "kundenummer": "12345978909",
+                "navn": {
+                    "etternavn": "Kjell Kåre",
+                    "fornavn": "Kveiteland",
+                    "mellomnavn": null
+                },
+                "kontaktinformasjon": {
+                    "epostadresse": "Kjellkå@hotmail.com",
+                    "mobiltelefonnummer": "12345678",
+                    "nettsted": null,
+                    "sip": null,
+                    "telefonnummer": null
+                },
+                "postadresse": {
+                    "adresselinje": [
+                        "Skole vei 207"
+                    ],
+                    "postnummer": "4260",
+                    "poststed": "Torvastad"
+                }
+            },
+            {
+                "kundenummer": "14029923279",
+                "navn": {
+                    "etternavn": "Støa",
+                    "fornavn": "Rose",
+                    "mellomnavn": "mellom"
+                },
+                "kontaktinformasjon": {
+                    "epostadresse": "RoseSta@jourrapide.com",
+                    "mobiltelefonnummer": "48213268",
+                    "nettsted": null,
+                    "sip": null,
+                    "telefonnummer": null
+                },
+                "postadresse": {
+                    "adresselinje": [
+                        "Setra vei 207"
+                    ],
+                    "postnummer": "0786",
+                    "poststed": "Oslo"
+                }
+            },
+            {
+                "kundenummer": "18010197465",
+                "navn": {
+                    "etternavn": "Hansen",
+                    "fornavn": "Leona",
+                    "mellomnavn": null
+                },
+                "kontaktinformasjon": {
+                    "epostadresse": "LeonaHansen@dayrep.com",
+                    "mobiltelefonnummer": "41109815",
+                    "nettsted": null,
+                    "sip": null,
+                    "telefonnummer": null
+                },
+                "postadresse": {
+                    "adresselinje": [
+                        "Scheitlies gate 48"
+                    ],
+                    "postnummer": "3045",
+                    "poststed": "Drammen"
+                }
+            },
+            {
+                "kundenummer": "11010159116",
+                "navn": {
+                    "etternavn": "Hofseth",
+                    "fornavn": "Gustav",
+                    "mellomnavn": null
+                },
+                "kontaktinformasjon": {
+                    "epostadresse": "GustavHofseth@rhyta.com",
+                    "mobiltelefonnummer": "94259236",
+                    "nettsted": null,
+                    "sip": null,
+                    "telefonnummer": null
+                },
+                "postadresse": {
+                    "adresselinje": [
+                        "Kikkutveien 91"
+                    ],
+                    "postnummer": "0491",
+                    "poststed": "Oslo"
+                }
+            },
         ]
     },
     {
@@ -310,7 +486,191 @@ const testBasisGruppe = [
                     "postnummer": "4260",
                     "poststed": "Torvastad"
                 }
-            }
+            },
+            {
+                "kundenummer": "12345678902",
+                "navn": {
+                    "etternavn": "Kjell Kåre",
+                    "fornavn": "Kveiteland",
+                    "mellomnavn": null
+                },
+                "kontaktinformasjon": {
+                    "epostadresse": "Kjellkå@hotmail.com",
+                    "mobiltelefonnummer": "12345678",
+                    "nettsted": null,
+                    "sip": null,
+                    "telefonnummer": null
+                },
+                "postadresse": {
+                    "adresselinje": [
+                        "Skole vei 207"
+                    ],
+                    "postnummer": "4260",
+                    "poststed": "Torvastad"
+                }
+            },
+            {
+                "kundenummer": "14829923273",
+                "navn": {
+                    "etternavn": "Støa",
+                    "fornavn": "Rose",
+                    "mellomnavn": "mellom"
+                },
+                "kontaktinformasjon": {
+                    "epostadresse": "RoseSta@jourrapide.com",
+                    "mobiltelefonnummer": "48213268",
+                    "nettsted": null,
+                    "sip": null,
+                    "telefonnummer": null
+                },
+                "postadresse": {
+                    "adresselinje": [
+                        "Setra vei 207"
+                    ],
+                    "postnummer": "0786",
+                    "poststed": "Oslo"
+                }
+            },
+            {
+                "kundenummer": "18014197461",
+                "navn": {
+                    "etternavn": "Hansen",
+                    "fornavn": "Leona",
+                    "mellomnavn": null
+                },
+                "kontaktinformasjon": {
+                    "epostadresse": "LeonaHansen@dayrep.com",
+                    "mobiltelefonnummer": "41109815",
+                    "nettsted": null,
+                    "sip": null,
+                    "telefonnummer": null
+                },
+                "postadresse": {
+                    "adresselinje": [
+                        "Scheitlies gate 48"
+                    ],
+                    "postnummer": "3045",
+                    "poststed": "Drammen"
+                }
+            },
+            {
+                "kundenummer": "11012759115",
+                "navn": {
+                    "etternavn": "Hofseth",
+                    "fornavn": "Gustav",
+                    "mellomnavn": null
+                },
+                "kontaktinformasjon": {
+                    "epostadresse": "GustavHofseth@rhyta.com",
+                    "mobiltelefonnummer": "94259236",
+                    "nettsted": null,
+                    "sip": null,
+                    "telefonnummer": null
+                },
+                "postadresse": {
+                    "adresselinje": [
+                        "Kikkutveien 91"
+                    ],
+                    "postnummer": "0491",
+                    "poststed": "Oslo"
+                }
+            },
+
+        ]
+    },
+    {
+        "navn": "2STG",
+        "beskrivelse": "3. trinn Studiespesialisering 2018-2019",
+        "id": "3",
+        "kundeliste": [
+            {
+                "kundenummer": "12345678902",
+                "navn": {
+                    "etternavn": "Kjell Kåre",
+                    "fornavn": "Kveiteland",
+                    "mellomnavn": null
+                },
+                "kontaktinformasjon": {
+                    "epostadresse": "Kjellkå@hotmail.com",
+                    "mobiltelefonnummer": "12345678",
+                    "nettsted": null,
+                    "sip": null,
+                    "telefonnummer": null
+                },
+                "postadresse": {
+                    "adresselinje": [
+                        "Skole vei 207"
+                    ],
+                    "postnummer": "4260",
+                    "poststed": "Torvastad"
+                }
+            },
+            {
+                "kundenummer": "14829923273",
+                "navn": {
+                    "etternavn": "Støa",
+                    "fornavn": "Rose",
+                    "mellomnavn": "mellom"
+                },
+                "kontaktinformasjon": {
+                    "epostadresse": "RoseSta@jourrapide.com",
+                    "mobiltelefonnummer": "48213268",
+                    "nettsted": null,
+                    "sip": null,
+                    "telefonnummer": null
+                },
+                "postadresse": {
+                    "adresselinje": [
+                        "Setra vei 207"
+                    ],
+                    "postnummer": "0786",
+                    "poststed": "Oslo"
+                }
+            },
+            {
+                "kundenummer": "18014197461",
+                "navn": {
+                    "etternavn": "Hansen",
+                    "fornavn": "Leona",
+                    "mellomnavn": null
+                },
+                "kontaktinformasjon": {
+                    "epostadresse": "LeonaHansen@dayrep.com",
+                    "mobiltelefonnummer": "41109815",
+                    "nettsted": null,
+                    "sip": null,
+                    "telefonnummer": null
+                },
+                "postadresse": {
+                    "adresselinje": [
+                        "Scheitlies gate 48"
+                    ],
+                    "postnummer": "3045",
+                    "poststed": "Drammen"
+                }
+            },
+            {
+                "kundenummer": "11012759115",
+                "navn": {
+                    "etternavn": "Hofseth",
+                    "fornavn": "Gustav",
+                    "mellomnavn": null
+                },
+                "kontaktinformasjon": {
+                    "epostadresse": "GustavHofseth@rhyta.com",
+                    "mobiltelefonnummer": "94259236",
+                    "nettsted": null,
+                    "sip": null,
+                    "telefonnummer": null
+                },
+                "postadresse": {
+                    "adresselinje": [
+                        "Kikkutveien 91"
+                    ],
+                    "postnummer": "0491",
+                    "poststed": "Oslo"
+                }
+            },
         ]
     }
 ]
@@ -383,6 +743,358 @@ const testDataPerson = [
     },
     {
         "kundenummer": "11010159115",
+        "navn": {
+            "etternavn": "Hofseth",
+            "fornavn": "Gustav",
+            "mellomnavn": null
+        },
+        "kontaktinformasjon": {
+            "epostadresse": "GustavHofseth@rhyta.com",
+            "mobiltelefonnummer": "94259236",
+            "nettsted": null,
+            "sip": null,
+            "telefonnummer": null
+        },
+        "postadresse": {
+            "adresselinje": [
+                "Kikkutveien 91"
+            ],
+            "postnummer": "0491",
+            "poststed": "Oslo"
+        }
+    },
+    {
+        "kundenummer": "12345978909",
+        "navn": {
+            "etternavn": "Kjell Kåre",
+            "fornavn": "Kveiteland",
+            "mellomnavn": null
+        },
+        "kontaktinformasjon": {
+            "epostadresse": "Kjellkå@hotmail.com",
+            "mobiltelefonnummer": "12345678",
+            "nettsted": null,
+            "sip": null,
+            "telefonnummer": null
+        },
+        "postadresse": {
+            "adresselinje": [
+                "Skole vei 207"
+            ],
+            "postnummer": "4260",
+            "poststed": "Torvastad"
+        }
+    },
+    {
+        "kundenummer": "14029923279",
+        "navn": {
+            "etternavn": "Støa",
+            "fornavn": "Rose",
+            "mellomnavn": "mellom"
+        },
+        "kontaktinformasjon": {
+            "epostadresse": "RoseSta@jourrapide.com",
+            "mobiltelefonnummer": "48213268",
+            "nettsted": null,
+            "sip": null,
+            "telefonnummer": null
+        },
+        "postadresse": {
+            "adresselinje": [
+                "Setra vei 207"
+            ],
+            "postnummer": "0786",
+            "poststed": "Oslo"
+        }
+    },
+    {
+        "kundenummer": "18010197465",
+        "navn": {
+            "etternavn": "Hansen",
+            "fornavn": "Leona",
+            "mellomnavn": null
+        },
+        "kontaktinformasjon": {
+            "epostadresse": "LeonaHansen@dayrep.com",
+            "mobiltelefonnummer": "41109815",
+            "nettsted": null,
+            "sip": null,
+            "telefonnummer": null
+        },
+        "postadresse": {
+            "adresselinje": [
+                "Scheitlies gate 48"
+            ],
+            "postnummer": "3045",
+            "poststed": "Drammen"
+        }
+    },
+    {
+        "kundenummer": "11010159116",
+        "navn": {
+            "etternavn": "Hofseth",
+            "fornavn": "Gustav",
+            "mellomnavn": null
+        },
+        "kontaktinformasjon": {
+            "epostadresse": "GustavHofseth@rhyta.com",
+            "mobiltelefonnummer": "94259236",
+            "nettsted": null,
+            "sip": null,
+            "telefonnummer": null
+        },
+        "postadresse": {
+            "adresselinje": [
+                "Kikkutveien 91"
+            ],
+            "postnummer": "0491",
+            "poststed": "Oslo"
+        }
+    },
+    {
+        "kundenummer": "12345678902",
+        "navn": {
+            "etternavn": "Kjell Kåre",
+            "fornavn": "Kveiteland",
+            "mellomnavn": null
+        },
+        "kontaktinformasjon": {
+            "epostadresse": "Kjellkå@hotmail.com",
+            "mobiltelefonnummer": "12345678",
+            "nettsted": null,
+            "sip": null,
+            "telefonnummer": null
+        },
+        "postadresse": {
+            "adresselinje": [
+                "Skole vei 207"
+            ],
+            "postnummer": "4260",
+            "poststed": "Torvastad"
+        }
+    },
+    {
+        "kundenummer": "14829923273",
+        "navn": {
+            "etternavn": "Støa",
+            "fornavn": "Rose",
+            "mellomnavn": "mellom"
+        },
+        "kontaktinformasjon": {
+            "epostadresse": "RoseSta@jourrapide.com",
+            "mobiltelefonnummer": "48213268",
+            "nettsted": null,
+            "sip": null,
+            "telefonnummer": null
+        },
+        "postadresse": {
+            "adresselinje": [
+                "Setra vei 207"
+            ],
+            "postnummer": "0786",
+            "poststed": "Oslo"
+        }
+    },
+    {
+        "kundenummer": "18014197461",
+        "navn": {
+            "etternavn": "Hansen",
+            "fornavn": "Leona",
+            "mellomnavn": null
+        },
+        "kontaktinformasjon": {
+            "epostadresse": "LeonaHansen@dayrep.com",
+            "mobiltelefonnummer": "41109815",
+            "nettsted": null,
+            "sip": null,
+            "telefonnummer": null
+        },
+        "postadresse": {
+            "adresselinje": [
+                "Scheitlies gate 48"
+            ],
+            "postnummer": "3045",
+            "poststed": "Drammen"
+        }
+    },
+    {
+        "kundenummer": "11012759115",
+        "navn": {
+            "etternavn": "Hofseth",
+            "fornavn": "Gustav",
+            "mellomnavn": null
+        },
+        "kontaktinformasjon": {
+            "epostadresse": "GustavHofseth@rhyta.com",
+            "mobiltelefonnummer": "94259236",
+            "nettsted": null,
+            "sip": null,
+            "telefonnummer": null
+        },
+        "postadresse": {
+            "adresselinje": [
+                "Kikkutveien 91"
+            ],
+            "postnummer": "0491",
+            "poststed": "Oslo"
+        }
+    },
+    {
+        "kundenummer": "13345678909",
+        "navn": {
+            "etternavn": "Kjell Kåre",
+            "fornavn": "Kveiteland",
+            "mellomnavn": null
+        },
+        "kontaktinformasjon": {
+            "epostadresse": "Kjellkå@hotmail.com",
+            "mobiltelefonnummer": "12345678",
+            "nettsted": null,
+            "sip": null,
+            "telefonnummer": null
+        },
+        "postadresse": {
+            "adresselinje": [
+                "Skole vei 207"
+            ],
+            "postnummer": "4260",
+            "poststed": "Torvastad"
+        }
+    },
+    {
+        "kundenummer": "14329923273",
+        "navn": {
+            "etternavn": "Støa",
+            "fornavn": "Rose",
+            "mellomnavn": "mellom"
+        },
+        "kontaktinformasjon": {
+            "epostadresse": "RoseSta@jourrapide.com",
+            "mobiltelefonnummer": "48213268",
+            "nettsted": null,
+            "sip": null,
+            "telefonnummer": null
+        },
+        "postadresse": {
+            "adresselinje": [
+                "Setra vei 207"
+            ],
+            "postnummer": "0786",
+            "poststed": "Oslo"
+        }
+    },
+    {
+        "kundenummer": "18010197471",
+        "navn": {
+            "etternavn": "Hansen",
+            "fornavn": "Leona",
+            "mellomnavn": null
+        },
+        "kontaktinformasjon": {
+            "epostadresse": "LeonaHansen@dayrep.com",
+            "mobiltelefonnummer": "41109815",
+            "nettsted": null,
+            "sip": null,
+            "telefonnummer": null
+        },
+        "postadresse": {
+            "adresselinje": [
+                "Scheitlies gate 48"
+            ],
+            "postnummer": "3045",
+            "poststed": "Drammen"
+        }
+    },
+    {
+        "kundenummer": "11017159115",
+        "navn": {
+            "etternavn": "Hofseth",
+            "fornavn": "Gustav",
+            "mellomnavn": null
+        },
+        "kontaktinformasjon": {
+            "epostadresse": "GustavHofseth@rhyta.com",
+            "mobiltelefonnummer": "94259236",
+            "nettsted": null,
+            "sip": null,
+            "telefonnummer": null
+        },
+        "postadresse": {
+            "adresselinje": [
+                "Kikkutveien 91"
+            ],
+            "postnummer": "0491",
+            "poststed": "Oslo"
+        }
+    },
+    {
+        "kundenummer": "12347678909",
+        "navn": {
+            "etternavn": "Kjell Kåre",
+            "fornavn": "Kveiteland",
+            "mellomnavn": null
+        },
+        "kontaktinformasjon": {
+            "epostadresse": "Kjellkå@hotmail.com",
+            "mobiltelefonnummer": "12345678",
+            "nettsted": null,
+            "sip": null,
+            "telefonnummer": null
+        },
+        "postadresse": {
+            "adresselinje": [
+                "Skole vei 207"
+            ],
+            "postnummer": "4260",
+            "poststed": "Torvastad"
+        }
+    },
+    {
+        "kundenummer": "13029923273",
+        "navn": {
+            "etternavn": "Støa",
+            "fornavn": "Rose",
+            "mellomnavn": "mellom"
+        },
+        "kontaktinformasjon": {
+            "epostadresse": "RoseSta@jourrapide.com",
+            "mobiltelefonnummer": "48213268",
+            "nettsted": null,
+            "sip": null,
+            "telefonnummer": null
+        },
+        "postadresse": {
+            "adresselinje": [
+                "Setra vei 207"
+            ],
+            "postnummer": "0786",
+            "poststed": "Oslo"
+        }
+    },
+    {
+        "kundenummer": "18030197461",
+        "navn": {
+            "etternavn": "Hansen",
+            "fornavn": "Leona",
+            "mellomnavn": null
+        },
+        "kontaktinformasjon": {
+            "epostadresse": "LeonaHansen@dayrep.com",
+            "mobiltelefonnummer": "41109815",
+            "nettsted": null,
+            "sip": null,
+            "telefonnummer": null
+        },
+        "postadresse": {
+            "adresselinje": [
+                "Scheitlies gate 48"
+            ],
+            "postnummer": "3045",
+            "poststed": "Drammen"
+        }
+    },
+    {
+        "kundenummer": "11010559115",
         "navn": {
             "etternavn": "Hofseth",
             "fornavn": "Gustav",
@@ -662,18 +1374,18 @@ class Claim extends Component {
                     {this.state.activeStep === steps.length ? (
                         <div>
                             <Typography className={classes.instructions}>
-                               Alle steg er fullførte - Du kan nå starte på nytt om du ønsker!
+                                Alle steg er fullførte - Du kan nå starte på nytt om du ønsker!
                             </Typography>
                             <Button onClick={this.handleReset}>Start på nytt</Button>
                             <Snackbar
-                                        anchorOrigin={{ vertical, horizontal }}
-                                        open={open}
-                                        onClose={this.handleCloseSnack}
-                                        ContentProps={{
-                                            'aria-describedby': 'message-id',
-                                        }}
-                                        message={<span id="message-id">Fakturaene er sendt</span>}
-                                    />
+                                anchorOrigin={{ vertical, horizontal }}
+                                open={open}
+                                onClose={this.handleCloseSnack}
+                                ContentProps={{
+                                    'aria-describedby': 'message-id',
+                                }}
+                                message={<span id="message-id">Fakturaene er sendt</span>}
+                            />
                         </div>
                     ) : (
                             <div>
@@ -697,7 +1409,7 @@ class Claim extends Component {
                                     {/*<Button variant="raised" color="primary" onClick={this.handleNext}>
                                         {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
                                     </Button>*/}
-                                    
+
                                 </div>
 
                             </div>

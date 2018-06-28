@@ -26,7 +26,7 @@ const styles = theme => ({
     },
     paper: {
         width: '100%',
-        height: 150,
+        maxHeight: 250,
         overflowX: 'auto',
         marginTop: theme.spacing.unit * 2,
     },
