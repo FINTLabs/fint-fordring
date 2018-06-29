@@ -24,6 +24,12 @@ const styles = theme => ({
     rotate: {
         transform: "rotate(180deg)"
     },
+    fixedHeader: {
+        position: 'sticky',
+        top: 0,
+        backgroundColor: theme.palette.background.paper,
+        zIndex: 5
+    }
 });
 
 
@@ -55,19 +61,19 @@ class SearchResultProduct extends Component {
                 <Table className={classes.table}>
                     <TableHead>
                         <TableRow>
-                            <TableCell onClick={() => this.triggerSort("productName", false, "product")}>Produkt {(this.state.last === "product") ? (
+                            <TableCell className={classes.fixedHeader} onClick={() => this.triggerSort("productName", false, "product")}>Produkt {(this.state.last === "product") ? (
                                                     (this.state.sort === 1) ? (<svg className={classes.rotate} height="12" width="12" viewBox="3 5 24 24" aria-hidden="true"><path d="M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z"></path></svg>) : (<svg height="12" width="12" viewBox="-3 -5 24 24" aria-hidden="true"><path d="M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z"></path></svg>)
                                                 ) : (<svg height="12" width="12" viewBox="-3 -5 24 24" aria-hidden="true"></svg>)}
                                                 </TableCell>
-                            <TableCell onClick={() => this.triggerSort("producer", false, "producer")}>Produsent {(this.state.last === "producer") ? (
+                            <TableCell className={classes.fixedHeader} onClick={() => this.triggerSort("producer", false, "producer")}>Produsent {(this.state.last === "producer") ? (
                                                     (this.state.sort === 1) ? (<svg className={classes.rotate} height="12" width="12" viewBox="3 5 24 24" aria-hidden="true"><path d="M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z"></path></svg>) : (<svg height="12" width="12" viewBox="-3 -5 24 24" aria-hidden="true"><path d="M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z"></path></svg>)
                                                 ) : (<svg height="12" width="12" viewBox="-3 -5 24 24" aria-hidden="true"></svg>)}
                                                 </TableCell>
-                            <TableCell onClick={() => this.triggerSort("model", false, "model")}>Modell {(this.state.last === "model") ? (
+                            <TableCell className={classes.fixedHeader} onClick={() => this.triggerSort("model", false, "model")}>Modell {(this.state.last === "model") ? (
                                                     (this.state.sort === 1) ? (<svg className={classes.rotate} height="12" width="12" viewBox="3 5 24 24" aria-hidden="true"><path d="M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z"></path></svg>) : (<svg height="12" width="12" viewBox="-3 -5 24 24" aria-hidden="true"><path d="M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z"></path></svg>)
                                                 ) : (<svg height="12" width="12" viewBox="-3 -5 24 24" aria-hidden="true"></svg>)}
                                                 </TableCell>
-                            <TableCell onClick={() => this.triggerSort("price", true, "price")}>Pris {(this.state.last === "price") ? (
+                            <TableCell className={classes.fixedHeader} onClick={() => this.triggerSort("price", true, "price")}>Pris {(this.state.last === "price") ? (
                                                     (this.state.sort === 1) ? (<svg className={classes.rotate} height="12" width="12" viewBox="3 5 24 24" aria-hidden="true"><path d="M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z"></path></svg>) : (<svg height="12" width="12" viewBox="-3 -5 24 24" aria-hidden="true"><path d="M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z"></path></svg>)
                                                 ) : (<svg height="12" width="12" viewBox="-3 -5 24 24" aria-hidden="true"></svg>)}
                                                 </TableCell>

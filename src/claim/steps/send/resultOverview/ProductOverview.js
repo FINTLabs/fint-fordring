@@ -18,6 +18,12 @@ const styles = theme => ({
     table: {
         minWidth: 700,
     },
+    fixedHeader: {
+        position: 'sticky',
+        top: 0,
+        backgroundColor: theme.palette.background.paper,
+        zIndex: 5
+    }
 });
 
 
@@ -53,10 +59,10 @@ class ProductOverview extends Component {
                     <Table className={classes.table}>
                         <TableHead>
                             <TableRow>
-                                <TableCell /*onClick={() => this.triggerSort("productName", false)}*/>Produkt</TableCell>
-                                <TableCell /*onClick={() => this.triggerSort("producer", false)}*/>Produsent</TableCell>
-                                <TableCell /*onClick={() => this.triggerSort("model", false)}*/>Modell</TableCell>
-                                <TableCell /*onClick={() => this.triggerSort("price", true)}*/>Pris</TableCell>
+                                <TableCell className={classes.fixedHeader} /*onClick={() => this.triggerSort("productName", false)}*/>Produkt</TableCell>
+                                <TableCell className={classes.fixedHeader} /*onClick={() => this.triggerSort("producer", false)}*/>Produsent</TableCell>
+                                <TableCell className={classes.fixedHeader} /*onClick={() => this.triggerSort("model", false)}*/>Modell</TableCell>
+                                <TableCell className={classes.fixedHeader} /*onClick={() => this.triggerSort("price", true)}*/>Pris</TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>

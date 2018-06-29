@@ -18,6 +18,12 @@ const styles = theme => ({
     },
     rotate: {
         transform: "rotate(180deg)"
+    },
+    fixedHeader: {
+        position: 'sticky',
+        top: 0,
+        backgroundColor: theme.palette.background.paper,
+        zIndex: 5
     }
 });
 
@@ -38,7 +44,7 @@ class AllClaims extends React.Component {
                 <Table className={classes.table}>
                     <TableHead>
                     <TableRow>
-                            <TableCell onClick={() => this.props.triggerSort(["ordrenummer"], true, "ordrenummer")}>
+                            <TableCell className={classes.fixedHeader} onClick={() => this.props.triggerSort(["ordrenummer"], true, "ordrenummer")}>
                                 Ordrenummer {(this.props.last === "ordrenummer")?(
                                 (this.props.sort === 1) ? (<svg className={classes.rotate} height="12" width="12" viewBox="3 5 24 24" aria-hidden="true">
                                 <path d="M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z"></path></svg>):(
@@ -46,7 +52,7 @@ class AllClaims extends React.Component {
                                 <path d="M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z"></path></svg>)):
                                 (<svg height="12" width="12" viewBox="-3 -5 24 24" aria-hidden="true"></svg>)}
                             </TableCell>
-                            <TableCell onClick={() => this.props.triggerSort(["kunde.navn.etternavn", "kunde.navn.fornavn", "kunde.navn.mellomnavn"], false, "navn")}>
+                            <TableCell className={classes.fixedHeader} onClick={() => this.props.triggerSort(["kunde.navn.etternavn", "kunde.navn.fornavn", "kunde.navn.mellomnavn"], false, "navn")}>
                                 Navn {(this.props.last === "navn")?(
                                 (this.props.sort === 1) ? (<svg className={classes.rotate} height="12" width="12" viewBox="3 5 24 24" aria-hidden="true">
                                 <path d="M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z"></path></svg>):(
@@ -54,7 +60,7 @@ class AllClaims extends React.Component {
                                 <path d="M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z"></path></svg>)):
                                 (<svg height="12" width="12" viewBox="-3 -5 24 24" aria-hidden="true"></svg>)}
                             </TableCell>
-                            <TableCell onClick={() => this.props.triggerSort(["fakturagrunnlag.total"], true, "totalpris")}>
+                            <TableCell className={classes.fixedHeader} onClick={() => this.props.triggerSort(["fakturagrunnlag.total"], true, "totalpris")}>
                                 Totalpris {(this.props.last === "totalpris")?(
                                 (this.props.sort === 1) ? (<svg className={classes.rotate} height="12" width="12" viewBox="3 5 24 24" aria-hidden="true">
                                 <path d="M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z"></path></svg>):(
@@ -62,7 +68,7 @@ class AllClaims extends React.Component {
                                 <path d="M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z"></path></svg>)):
                                 (<svg height="12" width="12" viewBox="-3 -5 24 24" aria-hidden="true"></svg>)}
                             </TableCell>
-                            <TableCell onClick={() => this.props.triggerSort(["restBelop"], true, "betale")}>
+                            <TableCell className={classes.fixedHeader} onClick={() => this.props.triggerSort(["restBelop"], true, "betale")}>
                                 Har igjen å betale {(this.props.last === "betale")?(
                                 (this.props.sort === 1) ? (<svg className={classes.rotate} height="12" width="12" viewBox="3 5 24 24" aria-hidden="true">
                                 <path d="M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z"></path></svg>):(

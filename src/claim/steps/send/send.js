@@ -43,7 +43,7 @@ const styles = theme => ({
     },
     optionHeading: {
         fontSize: theme.typography.pxToRem(15),
-        flexBasis: '100%',
+        flexBasis: '33.3%',
     },
     rotate: {
         transform: "rotate(180deg)"
@@ -95,26 +95,50 @@ class Step3 extends Component {
         }
     }
 
+    checkAmountOfChosenGroups = (listOfGroups, listOfSelectedPeople) => {
+        let counter = 0;
+        for (let i = 0; i < listOfGroups.length; i++) {
+            for (let j = 0; j < listOfGroups[i].kundeliste.length; j++) {
+                if (listOfSelectedPeople[listOfGroups[i].kundeliste[j].kundenummer] === true) {
+                    counter++;
+                    break;
+                } 
+            }
+        }
+        return counter;
+    }
+
+    checkPricePerCustomer = (listOfProducts) => {
+        let sum = 0;
+        for (let i = 0; i < listOfProducts.length; i++){
+            sum += Number(listOfProducts[i]["price"]);
+        }
+        return sum.toFixed(2);
+    }
+
     render() {
 
         const { classes } = this.props;
 
         return (
             <div>
-                <ExpansionPanel  defaultExpanded={true}>
-                    <ExpansionPanelSummary expandIcon={<ExpandMoreIcon /> }>
+                <ExpansionPanel defaultExpanded={true}>
+                    <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+                        <Typography className={classes.optionHeading}></Typography>
                         <Typography className={classes.optionHeading}>Valgte Produkter</Typography>
+                        <Typography className={classes.optionHeading}>{this.props.productOrderedBySelection[0] ? (`${this.checkPricePerCustomer(this.props.productOrderedBySelection)},- per kunde`):("")}</Typography>
                     </ExpansionPanelSummary>
                     <ExpansionPanelDetails>
                         {(!this.props.productOrderedBySelection[0]) ? (<h3 className={classes.secondaryHeading}>Du har ikke valgt noen produkter enda</h3>) : (
                             <ProductOverview productOrderedBySelection={this.props.productOrderedBySelection} />
                         )}
-                        {/*På bunn av denne tabellen kan en ha sum av produktpris; pris per elev*/}
                     </ExpansionPanelDetails>
                 </ExpansionPanel>
                 <ExpansionPanel>
                     <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+                        <Typography className={classes.optionHeading}></Typography>
                         <Typography className={classes.optionHeading}>Valgte Personer</Typography>
+                        <Typography className={classes.optionHeading}>{this.props.personOrderedBySelection.length}/{this.props.testDataPerson.length} Personer</Typography>
                     </ExpansionPanelSummary>
                     <ExpansionPanelDetails>
                         {(!this.props.personOrderedBySelection[0]) ? (<h3 className={classes.secondaryHeading}>Du har ikke valgt noen personer enda</h3>) : (
@@ -128,7 +152,11 @@ class Step3 extends Component {
                 </ExpansionPanel>
                 <ExpansionPanel>
                     <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+                        <Typography className={classes.optionHeading}></Typography>
                         <Typography className={classes.optionHeading}>Valgte Grupper</Typography>
+                        <Typography className={classes.optionHeading}>
+                            {this.checkAmountOfChosenGroups(this.props.testDataGruppe, this.props.selectedPersonList)}/{this.props.testDataGruppe.length} Grupper
+                        </Typography>
                     </ExpansionPanelSummary>
                     <ExpansionPanelDetails>
                         {(!this.props.personOrderedBySelection[0]) ? (<h3 className={classes.secondaryHeading}>Du har ikke valgt noen grupper enda</h3>) : (

@@ -21,6 +21,12 @@ const styles = theme => ({
     },
     rotate: {
         transform: "rotate(180deg)"
+    },
+    fixedHeader: {
+        position: 'sticky',
+        top: 0,
+        backgroundColor: theme.palette.background.paper,
+        zIndex: 5
     }
 });
 
@@ -56,7 +62,7 @@ class PersonOverview extends Component {
                     <Table className={classes.table}>
                         <TableHead>
                             <TableRow>
-                                <TableCell onClick={() => this.triggerSort(["navn.fornavn", "navn.mellomnavn", "navn.etternavn"], false, "fornavn")}>
+                                <TableCell className={classes.fixedHeader} onClick={() => this.triggerSort(["navn.fornavn", "navn.mellomnavn", "navn.etternavn"], false, "fornavn")}>
                                     Fornavn {(this.state.last === "fornavn") ? (
                                         (this.state.sort === 1) ? (<svg className={classes.rotate} height="12" width="12" viewBox="3 5 24 24" aria-hidden="true">
                                             <path d="M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z"></path></svg>) : (
@@ -64,7 +70,7 @@ class PersonOverview extends Component {
                                                     <path d="M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z"></path></svg>)) :
                                         (<svg height="12" width="12" viewBox="-3 -5 24 24" aria-hidden="true"></svg>)}
                                 </TableCell>
-                                <TableCell onClick={() => this.triggerSort(["navn.etternavn", "navn.fornavn", "navn.mellomnavn"], false, "etternavn")}>
+                                <TableCell className={classes.fixedHeader} onClick={() => this.triggerSort(["navn.etternavn", "navn.fornavn", "navn.mellomnavn"], false, "etternavn")}>
                                     Etternavn {(this.state.last === "etternavn") ? (
                                         (this.state.sort === 1) ? (<svg className={classes.rotate} height="12" width="12" viewBox="3 5 24 24" aria-hidden="true">
                                             <path d="M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z"></path></svg>) : (
@@ -72,7 +78,7 @@ class PersonOverview extends Component {
                                                     <path d="M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z"></path></svg>)) :
                                         (<svg height="12" width="12" viewBox="-3 -5 24 24" aria-hidden="true"></svg>)}
                                 </TableCell>
-                                <TableCell onClick={() => this.triggerSort(["klassenavn"], false, "klasse")}>
+                                <TableCell className={classes.fixedHeader} onClick={() => this.triggerSort(["klassenavn"], false, "klasse")}>
                                     Klasse {(this.state.last === "klasse") ? (
                                         (this.state.sort === 1) ? (<svg className={classes.rotate} height="12" width="12" viewBox="3 5 24 24" aria-hidden="true">
                                             <path d="M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z"></path></svg>) : (
