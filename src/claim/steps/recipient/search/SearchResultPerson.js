@@ -24,6 +24,13 @@ const styles = theme => ({
     table: {
         minWidth: 521,
     },
+    actionButton: {
+        height: "35px",
+        width: "35px",
+    },
+    actionButtonIcon: {
+        color: "#fff",
+    },
     rotate: {
         transform: "rotate(180deg)"
     },
@@ -92,7 +99,7 @@ class ResultTablePerson extends Component {
                             </TableCell>
                             <TableCell className={classes.fixedHeader}>
                                 <Button mini variant="fab" aria-label="add" onClick={() => this.props.addAll(this.props.testDataPerson)}
-                                    className={classes.button}>
+                                    className={classes.actionButton}>
                                     {(this.props.checkIfAllAreSelected(this.props.testDataPerson)) ? (
                                         <CheckBoxOutlineBlank />
                                     ) : (
@@ -113,12 +120,12 @@ class ResultTablePerson extends Component {
                                         <TableCell>
                                             {!this.props.selectedPersonList[n.kundenummer] ? (
                                                 <Button mini variant="fab" color="secondary" aria-label="add" onClick={() => this.props.addMethod(n)}
-                                                    className={classes.button}>
-                                                    <Add />
+                                                    className={classes.actionButton}>
+                                                    <Add className={classes.actionButtonIcon} />
                                                 </Button>
                                             ) : (
                                                     <Button mini variant="fab" color="primary" aria-label="add" onClick={() => this.props.removeMethod(n)}
-                                                        className={classes.button}>
+                                                        className={classes.actionButton}>
                                                         <Remove />
                                                     </Button>
                                                 )}

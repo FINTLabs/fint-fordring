@@ -43,7 +43,7 @@ const styles = theme => ({
         transform: "rotate(180deg)"
     },
     table: {
-        minWidth:521
+        minWidth: 521
     },
     actionButton: {
         height: "35px",
@@ -95,9 +95,9 @@ class SearchResultGroup extends React.Component {
 
     howManySelected = (selectedArrayObject, checkArray) => {
         let counter = 0;
-        for(let i = 0; i < checkArray.length; i++){
-            if(selectedArrayObject[checkArray[i].kundenummer] === true){
-                counter ++
+        for (let i = 0; i < checkArray.length; i++) {
+            if (selectedArrayObject[checkArray[i].kundenummer] === true) {
+                counter++
             }
         }
         return counter;
@@ -118,7 +118,7 @@ class SearchResultGroup extends React.Component {
                             <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
                                 <Typography className={classes.heading}>{n.navn}</Typography>
                                 <Typography className={classes.secondaryHeading}>{/*n.school*/}Ingen skole</Typography>
-                                <Typography className={classes.heading}>{this.howManySelected(this.props.selectedPersonList,n.kundeliste)} av {n.kundeliste.length} elever er valgte</Typography>
+                                <Typography className={classes.heading}>{this.howManySelected(this.props.selectedPersonList, n.kundeliste)} av {n.kundeliste.length} elever er valgte</Typography>
                             </ExpansionPanelSummary>
                             <ExpansionPanelDetails>
                                 <Paper className={classes.paper} elevation={2}>
@@ -126,32 +126,32 @@ class SearchResultGroup extends React.Component {
                                         <TableHead>
                                             <TableRow>
                                                 <TableCell className={classes.fixedHeader} onClick={() => this.triggerSort(["navn.fornavn", "navn.mellomnavn", "navn.etternavn"], false, n.kundeliste, "fornavn")}>
-                                                    Fornavn {(this.state.last === "fornavn")?(
-                                                    (this.state.sort === 1) ? (<svg className={classes.rotate} height="12" width="12" viewBox="3 5 24 24" aria-hidden="true">
-                                                    <path d="M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z"></path></svg>):(
-                                                    <svg height="12" width="12" viewBox="-3 -5 24 24" aria-hidden="true">
-                                                    <path d="M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z"></path></svg>))
-                                                    :(<svg height="12" width="12" viewBox="-3 -5 24 24" aria-hidden="true"></svg>)}
+                                                    Fornavn {(this.state.last === "fornavn") ? (
+                                                        (this.state.sort === 1) ? (<svg className={classes.rotate} height="12" width="12" viewBox="3 5 24 24" aria-hidden="true">
+                                                            <path d="M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z"></path></svg>) : (
+                                                                <svg height="12" width="12" viewBox="-3 -5 24 24" aria-hidden="true">
+                                                                    <path d="M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z"></path></svg>))
+                                                        : (<svg height="12" width="12" viewBox="-3 -5 24 24" aria-hidden="true"></svg>)}
                                                 </TableCell>
                                                 <TableCell className={classes.fixedHeader} onClick={() => this.triggerSort(["navn.etternavn", "navn.fornavn", "navn.mellomnavn"], false, n.kundeliste, "etternavn")}>
-                                                    Etternavn {(this.state.last === "etternavn")?(
-                                                    (this.state.sort === 1) ? (<svg className={classes.rotate} height="12" width="12" viewBox="3 5 24 24" aria-hidden="true">
-                                                    <path d="M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z"></path></svg>):(
-                                                    <svg height="12" width="12" viewBox="-3 -5 24 24" aria-hidden="true">
-                                                    <path d="M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z"></path></svg>))
-                                                    :(<svg height="12" width="12" viewBox="-3 -5 24 24" aria-hidden="true"></svg>)}
+                                                    Etternavn {(this.state.last === "etternavn") ? (
+                                                        (this.state.sort === 1) ? (<svg className={classes.rotate} height="12" width="12" viewBox="3 5 24 24" aria-hidden="true">
+                                                            <path d="M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z"></path></svg>) : (
+                                                                <svg height="12" width="12" viewBox="-3 -5 24 24" aria-hidden="true">
+                                                                    <path d="M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z"></path></svg>))
+                                                        : (<svg height="12" width="12" viewBox="-3 -5 24 24" aria-hidden="true"></svg>)}
                                                 </TableCell>
                                                 <TableCell className={classes.fixedHeader} onClick={() => this.triggerSort(["klassenavn"], false, n.kundeliste, "klasse")}>
-                                                    Klasse {(this.state.last === "klasse")?(
-                                                    (this.state.sort === 1) ? (<svg className={classes.rotate} height="12" width="12" viewBox="3 5 24 24" aria-hidden="true">
-                                                    <path d="M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z"></path></svg>):(
-                                                    <svg height="12" width="12" viewBox="-3 -5 24 24" aria-hidden="true">
-                                                    <path d="M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z"></path></svg>))
-                                                    :(<svg height="12" width="12" viewBox="-3 -5 24 24" aria-hidden="true"></svg>)}
+                                                    Klasse {(this.state.last === "klasse") ? (
+                                                        (this.state.sort === 1) ? (<svg className={classes.rotate} height="12" width="12" viewBox="3 5 24 24" aria-hidden="true">
+                                                            <path d="M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z"></path></svg>) : (
+                                                                <svg height="12" width="12" viewBox="-3 -5 24 24" aria-hidden="true">
+                                                                    <path d="M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z"></path></svg>))
+                                                        : (<svg height="12" width="12" viewBox="-3 -5 24 24" aria-hidden="true"></svg>)}
                                                 </TableCell>
                                                 <TableCell className={classes.fixedHeader}>
                                                     <Button mini variant="fab" aria-label="add" onClick={() => this.props.addAll(n)}
-                                                        className={classes.button}>
+                                                        className={classes.actionButton}>
                                                         {(this.props.checkIfAllAreSelected(n)) ? (
                                                             <CheckBoxOutlineBlank />
                                                         ) : (
@@ -174,7 +174,7 @@ class SearchResultGroup extends React.Component {
                                                                     <Add className={classes.actionButtonIcon} />
                                                                 </Button>
                                                             ) : (
-                                                                    <Button  className={classes.actionButton} variant="fab" color="primary" aria-label="add" onClick={() => this.props.removeMethod(m)}>
+                                                                    <Button className={classes.actionButton} variant="fab" color="primary" aria-label="add" onClick={() => this.props.removeMethod(m)}>
                                                                         <Remove />
                                                                     </Button>
                                                                 )}

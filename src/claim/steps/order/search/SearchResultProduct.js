@@ -21,6 +21,13 @@ const styles = theme => ({
     table: {
         minWidth: 720,
     },
+    actionButton: {
+        height: "35px",
+        width: "35px",
+    },
+    actionButtonIcon: {
+        color: "#fff",
+    },
     rotate: {
         transform: "rotate(180deg)"
     },
@@ -94,12 +101,12 @@ class SearchResultProduct extends Component {
                                     <TableCell>
                                         {!this.props.selectedProductList[n.id] ? (
                                             <Button mini variant="fab" color="secondary" aria-label="add" onClick={() => this.props.addMethod(n)}
-                                                className={classes.button}>
-                                                <Add />
+                                                className={classes.actionButton}>
+                                                <Add className={classes.actionButtonIcon}/>
                                             </Button>
                                         ) : (
                                                 <Button mini variant="fab" color="primary" aria-label="add" onClick={() => this.props.removeMethod(n)}
-                                                    className={classes.button}>
+                                                    className={classes.actionButton}>
                                                     <Remove />
                                                 </Button>
                                             )}
