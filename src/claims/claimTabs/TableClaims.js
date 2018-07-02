@@ -41,13 +41,13 @@ class TableClaims extends React.Component {
         
 
         let classGreen = {
-            backgroundColor: "rgba(75, 181, 67, 0.5)"
+            backgroundColor: "rgb(220, 255, 220)" //change values that are 220 closer to 0 to get stronger colors
         };
         let classYellow = {
-            backgroundColor: "rgba(240, 240, 0, 0.5)"
+            backgroundColor: "rgb(255, 255, 220)"
         };
         let classRed = {
-            backgroundColor: "rgba(204, 0, 0, 0.5)"
+            backgroundColor: "rgb(255, 220, 220)"
         };
         let classCurrent = {};
         

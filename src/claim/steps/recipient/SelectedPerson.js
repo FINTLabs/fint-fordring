@@ -23,7 +23,7 @@ const styles = theme => ({
     flexWrap: 'wrap',
     padding: theme.spacing.unit / 2,
     marginTop: theme.spacing.unit,
-    maxHeight: 12000,
+    maxHeight: "none",
     overflow: "hidden",
   },
   chip: {

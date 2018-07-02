@@ -1122,40 +1122,35 @@ const testDataProduct = [
         "productName": "A",
         "model": "B",
         "producer": "C",
-        "price": "12999",
-        "selected": false
+        "price": "12999"
     },
     {
         "id": "2",
         "productName": "H",
         "model": "G",
         "producer": "Eple",
-        "price": "1229999",
-        "selected": false
+        "price": "1229999"
     },
     {
         "id": "3",
         "productName": "Liten støsuger",
         "model": "Iis",
         "producer": "Apple",
-        "price": "29999",
-        "selected": false
+        "price": "29999"
     },
     {
         "id": "4",
         "productName": "Ostsuger",
         "model": "Succer5000",
         "producer": "Opple",
-        "price": "319999",
-        "selected": false
+        "price": "319999"
     },
     {
         "id": "5",
         "productName": "B",
         "model": "Ucer5000",
         "producer": "Ppple",
-        "price": "30000.000001",
-        "selected": false
+        "price": "30000.000001"
     },
 ];
 
@@ -1310,7 +1305,22 @@ class Claim extends Component {
     handleClickSnack = state => () => {
         this.setState({ open: true, ...state });
         this.handleNext();
+        this.sendClaim();
     };
+
+    sendClaim = () => {
+        let arrOfAllPayments = [];
+        for(let i = 0; i < this.state.personOrderedBySelection.length; i++) {
+            let newObj = {
+                "kunde": this.state.personOrderedBySelection[i],
+                "fakturagrunnlag": {
+                    "fakturalinjer" : this.state.productOrderedBySelection
+                }
+            }
+            arrOfAllPayments.push(newObj);
+        }
+        console.log(arrOfAllPayments);
+    }
 
     handleCloseSnack = () => {
         this.setState({ open: false });
@@ -1380,6 +1390,7 @@ class Claim extends Component {
                             <Snackbar
                                 anchorOrigin={{ vertical, horizontal }}
                                 open={open}
+                                autoHideDuration={6000}
                                 onClose={this.handleCloseSnack}
                                 ContentProps={{
                                     'aria-describedby': 'message-id',
