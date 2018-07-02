@@ -57,12 +57,15 @@ const styles = theme => ({
 
 class Main extends Component {
 
+    constructor() {
+        super();
+    }
+
     render() {
         const { classes } = this.props;
 
         return (
             <BrowserRouter basename='/'>
-
                 <div className={classes.root}>
                     <AppBar position="absolute" className={classes.appBar} color="primary">
                         <Toolbar>
@@ -113,7 +116,7 @@ class Main extends Component {
                     </Drawer>
                     <main className={classes.content}>
                         <div>
-                            <Route exact path='/' component={Dashboard} />
+                            <Route exact path='/' component={Dashboard} onChange={console.log("hei")} />
                             <Route path='/fordringer' component={Claims} />
                             <Route path='/ny-fordring' component={Claim} />
                         </div>

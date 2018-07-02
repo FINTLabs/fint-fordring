@@ -10,6 +10,7 @@ import Step1 from "./steps/recipient/recipients";
 import Step2 from "./steps/order/orders";
 import Step3 from "./steps/send/send";
 import Snackbar from '@material-ui/core/Snackbar';
+import { Prompt } from "react-router-dom";
 
 const styles = theme => ({
     root: {
@@ -1200,6 +1201,7 @@ class Claim extends Component {
         };
     }
 
+
     addMethodPerson = (person) => {
         let updateList = this.state.selectedPersonList;
         updateList[person["kundenummer"]] = true;
@@ -1310,11 +1312,11 @@ class Claim extends Component {
 
     sendClaim = () => {
         let arrOfAllPayments = [];
-        for(let i = 0; i < this.state.personOrderedBySelection.length; i++) {
+        for (let i = 0; i < this.state.personOrderedBySelection.length; i++) {
             let newObj = {
                 "kunde": this.state.personOrderedBySelection[i],
                 "fakturagrunnlag": {
-                    "fakturalinjer" : this.state.productOrderedBySelection
+                    "fakturalinjer": this.state.productOrderedBySelection
                 }
             }
             arrOfAllPayments.push(newObj);
@@ -1371,6 +1373,7 @@ class Claim extends Component {
 
         return (
             <div className={classes.root}>
+                <Prompt message="Are you sure you want to leave? All changes will be discarded." />
                 <Stepper activeStep={activeStep} >
                     {steps.map(label => {
                         return (
