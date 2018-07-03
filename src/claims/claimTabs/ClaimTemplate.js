@@ -14,17 +14,17 @@ const styles = theme => ({
   },
   avsenderAdresse: {
     position: 'absolute',
-    top: 50,
+    top: 0,
     left: 0
   },
   betalingsInfo: {
     position: 'absolute',
-    top: -70,
-    left: 250
+    top: 0,
+    left: 200
   },
   fakturaInfo: {
     position: 'absolute',
-    top: -230,
+    top: 200,
     left: 500
   },
   avsenderBedrift: {
@@ -34,13 +34,13 @@ const styles = theme => ({
   },
   varer: {
     position: 'absolute',
-    top: 550,
-    left: 50,
+    top: 400,
+    left: 20,
     width: 500
   },
   avslutning: {
     position: 'absolute',
-    top: 1000,
+    top: 600,
     left: 0
   },
   size: {

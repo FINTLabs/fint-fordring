@@ -16,7 +16,7 @@ const styles = theme => ({
   },
   size: {
     height: 1000,
-    width: 2000,
+    width: 800,
   }
 });
 

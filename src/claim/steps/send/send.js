@@ -10,6 +10,7 @@ import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import ChipSelectedPerson from "./ChipSelectedPerson";
 
 const styles = theme => ({
     root: {
@@ -102,7 +103,7 @@ class Step3 extends Component {
                 if (listOfSelectedPeople[listOfGroups[i].kundeliste[j].kundenummer] === true) {
                     counter++;
                     break;
-                } 
+                }
             }
         }
         return counter;
@@ -110,7 +111,7 @@ class Step3 extends Component {
 
     checkPricePerCustomer = (listOfProducts) => {
         let sum = 0;
-        for (let i = 0; i < listOfProducts.length; i++){
+        for (let i = 0; i < listOfProducts.length; i++) {
             sum += Number(listOfProducts[i]["price"]);
         }
         return sum.toFixed(2);
@@ -122,7 +123,14 @@ class Step3 extends Component {
 
         return (
             <div>
-                <ExpansionPanel defaultExpanded={true}>
+                {this.props.personOrderedBySelection[0] ?
+                    (<ChipSelectedPerson orderedBySelection={this.props.personOrderedBySelection} />) :
+                    (<div>Du har ikke valgt noen mottakere</div>)}
+                {(!this.props.productOrderedBySelection[0]) ? (<h3 className={classes.secondaryHeading}>Du har ikke valgt noen produkter enda</h3>) : (
+                    <ProductOverview productOrderedBySelection={this.props.productOrderedBySelection} />
+                )}
+
+                {/*<ExpansionPanel defaultExpanded={true}>
                     <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
                         <Typography className={classes.optionHeading}></Typography>
                         <Typography className={classes.optionHeading}>Valgte Produkter</Typography>
@@ -167,7 +175,7 @@ class Step3 extends Component {
                                 selectedPersonList={this.props.selectedPersonList} />
                         )}
                     </ExpansionPanelDetails>
-                </ExpansionPanel>
+                </ExpansionPanel>*/}
             </div>
         );
     }
