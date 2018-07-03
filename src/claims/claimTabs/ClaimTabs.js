@@ -30,7 +30,7 @@ const styles = theme => ({
   root: {
     flexGrow: 1,
     backgroundColor: theme.palette.background.paper,
-    minWidth: 725
+    minWidth: 851
   },
 });
 
@@ -109,13 +109,13 @@ class ClaimTabs extends React.Component {
 
     for (let i = 0; i < listOfAllClaims.length; i++) {
       if (listOfAllClaims[i].restBelop === 0) {
-        listOfAllClaims[i]["farge"] = "green";
+        listOfAllClaims[i]["status"] = "betalt";
         listOfPaidClaims.push(listOfAllClaims[i]);
       } else if (listOfAllClaims[i].restBelop !== listOfAllClaims[i]["fakturagrunnlag"]["total"]) {
-        listOfAllClaims[i]["farge"] = "yellow";
+        listOfAllClaims[i]["status"] = "delbetalt";
         listOfPartiallyPaidClaims.push(listOfAllClaims[i]);
       } else if (listOfAllClaims[i].restBelop === listOfAllClaims[i]["fakturagrunnlag"]["total"]) {
-        listOfAllClaims[i]["farge"] = "red";
+        listOfAllClaims[i]["status"] = "ikkebetalt";
         listOfUnpaidClaims.push(listOfAllClaims[i]);
       }
     }

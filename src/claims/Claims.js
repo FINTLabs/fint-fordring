@@ -393,6 +393,19 @@ let testDataFordring = [
                         },
                         "identifikatorverdi": "string"
                     }
+                },
+                {
+                    "antall": 0,
+                    "fritekst": "string",
+                    "pris": 0,
+                    "systemId": {
+                        "gyldighetsperiode": {
+                            "beskrivelse": "string",
+                            "slutt": 1529408017906,
+                            "start": 1529408017906
+                        },
+                        "identifikatorverdi": "string"
+                    }
                 }
             ],
             "fakturanummer": {
@@ -432,7 +445,9 @@ class Claims extends Component {
         const { classes } = this.props;
 
         return (
-            <div className={classes.root}><ClaimTabs testDataFordring={testDataFordring}/></div>
+            <div className={classes.root}>
+                <ClaimTabs testDataFordring={testDataFordring}/>
+            </div>
         )
     };
 }

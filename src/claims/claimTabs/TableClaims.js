@@ -7,6 +7,11 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+import { CheckCircle } from '@material-ui/icons';
+import { Cancel } from '@material-ui/icons';
+import { RemoveCircle } from '@material-ui/icons';
+import ClaimDialog from './ClaimDialog';
+
 
 const styles = theme => ({
     root: {
@@ -14,13 +19,22 @@ const styles = theme => ({
         backgroundColor: theme.palette.background.paper,
     },
     green: {
-        backgroundColor: "rgba(75, 181, 67, 0.5)",
+        color: "rgba(75, 181, 67, 1)",
+        width: '35px',
+        height: '35px',
+        verticalAlign: 'text-top'
     },
     yellow: {
-        backgroundColor: "rgba(240, 240, 0, 0.5)",
+        color: "rgba(245, 235, 0, 1)",
+        width: '35px',
+        height: '35px',
+        verticalAlign: 'text-top'
     },
     red: {
-        backgroundColor: "rgba(204, 0, 0, 0.5)",
+        color: "rgba(204, 0, 0, 1)",
+        width: '35px',
+        height: '35px',
+        verticalAlign: 'text-top'
     },
     rotate: {
         transform: "rotate(180deg)"
@@ -31,9 +45,27 @@ class TableClaims extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-
+            open: false,
+            currentClaim: {}
         }
     }
+
+    getStatus = (status, green, yellow, red) => {
+        if(status === "betalt"){
+            return (<TableCell><CheckCircle className={green}/></TableCell>);
+        } else if (status === "delbetalt"){
+            return (<TableCell><RemoveCircle className={yellow}/></TableCell>);
+        } else if (status === "ikkebetalt"){
+            return (<TableCell><Cancel className={red}/></TableCell>);
+        }
+    }
+
+    handleClickOpen = (claim) => {
+        this.setState({ open: true, currentClaim: claim });
+    };
+    handleClose = () => {
+        this.setState({ open: false });
+    };
 
     render() {
 
@@ -54,9 +86,18 @@ class TableClaims extends React.Component {
 
         return (
             <Paper className={classes.root}>
+                <ClaimDialog open={this.state.open} close={this.handleClose} claim={this.state.currentClaim}/>
                 <Table className={classes.table}>
                     <TableHead>
                     <TableRow>
+                            <TableCell onClick={() => this.props.triggerSort(["status"], false, "status")}>
+                                Status {(this.props.last === "status")?(
+                                (this.props.sort === 1) ? (<svg className={classes.rotate} height="12" width="12" viewBox="3 5 24 24" aria-hidden="true">
+                                <path d="M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z"></path></svg>):(
+                                <svg height="12" width="12" viewBox="-3 -5 24 24" aria-hidden="true">
+                                <path d="M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z"></path></svg>)):
+                                (<svg height="12" width="12" viewBox="-3 -5 24 24" aria-hidden="true"></svg>)}
+                            </TableCell>
                             <TableCell onClick={() => this.props.triggerSort(["ordrenummer"], true, "ordrenummer")}>
                                 Ordrenummer {(this.props.last === "ordrenummer")?(
                                 (this.props.sort === 1) ? (<svg className={classes.rotate} height="12" width="12" viewBox="3 5 24 24" aria-hidden="true">
@@ -95,16 +136,10 @@ class TableClaims extends React.Component {
                         {this.props.listOfClaims.map(n => {
                             if (this.props.searchFilter.indexOf(n) === -1) {
                                 return;
-                            }
-                            if(n.farge === "green"){
-                                classCurrent = classGreen;
-                            } else if (n.farge === "yellow"){
-                                classCurrent = classYellow;
-                            } else if (n.farge === "red"){
-                                classCurrent = classRed;
-                            }
+                            }                    
                             return (
-                                <TableRow key={n.ordrenummer} style={classCurrent}>
+                                <TableRow key={n.ordrenummer} onClick={()=> this.handleClickOpen(n)}>
+                                    {this.getStatus(n.status,classes.green,classes.yellow,classes.red)}
                                     <TableCell>{n.ordrenummer}</TableCell>
                                     <TableCell>{n.kunde.navn.fornavn} {n.kunde.navn.mellomnavn} {n.kunde.navn.etternavn}</TableCell>
                                     <TableCell>{n.fakturagrunnlag.total}</TableCell>
