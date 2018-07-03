@@ -1182,19 +1182,19 @@ class Claim extends Component {
 
     constructor() {
         super();
-        this.state = {
+        this.state ={
             activeStep: 0,
             //states for personer
             selectedPersonList: JSON.parse(JSON.stringify(initialPersonSelectedState)), //{"393073":true, "234733":false etc.}
             personOrderedBySelection: [], //bare personer som er valgt, i rekkefølgen de er valgt
             //testdataperson+ gruppe
-
+        
             //states for produkter
             selectedProductList: JSON.parse(JSON.stringify(initialProductSelectedState)),
             productOrderedBySelection: [], //bare produkter som er valgt, i rekkefølgen de er valgt
             //testdata
-
-            //needed for finish message
+        
+            //needed for snackbar message
             open: false,
             vertical: null,
             horizontal: null,
@@ -1308,6 +1308,13 @@ class Claim extends Component {
         this.setState({ open: true, ...state });
         this.handleNext();
         this.sendClaim();
+        //reinitialize state as it is to begin with
+        this.setState({
+            selectedPersonList: JSON.parse(JSON.stringify(initialPersonSelectedState)),
+            personOrderedBySelection: [],
+            selectedProductList: JSON.parse(JSON.stringify(initialProductSelectedState)),
+            productOrderedBySelection: [],
+        });
     };
 
     sendClaim = () => {
@@ -1373,7 +1380,10 @@ class Claim extends Component {
 
         return (
             <div className={classes.root}>
-                <Prompt message="Are you sure you want to leave? All changes will be discarded." />
+                <Prompt
+                    when={this.state.personOrderedBySelection[0] !== undefined || this.state.productOrderedBySelection[0] !== undefined}
+                    message="Are you sure you want to leave? All changes will be discarded."
+                />
                 <Stepper activeStep={activeStep} >
                     {steps.map(label => {
                         return (
