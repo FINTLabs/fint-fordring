@@ -4,6 +4,8 @@ import { withStyles } from '@material-ui/core/styles';
 import ProductOverview from "./resultOverview/ProductOverview";
 import PersonOverview from "./resultOverview/PersonOverview";
 import GroupOverview from "./resultOverview/GroupOverview";
+import Paper from '@material-ui/core/Paper';
+import { Divider } from "@material-ui/core";
 
 import ExpansionPanel from '@material-ui/core/ExpansionPanel';
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
@@ -58,6 +60,9 @@ const styles = theme => ({
     },
     actionButtonIcon: {
         color: "#fff",
+    },
+    paddingClass: {
+        padding: 10,
     }
 });
 
@@ -112,7 +117,7 @@ class Step3 extends Component {
     checkPricePerCustomer = (listOfProducts) => {
         let sum = 0;
         for (let i = 0; i < listOfProducts.length; i++) {
-            sum += Number(listOfProducts[i]["price"]);
+            sum += Number(listOfProducts[i]["pris"]);
         }
         return sum.toFixed(2);
     }
@@ -122,12 +127,15 @@ class Step3 extends Component {
         const { classes } = this.props;
 
         return (
-            <div>
+            <Paper>
+                <div className={classes.paddingClass}>Mottakere av faktura:</div>
                 {this.props.personOrderedBySelection[0] ?
                     (<ChipSelectedPerson orderedBySelection={this.props.personOrderedBySelection} />) :
-                    (<div>Du har ikke valgt noen mottakere</div>)}
-                {(!this.props.productOrderedBySelection[0]) ? (<h3 className={classes.secondaryHeading}>Du har ikke valgt noen produkter enda</h3>) : (
-                    <ProductOverview productOrderedBySelection={this.props.productOrderedBySelection} />
+                    (<div className={classes.paddingClass}>Du har ikke valgt noen mottakere enda</div>)}
+                    <Divider/>
+                    <div className={classes.paddingClass}>Varer:</div>
+                {(!this.props.productOrderedBySelection[0]) ? (<div className={classes.paddingClass}>Du har ikke valgt noen produkter enda</div>) : (
+                    <ProductOverview productOrderedBySelection={this.props.productOrderedBySelection} checkPricePerCustomer={this.checkPricePerCustomer}/>
                 )}
 
                 {/*<ExpansionPanel defaultExpanded={true}>
@@ -176,7 +184,7 @@ class Step3 extends Component {
                         )}
                     </ExpansionPanelDetails>
                 </ExpansionPanel>*/}
-            </div>
+            </Paper>
         );
     }
 }

@@ -12,6 +12,9 @@ import Step3 from "./steps/send/send";
 import Snackbar from '@material-ui/core/Snackbar';
 import { Prompt } from "react-router-dom";
 import CustomerApi from '../api/CustomerApi';
+import OrderLineApi from '../api/OrderLineApi';
+import PaymentApi from '../api/PaymentApi';
+import Fakturagrunnlag from '../model/Fakturagrunnlag';
 
 const styles = theme => ({
     root: {
@@ -299,7 +302,7 @@ const testDataGruppe = [
         ]
     }
 
-]
+];
 const testBasisGruppe = [
     {
         "navn": "1STA",
@@ -675,7 +678,7 @@ const testBasisGruppe = [
             },
         ]
     }
-]
+];
 const testDataPerson = [
     {
         "kundenummer": "12345678909",
@@ -1117,27 +1120,32 @@ const testDataPerson = [
             "poststed": "Oslo"
         }
     }
-]
+];
+/*
+let testDataPerson = [];
+CustomerApi.fetchCustomers("test.no").then(customerList => { testDataPerson = customerList }, console.log(testDataPerson));
+*/
+/*
 const testDataProduct = [
     {
         "id": "1",
-        "productName": "A",
-        "model": "B",
-        "producer": "C",
+        "productName": "Stol",
+        "model": "Extreme comfort 2000",
+        "producer": "Norge",
         "price": "12999"
     },
     {
         "id": "2",
-        "productName": "H",
-        "model": "G",
-        "producer": "Eple",
+        "productName": "Kinderegg",
+        "model": "Kinder suprise",
+        "producer": "Kinder peoples",
         "price": "1229999"
     },
     {
         "id": "3",
-        "productName": "Liten støsuger",
-        "model": "Iis",
-        "producer": "Apple",
+        "productName": "Nutella",
+        "model": "Nutella spray",
+        "producer": "Nutella companies",
         "price": "29999"
     },
     {
@@ -1154,7 +1162,9 @@ const testDataProduct = [
         "producer": "Ppple",
         "price": "30000.000001"
     },
-];
+];*/
+let testDataProduct = [];
+OrderLineApi.fetchOrderLines("test.no").then(orderLineList => { testDataProduct = orderLineList }, console.log(testDataProduct));
 
 //wcag test
 
@@ -1207,10 +1217,15 @@ class Claim extends Component {
     }
 
     fetchCustomerData = () => {
-        CustomerApi.fetchCustomers("test.no").then(customerList => {
-            this.setState({ customers: customerList },()=>{console.log(this.state.customers)})
-        });
-        this.setState({shouldGetData: false});
+        OrderLineApi.fetchOrderLines("test.no").then(orderLineList => {
+            testDataProduct = orderLineList
+        }
+            /*CustomerApi.fetchCustomers("test.no").then(customerList => {
+                this.setState({ customers: customerList },()=>{console.log(testDataPerson)})
+            });*/
+            //this.setState({shouldGetData: false});
+        );
+        console.log(testDataProduct);
     };
 
 
@@ -1269,7 +1284,7 @@ class Claim extends Component {
 
     addMethodProduct = (product) => {
         let updateList = this.state.selectedProductList;
-        updateList[product["id"]] = true;
+        updateList[product["kode"]] = true;
         this.setState({ selectedProductList: updateList });
 
         let updateOrderedList = this.state.productOrderedBySelection;
@@ -1279,7 +1294,7 @@ class Claim extends Component {
 
     removeMethodProduct = (product) => {
         let updateList = this.state.selectedProductList;
-        updateList[product["id"]] = false;
+        updateList[product["kode"]] = false;
         this.setState({ selectedProductList: updateList });
 
         let updateOrderedList = this.state.productOrderedBySelection;
@@ -1330,17 +1345,14 @@ class Claim extends Component {
     };
 
     sendClaim = () => {
-        let arrOfAllPayments = [];
+        let newFakturaGrunnlag = new Fakturagrunnlag(this.state.productOrderedBySelection);
         for (let i = 0; i < this.state.personOrderedBySelection.length; i++) {
-            let newObj = {
-                "kunde": this.state.personOrderedBySelection[i],
-                "fakturagrunnlag": {
-                    "fakturalinjer": this.state.productOrderedBySelection
+            PaymentApi.setPayment("test.no", this.state.personOrderedBySelection[i], newFakturaGrunnlag).then(
+                e => {
+                    console.log(e);
                 }
-            }
-            arrOfAllPayments.push(newObj);
+            );
         }
-        console.log(arrOfAllPayments);
     }
 
     handleCloseSnack = () => {
@@ -1392,7 +1404,7 @@ class Claim extends Component {
 
         return (
             <div className={classes.root}>
-            <Button onClick={this.fetchCustomerData}> Hent data </Button>
+                <Button onClick={this.fetchCustomerData}> Hent data </Button>
                 <Prompt
                     when={this.state.personOrderedBySelection[0] !== undefined || this.state.productOrderedBySelection[0] !== undefined}
                     message="Are you sure you want to leave? All changes will be discarded."
@@ -1434,14 +1446,14 @@ class Claim extends Component {
                                         onClick={this.handleBack}
                                         className={classes.backButton}
                                     >
-                                        Back
+                                        Tilbake
                                 </Button>
                                     {activeStep === steps.length - 1 ? (
                                         <Button variant="raised" color="primary" onClick={this.handleClickSnack({ vertical: 'bottom', horizontal: 'right' })}>
-                                            finish
+                                            Fullfør
                                         </Button>) : (
                                             <Button variant="raised" color="primary" onClick={this.handleNext}>
-                                                next
+                                                Neste
                                     </Button>)}
                                     {/*<Button variant="raised" color="primary" onClick={this.handleNext}>
                                         {activeStep === steps.length - 1 ? 'Finish' : 'Next'}

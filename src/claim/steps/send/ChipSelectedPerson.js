@@ -14,16 +14,6 @@ const styles = theme => ({
     flexWrap: 'wrap',
     padding: theme.spacing.unit / 2,
     marginTop: theme.spacing.unit,
-    maxHeight: 120,
-    overflow: "hidden",
-  },
-  rootExpanded: {
-    display: 'flex',
-    justifyContent: 'center',
-    flexWrap: 'wrap',
-    padding: theme.spacing.unit / 2,
-    marginTop: theme.spacing.unit,
-    maxHeight: "none",
     overflow: "hidden",
   },
   chip: {
@@ -35,47 +25,17 @@ class ChipSelectedPerson extends React.Component {
 
   constructor() {
     super();
-    this.state = {
-      height: 0,
-      expanded: false,
-    }
-  }
-
-  componentDidUpdate(prevProps, prevState) {
-    let height = document.getElementById("chipContainer").scrollHeight;
-    if (height !== prevState.height) {
-      this.setState({ height });
-    }
-    if(height <= 128) {
-      this.state.expanded = false;
-    }
-  }
-  componentDidMount() {
-    this.setState({ height: document.getElementById("chipContainer").scrollHeight });
-  }
-
-  handleExpand = () => {
-    this.setState({ expanded: !this.state.expanded });
   }
 
   render() {
     const { classes } = this.props;
 
-  
-    let expandStyle = {
-      maxHeight: 10000
-    }
-    let notExpandedStyle = {
-      maxHeight: 120
-    }
-
     return (
-      <Paper>
-        <div className={classes.root} style={this.state.expanded ? (expandStyle): (notExpandedStyle)}
+      <div>
+        <div className={classes.root}
           id={"chipContainer"}>
           {this.props.orderedBySelection.map(n => {
             let avatar = null;
-
             return (
               <Chip
                 key={n.kundenummer}
@@ -86,8 +46,7 @@ class ChipSelectedPerson extends React.Component {
             );
           })}
         </div>
-        {(this.state.height > 128) ? (<Button onClick={() => this.handleExpand()}>{this.state.expanded?(<ExpandLess/>):(<ExpandMore/>)}</Button>) : (<div />)}
-      </Paper>
+      </div>
     );
   }
 }

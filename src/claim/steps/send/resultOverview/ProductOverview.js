@@ -41,6 +41,7 @@ class ProductOverview extends Component {
             }
         }
     }
+    
 
     /*triggerSort = (val, isNumber) => {
         this.props.sortMethod(
@@ -54,32 +55,38 @@ class ProductOverview extends Component {
         const { classes } = this.props;
 
         return (
-            <Paper className={classes.root}>
+            <div className={classes.root}>
                 {this.props.productOrderedBySelection[0] ? (
                     <Table className={classes.table}>
                         <TableHead>
                             <TableRow>
                                 <TableCell className={classes.fixedHeader} /*onClick={() => this.triggerSort("productName", false)}*/>Produkt</TableCell>
-                                <TableCell className={classes.fixedHeader} /*onClick={() => this.triggerSort("producer", false)}*/>Produsent</TableCell>
-                                <TableCell className={classes.fixedHeader} /*onClick={() => this.triggerSort("model", false)}*/>Modell</TableCell>
+                                <TableCell className={classes.fixedHeader} /*onClick={() => this.triggerSort("producer", false)}*/>Kode</TableCell>
+                                <TableCell className={classes.fixedHeader} /*onClick={() => this.triggerSort("model", false)}*/>Hei</TableCell>
                                 <TableCell className={classes.fixedHeader} /*onClick={() => this.triggerSort("price", true)}*/>Pris</TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
                             {this.props.productOrderedBySelection.map(n => {
                                 return (
-                                    <TableRow key={n.id}>
-                                        <TableCell>{n.productName}</TableCell>
-                                        <TableCell>{n.producer}</TableCell>
-                                        <TableCell>{n.model}</TableCell>
-                                        <TableCell>{n.price},-</TableCell>
+                                    <TableRow key={n.kode}>
+                                        <TableCell>{n.navn}</TableCell>
+                                        <TableCell>{n.kode}</TableCell>
+                                        <TableCell>Hei</TableCell>
+                                        <TableCell>{n.pris},-</TableCell>
                                     </TableRow>
                                 );
                             })}
+                            <TableRow key="final row">
+                                        <TableCell></TableCell>
+                                        <TableCell></TableCell>
+                                        <TableCell><b>Total pris per elev:</b></TableCell>
+                                        <TableCell><b>{this.props.checkPricePerCustomer(this.props.productOrderedBySelection)}</b></TableCell>
+                                    </TableRow>
                         </TableBody>
                     </Table>
                 ) : (<div/>)}
-            </Paper>
+            </div>
         );
     }
 }

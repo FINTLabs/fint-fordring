@@ -7,7 +7,9 @@ class OrderLineApi {
         return fetch(url, {
             method: 'GET',
             headers: new Headers({'x-org-id': orgId})
-        }).then(result => Promise.all([result, result.json()]));
+        }).then(result => {
+            return result.json();
+        });
     }
 }
 

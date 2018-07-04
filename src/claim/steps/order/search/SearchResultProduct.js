@@ -39,8 +39,6 @@ const styles = theme => ({
     }
 });
 
-
-
 class SearchResultProduct extends Component {
 
     constructor(props) {
@@ -68,19 +66,19 @@ class SearchResultProduct extends Component {
                 <Table className={classes.table}>
                     <TableHead>
                         <TableRow>
-                            <TableCell className={classes.fixedHeader} onClick={() => this.triggerSort("productName", false, "product")}>Produkt {(this.state.last === "product") ? (
+                            <TableCell className={classes.fixedHeader} onClick={() => this.triggerSort("navn", false, "product")}>Produkt {(this.state.last === "product") ? (
                                                     (this.state.sort === 1) ? (<svg className={classes.rotate} height="12" width="12" viewBox="3 5 24 24" aria-hidden="true"><path d="M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z"></path></svg>) : (<svg height="12" width="12" viewBox="-3 -5 24 24" aria-hidden="true"><path d="M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z"></path></svg>)
                                                 ) : (<svg height="12" width="12" viewBox="-3 -5 24 24" aria-hidden="true"></svg>)}
                                                 </TableCell>
-                            <TableCell className={classes.fixedHeader} onClick={() => this.triggerSort("producer", false, "producer")}>Produsent {(this.state.last === "producer") ? (
+                            <TableCell className={classes.fixedHeader} onClick={() => this.triggerSort("kode", false, "producer")}>Kode {(this.state.last === "producer") ? (
                                                     (this.state.sort === 1) ? (<svg className={classes.rotate} height="12" width="12" viewBox="3 5 24 24" aria-hidden="true"><path d="M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z"></path></svg>) : (<svg height="12" width="12" viewBox="-3 -5 24 24" aria-hidden="true"><path d="M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z"></path></svg>)
                                                 ) : (<svg height="12" width="12" viewBox="-3 -5 24 24" aria-hidden="true"></svg>)}
                                                 </TableCell>
-                            <TableCell className={classes.fixedHeader} onClick={() => this.triggerSort("model", false, "model")}>Modell {(this.state.last === "model") ? (
+                            <TableCell className={classes.fixedHeader} onClick={() => this.triggerSort("hei", false, "model")}>Hei {(this.state.last === "model") ? (
                                                     (this.state.sort === 1) ? (<svg className={classes.rotate} height="12" width="12" viewBox="3 5 24 24" aria-hidden="true"><path d="M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z"></path></svg>) : (<svg height="12" width="12" viewBox="-3 -5 24 24" aria-hidden="true"><path d="M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z"></path></svg>)
                                                 ) : (<svg height="12" width="12" viewBox="-3 -5 24 24" aria-hidden="true"></svg>)}
                                                 </TableCell>
-                            <TableCell className={classes.fixedHeader} onClick={() => this.triggerSort("price", true, "price")}>Pris {(this.state.last === "price") ? (
+                            <TableCell className={classes.fixedHeader} onClick={() => this.triggerSort("pris", true, "price")}>Pris {(this.state.last === "price") ? (
                                                     (this.state.sort === 1) ? (<svg className={classes.rotate} height="12" width="12" viewBox="3 5 24 24" aria-hidden="true"><path d="M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z"></path></svg>) : (<svg height="12" width="12" viewBox="-3 -5 24 24" aria-hidden="true"><path d="M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z"></path></svg>)
                                                 ) : (<svg height="12" width="12" viewBox="-3 -5 24 24" aria-hidden="true"></svg>)}
                                                 </TableCell>
@@ -93,13 +91,13 @@ class SearchResultProduct extends Component {
                                 return null;
                             }
                             return (
-                                <TableRow key={n.id}>
-                                    <TableCell>{n.productName}</TableCell>
-                                    <TableCell>{n.producer}</TableCell>
-                                    <TableCell>{n.model}</TableCell>
-                                    <TableCell>{n.price},-</TableCell>
+                                <TableRow key={n.kode}>
+                                    <TableCell>{n.navn}</TableCell>
+                                    <TableCell>{n.kode}</TableCell>
+                                    <TableCell>Hei</TableCell>
+                                    <TableCell>{n.pris},-</TableCell>
                                     <TableCell>
-                                        {!this.props.selectedProductList[n.id] ? (
+                                        {!this.props.selectedProductList[n.kode] ? (
                                             <Button mini variant="fab" color="secondary" aria-label="add" onClick={() => this.props.addMethod(n)}
                                                 className={classes.actionButton}>
                                                 <Add className={classes.actionButtonIcon}/>

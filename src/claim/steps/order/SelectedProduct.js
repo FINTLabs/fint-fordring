@@ -27,8 +27,8 @@ class SelectedProduct extends React.Component {
         {this.props.orderedBySelection.map(data => {
           return (
             <Chip
-              key={data.id}
-              label={data.productName}
+              key={data.kode}
+              label={data.navn}
               onDelete={() => this.props.removeMethod(data)}
               className={classes.chip}
             />

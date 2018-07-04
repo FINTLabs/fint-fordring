@@ -68,7 +68,7 @@ class ClaimTemplate extends React.Component {
     return (
       <div className={classes.size}>
         <div className={classes.avsenderAdresse}>
-          <p>Avsender:</p>
+          <p>Mottaker: {data.kunde.navn.fornavn}</p>
           <p>gateadresse</p>
           <p>postadresse</p>
         </div>
