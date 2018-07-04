@@ -14,10 +14,6 @@ const styles = theme => ({
     flexGrow: 1,
     backgroundColor: theme.palette.background.paper,
   },
-  size: {
-    height: 1000,
-    width: 800,
-  }
 });
 
 class ClaimDialog extends React.Component {

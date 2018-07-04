@@ -25,26 +25,29 @@ class SearchBox extends Component {
         };
     }
 
-    /*updateSearch(event) {
-        this.setState({search: event.target.value.substr(0,40)});
-
-    }*/
+    updateSearch = (event) => {
+        this.setState({search: event.target.value}, () => {
+            if(this.state.search === "") {
+                this.props.getSearchInput(this.state.search.toLowerCase());
+            }
+        });
+    }
 
     render() {
         const {classes, placeHolder} = this.props;
         return (
-
             <div>
                 <div className={classes.searchContainer}>
                     <Input
-                        onChange={(event) => this.props.getSearchInput(event.target.value.toLowerCase())}
+                        onChange={this.updateSearch}
+                        onKeyDown={(e) => e.keyCode===13 ? this.props.getSearchInput(this.state.search.toLowerCase()):(false)}
                         placeholder={placeHolder}
                         className={classes.searchInput}
                         inputProps={{
                             'aria-label': 'Description',
                         }}
                     />
-                    <Button variant="fab" color="primary" aria-label="add" className={classes.button}>
+                    <Button variant="fab" color="primary" aria-label="add" className={classes.button} onClick={(event) => this.props.getSearchInput(this.state.search.toLowerCase())}>
                         <Search/>
                     </Button>
                 </div>

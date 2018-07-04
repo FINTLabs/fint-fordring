@@ -406,6 +406,84 @@ let testDataFordring = [
                         },
                         "identifikatorverdi": "string"
                     }
+                },
+                {
+                    "antall": 0,
+                    "fritekst": "string",
+                    "pris": 0,
+                    "systemId": {
+                        "gyldighetsperiode": {
+                            "beskrivelse": "string",
+                            "slutt": 1529408017906,
+                            "start": 1529408017906
+                        },
+                        "identifikatorverdi": "string"
+                    }
+                },
+                {
+                    "antall": 0,
+                    "fritekst": "string",
+                    "pris": 0,
+                    "systemId": {
+                        "gyldighetsperiode": {
+                            "beskrivelse": "string",
+                            "slutt": 1529408017906,
+                            "start": 1529408017906
+                        },
+                        "identifikatorverdi": "string"
+                    }
+                },
+                {
+                    "antall": 0,
+                    "fritekst": "string",
+                    "pris": 0,
+                    "systemId": {
+                        "gyldighetsperiode": {
+                            "beskrivelse": "string",
+                            "slutt": 1529408017906,
+                            "start": 1529408017906
+                        },
+                        "identifikatorverdi": "string"
+                    }
+                },
+                {
+                    "antall": 0,
+                    "fritekst": "string",
+                    "pris": 0,
+                    "systemId": {
+                        "gyldighetsperiode": {
+                            "beskrivelse": "string",
+                            "slutt": 1529408017906,
+                            "start": 1529408017906
+                        },
+                        "identifikatorverdi": "string"
+                    }
+                },
+                {
+                    "antall": 0,
+                    "fritekst": "string",
+                    "pris": 0,
+                    "systemId": {
+                        "gyldighetsperiode": {
+                            "beskrivelse": "string",
+                            "slutt": 1529408017906,
+                            "start": 1529408017906
+                        },
+                        "identifikatorverdi": "string"
+                    }
+                },
+                {
+                    "antall": 0,
+                    "fritekst": "string",
+                    "pris": 0,
+                    "systemId": {
+                        "gyldighetsperiode": {
+                            "beskrivelse": "string",
+                            "slutt": 1529408017906,
+                            "start": 1529408017906
+                        },
+                        "identifikatorverdi": "string"
+                    }
                 }
             ],
             "fakturanummer": {

@@ -6,47 +6,25 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import { withStyles } from '@material-ui/core/styles';
+import GridList from '@material-ui/core/GridList';
+import GridListTile from '@material-ui/core/GridListTile';
+import { Divider } from "@material-ui/core";
 
 const styles = theme => ({
   root: {
-    flexGrow: 1,
+    display: 'flex',
+    flexWrap: 'wrap',
+    justifyContent: 'space-around',
+    overflow: 'hidden',
     backgroundColor: theme.palette.background.paper,
   },
-  avsenderAdresse: {
-    position: 'absolute',
-    top: 0,
-    left: 0
+  gridList: {
+    width: 1400,
+    height: 460,
   },
-  betalingsInfo: {
-    position: 'absolute',
-    top: 0,
-    left: 200
+  subheader: {
+    width: '100%',
   },
-  fakturaInfo: {
-    position: 'absolute',
-    top: 200,
-    left: 500
-  },
-  avsenderBedrift: {
-    position: 'absolute',
-    top: 0,
-    left: 500
-  },
-  varer: {
-    position: 'absolute',
-    top: 400,
-    left: 20,
-    width: 500
-  },
-  avslutning: {
-    position: 'absolute',
-    top: 600,
-    left: 0
-  },
-  size: {
-    position: 'relative',
-    marginTop: 0,
-  }
 });
 
 class ClaimTemplate extends React.Component {
@@ -66,90 +44,89 @@ class ClaimTemplate extends React.Component {
     let forfallsDate = ` ${day + 6}.${month + 1}.${year}`;
 
     return (
-      <div className={classes.size}>
-        <div className={classes.avsenderAdresse}>
-          <p>Mottaker: {data.kunde.navn.fornavn}</p>
-          <p>gateadresse</p>
-          <p>postadresse</p>
-        </div>
-        <div className={classes.betalingsInfo}>
-          <p>Bankkonto:</p>
-          <p>Foretaksnummer:{data.kunde.kundenummer}</p>
-          <p>IBAN:</p>
-          <p>SWIFT:</p>
-        </div>
-        <div className={classes.fakturaInfo}>
-          <p>Kundenummer:{data.kunde.kundenummer}</p>
-          <p>Fakturadato:{date}</p>
-          <p>Fakturanr:{data.ordrenummer}</p>
-          <p>Forfallsdato:{forfallsDate}</p>
-        </div>
-        <div className={classes.avsenderBedrift}>
-          <p>SKEISVANG VGS AS</p>
-          <p>ELEV UTTRANSPORTASJON</p>
-          <p>SG85</p>
-          <p>5870 HIMMELEN V2.0</p>
-        </div>
-        <div className={classes.varer}>
-          <Table className={classes.table}>
-            <TableHead>
-              <TableRow>
-                <TableCell>
-                  varer
+      <div className={classes.root}>
+        <GridList cellHeight={140} className={classes.gridList} cols={6}>
+          <GridListTile key="1" cols={2}>
+            <p>{data.kunde.navn.etternavn}, {data.kunde.navn.fornavn} {data.kunde.navn.mellomnavn}</p>
+            <p>Tlf: {data.kunde.kontaktinformasjon.mobiltelefonnummer | data.kunde.kontaktinformasjon.telefonnummer}</p>
+            <p>E-post: {data.kunde.kontaktinformasjon.epostadresse} </p>
+          </GridListTile>
+          <GridListTile key="2" cols={2}>
+            <p>Adresse: {data.kunde.postadresse.adresselinje.join(", ")}</p>
+            <p>Postnummer: {data.kunde.postadresse.postnummer}</p>
+            <p>Poststed: {data.kunde.postadresse.poststed}</p>
+          </GridListTile>
+          <GridListTile key="3" cols={2}>
+            <p>Fakturanr: {data.fakturanummer}</p>
+            <p>Leveringsdato: {data.fakturagrunnlag.leveringsdato}</p>
+            <p>Forfallsdato: {data.fakturagrunnlag.forfallsdato}</p>
+          </GridListTile>
+          <GridListTile key="5" cols={6}style={{ height: "!important" }}>
+            <Table>
+              <TableHead>
+                <TableRow>
+                  <TableCell>
+                    varer
                 </TableCell>
-                <TableCell>
-                  Pris
+                  <TableCell>
+                    Pris
                 </TableCell>
-                <TableCell>
-                  Rabatt
+                  <TableCell>
+                    Rabatt
                 </TableCell>
-                <TableCell>
-                  MVA
+                  <TableCell>
+                    MVA
                 </TableCell>
-                <TableCell>
-                  Beløp
+                  <TableCell>
+                    Beløp
                 </TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {data.fakturagrunnlag.fakturalinjer.map(n => {
-                return (
-                  <TableRow key={n.fritekst}>
-                    <TableCell>
-                      {n.fritekst}
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {data.fakturagrunnlag.fakturalinjer.map(n => {
+                  return (
+                    <TableRow key={n.fritekst}>
+                      <TableCell>
+                        {n.fritekst}
+                      </TableCell>
+                      <TableCell>
+                        {n.pris}
+                      </TableCell>
+                      <TableCell>
+                        0
                     </TableCell>
-                    <TableCell>
-                      {n.pris}
+                      <TableCell>
+                        25%
                     </TableCell>
-                    <TableCell>
-                      0
-                    </TableCell>
-                    <TableCell>
-                      25%
-                    </TableCell>
-                    <TableCell>
-                      {n.pris}
-                    </TableCell>
-                  </TableRow>
-                );
-              })}
-              <TableRow>
-                    <TableCell>
-                    </TableCell>
-                    <TableCell>
-                    </TableCell>
-                    <TableCell>
-                    </TableCell>
-                    <TableCell>
-                    </TableCell>
-                    <TableCell>
-                      {data.fakturagrunnlag.total}
-                    </TableCell>
-                  </TableRow>
-            </TableBody>
-          </Table>
+                      <TableCell>
+                        {n.pris}
+                      </TableCell>
+                    </TableRow>
+                  );
+                })}
+                <TableRow>
+                  <TableCell>
+                  </TableCell>
+                  <TableCell>
+                  </TableCell>
+                  <TableCell>
+                  </TableCell>
+                  <TableCell>
+                    <b>Total:</b>
+                  </TableCell>
+                  <TableCell>
+                    <b>{data.fakturagrunnlag.total}</b>
+                  </TableCell>
+                </TableRow>
+              </TableBody>
+            </Table>
+          </GridListTile>
+        </GridList>
+        <div className={classes.size}>
+          <div className={classes.varer}>
+          </div>
+          <div className={classes.avslutning}></div>
         </div>
-        <div className={classes.avslutning}></div>
       </div>
     );
   }
