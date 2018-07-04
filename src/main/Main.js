@@ -116,7 +116,7 @@ class Main extends Component {
                     </Drawer>
                     <main className={classes.content}>
                         <div>
-                            <Route exact path='/' component={Dashboard} onChange={console.log("hei")} />
+                            <Route exact path='/' component={Dashboard} />
                             <Route path='/fordringer' component={Claims} />
                             <Route path='/ny-fordring' component={Claim} />
                         </div>

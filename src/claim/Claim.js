@@ -1407,7 +1407,9 @@ class Claim extends Component {
                 <Button onClick={this.fetchCustomerData}> Hent data </Button>
                 <Prompt
                     when={this.state.personOrderedBySelection[0] !== undefined || this.state.productOrderedBySelection[0] !== undefined}
-                    message="Are you sure you want to leave? All changes will be discarded."
+                    message={location =>
+                    location.pathname !== this.props.location.pathname ? ("Hvis du forlater denne siden vil alle usendte endringer slettes"):(true)
+                    }
                 />
                 <Stepper activeStep={activeStep} >
                     {steps.map(label => {
