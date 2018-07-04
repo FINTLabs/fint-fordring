@@ -11,6 +11,7 @@ import Step2 from "./steps/order/orders";
 import Step3 from "./steps/send/send";
 import Snackbar from '@material-ui/core/Snackbar';
 import { Prompt } from "react-router-dom";
+import CustomerApi from '../api/CustomerApi';
 
 const styles = theme => ({
     root: {
@@ -1182,24 +1183,35 @@ class Claim extends Component {
 
     constructor() {
         super();
-        this.state ={
+        this.state = {
             activeStep: 0,
             //states for personer
             selectedPersonList: JSON.parse(JSON.stringify(initialPersonSelectedState)), //{"393073":true, "234733":false etc.}
             personOrderedBySelection: [], //bare personer som er valgt, i rekkefølgen de er valgt
             //testdataperson+ gruppe
-        
+
             //states for produkter
             selectedProductList: JSON.parse(JSON.stringify(initialProductSelectedState)),
             productOrderedBySelection: [], //bare produkter som er valgt, i rekkefølgen de er valgt
             //testdata
-        
+
             //needed for snackbar message
             open: false,
             vertical: null,
             horizontal: null,
+
+            //data from backend
+            customers: [],
+            shouldGetData: true
         };
     }
+
+    fetchCustomerData = () => {
+        CustomerApi.fetchCustomers("test.no").then(customerList => {
+            this.setState({ customers: customerList },()=>{console.log(this.state.customers)})
+        });
+        this.setState({shouldGetData: false});
+    };
 
 
     addMethodPerson = (person) => {
@@ -1380,6 +1392,7 @@ class Claim extends Component {
 
         return (
             <div className={classes.root}>
+            <Button onClick={this.fetchCustomerData}> Hent data </Button>
                 <Prompt
                     when={this.state.personOrderedBySelection[0] !== undefined || this.state.productOrderedBySelection[0] !== undefined}
                     message="Are you sure you want to leave? All changes will be discarded."
