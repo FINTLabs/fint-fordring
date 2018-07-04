@@ -133,7 +133,7 @@ class Step3 extends Component {
                     (<ChipSelectedPerson orderedBySelection={this.props.personOrderedBySelection} />) :
                     (<div className={classes.paddingClass}>Du har ikke valgt noen mottakere enda</div>)}
                     <Divider/>
-                    <div className={classes.paddingClass}>Varer:</div>
+                    <div className={classes.paddingClass}>Produkter:</div>
                 {(!this.props.productOrderedBySelection[0]) ? (<div className={classes.paddingClass}>Du har ikke valgt noen produkter enda</div>) : (
                     <ProductOverview productOrderedBySelection={this.props.productOrderedBySelection} checkPricePerCustomer={this.checkPricePerCustomer}/>
                 )}

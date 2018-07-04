@@ -1216,19 +1216,6 @@ class Claim extends Component {
         };
     }
 
-    fetchCustomerData = () => {
-        OrderLineApi.fetchOrderLines("test.no").then(orderLineList => {
-            testDataProduct = orderLineList
-        }
-            /*CustomerApi.fetchCustomers("test.no").then(customerList => {
-                this.setState({ customers: customerList },()=>{console.log(testDataPerson)})
-            });*/
-            //this.setState({shouldGetData: false});
-        );
-        console.log(testDataProduct);
-    };
-
-
     addMethodPerson = (person) => {
         let updateList = this.state.selectedPersonList;
         updateList[person["kundenummer"]] = true;
@@ -1404,7 +1391,6 @@ class Claim extends Component {
 
         return (
             <div className={classes.root}>
-                <Button onClick={this.fetchCustomerData}> Hent data </Button>
                 <Prompt
                     when={this.state.personOrderedBySelection[0] !== undefined || this.state.productOrderedBySelection[0] !== undefined}
                     message={location =>
