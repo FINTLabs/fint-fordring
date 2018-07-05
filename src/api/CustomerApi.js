@@ -1,9 +1,7 @@
-import {BASEURL} from "./BASEURL";
-
 class CustomerApi {
 
     static fetchCustomers(orgId) {
-        const url = BASEURL + '/customer';
+        const url = '/customer';
 
         return fetch(url, {
             method: "GET",

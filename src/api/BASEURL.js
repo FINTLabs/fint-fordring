@@ -1,1 +1,0 @@
-export const BASEURL = 'https://betaling-beta.felleskomponent.no/api';

@@ -14,7 +14,8 @@ import { Prompt } from "react-router-dom";
 import CustomerApi from '../api/CustomerApi';
 import OrderLineApi from '../api/OrderLineApi';
 import PaymentApi from '../api/PaymentApi';
-import Fakturagrunnlag from '../model/Fakturagrunnlag';
+import EmployerApi from '../api/EmployerApi';
+import MvaApi from '../api/MvaApi';
 
 const styles = theme => ({
     root: {
@@ -1196,7 +1197,7 @@ for (let i = 0; i < testDataGruppe.length; i++) {
     }
 }
 
-
+let orgId = "fake.no";
 
 class Claim extends Component {
 
@@ -1219,9 +1220,12 @@ class Claim extends Component {
             vertical: null,
             horizontal: null,
 
+            //fetch mva
+            mva: MvaApi.fetchMvaCodes(orgId),
+            //fetch arbeidsgiver
+            employer: EmployerApi.fetchEmployers(orgId),
             //data from backend
             customers: [],
-            shouldGetData: true
         };
         console.log(initialProductSelectedState);
     }
@@ -1354,14 +1358,15 @@ class Claim extends Component {
     };
 
     sendClaim = () => {
-        let newFakturaGrunnlag = new Fakturagrunnlag(this.state.productOrderedBySelection);
-        for (let i = 0; i < this.state.personOrderedBySelection.length; i++) {
-            PaymentApi.setPayment("test.no", this.state.personOrderedBySelection[i], newFakturaGrunnlag).then(
-                e => {
-                    console.log(e);
-                }
-            );
-        }
+        PaymentApi.setPayment(
+            orgId,
+            this.state.personOrderedBySelection,
+            this.state.productOrderedBySelection,
+            this.state.mva,
+            this.state.employer).then(
+            e => {
+                console.log(e);
+            });
     }
 
     handleCloseSnack = () => {

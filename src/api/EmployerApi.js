@@ -1,9 +1,8 @@
-class OrderLineApi {
-
-    static fetchOrderLines(orgId) {
-        const url = '/orderline';
+class EmployerApi {
+    static fetchEmployers(orgId) {
+        const url = '/oppdragsgiver';
         return fetch(url, {
-            method: 'GET',
+            method: "GET",
             headers: new Headers({'x-org-id': orgId})
         }).then(result => {
             return result.json();
@@ -11,4 +10,4 @@ class OrderLineApi {
     }
 }
 
-export default OrderLineApi
+export default EmployerApi

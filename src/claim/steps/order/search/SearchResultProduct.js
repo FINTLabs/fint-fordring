@@ -61,10 +61,18 @@ class SearchResultProduct extends Component {
     }
 
     handleInputChange = product => event => {
-        this.setState({value: event.target.value})
+        this.setState({ value: event.target.value })
         console.log(event.target.value);
         this.props.getInputAmountProduct(product, event.target.value);
     }
+    handleInputClick = product => event => {
+        console.log(event.target);
+        if (this.props.selectedProductList[product.kode] !== 0) {
+            event.target.value = "";
+        }
+    }
+
+    //kan bruke onclick som sjekker om valuen har changet, + en onkeydown for å sjekke for change med inputtastatur
 
     render() {
         const { classes } = this.props;
@@ -102,11 +110,12 @@ class SearchResultProduct extends Component {
                                 <TableRow key={n.kode}>
                                     <TableCell>{n.navn}</TableCell>
                                     <TableCell>{n.kode}</TableCell>
-                                    <TableCell><TextField disabled={this.props.selectedProductList[n.kode] == 0 || this.props.selectedProductList[n.kode] === undefined ? true : false}
+                                    <TableCell><TextField disabled={this.props.selectedProductList[n.kode] === 0 ? true : false}
                                         style={{ width: 40 }}
                                         type="number"
                                         onChange={this.handleInputChange(n)}
-                                        value={this.props.selectedProductList[n.kode]||0} />
+                                        onClick={this.handleInputClick(n)}
+                                        value={this.props.selectedProductList[n.kode] || 0} />
                                     </TableCell>
                                     <TableCell>{n.pris},-</TableCell>
                                     <TableCell>
