@@ -62,8 +62,8 @@ class ProductOverview extends Component {
                             <TableRow>
                                 <TableCell className={classes.fixedHeader} /*onClick={() => this.triggerSort("productName", false)}*/>Produkt</TableCell>
                                 <TableCell className={classes.fixedHeader} /*onClick={() => this.triggerSort("producer", false)}*/>Kode</TableCell>
-                                <TableCell className={classes.fixedHeader} /*onClick={() => this.triggerSort("model", false)}*/>Hei</TableCell>
-                                <TableCell className={classes.fixedHeader} /*onClick={() => this.triggerSort("price", true)}*/>Pris</TableCell>
+                                <TableCell className={classes.fixedHeader} /*onClick={() => this.triggerSort("model", false)}*/>Antall</TableCell>
+                                <TableCell className={classes.fixedHeader} /*onClick={() => this.triggerSort("price", true)}*/>Enhetspris</TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
@@ -72,7 +72,7 @@ class ProductOverview extends Component {
                                     <TableRow key={n.kode}>
                                         <TableCell>{n.navn}</TableCell>
                                         <TableCell>{n.kode}</TableCell>
-                                        <TableCell>Hei</TableCell>
+                                        <TableCell>{this.props.selectedProductList[n.kode]}</TableCell>
                                         <TableCell>{n.pris},-</TableCell>
                                     </TableRow>
                                 );

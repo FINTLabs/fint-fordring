@@ -117,7 +117,7 @@ class Step3 extends Component {
     checkPricePerCustomer = (listOfProducts) => {
         let sum = 0;
         for (let i = 0; i < listOfProducts.length; i++) {
-            sum += Number(listOfProducts[i]["pris"]);
+            sum += Number(listOfProducts[i]["pris"]) * this.props.selectedProductList[listOfProducts[i].kode];
         }
         return sum.toFixed(2);
     }
@@ -132,10 +132,13 @@ class Step3 extends Component {
                 {this.props.personOrderedBySelection[0] ?
                     (<ChipSelectedPerson orderedBySelection={this.props.personOrderedBySelection} />) :
                     (<div className={classes.paddingClass}>Du har ikke valgt noen mottakere enda</div>)}
-                    <Divider/>
-                    <div className={classes.paddingClass}>Produkter:</div>
+                <Divider />
+                <div className={classes.paddingClass}>Produkter:</div>
                 {(!this.props.productOrderedBySelection[0]) ? (<div className={classes.paddingClass}>Du har ikke valgt noen produkter enda</div>) : (
-                    <ProductOverview productOrderedBySelection={this.props.productOrderedBySelection} checkPricePerCustomer={this.checkPricePerCustomer}/>
+                    <ProductOverview
+                        productOrderedBySelection={this.props.productOrderedBySelection}
+                        selectedProductList={this.props.selectedProductList}
+                        checkPricePerCustomer={this.checkPricePerCustomer} />
                 )}
 
                 {/*<ExpansionPanel defaultExpanded={true}>

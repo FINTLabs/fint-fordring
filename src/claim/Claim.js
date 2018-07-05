@@ -1231,13 +1231,13 @@ class Claim extends Component {
     }
 
     componentDidUpdate(prevProps, prevState) {
-
         if (JSON.stringify(prevState.selectedProductList) === "{}") {
             this.setState({ selectedProductList: JSON.parse(JSON.stringify(initialProductSelectedState)) });
         }
         if (JSON.stringify(prevState.selectedPersonList) === "{}") {
             this.setState({ selectedPersonList: JSON.parse(JSON.stringify(initialPersonSelectedState)) });
         }
+        console.log(initialPersonSelectedState);
     }
 
     addMethodPerson = (person) => {
@@ -1412,6 +1412,7 @@ class Claim extends Component {
                     testDataPerson={testDataPerson}
                     testDataGruppe={testDataGruppe}
                     selectedPersonList={this.state.selectedPersonList}
+                    selectedProductList={this.state.selectedProductList}
                     personOrderedBySelection={this.state.personOrderedBySelection}
                     productOrderedBySelection={this.state.productOrderedBySelection}
                 />;

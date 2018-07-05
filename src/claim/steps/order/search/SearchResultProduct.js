@@ -61,18 +61,25 @@ class SearchResultProduct extends Component {
     }
 
     handleInputChange = product => event => {
-        this.setState({ value: event.target.value })
-        console.log(event.target.value);
+        event.persist();
+        let newVal = Number(event.target.value);
+        if(Number(event.target.value) !== this.props.selectedProductList[product.kode]) {
+            setTimeout(this.timeoutFunction, 100, event, newVal);
+        }
         this.props.getInputAmountProduct(product, event.target.value);
+        //event.target.value = "";
     }
-    handleInputClick = product => event => {
+
+    timeoutFunction(event, newVal) {
+        event.target.value = newVal;
         console.log(event.target);
+    }
+
+    handleInputClick = product => event => {
         if (this.props.selectedProductList[product.kode] !== 0) {
             event.target.value = "";
         }
     }
-
-    //kan bruke onclick som sjekker om valuen har changet, + en onkeydown for å sjekke for change med inputtastatur
 
     render() {
         const { classes } = this.props;

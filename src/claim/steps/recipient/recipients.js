@@ -14,7 +14,7 @@ class Step1 extends Component {
         super(props);
         this.state = {
             searchMethod: 0,
-            searchFilter: this.props.testDataGruppe,
+            searchFilter: [],
             sortedPersonList: [],
         };
     }
@@ -47,7 +47,9 @@ class Step1 extends Component {
     getSearchInput = (val) => {
         let filteredGroupArr = [];
         if (this.state.searchMethod === 0) {
-            filteredGroupArr = this.props.testDataGruppe.filter(e => e.navn.toLowerCase().indexOf(val) !== -1);
+            if(val.length >= 3){
+                filteredGroupArr = this.props.testDataGruppe.filter(e => e.navn.toLowerCase().indexOf(val) !== -1);
+            }
         } else {
             if(val.length >= 3){
                 filteredGroupArr = this.props.testDataPerson.filter(e =>
