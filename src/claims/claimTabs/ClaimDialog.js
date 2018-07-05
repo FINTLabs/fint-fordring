@@ -44,9 +44,7 @@ class ClaimDialog extends React.Component {
         >
           
           <DialogContent className={classes.size}>
-            <DialogContentText id="alert-dialog-description">
               <ClaimTemplate data={this.props.claim}/>
-            </DialogContentText>
           </DialogContent>
           <DialogActions>
             <Button onClick={this.props.close} color="primary">

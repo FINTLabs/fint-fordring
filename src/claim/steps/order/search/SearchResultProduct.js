@@ -10,6 +10,7 @@ import Paper from '@material-ui/core/Paper';
 import Button from "@material-ui/core/Button";
 import { Add } from '@material-ui/icons';
 import { Remove } from '@material-ui/icons';
+import TextField from '@material-ui/core/TextField';
 
 
 const styles = theme => ({
@@ -58,6 +59,13 @@ class SearchResultProduct extends Component {
             val, isNumber);
         this.setState({ last: sortKey });
     }
+
+    handleInputChange = product => event => {
+        this.setState({value: event.target.value})
+        console.log(event.target.value);
+        this.props.getInputAmountProduct(product, event.target.value);
+    }
+
     render() {
         const { classes } = this.props;
 
@@ -67,26 +75,26 @@ class SearchResultProduct extends Component {
                     <TableHead>
                         <TableRow>
                             <TableCell className={classes.fixedHeader} onClick={() => this.triggerSort("navn", false, "product")}>Produkt {(this.state.last === "product") ? (
-                                                    (this.state.sort === 1) ? (<svg className={classes.rotate} height="12" width="12" viewBox="3 5 24 24" aria-hidden="true"><path d="M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z"></path></svg>) : (<svg height="12" width="12" viewBox="-3 -5 24 24" aria-hidden="true"><path d="M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z"></path></svg>)
-                                                ) : (<svg height="12" width="12" viewBox="-3 -5 24 24" aria-hidden="true"></svg>)}
-                                                </TableCell>
-                            <TableCell className={classes.fixedHeader} onClick={() => this.triggerSort("kode", false, "producer")}>Kode {(this.state.last === "producer") ? (
-                                                    (this.state.sort === 1) ? (<svg className={classes.rotate} height="12" width="12" viewBox="3 5 24 24" aria-hidden="true"><path d="M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z"></path></svg>) : (<svg height="12" width="12" viewBox="-3 -5 24 24" aria-hidden="true"><path d="M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z"></path></svg>)
-                                                ) : (<svg height="12" width="12" viewBox="-3 -5 24 24" aria-hidden="true"></svg>)}
-                                                </TableCell>
-                            <TableCell className={classes.fixedHeader} onClick={() => this.triggerSort("hei", false, "model")}>Hei {(this.state.last === "model") ? (
-                                                    (this.state.sort === 1) ? (<svg className={classes.rotate} height="12" width="12" viewBox="3 5 24 24" aria-hidden="true"><path d="M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z"></path></svg>) : (<svg height="12" width="12" viewBox="-3 -5 24 24" aria-hidden="true"><path d="M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z"></path></svg>)
-                                                ) : (<svg height="12" width="12" viewBox="-3 -5 24 24" aria-hidden="true"></svg>)}
-                                                </TableCell>
+                                (this.state.sort === 1) ? (<svg className={classes.rotate} height="12" width="12" viewBox="3 5 24 24" aria-hidden="true"><path d="M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z"></path></svg>) : (<svg height="12" width="12" viewBox="-3 -5 24 24" aria-hidden="true"><path d="M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z"></path></svg>)
+                            ) : (<svg height="12" width="12" viewBox="-3 -5 24 24" aria-hidden="true"></svg>)}
+                            </TableCell>
+                            <TableCell className={classes.fixedHeader} onClick={() => this.triggerSort("kode", false, "producer")}>MVA Kode {(this.state.last === "producer") ? (
+                                (this.state.sort === 1) ? (<svg className={classes.rotate} height="12" width="12" viewBox="3 5 24 24" aria-hidden="true"><path d="M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z"></path></svg>) : (<svg height="12" width="12" viewBox="-3 -5 24 24" aria-hidden="true"><path d="M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z"></path></svg>)
+                            ) : (<svg height="12" width="12" viewBox="-3 -5 24 24" aria-hidden="true"></svg>)}
+                            </TableCell>
+                            <TableCell className={classes.fixedHeader} onClick={() => this.triggerSort("antall", false, "antall")}>Antall {(this.state.last === "antall") ? (
+                                (this.state.sort === 1) ? (<svg className={classes.rotate} height="12" width="12" viewBox="3 5 24 24" aria-hidden="true"><path d="M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z"></path></svg>) : (<svg height="12" width="12" viewBox="-3 -5 24 24" aria-hidden="true"><path d="M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z"></path></svg>)
+                            ) : (<svg height="12" width="12" viewBox="-3 -5 24 24" aria-hidden="true"></svg>)}
+                            </TableCell>
                             <TableCell className={classes.fixedHeader} onClick={() => this.triggerSort("pris", true, "price")}>Pris {(this.state.last === "price") ? (
-                                                    (this.state.sort === 1) ? (<svg className={classes.rotate} height="12" width="12" viewBox="3 5 24 24" aria-hidden="true"><path d="M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z"></path></svg>) : (<svg height="12" width="12" viewBox="-3 -5 24 24" aria-hidden="true"><path d="M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z"></path></svg>)
-                                                ) : (<svg height="12" width="12" viewBox="-3 -5 24 24" aria-hidden="true"></svg>)}
-                                                </TableCell>
+                                (this.state.sort === 1) ? (<svg className={classes.rotate} height="12" width="12" viewBox="3 5 24 24" aria-hidden="true"><path d="M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z"></path></svg>) : (<svg height="12" width="12" viewBox="-3 -5 24 24" aria-hidden="true"><path d="M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z"></path></svg>)
+                            ) : (<svg height="12" width="12" viewBox="-3 -5 24 24" aria-hidden="true"></svg>)}
+                            </TableCell>
                             <TableCell></TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {this.props.testDataProduct.map(n => {
+                        {this.props.testDataProduct.map((n, index) => {
                             if (this.props.searchFilter.indexOf(n) === -1) {
                                 return null;
                             }
@@ -94,13 +102,18 @@ class SearchResultProduct extends Component {
                                 <TableRow key={n.kode}>
                                     <TableCell>{n.navn}</TableCell>
                                     <TableCell>{n.kode}</TableCell>
-                                    <TableCell>Hei</TableCell>
+                                    <TableCell><TextField disabled={this.props.selectedProductList[n.kode] == 0 || this.props.selectedProductList[n.kode] === undefined ? true : false}
+                                        style={{ width: 40 }}
+                                        type="number"
+                                        onChange={this.handleInputChange(n)}
+                                        value={this.props.selectedProductList[n.kode]||0} />
+                                    </TableCell>
                                     <TableCell>{n.pris},-</TableCell>
                                     <TableCell>
                                         {!this.props.selectedProductList[n.kode] ? (
                                             <Button mini variant="fab" color="secondary" aria-label="add" onClick={() => this.props.addMethod(n)}
                                                 className={classes.actionButton}>
-                                                <Add className={classes.actionButtonIcon}/>
+                                                <Add className={classes.actionButtonIcon} />
                                             </Button>
                                         ) : (
                                                 <Button mini variant="fab" color="primary" aria-label="add" onClick={() => this.props.removeMethod(n)}

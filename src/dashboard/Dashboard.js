@@ -66,7 +66,7 @@ class Dashboard extends Component {
                             </Card>
                         </Link>
                     </Grid>
-                    <Grid item xs={0}>
+                    <Grid item xs={false}>
                     </Grid>
                     <Grid item xs={4}>
                         <Link to="fordringer" className={classes.cardLink}>

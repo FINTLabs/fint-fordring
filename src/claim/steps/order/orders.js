@@ -67,6 +67,7 @@ class Step2 extends Component {
                         removeMethod={this.props.removeMethod} />
                 ) : (<div />)}
                 <SearchResultProduct
+                    getInputAmountProduct={this.props.getInputAmountProduct}
                     addMethod={this.props.addMethod}
                     testDataProduct={this.props.testDataProduct}
                     selectedProductList={this.props.selectedProductList}

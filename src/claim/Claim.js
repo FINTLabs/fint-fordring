@@ -679,6 +679,7 @@ const testBasisGruppe = [
         ]
     }
 ];
+/*
 const testDataPerson = [
     {
         "kundenummer": "12345678909",
@@ -1121,10 +1122,18 @@ const testDataPerson = [
         }
     }
 ];
-/*
-let testDataPerson = [];
-CustomerApi.fetchCustomers("test.no").then(customerList => { testDataPerson = customerList }, console.log(testDataPerson));
 */
+let initialPersonSelectedState = {};
+let testDataPerson = [];
+CustomerApi.fetchCustomers("test.no").then(customerList => {
+    testDataPerson = customerList
+}).then(() => {
+    testDataPerson.forEach(person => {
+        initialPersonSelectedState[person["kundenummer"]] = false;
+        person["klassenavn"] = basisGruppeKundenummer[person["kundenummer"]];
+    });
+});
+
 /*
 const testDataProduct = [
     {
@@ -1163,8 +1172,15 @@ const testDataProduct = [
         "price": "30000.000001"
     },
 ];*/
+let initialProductSelectedState = {};
 let testDataProduct = [];
-OrderLineApi.fetchOrderLines("test.no").then(orderLineList => { testDataProduct = orderLineList }, console.log(testDataProduct));
+OrderLineApi.fetchOrderLines("fake.no").then(orderLineList => {
+    testDataProduct = orderLineList
+}).then(() => {
+    testDataProduct.forEach(product => {
+        initialProductSelectedState[product["kode"]] = 0;
+    });
+});
 
 //wcag test
 
@@ -1179,15 +1195,8 @@ for (let i = 0; i < testDataGruppe.length; i++) {
         testDataGruppe[i]["kundeliste"][j]["klassenavn"] = basisGruppeKundenummer[testDataGruppe[i]["kundeliste"][j]["kundenummer"]]
     }
 }
-let initialPersonSelectedState = {};
-testDataPerson.forEach(person => {
-    initialPersonSelectedState[person["kundenummer"]] = false;
-    person["klassenavn"] = basisGruppeKundenummer[person["kundenummer"]];
-});
-let initialProductSelectedState = {};
-testDataProduct.forEach(product => {
-    initialProductSelectedState[product["id"]] = false;
-});
+
+
 
 class Claim extends Component {
 
@@ -1196,12 +1205,12 @@ class Claim extends Component {
         this.state = {
             activeStep: 0,
             //states for personer
-            selectedPersonList: JSON.parse(JSON.stringify(initialPersonSelectedState)), //{"393073":true, "234733":false etc.}
+            selectedPersonList: {}, //{"393073":true, "234733":false etc.}
             personOrderedBySelection: [], //bare personer som er valgt, i rekkefølgen de er valgt
             //testdataperson+ gruppe
 
             //states for produkter
-            selectedProductList: JSON.parse(JSON.stringify(initialProductSelectedState)),
+            selectedProductList: {},
             productOrderedBySelection: [], //bare produkter som er valgt, i rekkefølgen de er valgt
             //testdata
 
@@ -1214,6 +1223,17 @@ class Claim extends Component {
             customers: [],
             shouldGetData: true
         };
+        console.log(initialProductSelectedState);
+    }
+
+    componentDidUpdate(prevProps, prevState) {
+
+        if (JSON.stringify(prevState.selectedProductList) === "{}") {
+            this.setState({ selectedProductList: JSON.parse(JSON.stringify(initialProductSelectedState)) });
+        }
+        if (JSON.stringify(prevState.selectedPersonList) === "{}") {
+            this.setState({ selectedPersonList: JSON.parse(JSON.stringify(initialPersonSelectedState)) });
+        }
     }
 
     addMethodPerson = (person) => {
@@ -1271,7 +1291,9 @@ class Claim extends Component {
 
     addMethodProduct = (product) => {
         let updateList = this.state.selectedProductList;
-        updateList[product["kode"]] = true;
+        console.log(updateList);
+        updateList[product["kode"]] = 1;
+        console.log(updateList[product["kode"]]);
         this.setState({ selectedProductList: updateList });
 
         let updateOrderedList = this.state.productOrderedBySelection;
@@ -1281,7 +1303,7 @@ class Claim extends Component {
 
     removeMethodProduct = (product) => {
         let updateList = this.state.selectedProductList;
-        updateList[product["kode"]] = false;
+        updateList[product["kode"]] = 0;
         this.setState({ selectedProductList: updateList });
 
         let updateOrderedList = this.state.productOrderedBySelection;
@@ -1346,6 +1368,15 @@ class Claim extends Component {
         this.setState({ open: false });
     };
 
+    getInputAmountProduct = (product, targetValue) => {
+        let updateList = this.state.selectedProductList;
+        updateList[product.kode] = Number(targetValue);
+        this.setState({ selectedProductList: updateList });
+        if (targetValue <= 0) {
+            this.removeMethodProduct(product);
+        }
+    }
+
     getStepContent(stepIndex) {
         switch (stepIndex) {
             case 0:
@@ -1367,6 +1398,7 @@ class Claim extends Component {
                     selectedProductList={this.state.selectedProductList}
                     testDataProduct={testDataProduct}
                     //methods
+                    getInputAmountProduct={this.getInputAmountProduct}
                     addMethod={this.addMethodProduct}
                     removeMethod={this.removeMethodProduct}
                 />;
@@ -1394,7 +1426,7 @@ class Claim extends Component {
                 <Prompt
                     when={this.state.personOrderedBySelection[0] !== undefined || this.state.productOrderedBySelection[0] !== undefined}
                     message={location =>
-                    location.pathname !== this.props.location.pathname ? ("Hvis du forlater denne siden vil alle usendte endringer slettes"):(true)
+                        location.pathname !== this.props.location.pathname ? ("Hvis du forlater denne siden vil alle usendte endringer slettes") : (true)
                     }
                 />
                 <Stepper activeStep={activeStep} >

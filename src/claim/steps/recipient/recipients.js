@@ -39,7 +39,7 @@ class Step1 extends Component {
     }
 
     getSearchMethod = (val) => {
-        this.setState({ searchMethod: val }, () => {
+        this.setState({ searchMethod: val },()=>{
             this.getSearchInput("");
         });
     };
@@ -49,13 +49,16 @@ class Step1 extends Component {
         if (this.state.searchMethod === 0) {
             filteredGroupArr = this.props.testDataGruppe.filter(e => e.navn.toLowerCase().indexOf(val) !== -1);
         } else {
-            filteredGroupArr = this.props.testDataPerson.filter(e =>
-                (e.navn.fornavn + " " +
+            if(val.length >= 3){
+                filteredGroupArr = this.props.testDataPerson.filter(e =>
+                    (e.navn.fornavn + " " +
                     ((e.navn.mellomnavn) ?
-                        (e.navn.mellomnavn + " ") :
-                        (""))
-                    + e.navn.etternavn).toLowerCase().indexOf(val) !== -1
-            );
+                    (e.navn.mellomnavn + " ") :
+                    (""))
+                    + e.navn.etternavn
+                    + e.klassenavn).toLowerCase().indexOf(val) !== -1
+                );
+            }
         }
         this.setState({ searchFilter: filteredGroupArr });
     }
@@ -110,17 +113,17 @@ class Step1 extends Component {
                         checkIfAllAreSelected={this.checkIfAllAreSelected}
                         searchFilter={this.state.searchFilter} />
                 ) : (
-                        <SearchResultPerson
-                            selectedPersonList={this.props.selectedPersonList}
-                            testDataPerson={this.props.testDataPerson}
+                    <SearchResultPerson
+                        selectedPersonList={this.props.selectedPersonList}
+                        testDataPerson={this.props.testDataPerson}
 
-                            sortedPersonList={this.state.sortedPersonList}
-                            sortMethod={this.sortMethod}
-                            addMethod={this.props.addMethod}
-                            addAll={this.props.addAll}
-                            checkIfAllAreSelected={this.checkIfAllAreSelected}
-                            removeMethod={this.props.removeMethod}
-                            searchFilter={this.state.searchFilter} />
+                        sortedPersonList={this.state.sortedPersonList}
+                        sortMethod={this.sortMethod}
+                        addMethod={this.props.addMethod}
+                        removeMethod={this.props.removeMethod}
+                        addAll={this.props.addAll}
+                        checkIfAllAreSelected={this.checkIfAllAreSelected}
+                        searchFilter={this.state.searchFilter} />
                     )}
             </div>
         );

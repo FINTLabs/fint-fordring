@@ -83,9 +83,9 @@ class ClaimTemplate extends React.Component {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {data.fakturagrunnlag.fakturalinjer.map(n => {
+                {data.fakturagrunnlag.fakturalinjer.map((n, index) => {
                   return (
-                    <TableRow key={n.fritekst}>
+                    <TableRow key={index}>
                       <TableCell>
                         {n.fritekst}
                       </TableCell>
