@@ -16,6 +16,7 @@ class Step1 extends Component {
             searchMethod: 0,
             searchFilter: [],
             sortedPersonList: [],
+            searchMessage: "",
         };
     }
 
@@ -39,28 +40,32 @@ class Step1 extends Component {
     }
 
     getSearchMethod = (val) => {
-        this.setState({ searchMethod: val },()=>{
+        this.setState({ searchMethod: val }, () => {
             this.getSearchInput("");
         });
     };
 
     getSearchInput = (val) => {
+        this.setState({ searchMessage: "" });
         let filteredGroupArr = [];
-        if (this.state.searchMethod === 0) {
-            if(val.length >= 3){
+        if (val.length >= 3) {
+            if (this.state.searchMethod === 0) {
                 filteredGroupArr = this.props.testDataGruppe.filter(e => e.navn.toLowerCase().indexOf(val) !== -1);
-            }
-        } else {
-            if(val.length >= 3){
+            } else {
                 filteredGroupArr = this.props.testDataPerson.filter(e =>
                     (e.navn.fornavn + " " +
-                    ((e.navn.mellomnavn) ?
-                    (e.navn.mellomnavn + " ") :
-                    (""))
-                    + e.navn.etternavn
-                    + e.klassenavn).toLowerCase().indexOf(val) !== -1
+                        ((e.navn.mellomnavn) ?
+                            (e.navn.mellomnavn + " ") :
+                            (""))
+                        + e.navn.etternavn
+                        + e.klassenavn).toLowerCase().indexOf(val) !== -1
                 );
             }
+            if (filteredGroupArr.length === 0) {
+                this.setState({ searchMessage: "Ingen søkeresultater" });
+            }
+        } else if (val !== "") {
+            this.setState({ searchMessage: "Søkeordet må være 3 eller mer bokstaver" });
         }
         this.setState({ searchFilter: filteredGroupArr });
     }
@@ -98,6 +103,7 @@ class Step1 extends Component {
                 <SearchTabs
                     getSearchInput={this.getSearchInput}
                     getSearchMethod={this.getSearchMethod} />
+                {(this.state.searchMessage !== "") ? (<div style={{ margin: 20 }}>{this.state.searchMessage}</div>) : (false)}
                 {this.checkIfNoneAreSelected(this.props.selectedPersonList) ? (
                     <SelectedPerson
                         orderedBySelection={this.props.orderedBySelection}
@@ -115,17 +121,17 @@ class Step1 extends Component {
                         checkIfAllAreSelected={this.checkIfAllAreSelected}
                         searchFilter={this.state.searchFilter} />
                 ) : (
-                    <SearchResultPerson
-                        selectedPersonList={this.props.selectedPersonList}
-                        testDataPerson={this.props.testDataPerson}
+                        <SearchResultPerson
+                            selectedPersonList={this.props.selectedPersonList}
+                            testDataPerson={this.props.testDataPerson}
 
-                        sortedPersonList={this.state.sortedPersonList}
-                        sortMethod={this.sortMethod}
-                        addMethod={this.props.addMethod}
-                        removeMethod={this.props.removeMethod}
-                        addAll={this.props.addAll}
-                        checkIfAllAreSelected={this.checkIfAllAreSelected}
-                        searchFilter={this.state.searchFilter} />
+                            sortedPersonList={this.state.sortedPersonList}
+                            sortMethod={this.sortMethod}
+                            addMethod={this.props.addMethod}
+                            removeMethod={this.props.removeMethod}
+                            addAll={this.props.addAll}
+                            checkIfAllAreSelected={this.checkIfAllAreSelected}
+                            searchFilter={this.state.searchFilter} />
                     )}
             </div>
         );

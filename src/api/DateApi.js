@@ -1,15 +1,13 @@
-class CustomerApi {
-
-    static fetchCustomers(orgId) {
-        const url = '/api/customer';
-
+class DateApi {
+    static fetchDates(orgId) {
+        const url = '/api/dato';
         return fetch(url, {
             method: "GET",
             headers: new Headers({'x-org-id': orgId})
         }).then(result => {
-            return result.json()
+            return result.json();
         }).catch(error => console.log(error));
     }
 }
 
-export default CustomerApi
+export default DateApi

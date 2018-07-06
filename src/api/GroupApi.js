@@ -1,6 +1,6 @@
 class GroupApi {
     static fetchAllCustomerGroups(orgId) {
-        const url = '/group';
+        const url = '/api/group';
         return fetch(url, {
             method: "GET",
             headers: new Headers({ 'x-org-id': orgId })
@@ -10,7 +10,7 @@ class GroupApi {
     }
 
     static fetchCustomerGroupsFromBasisgruppe(orgId) {
-        const url = '/group/basisgruppe';
+        const url = '/api/group/basisgruppe';
         return fetch(url, {
             method: "GET",
             headers: new Headers({ 'x-org-id': orgId })
@@ -20,7 +20,7 @@ class GroupApi {
     }
 
     static fetchCustomerGroupsFromKontaktlarergruppe(orgId) {
-        const url = '/group/kontaktlarergruppe';
+        const url = '/api/group/kontaktlarergruppe';
         return fetch(url, {
             method: "GET",
             headers: new Headers({ 'x-org-id': orgId })
@@ -30,7 +30,7 @@ class GroupApi {
     }
 
     static fetchCustomerGroupsFromUndervisningsgruppe(orgId) {
-        const url = '/group/undervisningsgruppe';
+        const url = '/api/group/undervisningsgruppe';
         return fetch(url, {
             method: "GET",
             headers: new Headers({ 'x-org-id': orgId })

@@ -17,6 +17,7 @@ import PaymentApi from '../api/PaymentApi';
 import EmployerApi from '../api/EmployerApi';
 import GroupApi from '../api/GroupApi';
 import MvaApi from '../api/MvaApi';
+import DateApi from '../api/DateApi';
 import LoadingProgress from '../common/LoadingProgress';
 
 const styles = theme => ({
@@ -1230,6 +1231,7 @@ class Claim extends Component {
             allGroupsList: [],//alle grupper
             mvaCodes: [],
             employers: [],
+            dates: [],
 
             //needed for snackbar message
             open: false,
@@ -1264,6 +1266,14 @@ class Claim extends Component {
                 return;
             }
             this.setState({ mvaCodes: data })
+        });
+        DateApi.fetchDates(orgId).then(data => {
+            console.log(data, "dates");
+            if (data === undefined) {
+                this.setState({ fetchedValueIsUndefined: true });
+                return;
+            }
+            this.setState({ dates: data })
         });
         EmployerApi.fetchEmployers(orgId).then(data => {
             console.log(data, "employer");
@@ -1587,7 +1597,7 @@ class Claim extends Component {
                                 </Button>
                                     {activeStep === steps.length - 1 ? (
                                         <Button variant="raised" color="primary" onClick={this.handleFinish({ vertical: 'bottom', horizontal: 'right' })}>
-                                            Fullfør
+                                            Send
                                         </Button>) : (
                                             <Button variant="raised" color="primary" onClick={this.handleNext}>
                                                 Neste

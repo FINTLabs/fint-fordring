@@ -114,7 +114,7 @@ class SearchResultGroup extends React.Component {
                         return;
                     }
                     return (
-                        <ExpansionPanel expanded={expanded === n.id} onChange={this.handleChange(n.id)} elevation={2} key={n.id}>
+                        <ExpansionPanel expanded={expanded === n.navn} onChange={this.handleChange(n.navn)} elevation={2} key={n.navn}>
                             <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
                                 <Typography className={classes.heading}>{n.navn}</Typography>
                                 <Typography className={classes.secondaryHeading}>{/*n.school*/}Ingen skole</Typography>

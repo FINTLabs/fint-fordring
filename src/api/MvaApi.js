@@ -1,6 +1,6 @@
 class MvaApi {
     static fetchMvaCodes(orgId) {
-        const url = '/mvakode';
+        const url = '/api/mvakode';
         return fetch(url, {
             method: "GET",
             headers: new Headers({'x-org-id': orgId})

@@ -72,7 +72,7 @@ class ResultTablePerson extends Component {
             <Paper className={classes.root}>
                 <Table className={classes.table}>
                     <TableHead>
-                        <TableRow>
+                    {(this.props.searchFilter.length > 0)?(<TableRow>
                             <TableCell className={classes.fixedHeader} onClick={() => this.triggerSort(["navn.fornavn", "navn.mellomnavn", "navn.etternavn"], false, "fornavn")}>
                                 Fornavn {(this.state.last === "fornavn") ? (
                                     (this.state.sort === 1) ? (<svg className={classes.rotate} height="12" width="12" viewBox="3 5 24 24" aria-hidden="true">
@@ -107,7 +107,7 @@ class ResultTablePerson extends Component {
                                         )}
                                 </Button>
                             </TableCell>
-                        </TableRow>
+                        </TableRow>):(false)}
                     </TableHead>
                     <TableBody>
                         {this.props.testDataPerson.map(n => {

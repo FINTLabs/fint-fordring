@@ -4,6 +4,7 @@ import { withStyles } from '@material-ui/core/styles';
 import ProductOverview from "./resultOverview/ProductOverview";
 import PersonOverview from "./resultOverview/PersonOverview";
 import GroupOverview from "./resultOverview/GroupOverview";
+import DropdownDager from "./DropdownDager";
 import Paper from '@material-ui/core/Paper';
 import { Divider } from "@material-ui/core";
 
@@ -128,6 +129,8 @@ class Step3 extends Component {
 
         return (
             <Paper>
+                <DropdownDager/>
+                <Divider />
                 <div className={classes.paddingClass}>Mottakere av faktura:</div>
                 {this.props.personOrderedBySelection[0] ?
                     (<ChipSelectedPerson orderedBySelection={this.props.personOrderedBySelection} />) :

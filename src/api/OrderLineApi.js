@@ -1,7 +1,7 @@
 class OrderLineApi {
 
     static fetchOrderLines(orgId) {
-        const url = '/orderline';
+        const url = '/api/orderline';
         return fetch(url, {
             method: 'GET',
             headers: new Headers({'x-org-id': orgId})

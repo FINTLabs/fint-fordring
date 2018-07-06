@@ -1,6 +1,6 @@
 class EmployerApi {
     static fetchEmployers(orgId) {
-        const url = '/oppdragsgiver';
+        const url = '/api/oppdragsgiver';
         return fetch(url, {
             method: "GET",
             headers: new Headers({'x-org-id': orgId})

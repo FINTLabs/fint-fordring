@@ -95,20 +95,20 @@ class Main extends Component {
                                     </ListItem>
                                 </Link>
                                 <Divider />
-                                <Link to="/ny-fordring" className={classes.menuLink}>
+                                <Link to="/ny-betaling" className={classes.menuLink}>
                                     <ListItem button>
                                         <ListItemIcon>
                                             <NoteAdd />
                                         </ListItemIcon>
-                                        <ListItemText primary="Ny fordring" />
+                                        <ListItemText primary="Ny betaling" />
                                     </ListItem>
                                 </Link>
-                                <Link to="/fordringer" className={classes.menuLink}>
+                                <Link to="/betalinger" className={classes.menuLink}>
                                     <ListItem button>
                                         <ListItemIcon>
                                             <History />
                                         </ListItemIcon>
-                                        <ListItemText primary="Sendte fordringer" />
+                                        <ListItemText primary="Sendte betalinger" />
                                     </ListItem>
                                 </Link>
                             </div>
@@ -117,8 +117,8 @@ class Main extends Component {
                     <main className={classes.content}>
                         <div>
                             <Route exact path='/' component={Dashboard} />
-                            <Route path='/fordringer' component={Claims} />
-                            <Route path='/ny-fordring' component={Claim} />
+                            <Route path='/betalinger' component={Claims} />
+                            <Route path='/ny-betaling' component={Claim} />
                         </div>
                     </main>
                 </div>

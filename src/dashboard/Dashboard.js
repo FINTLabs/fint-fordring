@@ -45,16 +45,16 @@ class Dashboard extends Component {
                     <Grid item xs={2}>
                     </Grid>
                     <Grid item xs={4}>
-                        <Link to="ny-fordring" className={classes.cardLink}>
+                        <Link to="ny-betaling" className={classes.cardLink}>
                             <Card className={classes.card}>
                                 <CardHeader
-                                    title="Ny Fordring"
+                                    title="Ny Betaling"
                                     avatar={
                                         <Avatar className={classes.avatar}>
                                             <NoteAdd className={classes.avatar} />
                                         </Avatar>
                                     }
-                                    subheader="Opprett ny fordring"
+                                    subheader="Opprett en ny betaling"
                                 />
                                 <Divider />
                                 <CardContent className={classes.cardContent}>
@@ -69,10 +69,10 @@ class Dashboard extends Component {
                     <Grid item xs={false}>
                     </Grid>
                     <Grid item xs={4}>
-                        <Link to="fordringer" className={classes.cardLink}>
+                        <Link to="betalinger" className={classes.cardLink}>
                             <Card className={classes.card}>
                                 <CardHeader
-                                    title="Sendte fordringer"
+                                    title="Sendte betalinger"
                                     avatar={
                                         <Avatar className={classes.avatar}>
                                             <History className={classes.avatar} />
@@ -83,7 +83,7 @@ class Dashboard extends Component {
                                 <Divider />
                                 <CardContent className={classes.cardContent}>
                                     <Typography type="display4">
-                                        Fordringer sendt: {6}
+                                        Betalinger sendt: {6}
                                     </Typography>
                                 </CardContent>
                             </Card>
