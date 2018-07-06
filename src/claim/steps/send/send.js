@@ -129,7 +129,7 @@ class Step3 extends Component {
 
         return (
             <Paper>
-                <DropdownDager/>
+                <DropdownDager dates={this.props.dates}/>
                 <Divider />
                 <div className={classes.paddingClass}>Mottakere av faktura:</div>
                 {this.props.personOrderedBySelection[0] ?

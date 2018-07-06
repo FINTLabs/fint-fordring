@@ -6,24 +6,15 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
+import { Button } from '@material-ui/core';
 
 const styles = theme => ({
   root: {
-    width: '100%',
-    maxWidth: 360,
     backgroundColor: theme.palette.background.paper,
   },
 });
 
-const options = [
-  'Show some love to Material-UI',
-  'Show all notification content',
-  'Hide sensitive notification content',
-  'Hide all notification content',
-];
-
 class DropdownDager extends React.Component {
-  button = null;
 
   state = {
     anchorEl: null,
@@ -47,32 +38,19 @@ class DropdownDager extends React.Component {
     const { anchorEl } = this.state;
 
     return (
-      <div className={classes.root}>
-        <List component="nav">
-          <ListItem
-            button
-            aria-haspopup="true"
-            onClick={this.handleClickListItem}
-          >
-            <ListItemText
-              primary="When device is locked"
-              secondary={options[this.state.selectedIndex]}
-            />
-          </ListItem>
-        </List>
+      <div className={classes.root}><b>Fakturaen må betales om{" "}
+        <Button style={{ minWidth: 30, width: 30, height: 55, fontSize: 15}} onClick={this.handleClickListItem}>
+          <div style={{ border: "1px dashed", padding: 4}}>{this.props.dates[this.state.selectedIndex]}</div>
+        </Button> dager.</b> (Klikk for å endre)
         <Menu
-          id="lock-menu"
           anchorEl={anchorEl}
           open={Boolean(anchorEl)}
-          onClose={this.handleClose}
-        >
-          {options.map((option, index) => (
+          onClose={this.handleClose}>
+          {this.props.dates.map((option, index) => (
             <MenuItem
               key={option}
-              disabled={index === 0}
               selected={index === this.state.selectedIndex}
-              onClick={event => this.handleMenuItemClick(event, index)}
-            >
+              onClick={event => this.handleMenuItemClick(event, index)}>
               {option}
             </MenuItem>
           ))}

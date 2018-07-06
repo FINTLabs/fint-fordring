@@ -1252,8 +1252,9 @@ class Claim extends Component {
                 this.setState({ fetchedValueIsUndefined: true });
                 return;
             }
-            this.setState({ productList: data })
+            this.setState({ productList: data });
         }).then(() => {
+            console.log(this.state.productList);
             this.state.productList.forEach(product => {
                 initialProductSelectedState[product["kode"]] = 0;
             });
@@ -1530,6 +1531,7 @@ class Claim extends Component {
                     selectedProductList={this.state.selectedProductList}
                     personOrderedBySelection={this.state.personOrderedBySelection}
                     productOrderedBySelection={this.state.productOrderedBySelection}
+                    dates={this.state.dates}
                 />;
             default:
                 return 'Uknown stepIndex';
