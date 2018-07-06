@@ -61,24 +61,14 @@ class SearchResultProduct extends Component {
     }
 
     handleInputChange = product => event => {
-        event.persist();
-        let newVal = Number(event.target.value);
-        if(Number(event.target.value) !== this.props.selectedProductList[product.kode]) {
-            setTimeout(this.timeoutFunction, 100, event, newVal);
+        if(event.target.value !== "") {
+            this.props.getInputAmountProduct(product, event.target.value); //this sets the parent state to a string, which can even be ""
+            //since textfield is only disabled when value is 0, you can press backspace without disabling the textfield
         }
-        this.props.getInputAmountProduct(product, event.target.value);
-        //event.target.value = "";
     }
-
-    timeoutFunction(event, newVal) {
-        event.target.value = newVal;
+    handleLeaveInput = product => event => {
+        //this converts the value in the parent state to a number, meaning "" will become 0, and "2" will become 2
         console.log(event.target);
-    }
-
-    handleInputClick = product => event => {
-        if (this.props.selectedProductList[product.kode] !== 0) {
-            event.target.value = "";
-        }
     }
 
     render() {
@@ -121,7 +111,7 @@ class SearchResultProduct extends Component {
                                         style={{ width: 40 }}
                                         type="number"
                                         onChange={this.handleInputChange(n)}
-                                        onClick={this.handleInputClick(n)}
+                                        onBlur={this.handleLeaveInput(n)}
                                         value={this.props.selectedProductList[n.kode] || 0} />
                                     </TableCell>
                                     <TableCell>{n.pris},-</TableCell>
