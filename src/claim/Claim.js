@@ -1421,11 +1421,20 @@ class Claim extends Component {
 
     getInputAmountProduct = (product, targetValue) => {
         let updateList = this.state.selectedProductList;
-        updateList[product.kode] = Number(targetValue);
-        this.setState({ selectedProductList: updateList });
-        if (targetValue <= 0) {
+        updateList[product.kode] = targetValue;
+        if (targetValue <= 0 && targetValue !== "") {
             this.removeMethodProduct(product);
         }
+        this.setState({ selectedProductList: updateList });
+    }
+
+    setInputAmountProductToNumber = (product) => {
+        let updateList = this.state.selectedProductList;
+        if(updateList[product.kode] === "") {
+            this.removeMethodProduct(product);
+        }
+        updateList[product.kode] = Number(updateList[product.kode]);
+        this.setState({ selectedProductList: updateList });
     }
 
     getStepContent = (stepIndex) => {
@@ -1450,6 +1459,7 @@ class Claim extends Component {
                     testDataProduct={this.state.productList}
                     //methods
                     getInputAmountProduct={this.getInputAmountProduct}
+                    setInputAmountProductToNumber={this.setInputAmountProductToNumber}
                     addMethod={this.addMethodProduct}
                     removeMethod={this.removeMethodProduct}
                 />;

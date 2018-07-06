@@ -68,6 +68,7 @@ class Step2 extends Component {
                 ) : (<div />)}
                 <SearchResultProduct
                     getInputAmountProduct={this.props.getInputAmountProduct}
+                    setInputAmountProductToNumber={this.props.setInputAmountProductToNumber}
                     addMethod={this.props.addMethod}
                     testDataProduct={this.props.testDataProduct}
                     selectedProductList={this.props.selectedProductList}

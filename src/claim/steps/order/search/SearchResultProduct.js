@@ -61,12 +61,11 @@ class SearchResultProduct extends Component {
     }
 
     handleInputChange = product => event => {
-        if(event.target.value !== "") {
-            this.props.getInputAmountProduct(product, event.target.value); //this sets the parent state to a string, which can even be ""
-            //since textfield is only disabled when value is 0, you can press backspace without disabling the textfield
-        }
+        this.props.getInputAmountProduct(product, event.target.value); //this sets the parent state to a string, which can even be ""
+        //since textfield is only disabled when value is 0, you can press backspace without disabling the textfield
     }
     handleLeaveInput = product => event => {
+        this.props.setInputAmountProductToNumber(product);
         //this converts the value in the parent state to a number, meaning "" will become 0, and "2" will become 2
         console.log(event.target);
     }
@@ -112,7 +111,7 @@ class SearchResultProduct extends Component {
                                         type="number"
                                         onChange={this.handleInputChange(n)}
                                         onBlur={this.handleLeaveInput(n)}
-                                        value={this.props.selectedProductList[n.kode] || 0} />
+                                        value={this.props.selectedProductList[n.kode]} />
                                     </TableCell>
                                     <TableCell>{n.pris},-</TableCell>
                                     <TableCell>
