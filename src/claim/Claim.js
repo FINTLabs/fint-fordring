@@ -1175,7 +1175,7 @@ const testDataProduct = [
     },
 ];*/
 
-/*OrderLineApi.fetchOrderLines("fake.no").then(orderLineList => {
+/*OrderLineApi.fetchOrderLines(orgId).then(orderLineList => {
     testDataProduct = orderLineList
 }).then(() => {
     testDataProduct.forEach(product => {
@@ -1238,12 +1238,18 @@ class Claim extends Component {
 
             //data from backend
             customers: [],
+
+            fetchedValueIsUndefined: false,
         };
     }
 
     componentDidMount() {
-        OrderLineApi.fetchOrderLines("fake.no").then(data => {
+        OrderLineApi.fetchOrderLines(orgId).then(data => {
             console.log(data, "ol");
+            if (data === undefined) {
+                this.setState({ fetchedValueIsUndefined: true });
+                return;
+            }
             this.setState({ productList: data })
         }).then(() => {
             this.state.productList.forEach(product => {
@@ -1253,22 +1259,42 @@ class Claim extends Component {
         });
         MvaApi.fetchMvaCodes(orgId).then(data => {
             console.log(data, "mva");
+            if (data === undefined) {
+                this.setState({ fetchedValueIsUndefined: true });
+                return;
+            }
             this.setState({ mvaCodes: data })
         });
         EmployerApi.fetchEmployers(orgId).then(data => {
             console.log(data, "employer");
+            if (data === undefined) {
+                this.setState({ fetchedValueIsUndefined: true });
+                return;
+            }
             this.setState({ employers: data })
         });
         GroupApi.fetchCustomerGroupsFromKontaktlarergruppe(orgId).then(data => {
             console.log(data, "kontakt");
+            if (data === undefined) {
+                this.setState({ fetchedValueIsUndefined: true });
+                return;
+            }
             this.setState({ contactGroupList: data })
         });
         GroupApi.fetchCustomerGroupsFromUndervisningsgruppe(orgId).then(data => {
             console.log(data, "undervisning");
+            if (data === undefined) {
+                this.setState({ fetchedValueIsUndefined: true });
+                return;
+            }
             this.setState({ teachingGroupList: data })
         });
         GroupApi.fetchCustomerGroupsFromBasisgruppe(orgId).then(data => {
             console.log(data, "basis");
+            if (data === undefined) {
+                this.setState({ fetchedValueIsUndefined: true });
+                return;
+            }
             this.setState({ basicGroupList: data })
         }).then(() => {
             let basisGruppeKundenummer = {};
@@ -1277,8 +1303,11 @@ class Claim extends Component {
                     basisGruppeKundenummer[this.state.basicGroupList[i]["kundeliste"][j]["kundenummer"]] = this.state.basicGroupList[i]["navn"];
                 }
             };
-            CustomerApi.fetchCustomers("fake.no").then(data => {
+            CustomerApi.fetchCustomers(orgId).then(data => {
                 console.log(data, "cl");
+                if (data === undefined) {
+                    return;
+                }
                 this.setState({ customerList: data })
             }).then(() => {
                 this.state.customerList.forEach(person => {
@@ -1289,6 +1318,9 @@ class Claim extends Component {
             });
             GroupApi.fetchAllCustomerGroups(orgId).then(data => {
                 console.log(data, "alle");
+                if (data === undefined) {
+                    return;
+                }
                 this.setState({ allGroupsList: data })
             }).then(() => {
                 for (let i = 0; i < this.state.allGroupsList.length; i++) {
@@ -1494,6 +1526,13 @@ class Claim extends Component {
         }
     }
 
+    renderErrorMessage() {
+        const { classes } = this.props;
+        return(
+            <div className={classes.root}>Sum Ting Wong, Try again later</div>
+        )
+    }
+
     renderPosts() {
         const { classes } = this.props;
         const steps = getSteps();
@@ -1571,6 +1610,9 @@ class Claim extends Component {
         const { activeStep } = this.state;
         const { vertical, horizontal, open } = this.state;
 
+        if(this.state.fetchedValueIsUndefined) {
+            return (this.renderErrorMessage());
+        }
         if (this.state.productList.length > 0 && this.state.customerList.length > 0) {
             return (this.renderPosts());
         } else {
