@@ -15,7 +15,9 @@ import CustomerApi from '../api/CustomerApi';
 import OrderLineApi from '../api/OrderLineApi';
 import PaymentApi from '../api/PaymentApi';
 import EmployerApi from '../api/EmployerApi';
+import GroupApi from '../api/GroupApi';
 import MvaApi from '../api/MvaApi';
+import LoadingProgress from '../common/LoadingProgress';
 
 const styles = theme => ({
     root: {
@@ -1126,14 +1128,14 @@ const testDataPerson = [
 */
 let initialPersonSelectedState = {};
 let testDataPerson = [];
-CustomerApi.fetchCustomers("test.no").then(customerList => {
+/*CustomerApi.fetchCustomers("test.no").then(customerList => {
     testDataPerson = customerList
 }).then(() => {
     testDataPerson.forEach(person => {
         initialPersonSelectedState[person["kundenummer"]] = false;
         person["klassenavn"] = basisGruppeKundenummer[person["kundenummer"]];
     });
-});
+});*/
 
 /*
 const testDataProduct = [
@@ -1175,13 +1177,13 @@ const testDataProduct = [
 ];*/
 let initialProductSelectedState = {};
 let testDataProduct = [];
-OrderLineApi.fetchOrderLines("fake.no").then(orderLineList => {
+/*OrderLineApi.fetchOrderLines("fake.no").then(orderLineList => {
     testDataProduct = orderLineList
 }).then(() => {
     testDataProduct.forEach(product => {
         initialProductSelectedState[product["kode"]] = 0;
     });
-});
+});*/
 
 //wcag test
 
@@ -1215,22 +1217,63 @@ class Claim extends Component {
             productOrderedBySelection: [], //bare produkter som er valgt, i rekkefølgen de er valgt
             //testdata
 
+            //fetch data test
+            customerList: [],
+            productList: [],
+            basicGroupList: [],//basisgruppe
+            contactGroupList: [],//kontaklarergruppe
+            teachingGroupList: [],//undervisningsgruppe
+            allGroupsList: [],//alle grupper
+            mvaCodes: [],
+            employers: [],
+
             //needed for snackbar message
             open: false,
             vertical: null,
             horizontal: null,
 
-            //fetch mva
-            mva: MvaApi.fetchMvaCodes(orgId),
-            //fetch arbeidsgiver
-            employer: EmployerApi.fetchEmployers(orgId),
             //data from backend
             customers: [],
         };
         console.log(initialProductSelectedState);
     }
 
-    componentDidUpdate(prevProps, prevState) {
+    componentDidMount() {
+        OrderLineApi.fetchOrderLines("fake.no").then(data => {
+            console.log(data, "ol");
+            this.setState({ productList: data })
+        });
+        CustomerApi.fetchCustomers("fake.no").then(data => {
+            console.log(data, "cl");
+            this.setState({ customerList: data })
+        });
+        MvaApi.fetchMvaCodes(orgId).then(data => {
+            console.log(data, "mva");
+            this.setState({ mvaCodes: data })
+        });
+        EmployerApi.fetchEmployers(orgId).then(data => {
+            console.log(data, "Employer");
+            this.setState({ employers: data })
+        });
+        GroupApi.fetchCustomerGroupsFromKontaktlarergruppe(orgId).then(data => {
+            console.log(data, "Employer");
+            this.setState({ contactGroupList: data })
+        });
+        GroupApi.fetchAllCustomerGroups(orgId).then(data => {
+            console.log(data, "Employer");
+            this.setState({ allGroupsList: data })
+        });
+        GroupApi.fetchCustomerGroupsFromBasisgruppe(orgId).then(data => {
+            console.log(data, "Employer");
+            this.setState({ basicGroupList: data })
+        });
+        GroupApi.fetchCustomerGroupsFromUndervisningsgruppe(orgId).then(data => {
+            console.log(data, "Employer");
+            this.setState({ teachingGroupList: data })
+        });
+    }
+
+    /*componentDidUpdate(prevProps, prevState) {
         if (JSON.stringify(prevState.selectedProductList) === "{}") {
             this.setState({ selectedProductList: JSON.parse(JSON.stringify(initialProductSelectedState)) });
         }
@@ -1238,7 +1281,7 @@ class Claim extends Component {
             this.setState({ selectedPersonList: JSON.parse(JSON.stringify(initialPersonSelectedState)) });
         }
         console.log(initialPersonSelectedState);
-    }
+    }*/
 
     addMethodPerson = (person) => {
         let updateList = this.state.selectedPersonList;
@@ -1358,15 +1401,18 @@ class Claim extends Component {
     };
 
     sendClaim = () => {
+        let employer = this.state.employers[0];
+        let mva = this.state.mvaCodes[0];
+
         PaymentApi.setPayment(
             orgId,
             this.state.personOrderedBySelection,
             this.state.productOrderedBySelection,
-            this.state.mva,
-            this.state.employer).then(
-            e => {
-                console.log(e);
-            });
+            mva,
+            employer
+        ).then(e => {
+            console.log(e);
+        });
     }
 
     handleCloseSnack = () => {
@@ -1382,7 +1428,7 @@ class Claim extends Component {
         }
     }
 
-    getStepContent(stepIndex) {
+    getStepContent = (stepIndex) => {
         switch (stepIndex) {
             case 0:
                 return <Step1
@@ -1390,7 +1436,7 @@ class Claim extends Component {
                     orderedBySelection={this.state.personOrderedBySelection}
                     selectedPersonList={this.state.selectedPersonList}
                     testDataGruppe={testDataGruppe}
-                    testDataPerson={testDataPerson}
+                    testDataPerson={this.state.customerList}
                     //methods
                     addMethod={this.addMethodPerson}
                     removeMethod={this.removeMethodPerson}
@@ -1401,7 +1447,7 @@ class Claim extends Component {
                     //data
                     orderedBySelection={this.state.productOrderedBySelection}
                     selectedProductList={this.state.selectedProductList}
-                    testDataProduct={testDataProduct}
+                    testDataProduct={this.state.productList}
                     //methods
                     getInputAmountProduct={this.getInputAmountProduct}
                     addMethod={this.addMethodProduct}
@@ -1421,12 +1467,11 @@ class Claim extends Component {
         }
     }
 
-    render() {
+    renderPosts() {
         const { classes } = this.props;
         const steps = getSteps();
         const { activeStep } = this.state;
         const { vertical, horizontal, open } = this.state;
-
         return (
             <div className={classes.root}>
                 <Prompt
@@ -1492,6 +1537,20 @@ class Claim extends Component {
                 </div>
             </div>
         );
+    }
+
+    render() {
+        const { classes } = this.props;
+        const steps = getSteps();
+        const { activeStep } = this.state;
+        const { vertical, horizontal, open } = this.state;
+
+        if (this.state.productList === undefined && this.state.customerList === undefined) {
+            return (<LoadingProgress />);
+        } else {
+            return (this.renderPosts());
+        }
+
     }
 }
 
