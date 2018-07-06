@@ -56,7 +56,7 @@ class ClaimTabs extends React.Component {
     filteredClaimArray = this.props.testDataFordring.filter(e =>
       (e.kunde.navn.fornavn + " " +
       ((e.kunde.navn.mellomnavn)?(e.kunde.navn.mellomnavn + " "):(""))
-      + e.kunde.navn.etternavn).toLowerCase().indexOf(val) !== -1
+      + e.kunde.navn.etternavn + e.ordrenummer).toLowerCase().indexOf(val) !== -1
     );
     this.setState({ searchFilter: filteredClaimArray });
   }

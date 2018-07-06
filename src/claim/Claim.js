@@ -1126,8 +1126,7 @@ const testDataPerson = [
     }
 ];
 */
-let initialPersonSelectedState = {};
-let testDataPerson = [];
+
 /*CustomerApi.fetchCustomers("test.no").then(customerList => {
     testDataPerson = customerList
 }).then(() => {
@@ -1175,8 +1174,7 @@ const testDataProduct = [
         "price": "30000.000001"
     },
 ];*/
-let initialProductSelectedState = {};
-let testDataProduct = [];
+
 /*OrderLineApi.fetchOrderLines("fake.no").then(orderLineList => {
     testDataProduct = orderLineList
 }).then(() => {
@@ -1187,19 +1185,25 @@ let testDataProduct = [];
 
 //wcag test
 
-let basisGruppeKundenummer = {};
+
+/*
 for (let i = 0; i < testBasisGruppe.length; i++) {
     for (let j = 0; j < testBasisGruppe[i]["kundeliste"].length; j++) {
         basisGruppeKundenummer[testBasisGruppe[i]["kundeliste"][j]["kundenummer"]] = testBasisGruppe[i]["navn"];
     }
-}
+}*/
+/*
 for (let i = 0; i < testDataGruppe.length; i++) {
     for (let j = 0; j < testDataGruppe[i]["kundeliste"].length; j++) {
         testDataGruppe[i]["kundeliste"][j]["klassenavn"] = basisGruppeKundenummer[testDataGruppe[i]["kundeliste"][j]["kundenummer"]]
     }
-}
+}*/
 
 let orgId = "fake.no";
+
+//is needed to initialize data on reset
+let initialPersonSelectedState = {};
+let initialProductSelectedState = {};
 
 class Claim extends Component {
 
@@ -1235,53 +1239,66 @@ class Claim extends Component {
             //data from backend
             customers: [],
         };
-        console.log(initialProductSelectedState);
     }
 
     componentDidMount() {
         OrderLineApi.fetchOrderLines("fake.no").then(data => {
             console.log(data, "ol");
             this.setState({ productList: data })
-        });
-        CustomerApi.fetchCustomers("fake.no").then(data => {
-            console.log(data, "cl");
-            this.setState({ customerList: data })
+        }).then(() => {
+            this.state.productList.forEach(product => {
+                initialProductSelectedState[product["kode"]] = 0;
+            });
+            this.setState({ selectedProductList: JSON.parse(JSON.stringify(initialProductSelectedState)) });
         });
         MvaApi.fetchMvaCodes(orgId).then(data => {
             console.log(data, "mva");
             this.setState({ mvaCodes: data })
         });
         EmployerApi.fetchEmployers(orgId).then(data => {
-            console.log(data, "Employer");
+            console.log(data, "employer");
             this.setState({ employers: data })
         });
         GroupApi.fetchCustomerGroupsFromKontaktlarergruppe(orgId).then(data => {
-            console.log(data, "Employer");
+            console.log(data, "kontakt");
             this.setState({ contactGroupList: data })
         });
-        GroupApi.fetchAllCustomerGroups(orgId).then(data => {
-            console.log(data, "Employer");
-            this.setState({ allGroupsList: data })
-        });
-        GroupApi.fetchCustomerGroupsFromBasisgruppe(orgId).then(data => {
-            console.log(data, "Employer");
-            this.setState({ basicGroupList: data })
-        });
         GroupApi.fetchCustomerGroupsFromUndervisningsgruppe(orgId).then(data => {
-            console.log(data, "Employer");
+            console.log(data, "undervisning");
             this.setState({ teachingGroupList: data })
         });
+        GroupApi.fetchCustomerGroupsFromBasisgruppe(orgId).then(data => {
+            console.log(data, "basis");
+            this.setState({ basicGroupList: data })
+        }).then(() => {
+            let basisGruppeKundenummer = {};
+            for (let i = 0; i < this.state.basicGroupList.length; i++) {
+                for (let j = 0; j < this.state.basicGroupList[i]["kundeliste"].length; j++) {
+                    basisGruppeKundenummer[this.state.basicGroupList[i]["kundeliste"][j]["kundenummer"]] = this.state.basicGroupList[i]["navn"];
+                }
+            };
+            CustomerApi.fetchCustomers("fake.no").then(data => {
+                console.log(data, "cl");
+                this.setState({ customerList: data })
+            }).then(() => {
+                this.state.customerList.forEach(person => {
+                    initialPersonSelectedState[person["kundenummer"]] = false;
+                    person["klassenavn"] = basisGruppeKundenummer[person["kundenummer"]];
+                });
+                this.setState({ selectedPersonList: JSON.parse(JSON.stringify(initialPersonSelectedState)) });
+            });
+            GroupApi.fetchAllCustomerGroups(orgId).then(data => {
+                console.log(data, "alle");
+                this.setState({ allGroupsList: data })
+            }).then(() => {
+                for (let i = 0; i < this.state.allGroupsList.length; i++) {
+                    for (let j = 0; j < this.state.allGroupsList[i]["kundeliste"].length; j++) {
+                        this.state.allGroupsList[i]["kundeliste"][j]["klassenavn"] = basisGruppeKundenummer[this.state.allGroupsList[i]["kundeliste"][j]["kundenummer"]]
+                    }
+                }
+            });
+        });
     }
-
-    /*componentDidUpdate(prevProps, prevState) {
-        if (JSON.stringify(prevState.selectedProductList) === "{}") {
-            this.setState({ selectedProductList: JSON.parse(JSON.stringify(initialProductSelectedState)) });
-        }
-        if (JSON.stringify(prevState.selectedPersonList) === "{}") {
-            this.setState({ selectedPersonList: JSON.parse(JSON.stringify(initialPersonSelectedState)) });
-        }
-        console.log(initialPersonSelectedState);
-    }*/
 
     addMethodPerson = (person) => {
         let updateList = this.state.selectedPersonList;
@@ -1387,7 +1404,7 @@ class Claim extends Component {
         this.setState({ open: false });
     };
 
-    handleClickSnack = state => () => {
+    handleFinish = state => () => {
         this.setState({ open: true, ...state });
         this.handleNext();
         this.sendClaim();
@@ -1399,6 +1416,10 @@ class Claim extends Component {
             productOrderedBySelection: [],
         });
     };
+
+    handleCloseSnack = () => {
+        this.setState({ open: false });
+    }
 
     sendClaim = () => {
         let employer = this.state.employers[0];
@@ -1415,10 +1436,6 @@ class Claim extends Component {
         });
     }
 
-    handleCloseSnack = () => {
-        this.setState({ open: false });
-    };
-
     getInputAmountProduct = (product, targetValue) => {
         let updateList = this.state.selectedProductList;
         updateList[product.kode] = targetValue;
@@ -1430,7 +1447,7 @@ class Claim extends Component {
 
     setInputAmountProductToNumber = (product) => {
         let updateList = this.state.selectedProductList;
-        if(updateList[product.kode] === "") {
+        if (updateList[product.kode] === "") {
             this.removeMethodProduct(product);
         }
         updateList[product.kode] = Number(updateList[product.kode]);
@@ -1444,7 +1461,7 @@ class Claim extends Component {
                     //data
                     orderedBySelection={this.state.personOrderedBySelection}
                     selectedPersonList={this.state.selectedPersonList}
-                    testDataGruppe={testDataGruppe}
+                    testDataGruppe={this.state.allGroupsList}
                     testDataPerson={this.state.customerList}
                     //methods
                     addMethod={this.addMethodPerson}
@@ -1465,8 +1482,8 @@ class Claim extends Component {
                 />;
             case 2:
                 return <Step3
-                    testDataPerson={testDataPerson}
-                    testDataGruppe={testDataGruppe}
+                    testDataPerson={this.state.customerList}
+                    testDataGruppe={this.state.allGroupsList}
                     selectedPersonList={this.state.selectedPersonList}
                     selectedProductList={this.state.selectedProductList}
                     personOrderedBySelection={this.state.personOrderedBySelection}
@@ -1530,7 +1547,7 @@ class Claim extends Component {
                                         Tilbake
                                 </Button>
                                     {activeStep === steps.length - 1 ? (
-                                        <Button variant="raised" color="primary" onClick={this.handleClickSnack({ vertical: 'bottom', horizontal: 'right' })}>
+                                        <Button variant="raised" color="primary" onClick={this.handleFinish({ vertical: 'bottom', horizontal: 'right' })}>
                                             Fullfør
                                         </Button>) : (
                                             <Button variant="raised" color="primary" onClick={this.handleNext}>
@@ -1541,7 +1558,6 @@ class Claim extends Component {
                                     </Button>*/}
 
                                 </div>
-
                             </div>
                         )}
                 </div>
@@ -1555,10 +1571,10 @@ class Claim extends Component {
         const { activeStep } = this.state;
         const { vertical, horizontal, open } = this.state;
 
-        if (this.state.productList === undefined && this.state.customerList === undefined) {
-            return (<LoadingProgress />);
-        } else {
+        if (this.state.productList.length > 0 && this.state.customerList.length > 0) {
             return (this.renderPosts());
+        } else {
+            return (<LoadingProgress />);
         }
 
     }

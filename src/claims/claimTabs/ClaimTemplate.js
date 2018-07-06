@@ -28,10 +28,7 @@ const styles = theme => ({
 });
 
 class ClaimTemplate extends React.Component {
-  constructor(props) {
-    super(props)
-  }
-  //this.props.data
+
   render() {
     const { classes } = this.props;
 
@@ -58,8 +55,8 @@ class ClaimTemplate extends React.Component {
           </GridListTile>
           <GridListTile key="3" cols={2}>
             <p>Fakturanr: {data.fakturanummer}</p>
-            <p>Leveringsdato: {data.fakturagrunnlag.leveringsdato}</p>
-            <p>Forfallsdato: {data.fakturagrunnlag.forfallsdato}</p>
+            <p>Leveringsdato: {new Date(data.fakturagrunnlag.leveringsdato).toLocaleDateString()}</p>
+            <p>Forfallsdato: {new Date(data.fakturagrunnlag.forfallsdato).toLocaleDateString()}</p>
           </GridListTile>
           <GridListTile key="5" cols={6}style={{ height: "!important" }}>
             <Table>
@@ -71,11 +68,11 @@ class ClaimTemplate extends React.Component {
                   <TableCell>
                     Pris
                 </TableCell>
-                  <TableCell>
-                    Rabatt
+                <TableCell>
+                    MVA
                 </TableCell>
                   <TableCell>
-                    MVA
+                    Antall
                 </TableCell>
                   <TableCell>
                     Beløp
@@ -93,10 +90,10 @@ class ClaimTemplate extends React.Component {
                         {n.pris}
                       </TableCell>
                       <TableCell>
-                        0
+                        25%
                     </TableCell>
                       <TableCell>
-                        25%
+                        {n.antall}
                     </TableCell>
                       <TableCell>
                         {n.pris}

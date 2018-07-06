@@ -7,7 +7,7 @@ class PaymentApi {
             headers: new Headers({'x-org-id': orgId})
         }).then(result => {
             return result.json();
-        });
+        }).catch(error => console.log(error));
     }
 
     static getPaymentsByOrderNumber(orgId, number) {
@@ -19,7 +19,7 @@ class PaymentApi {
             headers: new Headers({'x-org-id': orgId})
         }).then(result => {
             return result.json();
-        });
+        }).catch(error => console.log(error));
     }
 
     static getPaymentsByLastname(orgId, lastname) {
@@ -32,7 +32,7 @@ class PaymentApi {
             headers: new Headers({'x-org-id': orgId})
         }).then(result => {
             return result.json();
-        });
+        }).catch(error => console.log(error));
     }
 
     static setPayment(orgId, customers, orderLines, mvaCode, employer) {

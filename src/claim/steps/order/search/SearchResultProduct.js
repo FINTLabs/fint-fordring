@@ -94,6 +94,7 @@ class SearchResultProduct extends Component {
                                 (this.state.sort === 1) ? (<svg className={classes.rotate} height="12" width="12" viewBox="3 5 24 24" aria-hidden="true"><path d="M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z"></path></svg>) : (<svg height="12" width="12" viewBox="-3 -5 24 24" aria-hidden="true"><path d="M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z"></path></svg>)
                             ) : (<svg height="12" width="12" viewBox="-3 -5 24 24" aria-hidden="true"></svg>)}
                             </TableCell>
+                            <TableCell>Total</TableCell>
                             <TableCell></TableCell>
                         </TableRow>
                     </TableHead>
@@ -114,6 +115,7 @@ class SearchResultProduct extends Component {
                                         value={this.props.selectedProductList[n.kode]} />
                                     </TableCell>
                                     <TableCell>{n.pris},-</TableCell>
+                                    <TableCell>{this.props.selectedProductList[n.kode] * n.pris}</TableCell>
                                     <TableCell>
                                         {!this.props.selectedProductList[n.kode] ? (
                                             <Button mini variant="fab" color="secondary" aria-label="add" onClick={() => this.props.addMethod(n)}
