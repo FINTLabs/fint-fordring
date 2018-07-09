@@ -8,7 +8,6 @@ import TableRow from '@material-ui/core/TableRow';
 import { withStyles } from '@material-ui/core/styles';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
-import { Divider } from "@material-ui/core";
 
 const styles = theme => ({
   root: {
@@ -33,12 +32,6 @@ class ClaimTemplate extends React.Component {
     const { classes } = this.props;
 
     let data = this.props.data;
-    let fullDate = new Date();
-    let day = fullDate.getDate();
-    let month = fullDate.getMonth();
-    let year = fullDate.getFullYear();
-    let date = ` ${day}.${month + 1}.${year}`;
-    let forfallsDate = ` ${day + 6}.${month + 1}.${year}`;
 
     return (
       <div className={classes.root}>

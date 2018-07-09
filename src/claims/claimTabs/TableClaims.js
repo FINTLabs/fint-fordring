@@ -68,20 +68,9 @@ class TableClaims extends React.Component {
     };
 
     render() {
+        let counter = 0;
 
         const { classes } = this.props;
-        
-
-        let classGreen = {
-            backgroundColor: "rgb(220, 255, 220)" //change values that are 220 closer to 0 to get stronger colors
-        };
-        let classYellow = {
-            backgroundColor: "rgb(255, 255, 220)"
-        };
-        let classRed = {
-            backgroundColor: "rgb(255, 220, 220)"
-        };
-        let classCurrent = {};
         
 
         return (
@@ -98,7 +87,7 @@ class TableClaims extends React.Component {
                                 <path d="M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z"></path></svg>)):
                                 (<svg height="12" width="12" viewBox="-3 -5 24 24" aria-hidden="true"></svg>)}
                             </TableCell>
-                            <TableCell onClick={() => this.props.triggerSort(["ordrenummer"], true, "ordrenummer")}>
+                            <TableCell onClick={() => this.props.triggerSort(["numberOrdrenummer"], true, "ordrenummer")}>
                                 Ordrenummer {(this.props.last === "ordrenummer")?(
                                 (this.props.sort === 1) ? (<svg className={classes.rotate} height="12" width="12" viewBox="3 5 24 24" aria-hidden="true">
                                 <path d="M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z"></path></svg>):(
@@ -134,13 +123,14 @@ class TableClaims extends React.Component {
                     </TableHead>
                     <TableBody>
                         {this.props.listOfClaims.map(n => {
+                            counter ++;
                             if (this.props.searchFilter.indexOf(n) === -1) {
-                                return;
+                                return false;
                             }                    
                             return (
-                                <TableRow key={n.ordrenummer} onClick={()=> this.handleClickOpen(n)}>
+                                <TableRow key={counter} onClick={()=> this.handleClickOpen(n)}>
                                     {this.getStatus(n.status,classes.green,classes.yellow,classes.red)}
-                                    <TableCell>{n.ordrenummer}</TableCell>
+                                    <TableCell>{n.numberOrdrenummer}</TableCell>
                                     <TableCell>{n.kunde.navn.fornavn} {n.kunde.navn.mellomnavn} {n.kunde.navn.etternavn}</TableCell>
                                     <TableCell>{n.fakturagrunnlag.total}</TableCell>
                                     <TableCell>{n.restBelop}</TableCell>

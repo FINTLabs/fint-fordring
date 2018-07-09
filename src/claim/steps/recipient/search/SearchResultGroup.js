@@ -111,7 +111,7 @@ class SearchResultGroup extends React.Component {
             <div className={classes.root}>
                 {this.props.testDataGruppe.map(n => {
                     if (this.props.searchFilter.indexOf(n) === -1) {
-                        return;
+                        return false;
                     }
                     return (
                         <ExpansionPanel expanded={expanded === n.navn} onChange={this.handleChange(n.navn)} elevation={2} key={n.navn}>

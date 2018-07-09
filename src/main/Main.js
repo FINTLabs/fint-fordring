@@ -4,10 +4,9 @@ import { withStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
-import Button from '@material-ui/core/Button';
 import List from '@material-ui/core/List';
 import Typography from '@material-ui/core/Typography';
-import { Divider, ListItem, ListItemIcon, ListItemText } from "@material-ui/core";
+import { Divider, ListItemIcon, ListItemText, MenuItem } from "@material-ui/core";
 import { Home, History, NoteAdd } from '@material-ui/icons';
 import { BrowserRouter, Link, Route } from "react-router-dom";
 import Dashboard from "../dashboard/Dashboard";
@@ -58,9 +57,6 @@ const styles = theme => ({
 
 class Main extends Component {
 
-    constructor() {
-        super();
-    }
 
     render() {
         const { classes } = this.props;
@@ -88,29 +84,29 @@ class Main extends Component {
                         <List>
                             <div>
                                 <Link to="/" className={classes.menuLink}>
-                                    <ListItem button>
+                                    <MenuItem button selected={false}>
                                         <ListItemIcon>
                                             <Home />
                                         </ListItemIcon>
                                         <ListItemText primary="Hjem" />
-                                    </ListItem>
+                                    </MenuItem>
                                 </Link>
                                 <Divider />
                                 <Link to="/ny-betaling" className={classes.menuLink}>
-                                    <ListItem button>
+                                    <MenuItem button selected={false}>
                                         <ListItemIcon>
                                             <NoteAdd />
                                         </ListItemIcon>
                                         <ListItemText primary="Ny betaling" />
-                                    </ListItem>
+                                    </MenuItem>
                                 </Link>
                                 <Link to="/betalinger" className={classes.menuLink}>
-                                    <ListItem button>
+                                    <MenuItem button selected={false}>
                                         <ListItemIcon>
                                             <History />
                                         </ListItemIcon>
                                         <ListItemText primary="Sendte betalinger" />
-                                    </ListItem>
+                                    </MenuItem>
                                 </Link>
                             </div>
                         </List>

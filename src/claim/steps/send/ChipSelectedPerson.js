@@ -2,10 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Chip from '@material-ui/core/Chip';
-import Paper from '@material-ui/core/Paper';
-import Button from "@material-ui/core/Button";
-import { ExpandMore } from '@material-ui/icons';
-import { ExpandLess } from '@material-ui/icons';
 
 const styles = theme => ({
   root: {
@@ -23,9 +19,6 @@ const styles = theme => ({
 
 class ChipSelectedPerson extends React.Component {
 
-  constructor() {
-    super();
-  }
 
   render() {
     const { classes } = this.props;

@@ -4,9 +4,6 @@ import { green } from '@material-ui/core/colors';
 import PropTypes from "prop-types";
 import { Avatar, Card, CardContent, CardHeader, Divider, Grid, Typography } from "@material-ui/core";
 import { Link } from "react-router-dom";
-import BusinessIcon from "@material-ui/icons/Business";
-import ApiIcon from "@material-ui/icons/WebAsset";
-import ContactIcon from "@material-ui/icons/Person";
 import { History, NoteAdd } from '@material-ui/icons';
 
 

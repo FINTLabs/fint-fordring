@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import ClaimTabs from './claimTabs/ClaimTabs';
+import LoadingProgress from '../common/LoadingProgress';
+import PaymentApi from '../api/PaymentApi';
 
 const styles = theme => ({
     root: {
@@ -511,22 +513,67 @@ let testDataFordring = [
     }
 ]
 
+let orgId = "fake.no";
+
 class Claims extends Component {
 
     constructor(props){
         super(props);
         this.state = {
-
+            payments: [],
+            fetchedValueIsUndefined: false,
         }
     }
-    render() {
-        const { classes } = this.props;
 
+    componentDidMount() {
+        PaymentApi.fetchPayments(orgId).then(data => {
+            console.log(data, "payments");
+            if (data === undefined || data.length === undefined) {
+                this.setState({ fetchedValueIsUndefined: true });
+                return;
+            }
+            this.setState({ payments: data });
+        }).then(() => {
+            let paymentCopy = this.state.payments;
+            //tenker at alle fakturaer har samme orgId
+            let orgIdString = paymentCopy[0].ordrenummer;
+            let firstDigit = orgIdString.match(/\d/)
+            let indexOfFirstDigit = orgIdString.indexOf(firstDigit)
+
+            paymentCopy.forEach(payment => {
+                payment["numberOrdrenummer"]  = Number(payment["ordrenummer"].substr(indexOfFirstDigit));
+            })
+            this.setState({ payments: paymentCopy })
+        });
+    }
+
+    renderErrorMessage() {
+        const { classes } = this.props;
+        return (
+            <div className={classes.root}>Sum Ting Wong, Try again later</div>
+        )
+    }
+
+    renderPosts(){
+        const { classes } = this.props;
         return (
             <div className={classes.root}>
-                <ClaimTabs testDataFordring={testDataFordring}/>
+                <ClaimTabs testDataFordring={this.state.payments}/>
             </div>
         )
+    }
+
+    render() {
+
+        if (this.state.fetchedValueIsUndefined) {
+            return (this.renderErrorMessage());
+        }
+        if (this.state.payments.length > 0) {
+            return (this.renderPosts());
+        } else {
+            return (<LoadingProgress />);
+        }
+        
     };
 }
 

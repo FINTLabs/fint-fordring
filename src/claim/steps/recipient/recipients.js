@@ -70,29 +70,39 @@ class Step1 extends Component {
         this.setState({ searchFilter: filteredGroupArr });
     }
 
-    sortMethod = (array, order, sortByValue, isNumber) => {
+    resolve = (obj, path) => {
+        path = path.split('.');
+        var current = obj;
+        while(path.length) {
+            if(typeof current !== 'object') return undefined;
+            current = current[path.shift()];
+        }
+        return current;
+    }
+
+    sortMethod = (array, order, sortKeyArray, isNumber) => {
         if (isNumber) {
             function compare(a, b) {
-                if (eval("Number(a." + sortByValue + ")<Number(b." + sortByValue + ")")) {
+                if (Number(a[sortKeyArray]) < Number(b[sortKeyArray])) {
                     return -1 * order; //order is either -1 or 1
                 }
-                if (eval("Number(a." + sortByValue + ")>Number(b." + sortByValue + ")")) {
-                    return 1 * order;
+                if (Number(a[sortKeyArray]) > Number(b[sortKeyArray])) {
+                    return 1 * order; //order is either -1 or 1
                 }
                 return 0;
             }
             this.setState({ sortedPersonList: array.sort(compare) });
         } else {
-            function compare(a, b) {
-                if (eval(sortByValue.map(f => "a." + f).join("+") + "<" + sortByValue.map(f => "b." + f).join("+"))) {
+            function compare(a, b){
+                if (sortKeyArray.map(f => this.resolve(a, f)).join(" ") < sortKeyArray.map(f => this.resolve(b, f)).join(" ")) {
                     return -1 * order; //order is either -1 or 1
                 }
-                if (eval(sortByValue.map(f => "a." + f).join("+") + ">" + sortByValue.map(f => "b." + f).join("+"))) {
-                    return 1 * order;
+                if (sortKeyArray.map(f => this.resolve(a, f)).join(" ") > sortKeyArray.map(f => this.resolve(b, f)).join(" ")) {
+                    return 1 * order; //order is either -1 or 1
                 }
                 return 0;
             }
-            this.setState({ sortedPersonList: array.sort(compare) });
+            this.setState({ sortedPersonList: array.sort(compare.bind(this)) });
         }
     }
 

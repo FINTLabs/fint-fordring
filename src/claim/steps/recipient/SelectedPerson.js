@@ -46,8 +46,8 @@ class SelectedPerson extends React.Component {
     if (height !== prevState.height) {
       this.setState({ height });
     }
-    if(height <= 128) {
-      this.state.expanded = false;
+    if(height <= 128 && this.state.expanded) {
+      this.setState({expanded: false});
     }
   }
   componentDidMount() {

@@ -132,6 +132,8 @@ class ResultTablePerson extends Component {
                                         </TableCell>
                                     </TableRow>
                                 );
+                            } else {
+                                return false;
                             }
                         })}
                     </TableBody>

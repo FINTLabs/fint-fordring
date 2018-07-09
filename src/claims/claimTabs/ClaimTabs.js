@@ -48,55 +48,71 @@ class ClaimTabs extends React.Component {
   handleChange = (event, value) => {
     this.setState({ value });
     this.getSearchInput("");
-    this.setState({last:""});
+    this.setState({ last: "" });
   };
 
+  /*
+  When searching there are two options:
+  numbersearch, where it has to be exact with the ordernumber, and you can write any amount of symbols
+  namesearch, where you have to have atleast 3 symbols, and give all searches with names that match
+  check with Number(inputstring), if NaN, it is a name, else it is a number
+  */
   getSearchInput = (val) => {
     let filteredClaimArray = [];
     filteredClaimArray = this.props.testDataFordring.filter(e =>
       (e.kunde.navn.fornavn + " " +
-      ((e.kunde.navn.mellomnavn)?(e.kunde.navn.mellomnavn + " "):(""))
-      + e.kunde.navn.etternavn + e.ordrenummer).toLowerCase().indexOf(val) !== -1
+        ((e.kunde.navn.mellomnavn) ? (e.kunde.navn.mellomnavn + " ") : (""))
+        + e.kunde.navn.etternavn + e.ordrenummer).toLowerCase().indexOf(val) !== -1
     );
     this.setState({ searchFilter: filteredClaimArray });
   }
 
   triggerSort = (val, isNumber, sortKey) => {
     this.sortMethod(
-        this.props.testDataFordring,
-        (this.state.sort === -1 && this.state.last === sortKey) ?
-            (this.setState({ sort: 1 }), -1) :
-            (this.setState({ sort: -1 }), 1),
-        val, isNumber);
+      this.props.testDataFordring,
+      (this.state.sort === -1 && this.state.last === sortKey) ?
+        (this.setState({ sort: 1 }), -1) :
+        (this.setState({ sort: -1 }), 1),
+      val, isNumber);
     this.setState({ last: sortKey });
-}
+  }
 
-  sortMethod = (array, order, sortByValue, isNumber) => {
+  resolve = (obj, path) => {
+    path = path.split('.');
+    var current = obj;
+    while (path.length) {
+      if (typeof current !== 'object') return undefined;
+      current = current[path.shift()];
+    }
+    return current;
+  }
+
+  sortMethod = (array, order, sortKeyArray, isNumber) => {
     if (isNumber) {
       function compare(a, b) {
-        if (eval("Number(a." + sortByValue + ")<Number(b." + sortByValue + ")")) {
+        if (Number(this.resolve(a,sortKeyArray[0])) < Number(this.resolve(b,sortKeyArray[0]))) {
           return -1 * order; //order is either -1 or 1
         }
-        if (eval("Number(a." + sortByValue + ")>Number(b." + sortByValue + ")")) {
-          return 1 * order;
+        if (Number(this.resolve(a,sortKeyArray[0])) > Number(this.resolve(b,sortKeyArray[0]))) {
+          return 1 * order; //order is either -1 or 1
         }
         return 0;
       }
-      this.setState({ sortedPersonList: array.sort(compare) });
+      this.setState({ sortedPersonList: array.sort(compare.bind(this)) });
     } else {
       function compare(a, b) {
-        if (eval(sortByValue.map(f => "a." + f).join("+") + "<" + sortByValue.map(f => "b." + f).join("+"))) {
+        if (sortKeyArray.map(f => this.resolve(a, f)).join(" ") < sortKeyArray.map(f => this.resolve(b, f)).join(" ")) {
           return -1 * order; //order is either -1 or 1
         }
-        if (eval(sortByValue.map(f => "a." + f).join("+") + ">" + sortByValue.map(f => "b." + f).join("+"))) {
-          return 1 * order;
+        if (sortKeyArray.map(f => this.resolve(a, f)).join(" ") > sortKeyArray.map(f => this.resolve(b, f)).join(" ")) {
+          return 1 * order; //order is either -1 or 1
         }
         return 0;
       }
-      this.setState({ sortedPersonList: array.sort(compare) });
+      this.setState({ sortedPersonList: array.sort(compare.bind(this)) });
     }
   }
-  
+
 
   render() {
     const { classes } = this.props;
@@ -131,30 +147,30 @@ class ClaimTabs extends React.Component {
             <Tab value="four" label="Betalte fakturaer" />
           </Tabs>
         </AppBar>
-        {value === 'one' && <TabContainer> 
-          <SearchBox placeHolder="Søk etter fakturaer" getSearchInput={this.getSearchInput}/> 
+        {value === 'one' && <TabContainer>
+          <SearchBox placeHolder="Søk etter fakturaer" getSearchInput={this.getSearchInput} />
           <TableClaims listOfClaims={listOfAllClaims} searchFilter={this.state.searchFilter}
-          triggerSort={this.triggerSort} sortMethod={this.sortMethod}
-          last={this.state.last} sort={this.state.sort}/>
-          </TabContainer>}
-        {value === 'two' && <TabContainer> 
-          <SearchBox placeHolder="Søk etter fakturaer" getSearchInput={this.getSearchInput}/> 
+            triggerSort={this.triggerSort} sortMethod={this.sortMethod}
+            last={this.state.last} sort={this.state.sort} />
+        </TabContainer>}
+        {value === 'two' && <TabContainer>
+          <SearchBox placeHolder="Søk etter fakturaer" getSearchInput={this.getSearchInput} />
           <TableClaims listOfClaims={listOfUnpaidClaims} searchFilter={this.state.searchFilter}
-          triggerSort={this.triggerSort} sortMethod={this.sortMethod}
-          last={this.state.last} sort={this.state.sort}/>
-          </TabContainer>}
-        {value === 'three' && <TabContainer> 
-          <SearchBox placeHolder="Søk etter fakturaer" getSearchInput={this.getSearchInput}/> 
+            triggerSort={this.triggerSort} sortMethod={this.sortMethod}
+            last={this.state.last} sort={this.state.sort} />
+        </TabContainer>}
+        {value === 'three' && <TabContainer>
+          <SearchBox placeHolder="Søk etter fakturaer" getSearchInput={this.getSearchInput} />
           <TableClaims listOfClaims={listOfPartiallyPaidClaims} searchFilter={this.state.searchFilter}
-          triggerSort={this.triggerSort} sortMethod={this.sortMethod}
-          last={this.state.last} sort={this.state.sort}/>
-          </TabContainer>}
-        {value === 'four' && <TabContainer> 
-          <SearchBox placeHolder="Søk etter fakturaer" getSearchInput={this.getSearchInput}/> 
+            triggerSort={this.triggerSort} sortMethod={this.sortMethod}
+            last={this.state.last} sort={this.state.sort} />
+        </TabContainer>}
+        {value === 'four' && <TabContainer>
+          <SearchBox placeHolder="Søk etter fakturaer" getSearchInput={this.getSearchInput} />
           <TableClaims listOfClaims={listOfPaidClaims} searchFilter={this.state.searchFilter}
-          triggerSort={this.triggerSort} sortMethod={this.sortMethod}
-          last={this.state.last} sort={this.state.sort}/>
-          </TabContainer>}
+            triggerSort={this.triggerSort} sortMethod={this.sortMethod}
+            last={this.state.last} sort={this.state.sort} />
+        </TabContainer>}
       </div>
     );
   }
