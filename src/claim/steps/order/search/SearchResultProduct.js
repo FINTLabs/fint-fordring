@@ -16,6 +16,7 @@ import TextField from '@material-ui/core/TextField';
 const styles = theme => ({
     root: {
         width: '100%',
+        maxHeight: 250,
         overflowX: 'auto',
         marginTop: theme.spacing.unit,
     },
@@ -78,7 +79,7 @@ class SearchResultProduct extends Component {
                 <Table className={classes.table}>
                     <TableHead>
                         <TableRow>
-                            <TableCell style={{width: 100,maxWidth: '100px'}} className={classes.fixedHeader} onClick={() => this.triggerSort("navn", false, "product")}>Produkt {(this.state.last === "product") ? (
+                            <TableCell style={{ width: 100, maxWidth: '100px' }} className={classes.fixedHeader} onClick={() => this.triggerSort("navn", false, "product")}>Produkt {(this.state.last === "product") ? (
                                 (this.state.sort === 1) ? (<svg className={classes.rotate} height="12" width="12" viewBox="3 5 24 24" aria-hidden="true"><path d="M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z"></path></svg>) : (<svg height="12" width="12" viewBox="-3 -5 24 24" aria-hidden="true"><path d="M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z"></path></svg>)
                             ) : (<svg height="12" width="12" viewBox="-3 -5 24 24" aria-hidden="true"></svg>)}
                             </TableCell>
@@ -86,16 +87,13 @@ class SearchResultProduct extends Component {
                                 (this.state.sort === 1) ? (<svg className={classes.rotate} height="12" width="12" viewBox="3 5 24 24" aria-hidden="true"><path d="M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z"></path></svg>) : (<svg height="12" width="12" viewBox="-3 -5 24 24" aria-hidden="true"><path d="M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z"></path></svg>)
                             ) : (<svg height="12" width="12" viewBox="-3 -5 24 24" aria-hidden="true"></svg>)}
                             </TableCell>
-                            <TableCell className={classes.fixedHeader} onClick={() => this.triggerSort("antall", false, "antall")}>Antall {(this.state.last === "antall") ? (
-                                (this.state.sort === 1) ? (<svg className={classes.rotate} height="12" width="12" viewBox="3 5 24 24" aria-hidden="true"><path d="M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z"></path></svg>) : (<svg height="12" width="12" viewBox="-3 -5 24 24" aria-hidden="true"><path d="M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z"></path></svg>)
-                            ) : (<svg height="12" width="12" viewBox="-3 -5 24 24" aria-hidden="true"></svg>)}
-                            </TableCell>
+                            <TableCell className={classes.fixedHeader}>Antall</TableCell>
                             <TableCell className={classes.fixedHeader} onClick={() => this.triggerSort("pris", true, "price")}>Pris {(this.state.last === "price") ? (
                                 (this.state.sort === 1) ? (<svg className={classes.rotate} height="12" width="12" viewBox="3 5 24 24" aria-hidden="true"><path d="M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z"></path></svg>) : (<svg height="12" width="12" viewBox="-3 -5 24 24" aria-hidden="true"><path d="M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z"></path></svg>)
                             ) : (<svg height="12" width="12" viewBox="-3 -5 24 24" aria-hidden="true"></svg>)}
                             </TableCell>
-                            <TableCell>Total</TableCell>
-                            <TableCell></TableCell>
+                            <TableCell className={classes.fixedHeader}>Total</TableCell>
+                            <TableCell className={classes.fixedHeader}></TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
@@ -105,7 +103,7 @@ class SearchResultProduct extends Component {
                             }
                             return (
                                 <TableRow key={n.kode}>
-                                    <TableCell style={{width: 100,maxWidth: 150}}>{n.navn}</TableCell>
+                                    <TableCell style={{ width: 100, maxWidth: 150 }}>{n.navn}</TableCell>
                                     <TableCell>{n.kode}</TableCell>
                                     <TableCell><TextField disabled={this.props.selectedProductList[n.kode] === 0 ? true : false}
                                         style={{ width: 40 }}

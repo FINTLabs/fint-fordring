@@ -17,7 +17,15 @@ class Overview extends Component {
         return (
             <div>
                 {console.log(this.props.lastSentClaim)}
-                {this.props.lastSentClaim[0].timeFrameDueDate}
+                <p>leveringsdato: {new Date(this.props.lastSentClaim[0].fakturagrunnlag.leveringsdato).toLocaleDateString()}</p>
+                <p>forfallsdato: {new Date(this.props.lastSentClaim[0].fakturagrunnlag.forfallsdato).toLocaleDateString()}</p>
+                <p>Ordrenummer:</p>
+                {this.props.lastSentClaim.map(e => {
+                    return (
+                        <ul key={e.ordrenummer}>{e.ordrenummer}</ul>
+                    );
+                }
+                )}
             </div>
         );
     }

@@ -49,7 +49,7 @@ const styles = theme => ({
         marginRight: theme.spacing.unit * 4,
     },
     logoLink: {
-        height: '8%',
+        height: '100%',
         width: '8%',
         marginRight: theme.spacing.unit * 4,
         textDecoration: 'none',

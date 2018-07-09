@@ -64,6 +64,7 @@ class Step2 extends Component {
                 {this.checkIfNoneAreSelected(this.props.selectedProductList) ? (
                     <SelectedProduct
                         orderedBySelection={this.props.orderedBySelection}
+                        selectedProductList={this.props.selectedProductList}
                         removeMethod={this.props.removeMethod} />
                 ) : (<div />)}
                 <SearchResultProduct

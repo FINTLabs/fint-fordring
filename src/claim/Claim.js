@@ -1254,7 +1254,7 @@ class Claim extends Component {
     componentDidMount() {
         OrderLineApi.fetchOrderLines(orgId).then(data => {
             console.log(data, "ol");
-            if (data === undefined) {
+            if (data === undefined || data.length === undefined) {
                 this.setState({ fetchedValueIsUndefined: true });
                 return;
             }
@@ -1268,7 +1268,7 @@ class Claim extends Component {
         });
         MvaApi.fetchMvaCodes(orgId).then(data => {
             console.log(data, "mva");
-            if (data === undefined) {
+            if (data === undefined || data.length === undefined) {
                 this.setState({ fetchedValueIsUndefined: true });
                 return;
             }
@@ -1276,7 +1276,7 @@ class Claim extends Component {
         });
         DateApi.fetchDates(orgId).then(data => {
             console.log(data, "dates");
-            if (data === undefined) {
+            if (data === undefined || data.length === undefined) {
                 this.setState({ fetchedValueIsUndefined: true });
                 return;
             }
@@ -1284,7 +1284,7 @@ class Claim extends Component {
         });
         EmployerApi.fetchEmployers(orgId).then(data => {
             console.log(data, "employer");
-            if (data === undefined) {
+            if (data === undefined || data.length === undefined) {
                 this.setState({ fetchedValueIsUndefined: true });
                 return;
             }
@@ -1292,7 +1292,7 @@ class Claim extends Component {
         });
         GroupApi.fetchCustomerGroupsFromKontaktlarergruppe(orgId).then(data => {
             console.log(data, "kontakt");
-            if (data === undefined) {
+            if (data === undefined || data.length === undefined) {
                 this.setState({ fetchedValueIsUndefined: true });
                 return;
             }
@@ -1300,7 +1300,7 @@ class Claim extends Component {
         });
         GroupApi.fetchCustomerGroupsFromUndervisningsgruppe(orgId).then(data => {
             console.log(data, "undervisning");
-            if (data === undefined) {
+            if (data === undefined || data.length === undefined) {
                 this.setState({ fetchedValueIsUndefined: true });
                 return;
             }
@@ -1308,7 +1308,7 @@ class Claim extends Component {
         });
         GroupApi.fetchCustomerGroupsFromBasisgruppe(orgId).then(data => {
             console.log(data, "basis");
-            if (data === undefined) {
+            if (data === undefined || data.length === undefined) {
                 this.setState({ fetchedValueIsUndefined: true });
                 return;
             }
@@ -1322,7 +1322,8 @@ class Claim extends Component {
             };
             CustomerApi.fetchCustomers(orgId).then(data => {
                 console.log(data, "cl");
-                if (data === undefined) {
+                if (data === undefined || data.length === undefined) {
+                    this.setState({ fetchedValueIsUndefined: true });
                     return;
                 }
                 this.setState({ customerList: data })
@@ -1335,7 +1336,8 @@ class Claim extends Component {
             });
             GroupApi.fetchAllCustomerGroups(orgId).then(data => {
                 console.log(data, "alle");
-                if (data === undefined) {
+                if (data === undefined || data.length === undefined) {
+                    this.setState({ fetchedValueIsUndefined: true });
                     return;
                 }
                 this.setState({ allGroupsList: data })
