@@ -19,6 +19,7 @@ import GroupApi from '../api/GroupApi';
 import MvaApi from '../api/MvaApi';
 import DateApi from '../api/DateApi';
 import LoadingProgress from '../common/LoadingProgress';
+import Overview from './steps/overview/Overview';
 
 const styles = theme => ({
     root: {
@@ -1222,6 +1223,11 @@ class Claim extends Component {
             productOrderedBySelection: [], //bare produkter som er valgt, i rekkefølgen de er valgt
             //testdata
 
+            //selected date index for dates
+            dateIndex: 1,
+
+            lastSentClaim: [],
+
             //fetch data test
             customerList: [],
             productList: [],
@@ -1398,9 +1404,7 @@ class Claim extends Component {
 
     addMethodProduct = (product) => {
         let updateList = this.state.selectedProductList;
-        console.log(updateList);
         updateList[product["kode"]] = 1;
-        console.log(updateList[product["kode"]]);
         this.setState({ selectedProductList: updateList });
 
         let updateOrderedList = this.state.productOrderedBySelection;
@@ -1457,6 +1461,7 @@ class Claim extends Component {
             personOrderedBySelection: [],
             selectedProductList: JSON.parse(JSON.stringify(initialProductSelectedState)),
             productOrderedBySelection: [],
+            lastSentClaim: [],
         });
     };
 
@@ -1467,14 +1472,24 @@ class Claim extends Component {
     sendClaim = () => {
         let employer = this.state.employers[0];
         let mva = this.state.mvaCodes[0];
+        let timeFrameDueDate = this.state.dates[this.state.dateIndex];
+
+        console.log(orgId,
+            this.state.personOrderedBySelection,
+            this.state.productOrderedBySelection,
+            mva,
+            employer,
+            timeFrameDueDate);
 
         PaymentApi.setPayment(
             orgId,
             this.state.personOrderedBySelection,
             this.state.productOrderedBySelection,
             mva,
-            employer
+            employer,
+            timeFrameDueDate
         ).then(e => {
+            this.setState({ lastSentClaim: e });
             console.log(e);
         });
     }
@@ -1495,6 +1510,10 @@ class Claim extends Component {
         }
         updateList[product.kode] = Number(updateList[product.kode]);
         this.setState({ selectedProductList: updateList });
+    }
+
+    getDateIndex = (index) => {
+        this.setState({ dateIndex: index });
     }
 
     getStepContent = (stepIndex) => {
@@ -1532,6 +1551,7 @@ class Claim extends Component {
                     personOrderedBySelection={this.state.personOrderedBySelection}
                     productOrderedBySelection={this.state.productOrderedBySelection}
                     dates={this.state.dates}
+                    getDateIndex={this.getDateIndex}
                 />;
             default:
                 return 'Uknown stepIndex';
@@ -1540,7 +1560,7 @@ class Claim extends Component {
 
     renderErrorMessage() {
         const { classes } = this.props;
-        return(
+        return (
             <div className={classes.root}>Sum Ting Wong, Try again later</div>
         )
     }
@@ -1569,48 +1589,49 @@ class Claim extends Component {
                 </Stepper>
                 <div>
                     {this.state.activeStep === steps.length ? (
-                        <div>
-                            <Typography className={classes.instructions}>
-                                Alle steg er fullførte - Du kan nå starte på nytt om du ønsker!
-                            </Typography>
-                            <Button onClick={this.handleReset}>Start på nytt</Button>
-                            <Snackbar
-                                anchorOrigin={{ vertical, horizontal }}
-                                open={open}
-                                autoHideDuration={6000}
-                                onClose={this.handleCloseSnack}
-                                ContentProps={{
+                        (this.state.lastSentClaim.length !== 0) ? (
+                             <div>
+                                 <Overview lastSentClaim={this.state.lastSentClaim} />
+                                   <Button onClick={this.handleReset}>Start på nytt</Button>
+                                 <Snackbar
+                                    anchorOrigin={{ vertical, horizontal }}
+                                    open={open}
+                                    autoHideDuration={6000}
+                                    onClose={this.handleCloseSnack}
+                                    ContentProps={{
                                     'aria-describedby': 'message-id',
-                                }}
-                                message={<span id="message-id">Fakturaene er sendt</span>}
-                            />
-                        </div>
+                                    }}
+                                    message={<span id="message-id">Fakturaene er sendt</span>}
+                                />
+                                </div>
+                         ) : (
+            <LoadingProgress />)
                     ) : (
                             <div>
-                                <div className={classes.instructions}>{this.getStepContent(activeStep)}</div>
-                                {/*changed from "Typography tag to div tag to avoid warnings in console, not sure if it breaks something*/}
-                                <div>
-                                    <Button
-                                        disabled={activeStep === 0}
-                                        onClick={this.handleBack}
-                                        className={classes.backButton}
-                                    >
-                                        Tilbake
+                        <div className={classes.instructions}>{this.getStepContent(activeStep)}</div>
+                        {/*changed from "Typography tag to div tag to avoid warnings in console, not sure if it breaks something*/}
+                        <div>
+                            <Button
+                                disabled={activeStep === 0}
+                                onClick={this.handleBack}
+                                className={classes.backButton}
+                            >
+                                Tilbake
                                 </Button>
-                                    {activeStep === steps.length - 1 ? (
-                                        <Button variant="raised" color="primary" onClick={this.handleFinish({ vertical: 'bottom', horizontal: 'right' })}>
-                                            Send
+                            {activeStep === steps.length - 1 ? (
+                                <Button disabled={!(this.state.personOrderedBySelection.length > 0 && this.state.productOrderedBySelection.length > 0)} variant="raised" color="primary" onClick={this.handleFinish({ vertical: 'bottom', horizontal: 'right' })}>
+                                    Send
                                         </Button>) : (
-                                            <Button variant="raised" color="primary" onClick={this.handleNext}>
-                                                Neste
+                                    <Button variant="raised" color="primary" onClick={this.handleNext}>
+                                        Neste
                                     </Button>)}
-                                    {/*<Button variant="raised" color="primary" onClick={this.handleNext}>
+                            {/*<Button variant="raised" color="primary" onClick={this.handleNext}>
                                         {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
                                     </Button>*/}
 
-                                </div>
-                            </div>
-                        )}
+                        </div>
+                    </div>
+                    )}
                 </div>
             </div>
         );
@@ -1622,7 +1643,7 @@ class Claim extends Component {
         const { activeStep } = this.state;
         const { vertical, horizontal, open } = this.state;
 
-        if(this.state.fetchedValueIsUndefined) {
+        if (this.state.fetchedValueIsUndefined) {
             return (this.renderErrorMessage());
         }
         if (this.state.productList.length > 0 && this.state.customerList.length > 0) {

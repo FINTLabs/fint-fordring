@@ -27,6 +27,7 @@ class DropdownDager extends React.Component {
 
   handleMenuItemClick = (event, index) => {
     this.setState({ selectedIndex: index, anchorEl: null });
+    this.props.getDateIndex(index);
   };
 
   handleClose = () => {

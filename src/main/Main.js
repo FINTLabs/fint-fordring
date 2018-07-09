@@ -52,6 +52,7 @@ const styles = theme => ({
         height: '8%',
         width: '8%',
         marginRight: theme.spacing.unit * 4,
+        textDecoration: 'none',
     }
 });
 
@@ -69,9 +70,9 @@ class Main extends Component {
                 <div className={classes.root}>
                     <AppBar position="absolute" className={classes.appBar} color="primary">
                         <Toolbar>
-                            <a href='/' className={classes.logoLink}>
-                                <img src="fint.svg" alt="logo" className={classes.logo} />
-                            </a>
+                            <Link to="/" className={classes.logoLink}>
+                                    <img src="fint.svg" alt="logo" className={classes.logo} />
+                            </Link>
                             <Typography variant="title" color="inherit" noWrap>
                                 Betaling
                             </Typography>

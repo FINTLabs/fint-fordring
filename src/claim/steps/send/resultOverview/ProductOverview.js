@@ -81,7 +81,7 @@ class ProductOverview extends Component {
                                         <TableCell></TableCell>
                                         <TableCell></TableCell>
                                         <TableCell><b>Total pris per elev:</b></TableCell>
-                                        <TableCell><b>{this.props.checkPricePerCustomer(this.props.productOrderedBySelection)}</b></TableCell>
+                                        <TableCell><b>{this.props.checkPricePerCustomer(this.props.productOrderedBySelection)},-</b></TableCell>
                                     </TableRow>
                         </TableBody>
                     </Table>

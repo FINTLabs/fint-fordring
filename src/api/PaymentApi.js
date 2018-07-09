@@ -35,17 +35,20 @@ class PaymentApi {
         }).catch(error => console.log(error));
     }
 
-    static setPayment(orgId, customers, orderLines, mvaCode, employer) {
+    static setPayment(orgId, customers, orderLines, mvaCode, employer, timeFrameDueDate) {
         const request = new Request('/api/payment',
             {
                 method: 'POST',
                 headers: new Headers({
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'x-org-id': orgId
                 }),
                 body: JSON.stringify({
                     mvaCode: mvaCode,
                     orderLines: orderLines,
-                    customers: customers
+                    customers: customers,
+                    employer: employer,
+                    timeFrameDueDate: timeFrameDueDate,
                 })
             });
 
