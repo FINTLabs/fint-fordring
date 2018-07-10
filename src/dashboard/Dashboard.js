@@ -34,7 +34,7 @@ class Dashboard extends Component {
     }
 
     render() {
-        if (this.props.payments.length > 0) {
+        if (this.props.payments.length > 0 && this.props.customerList.length > 0) {
             const { classes } = this.props;
             return (
                 <div className={classes.root}>

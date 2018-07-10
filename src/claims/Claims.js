@@ -18,10 +18,6 @@ const styles = theme => ({
     },
 });
 
-
-
-let orgId = "fake.no";
-
 class Claims extends Component {
 
     constructor(props){
@@ -34,13 +30,6 @@ class Claims extends Component {
         this.props.fetchPayments();
     }
 
-    renderErrorMessage() {
-        const { classes } = this.props;
-        return (
-            <div className={classes.root}>Sum Ting Wong, Try again later</div>
-        )
-    }
-
     renderPosts(){
         const { classes } = this.props;
         return (
@@ -51,9 +40,6 @@ class Claims extends Component {
     }
 
     render() {
-        if (this.state.fetchedValueIsUndefined) {
-            return (this.renderErrorMessage());
-        }
         if (this.props.payments.length > 0) {
             return (this.renderPosts());
         } else {

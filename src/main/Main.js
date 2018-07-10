@@ -249,7 +249,17 @@ class Main extends Component {
         });
     }
 
+    renderErrorMessage() {
+        const { classes } = this.props;
+        return (
+            <div className={classes.root} style={{margin:50}}><h1>Sum Ting Wong, Try again later</h1></div>
+        )
+    }
+
     render() {
+        if (this.state.fetchedValueIsUndefined) {
+            return (this.renderErrorMessage());
+        }
         const { classes } = this.props;
 
         return (

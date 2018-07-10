@@ -69,15 +69,16 @@ class Claim extends Component {
     }
 
     componentDidMount() {
+        //can check if the data is there for each one before fetching it
         this.props.fetchDates();
         this.props.fetchMvaCodes();
         this.props.fetchOrderLines();
         this.props.fetchCustomerGroupsFromBasisgruppe().then(() => {
             this.setState({
                 selectedPersonList: JSON.parse(JSON.stringify(this.props.selectedPersonList)),
-                personOrderedBySelection: this.props.personOrderedBySelection,
+                //personOrderedBySelection: this.props.personOrderedBySelection,
                 selectedProductList: JSON.parse(JSON.stringify(this.props.selectedProductList)),
-                productOrderedBySelection: this.props.productOrderedBySelection,
+                //productOrderedBySelection: this.props.productOrderedBySelection,
             });
         });
     }
@@ -283,13 +284,6 @@ class Claim extends Component {
         }
     }
 
-    renderErrorMessage() {
-        const { classes } = this.props;
-        return (
-            <div className={classes.root}>Sum Ting Wong, Try again later</div>
-        )
-    }
-
     renderPosts() {
         const { classes } = this.props;
         const steps = getSteps();
@@ -364,10 +358,6 @@ class Claim extends Component {
     }
 
     render() {
-
-        if (this.state.fetchedValueIsUndefined) { //må flytte denne
-            return (this.renderErrorMessage());
-        }
         if (this.props.productList.length > 0 && this.props.customerList.length > 0) {
             return (this.renderPosts());
         } else {
