@@ -513,6 +513,8 @@ let testDataFordring = [
     }
 ]
 
+console.log(testDataFordring);
+
 let orgId = "fake.no";
 
 class Claims extends Component {
@@ -533,8 +535,9 @@ class Claims extends Component {
                 return;
             }
             this.setState({ payments: data });
-        }).then(() => {
-            let paymentCopy = this.state.payments;
+            return data;
+        }).then(data => {
+            let paymentCopy = data;
             //tenker at alle fakturaer har samme orgId
             let orgIdString = paymentCopy[0].ordrenummer;
             let firstDigit = orgIdString.match(/\d/)

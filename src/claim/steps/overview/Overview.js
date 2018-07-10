@@ -1,7 +1,12 @@
 import React, { Component } from 'react';
 import { withStyles } from "@material-ui/core/styles";
 
-const styles = theme => ({});
+const styles = theme => ({
+    root: {
+      flexGrow: 1,
+      backgroundColor: theme.palette.background.paper,
+    },
+  });
 
 class Overview extends Component {
 
@@ -13,9 +18,10 @@ class Overview extends Component {
 
 
     render() {
+        const { classes } = this.props;
 
         return (
-            <div>
+            <div className={classes.root}>
                 {console.log(this.props.lastSentClaim)}
                 <p>leveringsdato: {new Date(this.props.lastSentClaim[0].fakturagrunnlag.leveringsdato).toLocaleDateString()}</p>
                 <p>forfallsdato: {new Date(this.props.lastSentClaim[0].fakturagrunnlag.forfallsdato).toLocaleDateString()}</p>
