@@ -65,7 +65,7 @@ class Step1 extends Component {
                 this.setState({ searchMessage: "Ingen søkeresultater" });
             }
         } else if (val !== "") {
-            this.setState({ searchMessage: "Søkeordet må være 3 eller mer bokstaver" });
+            this.setState({ searchMessage: "Søkeordet må være minst 3 bokstaver" });
         }
         this.setState({ searchFilter: filteredGroupArr });
     }

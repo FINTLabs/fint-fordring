@@ -17,7 +17,7 @@ class Step2 extends Component {
 
     getSearchInput = (val) => {
         let filteredProductArr = [];
-        filteredProductArr = this.props.testDataProduct.filter(e => e.navn.toLowerCase().indexOf(val) !== -1);
+        filteredProductArr = this.props.testDataProduct.filter(e => (e.navn.toLowerCase() + e.kode.toLowerCase()).indexOf(val) !== -1);
         this.setState({ searchFilter: filteredProductArr });
     }
 

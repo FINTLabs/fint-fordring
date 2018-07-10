@@ -77,7 +77,7 @@ class TableClaims extends React.Component {
             <Paper className={classes.root}>
                 <ClaimDialog open={this.state.open} close={this.handleClose} claim={this.state.currentClaim}/>
                 <Table className={classes.table}>
-                    <TableHead>
+                    {this.props.searchFilter.length > 0 && this.props.listOfClaims.length > 0 ?(<TableHead>
                     <TableRow>
                             <TableCell onClick={() => this.props.triggerSort(["status"], false, "status")}>
                                 Status {(this.props.last === "status")?(
@@ -120,7 +120,7 @@ class TableClaims extends React.Component {
                                 (<svg height="12" width="12" viewBox="-3 -5 24 24" aria-hidden="true"></svg>)}
                             </TableCell>
                         </TableRow>
-                    </TableHead>
+                    </TableHead>) : (false)}
                     <TableBody>
                         {this.props.listOfClaims.map(n => {
                             counter ++;

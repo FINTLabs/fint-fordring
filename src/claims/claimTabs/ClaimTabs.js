@@ -39,7 +39,8 @@ class ClaimTabs extends React.Component {
     super(props)
     this.state = {
       value: 'one',
-      searchFilter: this.props.testDataFordring,
+      searchFilter: [],
+      searchMessage: "",
       last: "",
       sort: -1
     };
@@ -57,14 +58,33 @@ class ClaimTabs extends React.Component {
   namesearch, where you have to have atleast 3 symbols, and give all searches with names that match
   check with Number(inputstring), if NaN, it is a name, else it is a number
   */
-  getSearchInput = (val) => {
-    let filteredClaimArray = [];
-    filteredClaimArray = this.props.testDataFordring.filter(e =>
-      (e.kunde.navn.fornavn + " " +
-        ((e.kunde.navn.mellomnavn) ? (e.kunde.navn.mellomnavn + " ") : (""))
-        + e.kunde.navn.etternavn + e.ordrenummer).toLowerCase().indexOf(val) !== -1
-    );
-    this.setState({ searchFilter: filteredClaimArray });
+
+  getSearchInput = (val, claimList) => {
+    let filteredClaimArr = [];
+    this.setState({ searchMessage: "" });
+    if (val !== "") {
+      if (isNaN(val)) {
+        if (val.length >= 3) {
+          filteredClaimArr = claimList.filter(e =>
+            (e.kunde.navn.fornavn + " " +
+              ((e.kunde.navn.mellomnavn) ? (e.kunde.navn.mellomnavn + " ") : (""))
+              + e.kunde.navn.etternavn).toLowerCase().indexOf(val) !== -1
+          );
+          if (filteredClaimArr.length === 0) {
+            this.setState({ searchMessage: "Ingen søkeresultater" });
+          }
+        } else if (val !== "") {
+          this.setState({ searchMessage: "Søkeordet for navn må minst være 3 bokstaver" });
+        }
+      } else {
+        filteredClaimArr = claimList.filter(betaling =>
+          betaling.numberOrdrenummer === Number(val));
+          if (filteredClaimArr.length === 0) {
+            this.setState({ searchMessage: "Ingen søkeresultater" });
+          }
+      }
+    }
+    this.setState({ searchFilter: filteredClaimArr });
   }
 
   triggerSort = (val, isNumber, sortKey) => {
@@ -90,10 +110,10 @@ class ClaimTabs extends React.Component {
   sortMethod = (array, order, sortKeyArray, isNumber) => {
     if (isNumber) {
       function compare(a, b) {
-        if (Number(this.resolve(a,sortKeyArray[0])) < Number(this.resolve(b,sortKeyArray[0]))) {
+        if (Number(this.resolve(a, sortKeyArray[0])) < Number(this.resolve(b, sortKeyArray[0]))) {
           return -1 * order; //order is either -1 or 1
         }
-        if (Number(this.resolve(a,sortKeyArray[0])) > Number(this.resolve(b,sortKeyArray[0]))) {
+        if (Number(this.resolve(a, sortKeyArray[0])) > Number(this.resolve(b, sortKeyArray[0]))) {
           return 1 * order; //order is either -1 or 1
         }
         return 0;
@@ -124,13 +144,13 @@ class ClaimTabs extends React.Component {
     let listOfAllClaims = this.props.testDataFordring;
 
     for (let i = 0; i < listOfAllClaims.length; i++) {
-      if (listOfAllClaims[i].restBelop === 0) {
+      if (listOfAllClaims[i].fakturagrunnlag.avgifter === 0) {
         listOfAllClaims[i]["status"] = "betalt";
         listOfPaidClaims.push(listOfAllClaims[i]);
-      } else if (listOfAllClaims[i].restBelop !== listOfAllClaims[i]["fakturagrunnlag"]["total"]) {
+      } else if (listOfAllClaims[i].fakturagrunnlag.avgifter !== listOfAllClaims[i]["fakturagrunnlag"]["total"]) {
         listOfAllClaims[i]["status"] = "delbetalt";
         listOfPartiallyPaidClaims.push(listOfAllClaims[i]);
-      } else if (listOfAllClaims[i].restBelop === listOfAllClaims[i]["fakturagrunnlag"]["total"]) {
+      } else if (listOfAllClaims[i].fakturagrunnlag.avgifter === listOfAllClaims[i]["fakturagrunnlag"]["total"]) {
         listOfAllClaims[i]["status"] = "ikkebetalt";
         listOfUnpaidClaims.push(listOfAllClaims[i]);
       }
@@ -148,25 +168,29 @@ class ClaimTabs extends React.Component {
           </Tabs>
         </AppBar>
         {value === 'one' && <TabContainer>
-          <SearchBox placeHolder="Søk etter fakturaer" getSearchInput={this.getSearchInput} />
+          <SearchBox placeHolder="Søk etter navn eller ordrenummer" getSearchInput={this.getSearchInput} listOfClaims={listOfAllClaims} />
+          {(this.state.searchMessage !== "") ? (<div style={{ margin: 20 }}>{this.state.searchMessage}</div>) : (false)}
           <TableClaims listOfClaims={listOfAllClaims} searchFilter={this.state.searchFilter}
             triggerSort={this.triggerSort} sortMethod={this.sortMethod}
             last={this.state.last} sort={this.state.sort} />
         </TabContainer>}
         {value === 'two' && <TabContainer>
-          <SearchBox placeHolder="Søk etter fakturaer" getSearchInput={this.getSearchInput} />
+          <SearchBox placeHolder="Søk etter navn eller ordrenummer" getSearchInput={this.getSearchInput} listOfClaims={listOfUnpaidClaims}/>
+          {(this.state.searchMessage !== "") ? (<div style={{ margin: 20 }}>{this.state.searchMessage}</div>) : (false)}
           <TableClaims listOfClaims={listOfUnpaidClaims} searchFilter={this.state.searchFilter}
             triggerSort={this.triggerSort} sortMethod={this.sortMethod}
             last={this.state.last} sort={this.state.sort} />
         </TabContainer>}
         {value === 'three' && <TabContainer>
-          <SearchBox placeHolder="Søk etter fakturaer" getSearchInput={this.getSearchInput} />
+          <SearchBox placeHolder="Søk etter navn eller ordrenummer" getSearchInput={this.getSearchInput} listOfClaims={listOfPartiallyPaidClaims}/>
+          {(this.state.searchMessage !== "") ? (<div style={{ margin: 20 }}>{this.state.searchMessage}</div>) : (false)}
           <TableClaims listOfClaims={listOfPartiallyPaidClaims} searchFilter={this.state.searchFilter}
             triggerSort={this.triggerSort} sortMethod={this.sortMethod}
             last={this.state.last} sort={this.state.sort} />
         </TabContainer>}
         {value === 'four' && <TabContainer>
-          <SearchBox placeHolder="Søk etter fakturaer" getSearchInput={this.getSearchInput} />
+          <SearchBox placeHolder="Søk etter navn eller ordrenummer" getSearchInput={this.getSearchInput} listOfClaims={listOfPaidClaims}/>
+          {(this.state.searchMessage !== "") ? (<div style={{ margin: 20 }}>{this.state.searchMessage}</div>) : (false)}
           <TableClaims listOfClaims={listOfPaidClaims} searchFilter={this.state.searchFilter}
             triggerSort={this.triggerSort} sortMethod={this.sortMethod}
             last={this.state.last} sort={this.state.sort} />
