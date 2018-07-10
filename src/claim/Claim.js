@@ -10,13 +10,7 @@ import Step2 from "./steps/order/orders";
 import Step3 from "./steps/send/send";
 import Snackbar from '@material-ui/core/Snackbar';
 import { Prompt } from "react-router-dom";
-import CustomerApi from '../api/CustomerApi';
-import OrderLineApi from '../api/OrderLineApi';
 import PaymentApi from '../api/PaymentApi';
-import EmployerApi from '../api/EmployerApi';
-import GroupApi from '../api/GroupApi';
-import MvaApi from '../api/MvaApi';
-import DateApi from '../api/DateApi';
 import LoadingProgress from '../common/LoadingProgress';
 import Overview from './steps/overview/Overview';
 
@@ -43,41 +37,24 @@ function getSteps() {
 
 let orgId = "fake.no";
 
-//is needed to initialize data on reset
-let initialPersonSelectedState = {};
-let initialProductSelectedState = {};
 
 class Claim extends Component {
 
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
             activeStep: 0,
-            //states for personer
-            selectedPersonList: {}, //{"393073":true, "234733":false etc.}
-            personOrderedBySelection: [], //bare personer som er valgt, i rekkefølgen de er valgt
-            //testdataperson+ gruppe
 
-            //states for produkter
+            selectedPersonList: JSON.parse(JSON.stringify(this.props.selectedPersonList)),
+            personOrderedBySelection: this.props.personOrderedBySelection,
+
             selectedProductList: {},
-            productOrderedBySelection: [], //bare produkter som er valgt, i rekkefølgen de er valgt
-            //testdata
+            productOrderedBySelection: this.props.productOrderedBySelection,
 
             //selected date index for dates
             dateIndex: 1,
 
             lastSentClaim: [],
-
-            //fetch data test
-            customerList: [],
-            productList: [],
-            basicGroupList: [],//basisgruppe
-            contactGroupList: [],//kontaklarergruppe
-            teachingGroupList: [],//undervisningsgruppe
-            allGroupsList: [],//alle grupper
-            mvaCodes: [],
-            employers: [],
-            dates: [],
 
             //needed for snackbar message
             open: false,
@@ -92,103 +69,15 @@ class Claim extends Component {
     }
 
     componentDidMount() {
-        OrderLineApi.fetchOrderLines(orgId).then(data => {
-            console.log(data, "ol");
-            if (data === undefined || data.length === undefined) {
-                this.setState({ fetchedValueIsUndefined: true });
-                return;
-            }
-            this.setState({ productList: data });
-        }).then(() => {
-            console.log(this.state.productList);
-            this.state.productList.forEach(product => {
-                initialProductSelectedState[product["kode"]] = 0;
-            });
-            this.setState({ selectedProductList: JSON.parse(JSON.stringify(initialProductSelectedState)) });
-        });
-        MvaApi.fetchMvaCodes(orgId).then(data => {
-            console.log(data, "mva");
-            if (data === undefined || data.length === undefined) {
-                this.setState({ fetchedValueIsUndefined: true });
-                return;
-            }
-            this.setState({ mvaCodes: data })
-        });
-        DateApi.fetchDates(orgId).then(data => {
-            console.log(data, "dates");
-            if (data === undefined || data.length === undefined) {
-                this.setState({ fetchedValueIsUndefined: true });
-                return;
-            }
-            this.setState({ dates: data })
-        });
-        EmployerApi.fetchEmployers(orgId).then(data => {
-            console.log(data, "employer");
-            if (data === undefined || data.length === undefined) {
-                this.setState({ fetchedValueIsUndefined: true });
-                return;
-            }
-            this.setState({ employers: data })
-        });
-        GroupApi.fetchCustomerGroupsFromKontaktlarergruppe(orgId).then(data => {
-            console.log(data, "kontakt");
-            if (data === undefined || data.length === undefined) {
-                this.setState({ fetchedValueIsUndefined: true });
-                return;
-            }
-            this.setState({ contactGroupList: data })
-        });
-        GroupApi.fetchCustomerGroupsFromUndervisningsgruppe(orgId).then(data => {
-            console.log(data, "undervisning");
-            if (data === undefined || data.length === undefined) {
-                this.setState({ fetchedValueIsUndefined: true });
-                return;
-            }
-            this.setState({ teachingGroupList: data })
-        });
-        GroupApi.fetchCustomerGroupsFromBasisgruppe(orgId).then(data => {
-            console.log(data, "basis");
-            if (data === undefined || data.length === undefined) {
-                this.setState({ fetchedValueIsUndefined: true });
-                return;
-            }
-            this.setState({ basicGroupList: data })
-        }).then(() => {
-            let basisGruppeKundenummer = {};
-            for (let i = 0; i < this.state.basicGroupList.length; i++) {
-                for (let j = 0; j < this.state.basicGroupList[i]["kundeliste"].length; j++) {
-                    basisGruppeKundenummer[this.state.basicGroupList[i]["kundeliste"][j]["kundenummer"]] = this.state.basicGroupList[i]["navn"];
-                }
-            };
-            CustomerApi.fetchCustomers(orgId).then(data => {
-                console.log(data, "cl");
-                if (data === undefined || data.length === undefined) {
-                    this.setState({ fetchedValueIsUndefined: true });
-                    return;
-                }
-                this.setState({ customerList: data })
-            }).then(() => {
-                this.state.customerList.forEach(person => {
-                    initialPersonSelectedState[person["kundenummer"]] = false;
-                    person["klassenavn"] = basisGruppeKundenummer[person["kundenummer"]];
-                });
-                this.setState({ selectedPersonList: JSON.parse(JSON.stringify(initialPersonSelectedState)) });
-            });
-            GroupApi.fetchAllCustomerGroups(orgId).then(data => {
-                console.log(data, "alle");
-                if (data === undefined || data.length === undefined) {
-                    this.setState({ fetchedValueIsUndefined: true });
-                    return;
-                }
-                this.setState({ allGroupsList: data })
-            }).then(() => {
-                for (let i = 0; i < this.state.allGroupsList.length; i++) {
-                    for (let j = 0; j < this.state.allGroupsList[i]["kundeliste"].length; j++) {
-                        let allGroupsListCopy = this.state.allGroupsList;
-                        allGroupsListCopy[i]["kundeliste"][j]["klassenavn"] = basisGruppeKundenummer[this.state.allGroupsList[i]["kundeliste"][j]["kundenummer"]];
-                        this.setState({allGroupsList: allGroupsListCopy});
-                    }
-                }
+        this.props.fetchDates();
+        this.props.fetchMvaCodes();
+        this.props.fetchOrderLines();
+        this.props.fetchCustomerGroupsFromBasisgruppe().then(() => {
+            this.setState({
+                selectedPersonList: JSON.parse(JSON.stringify(this.props.selectedPersonList)),
+                personOrderedBySelection: this.props.personOrderedBySelection,
+                selectedProductList: JSON.parse(JSON.stringify(this.props.selectedProductList)),
+                productOrderedBySelection: this.props.productOrderedBySelection,
             });
         });
     }
@@ -301,9 +190,9 @@ class Claim extends Component {
         this.sendClaim();
         //reinitialize state as it is to begin with
         this.setState({
-            selectedPersonList: JSON.parse(JSON.stringify(initialPersonSelectedState)),
+            selectedPersonList: JSON.parse(JSON.stringify(this.props.selectedPersonList)),
             personOrderedBySelection: [],
-            selectedProductList: JSON.parse(JSON.stringify(initialProductSelectedState)),
+            selectedProductList: JSON.parse(JSON.stringify(this.props.selectedProductList)),
             productOrderedBySelection: [],
             lastSentClaim: [],
         });
@@ -314,16 +203,9 @@ class Claim extends Component {
     }
 
     sendClaim = () => {
-        let employer = this.state.employers[0];
-        let mva = this.state.mvaCodes[0];
-        let timeFrameDueDate = this.state.dates[this.state.dateIndex];
-
-        console.log(orgId,
-            this.state.personOrderedBySelection,
-            this.state.productOrderedBySelection,
-            mva,
-            employer,
-            timeFrameDueDate);
+        let employer = this.props.employers[0];
+        let mva = this.props.mvaCodes[0];
+        let timeFrameDueDate = this.props.dates[this.state.dateIndex];
 
         PaymentApi.setPayment(
             orgId,
@@ -334,7 +216,6 @@ class Claim extends Component {
             timeFrameDueDate
         ).then(e => {
             this.setState({ lastSentClaim: e });
-            console.log(e);
         });
     }
 
@@ -367,8 +248,8 @@ class Claim extends Component {
                     //data
                     orderedBySelection={this.state.personOrderedBySelection}
                     selectedPersonList={this.state.selectedPersonList}
-                    testDataGruppe={this.state.allGroupsList}
-                    testDataPerson={this.state.customerList}
+                    testDataGruppe={this.props.allGroupsList}
+                    testDataPerson={this.props.customerList}
                     //methods
                     addMethod={this.addMethodPerson}
                     removeMethod={this.removeMethodPerson}
@@ -379,7 +260,7 @@ class Claim extends Component {
                     //data
                     orderedBySelection={this.state.productOrderedBySelection}
                     selectedProductList={this.state.selectedProductList}
-                    testDataProduct={this.state.productList}
+                    testDataProduct={this.props.productList}
                     //methods
                     getInputAmountProduct={this.getInputAmountProduct}
                     setInputAmountProductToNumber={this.setInputAmountProductToNumber}
@@ -388,13 +269,13 @@ class Claim extends Component {
                 />;
             case 2:
                 return <Step3
-                    testDataPerson={this.state.customerList}
-                    testDataGruppe={this.state.allGroupsList}
+                    testDataPerson={this.props.customerList}
+                    testDataGruppe={this.props.allGroupsList}
                     selectedPersonList={this.state.selectedPersonList}
                     selectedProductList={this.state.selectedProductList}
                     personOrderedBySelection={this.state.personOrderedBySelection}
                     productOrderedBySelection={this.state.productOrderedBySelection}
-                    dates={this.state.dates}
+                    dates={this.props.dates}
                     getDateIndex={this.getDateIndex}
                 />;
             default:
@@ -414,6 +295,7 @@ class Claim extends Component {
         const steps = getSteps();
         const { activeStep } = this.state;
         const { vertical, horizontal, open } = this.state;
+
         return (
             <div className={classes.root}>
                 <Prompt
@@ -434,48 +316,48 @@ class Claim extends Component {
                 <div>
                     {this.state.activeStep === steps.length ? (
                         (this.state.lastSentClaim.length !== 0) ? (
-                             <div>
-                                 <Overview lastSentClaim={this.state.lastSentClaim} />
-                                   <Button onClick={this.handleReset}>Start på nytt</Button>
-                                 <Snackbar
+                            <div>
+                                <Overview lastSentClaim={this.state.lastSentClaim} />
+                                <Button onClick={this.handleReset}>Start på nytt</Button>
+                                <Snackbar
                                     anchorOrigin={{ vertical, horizontal }}
                                     open={open}
                                     autoHideDuration={6000}
                                     onClose={this.handleCloseSnack}
                                     ContentProps={{
-                                    'aria-describedby': 'message-id',
+                                        'aria-describedby': 'message-id',
                                     }}
                                     message={<span id="message-id">Fakturaene er sendt</span>}
                                 />
-                                </div>
-                         ) : (
-            <LoadingProgress />)
+                            </div>
+                        ) : (
+                                <LoadingProgress />)
                     ) : (
                             <div>
-                        <div className={classes.instructions}>{this.getStepContent(activeStep)}</div>
-                        {/*changed from "Typography tag to div tag to avoid warnings in console, not sure if it breaks something*/}
-                        <div>
-                            <Button
-                                disabled={activeStep === 0}
-                                onClick={this.handleBack}
-                                className={classes.backButton}
-                            >
-                                Tilbake
+                                <div className={classes.instructions}>{this.getStepContent(activeStep)}</div>
+                                {/*changed from "Typography tag to div tag to avoid warnings in console, not sure if it breaks something*/}
+                                <div>
+                                    <Button
+                                        disabled={activeStep === 0}
+                                        onClick={this.handleBack}
+                                        className={classes.backButton}
+                                    >
+                                        Tilbake
                                 </Button>
-                            {activeStep === steps.length - 1 ? (
-                                <Button disabled={!(this.state.personOrderedBySelection.length > 0 && this.state.productOrderedBySelection.length > 0)} variant="raised" color="primary" onClick={this.handleFinish({ vertical: 'bottom', horizontal: 'right' })}>
-                                    Send
+                                    {activeStep === steps.length - 1 ? (
+                                        <Button disabled={!(this.state.personOrderedBySelection.length > 0 && this.state.productOrderedBySelection.length > 0)} variant="raised" color="primary" onClick={this.handleFinish({ vertical: 'bottom', horizontal: 'right' })}>
+                                            Send
                                         </Button>) : (
-                                    <Button variant="raised" color="primary" onClick={this.handleNext}>
-                                        Neste
+                                            <Button variant="raised" color="primary" onClick={this.handleNext}>
+                                                Neste
                                     </Button>)}
-                            {/*<Button variant="raised" color="primary" onClick={this.handleNext}>
+                                    {/*<Button variant="raised" color="primary" onClick={this.handleNext}>
                                         {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
                                     </Button>*/}
 
-                        </div>
-                    </div>
-                    )}
+                                </div>
+                            </div>
+                        )}
                 </div>
             </div>
         );
@@ -483,10 +365,10 @@ class Claim extends Component {
 
     render() {
 
-        if (this.state.fetchedValueIsUndefined) {
+        if (this.state.fetchedValueIsUndefined) { //må flytte denne
             return (this.renderErrorMessage());
         }
-        if (this.state.productList.length > 0 && this.state.customerList.length > 0) {
+        if (this.props.productList.length > 0 && this.props.customerList.length > 0) {
             return (this.renderPosts());
         } else {
             return (<LoadingProgress />);

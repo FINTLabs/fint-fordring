@@ -5,6 +5,7 @@ import PropTypes from "prop-types";
 import { Avatar, Card, CardContent, CardHeader, Divider, Grid, Typography } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import { History, NoteAdd } from '@material-ui/icons';
+import LoadingProgress from '../common/LoadingProgress';
 
 
 const styles = theme => ({
@@ -23,75 +24,77 @@ const styles = theme => ({
         color: '#fff',
         backgroundColor: green[500],
     }
-
 });
 
 class Dashboard extends Component {
 
-    constructor(props) {
-        super(props);
-        this.state = {};
+    componentDidMount() {
+        this.props.fetchPayments();
+        this.props.fetchCustomers();
     }
 
     render() {
-        const { classes } = this.props;
-        return (
-            <div className={classes.root}>
-                <h1>VELKOMMEN</h1>
-                <Grid container spacing={24}>
-                    <Grid item xs={2}>
-                    </Grid>
-                    <Grid item xs={4}>
-                        <Link to="ny-betaling" className={classes.cardLink}>
-                            <Card className={classes.card}>
-                                <CardHeader
-                                    title="Ny Betaling"
-                                    avatar={
-                                        <Avatar className={classes.avatar}>
-                                            <NoteAdd className={classes.avatar} />
-                                        </Avatar>
-                                    }
-                                    subheader="Opprett en ny betaling"
-                                />
-                                <Divider />
-                                <CardContent className={classes.cardContent}>
-                                    <Typography type="display4">
-                                        Gjennomsnittlig sendetid: 0.3 picosekunder
-                            </Typography>
-                                </CardContent>
+        if (this.props.payments.length > 0) {
+            const { classes } = this.props;
+            return (
+                <div className={classes.root}>
+                    <h1>VELKOMMEN</h1>
+                    <Grid container spacing={24}>
+                        <Grid item xs={2}>
+                        </Grid>
+                        <Grid item xs={4}>
+                            <Link to="ny-betaling" className={classes.cardLink}>
+                                <Card className={classes.card}>
+                                    <CardHeader
+                                        title="Ny Betaling"
+                                        avatar={
+                                            <Avatar className={classes.avatar}>
+                                                <NoteAdd className={classes.avatar} />
+                                            </Avatar>
+                                        }
+                                        subheader="Opprett en ny betaling"
+                                    />
+                                    <Divider />
+                                    <CardContent className={classes.cardContent}>
+                                        <Typography type="display4">
+                                            Fakturer opp til {this.props.customerList.length} elever i dag!
+                                </Typography>
+                                    </CardContent>
 
-                            </Card>
-                        </Link>
+                                </Card>
+                            </Link>
+                        </Grid>
+                        <Grid item xs={false}>
+                        </Grid>
+                        <Grid item xs={4}>
+                            <Link to="betalinger" className={classes.cardLink}>
+                                <Card className={classes.card}>
+                                    <CardHeader
+                                        title="Sendte betalinger"
+                                        avatar={
+                                            <Avatar className={classes.avatar}>
+                                                <History className={classes.avatar} />
+                                            </Avatar>
+                                        }
+                                        subheader="Se en oversikt"
+                                    />
+                                    <Divider />
+                                    <CardContent className={classes.cardContent}>
+                                        <Typography type="display4">
+                                            Betalinger sendt: {this.props.payments.length}
+                                        </Typography>
+                                    </CardContent>
+                                </Card>
+                            </Link>
+                        </Grid>
+                        <Grid item xs={2}>
+                        </Grid>
                     </Grid>
-                    <Grid item xs={false}>
-                    </Grid>
-                    <Grid item xs={4}>
-                        <Link to="betalinger" className={classes.cardLink}>
-                            <Card className={classes.card}>
-                                <CardHeader
-                                    title="Sendte betalinger"
-                                    avatar={
-                                        <Avatar className={classes.avatar}>
-                                            <History className={classes.avatar} />
-                                        </Avatar>
-                                    }
-                                    subheader="Se en oversikt"
-                                />
-                                <Divider />
-                                <CardContent className={classes.cardContent}>
-                                    <Typography type="display4">
-                                        Betalinger sendt: {6}
-                                    </Typography>
-                                </CardContent>
-                            </Card>
-                        </Link>
-                    </Grid>
-                    <Grid item xs={2}>
-                    </Grid>
-                </Grid>
-            </div>
-
-        );
+                </div>
+            );
+        } else {
+            return (<LoadingProgress />);
+        }
     }
 }
 

@@ -12,6 +12,13 @@ import { BrowserRouter, Link, Route } from "react-router-dom";
 import Dashboard from "../dashboard/Dashboard";
 import Claims from "../claims/Claims";
 import Claim from "../claim/Claim";
+import CustomerApi from '../api/CustomerApi';
+import OrderLineApi from '../api/OrderLineApi';
+import PaymentApi from '../api/PaymentApi';
+import EmployerApi from '../api/EmployerApi';
+import GroupApi from '../api/GroupApi';
+import MvaApi from '../api/MvaApi';
+import DateApi from '../api/DateApi';
 
 
 const drawerWidth = 250;
@@ -55,8 +62,192 @@ const styles = theme => ({
     }
 });
 
+let orgId = "fake.no";
+
+//is needed to initialize data on reset
+let initialPersonSelectedState = {};
+let initialProductSelectedState = {};
+
 class Main extends Component {
 
+    constructor() {
+        super();
+        this.state = {
+
+            //states for personer
+            selectedPersonList: {}, //{"393073":true, "234733":false etc.}
+            personOrderedBySelection: [], //bare personer som er valgt, i rekkefølgen de er valgt
+
+            //states for produkter
+            selectedProductList: {},
+            productOrderedBySelection: [], //bare produkter som er valgt, i rekkefølgen de er valgt
+
+            payments: [],
+
+            customerListNoBasicGroup: [],
+
+            customerList: [],
+            productList: [],
+            basicGroupList: [],//basisgruppe
+            contactGroupList: [],//kontaklarergruppe
+            teachingGroupList: [],//undervisningsgruppe
+            allGroupsList: [],//alle grupper
+            mvaCodes: [],
+            employers: [],
+            dates: [],
+
+            fetchedValueIsUndefined: false,
+        }
+    }
+
+    fetchPayments = () => {
+        return PaymentApi.fetchPayments(orgId).then(data => {
+            if (data === undefined || data.length === undefined) {
+                this.setState({ fetchedValueIsUndefined: true });
+                return;
+            }
+            let paymentCopy = data;
+            //tenker at alle fakturaer har samme orgId
+            let orgIdString = paymentCopy[0].ordrenummer;
+            let firstDigit = orgIdString.match(/\d/);
+            let indexOfFirstDigit = orgIdString.indexOf(firstDigit);
+            paymentCopy.forEach(payment => {
+                payment["numberOrdrenummer"] = Number(payment["ordrenummer"].substr(indexOfFirstDigit));
+            });
+            this.setState({ payments: paymentCopy });
+        });
+    };
+
+    fetchCustomers = () => {
+        return CustomerApi.fetchCustomers(orgId).then(data => {
+            console.log(data, "cl");
+            if (data === undefined || data.length === undefined) {
+                this.setState({ fetchedValueIsUndefined: true });
+                return;
+            }
+            this.setState({ customerListNoBasicGroup: data })
+        })
+    }
+
+    fetchOrderLines = () => {
+        return OrderLineApi.fetchOrderLines(orgId).then(data => {
+            console.log(data, "ol");
+            if (data === undefined || data.length === undefined) {
+                this.setState({ fetchedValueIsUndefined: true });
+                return;
+            }
+            this.setState({ productList: data });
+        }).then(() => {
+            this.state.productList.forEach(product => {
+                initialProductSelectedState[product["kode"]] = 0;
+            });
+            this.setState({ selectedProductList: JSON.parse(JSON.stringify(initialProductSelectedState)) });
+        });
+    }
+
+    fetchMvaCodes = () => {
+        return MvaApi.fetchMvaCodes(orgId).then(data => {
+            console.log(data, "mva");
+            if (data === undefined || data.length === undefined) {
+                this.setState({ fetchedValueIsUndefined: true });
+                return;
+            }
+            this.setState({ mvaCodes: data })
+        });
+    }
+
+    fetchDates = () => {
+        return DateApi.fetchDates(orgId).then(data => {
+            console.log(data, "dates");
+            if (data === undefined || data.length === undefined) {
+                this.setState({ fetchedValueIsUndefined: true });
+                return;
+            }
+            this.setState({ dates: data })
+        });
+    }
+
+    fetchEmployers = () => {
+        return EmployerApi.fetchEmployers(orgId).then(data => {
+            console.log(data, "employer");
+            if (data === undefined || data.length === undefined) {
+                this.setState({ fetchedValueIsUndefined: true });
+                return;
+            }
+            this.setState({ employers: data })
+        });
+    }
+
+    fetchCustomerGroupsFromKontaktlarergruppe = () => {
+        return GroupApi.fetchCustomerGroupsFromKontaktlarergruppe(orgId).then(data => {
+            console.log(data, "kontakt");
+            if (data === undefined || data.length === undefined) {
+                this.setState({ fetchedValueIsUndefined: true });
+                return;
+            }
+            this.setState({ contactGroupList: data })
+        });
+    }
+
+    fetchCustomerGroupsFromUndervisningsgruppe = () => {
+        return GroupApi.fetchCustomerGroupsFromUndervisningsgruppe(orgId).then(data => {
+            console.log(data, "undervisning");
+            if (data === undefined || data.length === undefined) {
+                this.setState({ fetchedValueIsUndefined: true });
+                return;
+            }
+            this.setState({ teachingGroupList: data })
+        });
+    }
+
+    fetchCustomerGroupsFromBasisgruppe = () => {
+        return GroupApi.fetchCustomerGroupsFromBasisgruppe(orgId).then(data => {
+            console.log(data, "basis");
+            if (data === undefined || data.length === undefined) {
+                this.setState({ fetchedValueIsUndefined: true });
+                return;
+            }
+            this.setState({ basicGroupList: data })
+        }).then(data => {
+            let basisGruppeKundenummer = {};
+            for (let i = 0; i < this.state.basicGroupList.length; i++) {
+                for (let j = 0; j < this.state.basicGroupList[i]["kundeliste"].length; j++) {
+                    basisGruppeKundenummer[this.state.basicGroupList[i]["kundeliste"][j]["kundenummer"]] = this.state.basicGroupList[i]["navn"];
+                }
+            };
+            CustomerApi.fetchCustomers(orgId).then(data => {
+                console.log(data, "cl");
+                if (data === undefined || data.length === undefined) {
+                    this.setState({ fetchedValueIsUndefined: true });
+                    return;
+                }
+                this.setState({ customerList: data })
+            }).then(() => {
+                this.state.customerList.forEach(person => {
+                    initialPersonSelectedState[person["kundenummer"]] = false;
+                    person["klassenavn"] = basisGruppeKundenummer[person["kundenummer"]];
+                });
+                console.log("customerlist")
+                this.setState({ selectedPersonList: JSON.parse(JSON.stringify(initialPersonSelectedState)) });
+            });
+            GroupApi.fetchAllCustomerGroups(orgId).then(data => {
+                console.log(data, "alle");
+                if (data === undefined || data.length === undefined) {
+                    this.setState({ fetchedValueIsUndefined: true });
+                    return;
+                }
+                this.setState({ allGroupsList: data })
+            }).then(() => {
+                for (let i = 0; i < this.state.allGroupsList.length; i++) {
+                    for (let j = 0; j < this.state.allGroupsList[i]["kundeliste"].length; j++) {
+                        let allGroupsListCopy = this.state.allGroupsList;
+                        allGroupsListCopy[i]["kundeliste"][j]["klassenavn"] = basisGruppeKundenummer[this.state.allGroupsList[i]["kundeliste"][j]["kundenummer"]];
+                        this.setState({ allGroupsList: allGroupsListCopy });
+                    }
+                }
+            });
+        });
+    }
 
     render() {
         const { classes } = this.props;
@@ -67,7 +258,7 @@ class Main extends Component {
                     <AppBar position="absolute" className={classes.appBar} color="primary">
                         <Toolbar>
                             <Link to="/" className={classes.logoLink}>
-                                    <img src="fint.svg" alt="logo" className={classes.logo} />
+                                <img src="fint.svg" alt="logo" className={classes.logo} />
                             </Link>
                             <Typography variant="title" color="inherit" noWrap>
                                 Betaling
@@ -113,9 +304,32 @@ class Main extends Component {
                     </Drawer>
                     <main className={classes.content}>
                         <div>
-                            <Route exact path='/' component={Dashboard} />
-                            <Route path='/betalinger' component={Claims} />
-                            <Route path='/ny-betaling' component={Claim} />
+                            <Route exact path='/' render={(routeProps) => <Dashboard {...routeProps} 
+                            fetchPayments={this.fetchPayments} 
+                            fetchCustomers={this.fetchCustomers}
+                            customerList={this.state.customerListNoBasicGroup}
+                            payments={this.state.payments} />} 
+                            />
+                            <Route path='/betalinger' render={(routeProps) => <Claims {...routeProps} fetchPayments={this.fetchPayments} payments={this.state.payments} />} />
+                            <Route path='/ny-betaling' render={(routeProps) => <Claim {...routeProps}
+                                customerList={this.state.customerList}
+                                productList={this.state.productList}
+                                basicGroupList={this.state.basicGroupList}
+                                contactGroupList={this.state.contactGroupList}
+                                teachingGroupList={this.state.teachingGroupList}
+                                allGroupsList={this.state.allGroupsList}
+                                mvaCodes={this.state.mvaCodes}
+                                employers={this.state.employers}
+                                dates={this.state.dates}
+                                selectedPersonList={this.state.selectedPersonList}
+                                personOrderedBySelection={this.state.personOrderedBySelection}
+                                selectedProductList={this.state.selectedProductList}
+                                productOrderedBySelection={this.state.productOrderedBySelection}
+                                fetchCustomerGroupsFromBasisgruppe={this.fetchCustomerGroupsFromBasisgruppe}
+                                fetchDates={this.fetchDates}
+                                fetchMvaCodes={this.fetchMvaCodes}
+                                fetchOrderLines={this.fetchOrderLines}
+                            />} />
                         </div>
                     </main>
                 </div>
