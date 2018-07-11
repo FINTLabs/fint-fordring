@@ -208,15 +208,12 @@ class Claim extends Component {
         let mva = this.props.mvaCodes[0];
         let timeFrameDueDate = this.props.dates[this.state.dateIndex];
         let amount = 5;
-        let description = "sykt bra produkt!"
 
 
         PaymentApi.setPayment(
             orgId,
             this.state.personOrderedBySelection,
             this.state.productOrderedBySelection,
-            amount,
-            description,
             mva,
             employer,
             timeFrameDueDate

@@ -24,7 +24,7 @@ const styles = theme => ({
         marginTop: theme.spacing.unit,
     },
     table: {
-        minWidth: 720,
+        minWidth: 320,
     },
     actionButton: {
         height: "35px",
@@ -126,17 +126,18 @@ class SearchResultProduct extends Component {
                                     </TableCell>
                                     <TableCell>{n.pris},-</TableCell>
                                     <TableCell>{this.props.selectedProductList[n.kode] * n.pris},-</TableCell>
-                                    <TableCell>
+                                    <TableCell> <div style={{display: 'table-cell'}}>
                                         <ChangeProductDialog changeProduct={this.props.changeProduct} currentProduct={n}/>
+                                        </div>
                                         {!this.props.selectedProductList[n.kode] ? (
-                                            <div>
+                                            <div style={{display: 'table-cell'}}>
                                                 <Button mini variant="fab" color="secondary" aria-label="add" onClick={() => this.props.addMethod(n)}
                                                     className={classes.actionButton}>
                                                     <Add className={classes.actionButtonIcon} />
                                                 </Button>
                                             </div>
                                         ) : (
-                                                <div>
+                                                <div  style={{display: 'table-cell'}}>
                                                     <Button mini variant="fab" color="primary" aria-label="add" onClick={() => this.props.removeMethod(n)}
                                                         className={classes.actionButton}>
                                                         <Remove />
