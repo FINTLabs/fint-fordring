@@ -207,11 +207,16 @@ class Claim extends Component {
         let employer = this.props.employers[0];
         let mva = this.props.mvaCodes[0];
         let timeFrameDueDate = this.props.dates[this.state.dateIndex];
+        let amount = 5;
+        let description = "sykt bra produkt!"
+
 
         PaymentApi.setPayment(
             orgId,
             this.state.personOrderedBySelection,
             this.state.productOrderedBySelection,
+            amount,
+            description,
             mva,
             employer,
             timeFrameDueDate
@@ -267,6 +272,8 @@ class Claim extends Component {
                     setInputAmountProductToNumber={this.setInputAmountProductToNumber}
                     addMethod={this.addMethodProduct}
                     removeMethod={this.removeMethodProduct}
+
+                    changeProduct={this.props.changeProduct}
                 />;
             case 2:
                 return <Step3

@@ -136,6 +136,9 @@ class Main extends Component {
                 this.setState({ fetchedValueIsUndefined: true });
                 return;
             }
+            for (let product of data){
+                product["beskrivelse"] = "";
+            }
             this.setState({ productList: data });
         }).then(() => {
             this.state.productList.forEach(product => {
@@ -249,6 +252,24 @@ class Main extends Component {
         });
     }
 
+    changeProduct = (productToChange,description,price) =>  {
+        let allProducts = this.state.productList;
+        console.log(allProducts);
+        for(let product of allProducts){
+            if(product.kode === productToChange.kode){
+                if(description){
+                    product["beskrivelse"] = description;
+                }
+                if(price){
+                    product.pris = price;
+                }
+                break;
+            }
+        }
+        this.setState({productList: allProducts});
+        console.log(productToChange,description,price);
+    }
+
     renderErrorMessage() {
         const { classes } = this.props;
         return (
@@ -339,6 +360,8 @@ class Main extends Component {
                                 fetchDates={this.fetchDates}
                                 fetchMvaCodes={this.fetchMvaCodes}
                                 fetchOrderLines={this.fetchOrderLines}
+
+                                changeProduct={this.changeProduct}
                             />} />
                         </div>
                     </main>

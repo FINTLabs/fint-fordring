@@ -10,7 +10,10 @@ import Paper from '@material-ui/core/Paper';
 import Button from "@material-ui/core/Button";
 import { Add } from '@material-ui/icons';
 import { Remove } from '@material-ui/icons';
+import { Settings } from '@material-ui/icons';
+import IconButton from '@material-ui/core/IconButton';
 import TextField from '@material-ui/core/TextField';
+import ChangeProductDialog from './ChangeProductDialog';
 
 
 const styles = theme => ({
@@ -27,8 +30,18 @@ const styles = theme => ({
         height: "35px",
         width: "35px",
     },
+    settingsButton: {
+        height: "35px",
+        width: "35px",
+        margin: theme.spacing.unit,
+    },
     actionButtonIcon: {
         color: "#fff",
+    },
+    settingsButtonIcon: {
+        color: "#777",
+        height: "20px",
+        width: "20px",
     },
     rotate: {
         transform: "rotate(180deg)"
@@ -114,16 +127,21 @@ class SearchResultProduct extends Component {
                                     <TableCell>{n.pris},-</TableCell>
                                     <TableCell>{this.props.selectedProductList[n.kode] * n.pris},-</TableCell>
                                     <TableCell>
+                                        <ChangeProductDialog changeProduct={this.props.changeProduct} currentProduct={n}/>
                                         {!this.props.selectedProductList[n.kode] ? (
-                                            <Button mini variant="fab" color="secondary" aria-label="add" onClick={() => this.props.addMethod(n)}
-                                                className={classes.actionButton}>
-                                                <Add className={classes.actionButtonIcon} />
-                                            </Button>
-                                        ) : (
-                                                <Button mini variant="fab" color="primary" aria-label="add" onClick={() => this.props.removeMethod(n)}
+                                            <div>
+                                                <Button mini variant="fab" color="secondary" aria-label="add" onClick={() => this.props.addMethod(n)}
                                                     className={classes.actionButton}>
-                                                    <Remove />
+                                                    <Add className={classes.actionButtonIcon} />
                                                 </Button>
+                                            </div>
+                                        ) : (
+                                                <div>
+                                                    <Button mini variant="fab" color="primary" aria-label="add" onClick={() => this.props.removeMethod(n)}
+                                                        className={classes.actionButton}>
+                                                        <Remove />
+                                                    </Button>
+                                                </div>
                                             )}
                                     </TableCell>
                                 </TableRow>

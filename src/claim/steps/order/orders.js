@@ -86,6 +86,8 @@ class Step2 extends Component {
                     removeMethod={this.props.removeMethod}
                     searchFilter={this.state.searchFilter}
                     sortMethod={this.sortMethod}
+
+                    changeProduct={this.props.changeProduct}
                 />
             </div>
         );
