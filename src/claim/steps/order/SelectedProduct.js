@@ -28,7 +28,7 @@ class SelectedProduct extends React.Component {
           return (
             <Chip
               key={data.kode}
-              label={this.props.selectedProductList[data.kode] + " x " + data.navn}
+              label={Number(this.props.selectedProductList[data.kode]) + " x " + data.navn}
               onDelete={() => this.props.removeMethod(data)}
               className={classes.chip}
             />

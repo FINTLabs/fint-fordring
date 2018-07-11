@@ -19,6 +19,8 @@ import EmployerApi from '../api/EmployerApi';
 import GroupApi from '../api/GroupApi';
 import MvaApi from '../api/MvaApi';
 import DateApi from '../api/DateApi';
+import MeApi from '../api/MeApi';
+import { CardHeader, ListItem } from "@material-ui/core";
 
 
 const drawerWidth = 250;
@@ -95,9 +97,14 @@ class Main extends Component {
             mvaCodes: [],
             employers: [],
             dates: [],
+            me: {},
 
             fetchedValueIsUndefined: false,
         }
+    }
+
+    componentDidMount()  {
+        this.fetchMe();
     }
 
     fetchPayments = () => {
@@ -118,6 +125,17 @@ class Main extends Component {
         });
     };
 
+    fetchMe = () => {
+        return MeApi.fetchMe(orgId).then(data => {
+            console.log(data, "Me");
+            if (data === undefined || data.name === undefined) {
+                this.setState({ fetchedValueIsUndefined: true });
+                return;
+            }
+            this.setState({ me: data })
+        })
+    }
+
     fetchCustomers = () => {
         return CustomerApi.fetchCustomers(orgId).then(data => {
             console.log(data, "cl");
@@ -136,7 +154,7 @@ class Main extends Component {
                 this.setState({ fetchedValueIsUndefined: true });
                 return;
             }
-            for (let product of data){
+            for (let product of data) {
                 product["beskrivelse"] = "";
             }
             this.setState({ productList: data });
@@ -252,28 +270,28 @@ class Main extends Component {
         });
     }
 
-    changeProduct = (productToChange,description,price) =>  {
+    changeProduct = (productToChange, description, price) => {
         let allProducts = this.state.productList;
         console.log(allProducts);
-        for(let product of allProducts){
-            if(product.kode === productToChange.kode){
-                if(description){
+        for (let product of allProducts) {
+            if (product.kode === productToChange.kode) {
+                if (description) {
                     product["beskrivelse"] = description;
                 }
-                if(price){
+                if (price) {
                     product.pris = price;
                 }
                 break;
             }
         }
-        this.setState({productList: allProducts});
-        console.log(productToChange,description,price);
+        this.setState({ productList: allProducts });
+        console.log(productToChange, description, price);
     }
 
     renderErrorMessage() {
         const { classes } = this.props;
         return (
-            <div className={classes.root} style={{margin:50}}><h1>Sum Ting Wong, Try again later</h1></div>
+            <div className={classes.root} style={{ margin: 50 }}><h1>Sum Ting Wong, Try again later</h1></div>
         )
     }
 
@@ -293,6 +311,9 @@ class Main extends Component {
                             </Link>
                             <Typography variant="title" color="inherit" noWrap>
                                 Betaling
+                            </Typography>
+                            <Typography style={{position: 'absolute', right: '2%'}} variant="title" color="inherit" noWrap>
+                                {(this.state.me.name||"person") + " - " + (this.state.me.organisation||"organisasjon")}
                             </Typography>
                         </Toolbar>
                     </AppBar>
@@ -335,11 +356,11 @@ class Main extends Component {
                     </Drawer>
                     <main className={classes.content}>
                         <div>
-                            <Route exact path='/' render={(routeProps) => <Dashboard {...routeProps} 
-                            fetchPayments={this.fetchPayments} 
-                            fetchCustomers={this.fetchCustomers}
-                            customerList={this.state.customerListNoBasicGroup}
-                            payments={this.state.payments} />} 
+                            <Route exact path='/' render={(routeProps) => <Dashboard {...routeProps}
+                                fetchPayments={this.fetchPayments}
+                                fetchCustomers={this.fetchCustomers}
+                                customerList={this.state.customerListNoBasicGroup}
+                                payments={this.state.payments} />}
                             />
                             <Route path='/betalinger' render={(routeProps) => <Claims {...routeProps} fetchPayments={this.fetchPayments} payments={this.state.payments} />} />
                             <Route path='/ny-betaling' render={(routeProps) => <Claim {...routeProps}

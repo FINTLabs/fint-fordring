@@ -59,7 +59,7 @@ class Step2 extends Component {
 
     checkIfNoneAreSelected = (obj) => {
         for (let o in obj) {
-            if (obj[o]) return true;
+            if (obj[o]!==0) return true;
         }
         return false;
     }
@@ -76,7 +76,7 @@ class Step2 extends Component {
                         orderedBySelection={this.props.orderedBySelection}
                         selectedProductList={this.props.selectedProductList}
                         removeMethod={this.props.removeMethod} />
-                ) : (<div />)}
+                ) : false}
                 <SearchResultProduct
                     getInputAmountProduct={this.props.getInputAmountProduct}
                     setInputAmountProductToNumber={this.props.setInputAmountProductToNumber}

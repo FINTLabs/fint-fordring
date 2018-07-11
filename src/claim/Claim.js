@@ -393,7 +393,7 @@ class Claim extends Component {
     }
 
     render() {
-        if (this.props.productList.length > 0 && this.props.customerList.length > 0) {
+        if (this.props.productList.length > 0 && this.props.allGroupsList.length > 0  && this.props.customerList.length > 0 && JSON.stringify(this.props.selectedProductList)!=="{}") {
             return (this.renderPosts());
         } else {
             return (<LoadingProgress />);

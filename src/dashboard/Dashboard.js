@@ -29,8 +29,12 @@ const styles = theme => ({
 class Dashboard extends Component {
 
     componentDidMount() {
-        this.props.fetchPayments();
-        this.props.fetchCustomers();
+        if(this.props.payments.length === 0){
+            this.props.fetchPayments();
+        }
+        if(this.props.customerList.length === 0){
+            this.props.fetchCustomers();
+        }
     }
 
     render() {
