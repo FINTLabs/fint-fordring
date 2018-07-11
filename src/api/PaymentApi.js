@@ -45,9 +45,7 @@ class PaymentApi {
                 }),
                 body: JSON.stringify({
                     mvaCode: mvaCode,
-                    orderLines: {
-                        orderLines:orderLines
-                    },
+                    orderLines: orderLines,
                     customers: customers,
                     employer: employer,
                     timeFrameDueDate: timeFrameDueDate,

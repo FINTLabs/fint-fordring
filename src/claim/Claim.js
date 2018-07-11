@@ -214,14 +214,29 @@ class Claim extends Component {
     sendClaim = () => {
         let employer = this.props.employers[0];
         let mva = this.props.mvaCodes[0];
-        let amount = 5;
-
         let timeFrameDueDate = this.state.selectedDate;
+
+        let amountOfProductList = this.state.selectedProductList;
+        let productList = this.state.productOrderedBySelection;
+
+        let listOfProductPackage = [];
+        for(let i = 0; i < productList.length; i++){
+            let desc = productList[i].beskrivelse;
+            delete productList[i].beskrivelse;
+            let obj = {
+                amount: amountOfProductList[productList[i].kode],
+                description: desc,
+                orderLine: productList[i]
+            }
+            listOfProductPackage.push(obj);
+        }
+
+        console.log(listOfProductPackage);
 
         PaymentApi.setPayment(
             orgId,
             this.state.personOrderedBySelection,
-            this.state.productOrderedBySelection,
+            listOfProductPackage,
             mva,
             employer,
             timeFrameDueDate
