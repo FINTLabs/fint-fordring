@@ -46,10 +46,10 @@ class Claim extends Component {
             activeStep: 0,
 
             selectedPersonList: JSON.parse(JSON.stringify(this.props.selectedPersonList)),
-            personOrderedBySelection: this.props.personOrderedBySelection,
+            personOrderedBySelection: JSON.parse(JSON.stringify(this.props.personOrderedBySelection)),
 
             selectedProductList: {},
-            productOrderedBySelection: this.props.productOrderedBySelection,
+            productOrderedBySelection: JSON.parse(JSON.stringify(this.props.productOrderedBySelection)),
 
             //selected date index for dates
             selectedDate: "",
@@ -70,17 +70,25 @@ class Claim extends Component {
 
     componentDidMount() {
         //can check if the data is there for each one before fetching it
-        this.props.fetchDates();
-        this.props.fetchMvaCodes();
-        this.props.fetchOrderLines();
-        this.props.fetchCustomerGroupsFromBasisgruppe().then(() => {
-            this.setState({
-                selectedPersonList: JSON.parse(JSON.stringify(this.props.selectedPersonList)),
-                //personOrderedBySelection: this.props.personOrderedBySelection,
-                selectedProductList: JSON.parse(JSON.stringify(this.props.selectedProductList)),
-                //productOrderedBySelection: this.props.productOrderedBySelection,
+        if(this.props.dates.length === 0) {
+            this.props.fetchDates();
+        }
+        /*if(this.props.mvaCodes.length === 0) {
+            this.props.fetchMvaCodes();
+        }*/
+        if(this.props.productList.length === 0) {
+            this.props.fetchOrderLines();
+        }
+        if(this.props.customerList.length === 0 || this.props.allGroupsList.length === 0) {
+            this.props.fetchCustomerGroupsFromBasisgruppe().then(() => {
+                this.setState({
+                    selectedPersonList: JSON.parse(JSON.stringify(this.props.selectedPersonList)),
+                    //personOrderedBySelection: this.props.personOrderedBySelection,
+                    selectedProductList: JSON.parse(JSON.stringify(this.props.selectedProductList)),
+                    //productOrderedBySelection: this.props.productOrderedBySelection,
+                });
             });
-        });
+        }
     }
 
     addMethodPerson = (person) => {

@@ -345,9 +345,6 @@ class Main extends Component {
                             <Route path='/ny-betaling' render={(routeProps) => <Claim {...routeProps}
                                 customerList={this.state.customerList}
                                 productList={this.state.productList}
-                                basicGroupList={this.state.basicGroupList}
-                                contactGroupList={this.state.contactGroupList}
-                                teachingGroupList={this.state.teachingGroupList}
                                 allGroupsList={this.state.allGroupsList}
                                 mvaCodes={this.state.mvaCodes}
                                 employers={this.state.employers}
