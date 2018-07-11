@@ -70,23 +70,26 @@ class Claim extends Component {
 
     componentDidMount() {
         //can check if the data is there for each one before fetching it
-        if(this.props.dates.length === 0) {
+        if (this.props.dates.length === 0) {
             this.props.fetchDates();
         }
         /*if(this.props.mvaCodes.length === 0) {
             this.props.fetchMvaCodes();
         }*/
-        if(this.props.productList.length === 0) {
+        if (this.props.productList.length === 0) {
             this.props.fetchOrderLines();
         }
-        if(this.props.customerList.length === 0 || this.props.allGroupsList.length === 0) {
+        if (this.props.customerList.length === 0 || this.props.allGroupsList.length === 0) {
             this.props.fetchCustomerGroupsFromBasisgruppe().then(() => {
                 this.setState({
                     selectedPersonList: JSON.parse(JSON.stringify(this.props.selectedPersonList)),
-                    //personOrderedBySelection: this.props.personOrderedBySelection,
                     selectedProductList: JSON.parse(JSON.stringify(this.props.selectedProductList)),
-                    //productOrderedBySelection: this.props.productOrderedBySelection,
                 });
+            });
+        } else {
+            this.setState({
+                selectedPersonList: JSON.parse(JSON.stringify(this.props.selectedPersonList)),
+                selectedProductList: JSON.parse(JSON.stringify(this.props.selectedProductList)),
             });
         }
     }
