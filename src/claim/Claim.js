@@ -52,7 +52,7 @@ class Claim extends Component {
             productOrderedBySelection: this.props.productOrderedBySelection,
 
             //selected date index for dates
-            dateIndex: 1,
+            selectedDate: "",
 
             lastSentClaim: [],
 
@@ -206,9 +206,9 @@ class Claim extends Component {
     sendClaim = () => {
         let employer = this.props.employers[0];
         let mva = this.props.mvaCodes[0];
-        let timeFrameDueDate = this.props.dates[this.state.dateIndex];
         let amount = 5;
 
+        let timeFrameDueDate = this.state.selectedDate;
 
         PaymentApi.setPayment(
             orgId,
@@ -218,7 +218,9 @@ class Claim extends Component {
             employer,
             timeFrameDueDate
         ).then(e => {
-            this.setState({ lastSentClaim: e });
+            this.setState({ lastSentClaim: e }, () => {
+                console.log(e);
+            });
         });
     }
 
@@ -240,8 +242,10 @@ class Claim extends Component {
         this.setState({ selectedProductList: updateList });
     }
 
-    getDateIndex = (index) => {
-        this.setState({ dateIndex: index });
+    getSelectedDate = (date) => {
+        this.setState({ selectedDate: date }, () => {
+            console.log(this.state.selectedDate);
+        });
     }
 
     getStepContent = (stepIndex) => {
@@ -281,7 +285,8 @@ class Claim extends Component {
                     personOrderedBySelection={this.state.personOrderedBySelection}
                     productOrderedBySelection={this.state.productOrderedBySelection}
                     dates={this.props.dates}
-                    getDateIndex={this.getDateIndex}
+                    getSelectedDate={this.getSelectedDate}
+                    selectedDate={this.state.selectedDate}
                 />;
             default:
                 return 'Uknown stepIndex';
@@ -343,7 +348,7 @@ class Claim extends Component {
                                         Tilbake
                                 </Button>
                                     {activeStep === steps.length - 1 ? (
-                                        <Button disabled={!(this.state.personOrderedBySelection.length > 0 && this.state.productOrderedBySelection.length > 0)} variant="raised" color="primary" onClick={this.handleFinish({ vertical: 'bottom', horizontal: 'right' })}>
+                                        <Button disabled={!(this.state.personOrderedBySelection.length > 0 && this.state.productOrderedBySelection.length > 0 && this.state.selectedDate !== "")} variant="raised" color="primary" onClick={this.handleFinish({ vertical: 'bottom', horizontal: 'right' })}>
                                             Send
                                         </Button>) : (
                                             <Button variant="raised" color="primary" onClick={this.handleNext}>

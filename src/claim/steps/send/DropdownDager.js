@@ -4,55 +4,47 @@ import { withStyles } from '@material-ui/core/styles';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import { Button } from '@material-ui/core';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import Select from '@material-ui/core/Select';
+import InputLabel from '@material-ui/core/InputLabel';
+import FormControl from '@material-ui/core/FormControl';
 
 const styles = theme => ({
   root: {
     backgroundColor: theme.palette.background.paper,
+    padding: 20,
   },
 });
 
 class DropdownDager extends React.Component {
 
-  state = {
-    anchorEl: null,
-    selectedIndex: 1,
-  };
-
-  handleClickListItem = event => {
-    this.setState({ anchorEl: event.currentTarget });
-  };
-
-  handleMenuItemClick = (event, index) => {
-    this.setState({ selectedIndex: index, anchorEl: null });
-    this.props.getDateIndex(index);
-  };
-
-  handleClose = () => {
-    this.setState({ anchorEl: null });
-  };
+  handleSelectChange = (event) => {
+    console.log(event.target.value)
+    this.props.getSelectedDate(event.target.value)
+}
 
   render() {
     const { classes } = this.props;
-    const { anchorEl } = this.state;
 
     return (
-      <div className={classes.root}><b>Fakturaen må betales om{" "}
-        <Button style={{ minWidth: 30, width: 30, height: 55, fontSize: 15}} onClick={this.handleClickListItem}>
-          <div style={{ border: "1px dashed", padding: 4}}>{this.props.dates[this.state.selectedIndex]}</div>
-        </Button> dager.</b> (Klikk for å endre)
-        <Menu
-          anchorEl={anchorEl}
-          open={Boolean(anchorEl)}
-          onClose={this.handleClose}>
-          {this.props.dates.map((option, index) => (
-            <MenuItem
-              key={option}
-              selected={index === this.state.selectedIndex}
-              onClick={event => this.handleMenuItemClick(event, index)}>
-              {option}
-            </MenuItem>
-          ))}
-        </Menu>
+      <div className={classes.root}>
+        <FormControl>
+          <InputLabel>Fakturaen forfaller om..</InputLabel>
+          <Select
+            style={{ minWidth: 200, width: 200, fontSize: 16, textAlign: "left"}}
+            onChange={this.handleSelectChange}
+            value={this.props.selectedDate}
+          >
+            {this.props.dates.map((option) => (
+              <MenuItem
+                key={option}
+                value={option}
+              >
+                {option + " Dager"}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
       </div>
     );
   }

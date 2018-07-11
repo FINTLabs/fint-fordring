@@ -83,7 +83,10 @@ class Step3 extends Component {
 
         return (
             <Paper>
-                <DropdownDager getDateIndex={this.props.getDateIndex} dates={this.props.dates}/>
+                <DropdownDager 
+                getSelectedDate={this.props.getSelectedDate} 
+                selectedDate={this.props.selectedDate}
+                dates={this.props.dates}/>
                 <Divider />
                 <div className={classes.paddingClass}>Mottakere av faktura:</div>
                 {this.props.personOrderedBySelection[0] ?
@@ -95,7 +98,8 @@ class Step3 extends Component {
                     <ProductOverview
                         productOrderedBySelection={this.props.productOrderedBySelection}
                         selectedProductList={this.props.selectedProductList}
-                        checkPricePerCustomer={this.checkPricePerCustomer} />
+                        checkPricePerCustomer={this.checkPricePerCustomer} 
+                        />
                 )}
             </Paper>
         );
