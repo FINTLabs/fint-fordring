@@ -39,7 +39,7 @@ class OverviewProductTable extends React.Component {
                     <TableHead>
                         <TableRow>
                             <TableCell>
-                                varer
+                                Varer
           </TableCell>
                             <TableCell>
                                 Pris
