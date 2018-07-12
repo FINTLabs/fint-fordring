@@ -246,9 +246,17 @@ class Claim extends Component {
             mva,
             employer,
             timeFrameDueDate
-        ).then(e => {
-            this.setState({ lastSentClaim: e }, () => {
-                console.log(e);
+        ).then(data => {
+            let paymentCopy = data;
+            //tenker at alle fakturaer har samme orgId
+            let orgIdString = paymentCopy[0].ordrenummer;
+            let firstDigit = orgIdString.match(/\d/);
+            let indexOfFirstDigit = orgIdString.indexOf(firstDigit);
+            paymentCopy.forEach(payment => {
+                payment["numberOrdrenummer"] = Number(payment["ordrenummer"].substr(indexOfFirstDigit));
+            });
+            this.setState({ lastSentClaim: data }, () => {
+                console.log(data);
             });
         });
     }
@@ -396,7 +404,7 @@ class Claim extends Component {
     }
 
     render() {
-        if (this.props.productList.length > 0 && this.props.allGroupsList.length > 0  && this.props.customerList.length > 0 && JSON.stringify(this.props.selectedProductList)!=="{}") {
+        if (this.props.productList.length > 0 && /*this.props.allGroupsList.length > 0  &&*/ this.props.customerList.length > 0 && JSON.stringify(this.props.selectedProductList)!=="{}") {
             return (this.renderPosts());
         } else {
             return (<LoadingProgress />);

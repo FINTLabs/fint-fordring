@@ -260,7 +260,7 @@ class Main extends Component {
                 console.log("customerlist")
                 this.setState({ selectedPersonList: JSON.parse(JSON.stringify(initialPersonSelectedState)) });
             });
-            GroupApi.fetchAllCustomerGroups(orgId).then(data => {
+            /*GroupApi.fetchAllCustomerGroups(orgId).then(data => {
                 console.log(data, "alle");
                 if (data === undefined || data.length === undefined) {
                     this.setState({ fetchedValueIsUndefined: true });
@@ -270,12 +270,12 @@ class Main extends Component {
             }).then(() => {
                 for (let i = 0; i < this.state.allGroupsList.length; i++) {
                     for (let j = 0; j < this.state.allGroupsList[i]["kundeliste"].length; j++) {
-                        /*let allGroupsListCopy = this.state.allGroupsList;
+                        let allGroupsListCopy = this.state.allGroupsList;
                         allGroupsListCopy[i]["kundeliste"][j]["klassenavn"] = basisGruppeKundenummer[this.state.allGroupsList[i]["kundeliste"][j]["kundenummer"]];
-                        this.setState({ allGroupsList: allGroupsListCopy });*/
+                        this.setState({ allGroupsList: allGroupsListCopy });
                     }
                 }
-            });
+            });*/
         });
     }
 

@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { withStyles } from "@material-ui/core/styles";
+import OverviewPersonChip from './OverviewPersonChip';
+import OverviewProductTable from './OverviewProductTable';
 
 const styles = theme => ({
     root: {
@@ -16,7 +18,6 @@ class Overview extends Component {
         };
     }
 
-
     render() {
         const { classes } = this.props;
 
@@ -27,16 +28,12 @@ class Overview extends Component {
                         <p>leveringsdato: {new Date(this.props.lastSentClaim[0].fakturagrunnlag.leveringsdato).toLocaleDateString()}</p>
                         <p>forfallsdato: {new Date(this.props.lastSentClaim[0].fakturagrunnlag.forfallsdato).toLocaleDateString()}</p>
                         <p>Ordrenummer:</p>
-                        {this.props.lastSentClaim.map(e => {
-                            return (
-                                <ul key={e.ordrenummer}>{e.ordrenummer}</ul>
-                            );
-                        }
-                        )}
+                        <OverviewPersonChip lastSentClaim={this.props.lastSentClaim}/>
+                        <OverviewProductTable lastSentClaim={this.props.lastSentClaim}/>
                     </div>
                 ) : (
                         <div>
-                            Error500
+                            {this.props.lastSentClaim.message || "error"}
                         </div>
                     )}
             </div>
