@@ -51,7 +51,7 @@ class ClaimTemplate extends React.Component {
             <p>Leveringsdato: {new Date(data.fakturagrunnlag.leveringsdato).toLocaleDateString()}</p>
             <p>Forfallsdato: {new Date(data.fakturagrunnlag.forfallsdato).toLocaleDateString()}</p>
           </GridListTile>
-          <GridListTile key="5" cols={6}style={{ height: "!important" }}>
+          <GridListTile key="5" cols={6} style={{ height: "!important" }}>
             <Table>
               <TableHead>
                 <TableRow>
@@ -59,16 +59,16 @@ class ClaimTemplate extends React.Component {
                     Varer
                 </TableCell>
                   <TableCell>
-                    Pris
+                    Nettopris
                 </TableCell>
-                <TableCell>
+                  <TableCell>
                     MVA
                 </TableCell>
                   <TableCell>
                     Antall
                 </TableCell>
                   <TableCell>
-                    Beløp
+                    Nettobeløp
                 </TableCell>
                 </TableRow>
               </TableHead>
@@ -80,16 +80,16 @@ class ClaimTemplate extends React.Component {
                         {n.fritekst}
                       </TableCell>
                       <TableCell>
-                        {n.pris}
+                        {n.pris},-
                       </TableCell>
                       <TableCell>
                         25%
                     </TableCell>
                       <TableCell>
                         {n.antall}
-                    </TableCell>
+                      </TableCell>
                       <TableCell>
-                        {n.pris}
+                        {n.pris * n.antall},-
                       </TableCell>
                     </TableRow>
                   );
@@ -99,13 +99,11 @@ class ClaimTemplate extends React.Component {
                   </TableCell>
                   <TableCell>
                   </TableCell>
-                  <TableCell>
+                  <TableCell colSpan={2}>
+                    <b>Total inkl. mva:</b>
                   </TableCell>
                   <TableCell>
-                    <b>Total:</b>
-                  </TableCell>
-                  <TableCell>
-                    <b>{data.fakturagrunnlag.total}</b>
+                    <b>{data.fakturagrunnlag.total / 100},-</b>
                   </TableCell>
                 </TableRow>
               </TableBody>

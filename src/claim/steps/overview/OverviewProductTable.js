@@ -42,7 +42,7 @@ class OverviewProductTable extends React.Component {
                                 Varer
           </TableCell>
                             <TableCell>
-                                Pris
+                                Nettopris
           </TableCell>
                             <TableCell>
                                 MVA
@@ -51,7 +51,7 @@ class OverviewProductTable extends React.Component {
                                 Antall
           </TableCell>
                             <TableCell>
-                                Beløp
+                                Nettobeløp
           </TableCell>
                         </TableRow>
                     </TableHead>
@@ -83,22 +83,15 @@ class OverviewProductTable extends React.Component {
                             </TableCell>
                             <TableCell>
                             </TableCell>
-                            <TableCell>
+                            <TableCell colSpan={2}>
+                                <b>Total inkl. mva:</b>
                             </TableCell>
                             <TableCell>
-                                <b>Total:</b>
-                            </TableCell>
-                            <TableCell>
-                                <b>{data[0].fakturagrunnlag.total},-</b>
+                                <b>{data[0].fakturagrunnlag.total / 100},-</b>
                             </TableCell>
                         </TableRow>
                     </TableBody>
                 </Table>
-                <div className={classes.size}>
-                    <div className={classes.varer}>
-                    </div>
-                    <div className={classes.avslutning}></div>
-                </div>
             </div>
         );
     }

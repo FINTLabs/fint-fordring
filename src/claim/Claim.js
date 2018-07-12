@@ -13,6 +13,7 @@ import { Prompt } from "react-router-dom";
 import PaymentApi from '../api/PaymentApi';
 import LoadingProgress from '../common/LoadingProgress';
 import Overview from './steps/overview/Overview';
+import { Link } from "react-router-dom";
 
 const styles = theme => ({
     root: {
@@ -226,7 +227,7 @@ class Claim extends Component {
         let productList = this.state.productOrderedBySelection;
 
         let listOfProductPackage = [];
-        for(let i = 0; i < productList.length; i++){
+        for (let i = 0; i < productList.length; i++) {
             let desc = productList[i].beskrivelse;
             delete productList[i].beskrivelse;
             let obj = {
@@ -358,7 +359,8 @@ class Claim extends Component {
                         (this.state.lastSentClaim.length !== 0) ? (
                             <div>
                                 <Overview lastSentClaim={this.state.lastSentClaim} />
-                                <Button onClick={this.handleReset}>Start på nytt</Button>
+                                <Button onClick={this.handleReset}>Send ny betaling</Button>
+                                <Link to="/betalinger" style={{ textDecoration: 'none' }}><Button>Gå til sendte betalinger</Button></Link>
                                 <Snackbar
                                     anchorOrigin={{ vertical, horizontal }}
                                     open={open}
@@ -404,7 +406,7 @@ class Claim extends Component {
     }
 
     render() {
-        if (this.props.productList.length > 0 && /*this.props.allGroupsList.length > 0  &&*/ this.props.customerList.length > 0 && JSON.stringify(this.props.selectedProductList)!=="{}") {
+        if (this.props.productList.length > 0 && /*this.props.allGroupsList.length > 0  &&*/ this.props.customerList.length > 0 && JSON.stringify(this.props.selectedProductList) !== "{}") {
             return (this.renderPosts());
         } else {
             return (<LoadingProgress />);
