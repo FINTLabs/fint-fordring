@@ -10,8 +10,6 @@ import Paper from '@material-ui/core/Paper';
 import Button from "@material-ui/core/Button";
 import { Add } from '@material-ui/icons';
 import { Remove } from '@material-ui/icons';
-import { Settings } from '@material-ui/icons';
-import IconButton from '@material-ui/core/IconButton';
 import TextField from '@material-ui/core/TextField';
 import ChangeProductDialog from './ChangeProductDialog';
 

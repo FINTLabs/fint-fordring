@@ -63,7 +63,7 @@ class SelectedPerson extends React.Component {
 
   
     let expandStyle = {
-      maxHeight: 10000
+      maxHeight: 'none'
     }
     let notExpandedStyle = {
       maxHeight: 120

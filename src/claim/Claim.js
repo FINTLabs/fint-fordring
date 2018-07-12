@@ -73,6 +73,9 @@ class Claim extends Component {
         if (this.props.dates.length === 0) {
             this.props.fetchDates();
         }
+        if (this.props.employers.length === 0) {
+            this.props.fetchEmployers();
+        }
         /*if(this.props.mvaCodes.length === 0) {
             this.props.fetchMvaCodes();
         }*/
@@ -234,7 +237,7 @@ class Claim extends Component {
             listOfProductPackage.push(obj);
         }
 
-        console.log(listOfProductPackage);
+        console.log(listOfProductPackage, this.state.personOrderedBySelection);
 
         PaymentApi.setPayment(
             orgId,

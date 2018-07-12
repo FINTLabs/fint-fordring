@@ -33,7 +33,7 @@ class ChipSelectedPerson extends React.Component {
               <Chip
                 key={n.kundenummer}
                 avatar={avatar}
-                label={n.navn.fornavn + ((n.navn.mellomnavn) ? (" " + n.navn.mellomnavn + " ") : (" ")) + n.navn.etternavn + " | " + n.klassenavn}
+                label={n.navn.fornavn + ((n.navn.mellomnavn) ? (" " + n.navn.mellomnavn + " ") : (" ")) + n.navn.etternavn + " | " + (n.klassenavn||"ingen Klasse")}
                 className={classes.chip}
               />
             );

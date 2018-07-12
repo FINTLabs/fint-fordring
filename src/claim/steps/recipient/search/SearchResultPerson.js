@@ -98,9 +98,9 @@ class ResultTablePerson extends Component {
                                     (<svg height="12" width="12" viewBox="-3 -5 24 24" aria-hidden="true"></svg>)}
                             </TableCell>
                             <TableCell className={classes.fixedHeader}>
-                                <Button mini variant="fab" aria-label="add" onClick={() => this.props.addAll(this.props.testDataPerson)}
+                                <Button mini variant="fab" aria-label="add" onClick={() => this.props.addAll(this.props.searchFilter)}
                                     className={classes.actionButton}>
-                                    {(this.props.checkIfAllAreSelected(this.props.testDataPerson)) ? (
+                                    {(this.props.checkIfAllAreSelected(this.props.searchFilter)) ? (
                                         <CheckBoxOutlineBlank />
                                     ) : (
                                             <CheckBox />

@@ -20,7 +20,6 @@ import GroupApi from '../api/GroupApi';
 import MvaApi from '../api/MvaApi';
 import DateApi from '../api/DateApi';
 import MeApi from '../api/MeApi';
-import { CardHeader, ListItem } from "@material-ui/core";
 
 
 const drawerWidth = 250;
@@ -246,7 +245,7 @@ class Main extends Component {
             }).then(() => {
                 this.state.customerList.forEach(person => {
                     initialPersonSelectedState[person["kundenummer"]] = false;
-                    person["klassenavn"] = basisGruppeKundenummer[person["kundenummer"]];
+                    person["klassenavn"] = (basisGruppeKundenummer[person["kundenummer"]] || "ingen klasse");
                 });
                 console.log("customerlist")
                 this.setState({ selectedPersonList: JSON.parse(JSON.stringify(initialPersonSelectedState)) });
@@ -261,9 +260,9 @@ class Main extends Component {
             }).then(() => {
                 for (let i = 0; i < this.state.allGroupsList.length; i++) {
                     for (let j = 0; j < this.state.allGroupsList[i]["kundeliste"].length; j++) {
-                        let allGroupsListCopy = this.state.allGroupsList;
+                        /*let allGroupsListCopy = this.state.allGroupsList;
                         allGroupsListCopy[i]["kundeliste"][j]["klassenavn"] = basisGruppeKundenummer[this.state.allGroupsList[i]["kundeliste"][j]["kundenummer"]];
-                        this.setState({ allGroupsList: allGroupsListCopy });
+                        this.setState({ allGroupsList: allGroupsListCopy });*/
                     }
                 }
             });
@@ -378,6 +377,7 @@ class Main extends Component {
                                 fetchDates={this.fetchDates}
                                 fetchMvaCodes={this.fetchMvaCodes}
                                 fetchOrderLines={this.fetchOrderLines}
+                                fetchEmployers={this.fetchEmployers}
 
                                 changeProduct={this.changeProduct}
                             />} />
