@@ -29,9 +29,10 @@ class SearchBox extends Component {
     }
 
     updateSearch = (event) => {
+        console.log(this.props.selectedTab);
         this.setState({ search: event.target.value }, () => {
             if (this.state.search === "") {
-                this.props.getSearchInput(this.state.search.toLowerCase(), this.props.listOfClaims);
+                this.props.getSearchInput(this.state.search.toLowerCase(), this.props.listOfClaims, this.props.selectedTab);
             }
         });
     }
@@ -44,14 +45,14 @@ class SearchBox extends Component {
                 <div className={classes.searchContainer}>
                     <Input
                         onChange={this.updateSearch}
-                        onKeyDown={(e) => e.keyCode === 13 ? this.props.getSearchInput(this.state.search.toLowerCase(), this.props.listOfClaims) : (false)}
+                        onKeyDown={(e) => e.keyCode === 13 ? this.props.getSearchInput(this.state.search.toLowerCase(), this.props.listOfClaims, this.props.selectedTab) : (false)}
                         placeholder={placeHolder}
                         className={classes.searchInput}
                         inputProps={{
                             'aria-label': 'Description',
                         }}
                     />
-                    <Button variant="fab" color="primary" aria-label="add" className={classes.button} onClick={(event) => this.props.getSearchInput(this.state.search.toLowerCase(), this.props.listOfClaims)}>
+                    <Button variant="fab" color="primary" aria-label="add" className={classes.button} onClick={(event) => this.props.getSearchInput(this.state.search.toLowerCase(), this.props.listOfClaims, this.props.selectedTab)}>
                         <Search />
                     </Button>
                 </div>

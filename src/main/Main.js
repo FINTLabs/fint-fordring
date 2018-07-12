@@ -102,7 +102,7 @@ class Main extends Component {
         }
     }
 
-    componentDidMount()  {
+    componentDidMount() {
         this.fetchMe();
     }
 
@@ -112,15 +112,25 @@ class Main extends Component {
                 this.setState({ fetchedValueIsUndefined: true });
                 return;
             }
-            let paymentCopy = data;
-            //tenker at alle fakturaer har samme orgId
-            let orgIdString = paymentCopy[0].ordrenummer;
-            let firstDigit = orgIdString.match(/\d/);
-            let indexOfFirstDigit = orgIdString.indexOf(firstDigit);
-            paymentCopy.forEach(payment => {
-                payment["numberOrdrenummer"] = Number(payment["ordrenummer"].substr(indexOfFirstDigit));
-            });
-            this.setState({ payments: paymentCopy });
+            if (data.length !== this.state.payments.length) {
+                let paymentCopy = data;
+                //tenker at alle fakturaer har samme orgId
+                let orgIdString = paymentCopy[0].ordrenummer;
+                let firstDigit = orgIdString.match(/\d/);
+                let indexOfFirstDigit = orgIdString.indexOf(firstDigit);
+                paymentCopy.forEach(payment => {
+                    payment["numberOrdrenummer"] = Number(payment["ordrenummer"].substr(indexOfFirstDigit));
+
+                    if (Number(payment.restBelop) === 0) {
+                        payment["status"] = "betalt";
+                    } else if (Number(payment.restBelop) !== payment["fakturagrunnlag"]["total"]) {
+                        payment["status"] = "delbetalt";
+                    } else if (Number(payment.restBelop) === payment["fakturagrunnlag"]["total"]) {
+                        payment["status"] = "ikkebetalt";
+                    }
+                });
+                this.setState({ payments: paymentCopy });
+            }
         });
     };
 
@@ -311,8 +321,8 @@ class Main extends Component {
                             <Typography variant="title" color="inherit" noWrap>
                                 Betaling
                             </Typography>
-                            <Typography style={{position: 'absolute', right: '2%'}} variant="title" color="inherit" noWrap>
-                                {(this.state.me.name||"person") + " - " + (this.state.me.organisation||"organisasjon")}
+                            <Typography style={{ position: 'absolute', right: '2%' }} variant="title" color="inherit" noWrap>
+                                {(this.state.me.name || "person") + " - " + (this.state.me.organisation || "organisasjon")}
                             </Typography>
                         </Toolbar>
                     </AppBar>

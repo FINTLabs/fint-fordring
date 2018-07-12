@@ -59,16 +59,19 @@ class ClaimTabs extends React.Component {
   check with Number(inputstring), if NaN, it is a name, else it is a number
   */
 
-  getSearchInput = (val, claimList) => {
+  getSearchInput = (val, claimList, selectedTab) => {
     let filteredClaimArr = [];
     this.setState({ searchMessage: "" });
     if (val !== "") {
       if (isNaN(val)) {
         if (val.length >= 3) {
-          filteredClaimArr = claimList.filter(e =>
-            (e.kunde.navn.fornavn + " " +
-              ((e.kunde.navn.mellomnavn) ? (e.kunde.navn.mellomnavn + " ") : (""))
-              + e.kunde.navn.etternavn).toLowerCase().indexOf(val) !== -1
+
+          console.log(claimList[2222].status === selectedTab || selectedTab === "alle",claimList[2222].status, selectedTab )
+          filteredClaimArr = claimList.filter(betaling =>
+            (betaling.status === selectedTab || selectedTab === "alle") &&
+            (betaling.kunde.navn.fornavn + " " +
+              ((betaling.kunde.navn.mellomnavn) ? (betaling.kunde.navn.mellomnavn + " ") : (""))
+              + betaling.kunde.navn.etternavn).toLowerCase().indexOf(val) !== -1
           );
           if (filteredClaimArr.length === 0) {
             this.setState({ searchMessage: "Ingen søkeresultater" });
@@ -78,6 +81,7 @@ class ClaimTabs extends React.Component {
         }
       } else {
         filteredClaimArr = claimList.filter(betaling =>
+          (betaling.status === selectedTab || selectedTab === "alle") &&
           betaling.numberOrdrenummer === Number(val));
           if (filteredClaimArr.length === 0) {
             this.setState({ searchMessage: "Ingen søkeresultater" });
@@ -138,24 +142,6 @@ class ClaimTabs extends React.Component {
     const { classes } = this.props;
     const { value } = this.state;
 
-    let listOfUnpaidClaims = [];
-    let listOfPaidClaims = [];
-    let listOfPartiallyPaidClaims = [];
-    let listOfAllClaims = this.props.testDataFordring;
-
-    for (let i = 0; i < listOfAllClaims.length; i++) {
-      if (listOfAllClaims[i].fakturagrunnlag.avgifter === 0) {
-        listOfAllClaims[i]["status"] = "betalt";
-        listOfPaidClaims.push(listOfAllClaims[i]);
-      } else if (listOfAllClaims[i].fakturagrunnlag.avgifter !== listOfAllClaims[i]["fakturagrunnlag"]["total"]) {
-        listOfAllClaims[i]["status"] = "delbetalt";
-        listOfPartiallyPaidClaims.push(listOfAllClaims[i]);
-      } else if (listOfAllClaims[i].fakturagrunnlag.avgifter === listOfAllClaims[i]["fakturagrunnlag"]["total"]) {
-        listOfAllClaims[i]["status"] = "ikkebetalt";
-        listOfUnpaidClaims.push(listOfAllClaims[i]);
-      }
-    }
-
     return (
       <div className={classes.root}>
 
@@ -168,32 +154,36 @@ class ClaimTabs extends React.Component {
           </Tabs>
         </AppBar>
         {value === 'one' && <TabContainer>
-          <SearchBox placeHolder="Søk etter navn eller ordrenummer" getSearchInput={this.getSearchInput} listOfClaims={listOfAllClaims} />
+          <SearchBox placeHolder="Søk etter navn eller ordrenummer" getSearchInput={this.getSearchInput} listOfClaims={this.props.testDataFordring} 
+          selectedTab="alle" />
           {(this.state.searchMessage !== "") ? (<div style={{ margin: 20 }}>{this.state.searchMessage}</div>) : (false)}
-          <TableClaims listOfClaims={listOfAllClaims} searchFilter={this.state.searchFilter}
+          <TableClaims listOfClaims={this.props.testDataFordring} searchFilter={this.state.searchFilter}
             triggerSort={this.triggerSort} sortMethod={this.sortMethod}
-            last={this.state.last} sort={this.state.sort} />
+            last={this.state.last} sort={this.state.sort} selectedTab="alle" />
         </TabContainer>}
         {value === 'two' && <TabContainer>
-          <SearchBox placeHolder="Søk etter navn eller ordrenummer" getSearchInput={this.getSearchInput} listOfClaims={listOfUnpaidClaims}/>
+          <SearchBox placeHolder="Søk etter navn eller ordrenummer" getSearchInput={this.getSearchInput} listOfClaims={this.props.testDataFordring}
+          selectedTab="ikkebetalt"/>
           {(this.state.searchMessage !== "") ? (<div style={{ margin: 20 }}>{this.state.searchMessage}</div>) : (false)}
-          <TableClaims listOfClaims={listOfUnpaidClaims} searchFilter={this.state.searchFilter}
+          <TableClaims listOfClaims={this.props.testDataFordring} searchFilter={this.state.searchFilter}
             triggerSort={this.triggerSort} sortMethod={this.sortMethod}
-            last={this.state.last} sort={this.state.sort} />
+            last={this.state.last} sort={this.state.sort} selectedTab="ikkebetalt" />
         </TabContainer>}
         {value === 'three' && <TabContainer>
-          <SearchBox placeHolder="Søk etter navn eller ordrenummer" getSearchInput={this.getSearchInput} listOfClaims={listOfPartiallyPaidClaims}/>
+          <SearchBox placeHolder="Søk etter navn eller ordrenummer" getSearchInput={this.getSearchInput} listOfClaims={this.props.testDataFordring}
+          selectedTab="delbetalt"/>
           {(this.state.searchMessage !== "") ? (<div style={{ margin: 20 }}>{this.state.searchMessage}</div>) : (false)}
-          <TableClaims listOfClaims={listOfPartiallyPaidClaims} searchFilter={this.state.searchFilter}
+          <TableClaims listOfClaims={this.props.testDataFordring} searchFilter={this.state.searchFilter}
             triggerSort={this.triggerSort} sortMethod={this.sortMethod}
-            last={this.state.last} sort={this.state.sort} />
+            last={this.state.last} sort={this.state.sort} selectedTab="delbetalt" />
         </TabContainer>}
         {value === 'four' && <TabContainer>
-          <SearchBox placeHolder="Søk etter navn eller ordrenummer" getSearchInput={this.getSearchInput} listOfClaims={listOfPaidClaims}/>
+          <SearchBox placeHolder="Søk etter navn eller ordrenummer" getSearchInput={this.getSearchInput} listOfClaims={this.props.testDataFordring}
+          selectedTab="betalt" />
           {(this.state.searchMessage !== "") ? (<div style={{ margin: 20 }}>{this.state.searchMessage}</div>) : (false)}
-          <TableClaims listOfClaims={listOfPaidClaims} searchFilter={this.state.searchFilter}
+          <TableClaims listOfClaims={this.props.testDataFordring} searchFilter={this.state.searchFilter}
             triggerSort={this.triggerSort} sortMethod={this.sortMethod}
-            last={this.state.last} sort={this.state.sort} />
+            last={this.state.last} sort={this.state.sort} selectedTab="betalt" />
         </TabContainer>}
       </div>
     );

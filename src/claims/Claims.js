@@ -27,8 +27,9 @@ class Claims extends Component {
     }
 
     componentDidMount() {
-        this.props.fetchPayments();
-        console.log("fetched again");
+        this.props.fetchPayments().then(()=>{
+            console.log("fetched again");
+        });
     }
 
     renderPosts(){

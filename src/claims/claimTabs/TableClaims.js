@@ -68,7 +68,6 @@ class TableClaims extends React.Component {
     };
 
     render() {
-        let counter = 0;
 
         const { classes } = this.props;
         
@@ -122,16 +121,15 @@ class TableClaims extends React.Component {
                         </TableRow>
                     </TableHead>) : (false)}
                     <TableBody>
-                        {this.props.listOfClaims.map(n => {
-                            counter ++;
-                            if (this.props.searchFilter.indexOf(n) === -1) {
+                        {this.props.listOfClaims.map((n,index) => {
+                            if (this.props.searchFilter.indexOf(n) === -1 || (n.status !== this.props.selectedTab && this.props.selectedTab !== "alle")) {
                                 return false;
                             }                    
                             return (
-                                <TableRow key={counter} onClick={()=> this.handleClickOpen(n)}>
+                                <TableRow key={index} onClick={()=> this.handleClickOpen(n)}>
                                     {this.getStatus(n.status,classes.green,classes.yellow,classes.red)}
                                     <TableCell>{n.numberOrdrenummer}</TableCell>
-                                    <TableCell>{n.kunde.navn.fornavn} {n.kunde.navn.mellomnavn} {n.kunde.navn.etternavn}</TableCell>
+                                    <TableCell>{n.kunde.navn.etternavn}, {n.kunde.navn.fornavn} {n.kunde.navn.mellomnavn}</TableCell>
                                     <TableCell>{n.fakturagrunnlag.total}</TableCell>
                                     <TableCell>{n.restBelop}</TableCell>
                                 </TableRow>

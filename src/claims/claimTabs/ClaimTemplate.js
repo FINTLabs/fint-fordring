@@ -47,7 +47,7 @@ class ClaimTemplate extends React.Component {
             <p>Poststed: {data.kunde.postadresse.poststed}</p>
           </GridListTile>
           <GridListTile key="3" cols={2}>
-            <p>Fakturanr: {data.fakturanummer}</p>
+            <p>Fakturanr: {data.numberOrdrenummer}</p>
             <p>Leveringsdato: {new Date(data.fakturagrunnlag.leveringsdato).toLocaleDateString()}</p>
             <p>Forfallsdato: {new Date(data.fakturagrunnlag.forfallsdato).toLocaleDateString()}</p>
           </GridListTile>
