@@ -38,13 +38,16 @@ class ChangeProductDialog extends React.Component {
     state = {
         open: false,
         textFieldContent: "",
+        priceFieldContent: "",
     };
 
     handleClickOpen = () => {
-        let stateChange = this.props.currentProduct["beskrivelse"]!==""?(""+this.props.currentProduct["beskrivelse"]):("");
-        this.setState({ 
+        let stateChange = this.props.currentProduct["beskrivelse"] !== "" ? ("" + this.props.currentProduct["beskrivelse"]) : ("");
+        this.setState({
             open: true,
-            textFieldContent: stateChange, });
+            textFieldContent: stateChange,
+            priceFieldContent: "",
+        });
     };
 
     handleClose = () => {
@@ -53,15 +56,24 @@ class ChangeProductDialog extends React.Component {
 
     handleChange = () => {
         this.setState({ open: false });
-        let description = document.getElementById("description").value!==""?(document.getElementById("description").value):(false);
-        let price = !isNaN(document.getElementById("price").valueAsNumber)?(document.getElementById("price").valueAsNumber):(false);
+        let description = document.getElementById("description").value !== "" ? (document.getElementById("description").value) : (false);
+        let price = !isNaN(document.getElementById("price").valueAsNumber) ? (document.getElementById("price").valueAsNumber) : (false);
 
         //changeProduct ligger i Main
-        this.props.changeProduct(this.props.currentProduct,description,price);
+        this.props.changeProduct(this.props.currentProduct, description, price);
     };
 
     handleTextFieldChange = (event) => {
         this.setState({ textFieldContent: event.target.value });
+    };
+
+    handleNumberFieldChange = (event) => {
+        if (Number(event.target.value) >= 0) {
+            console.log(event.target.value);
+            this.setState({ priceFieldContent: event.target.value });
+        } else {
+            this.setState({ priceFieldContent: "0" });
+        }
     };
 
     render() {
@@ -80,11 +92,11 @@ class ChangeProductDialog extends React.Component {
                     <DialogTitle id="form-dialog-title">{this.props.currentProduct.navn}</DialogTitle>
                     <DialogContent>
                         <DialogContentText>
-                            Her kan du endre på prisen og beskrivelsen til produktet du har valgt.
+                            Endre beskrivelse og pris for varen
                         </DialogContentText>
                         <TextField
                             id="description"
-                            label="Produkt beskrivelse"
+                            label="Produktbeskrivelse"
                             value={this.state.textFieldContent}
                             placeholder="Ingen beskrivelse for øybelikket"
                             onChange={this.handleTextFieldChange}
@@ -98,7 +110,9 @@ class ChangeProductDialog extends React.Component {
                             label="Pris"
                             type="number"
                             className={classes.textFieldNumber}
+                            value={this.state.priceFieldContent}
                             placeholder={"" + this.props.currentProduct.pris}
+                            onChange={this.handleNumberFieldChange}
                         />
                     </DialogContent>
                     <DialogActions>

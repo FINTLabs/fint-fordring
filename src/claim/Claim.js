@@ -77,9 +77,9 @@ class Claim extends Component {
         if (this.props.employers.length === 0) {
             this.props.fetchEmployers();
         }
-        /*if(this.props.mvaCodes.length === 0) {
+        if(this.props.mvaCodes.length === 0) {
             this.props.fetchMvaCodes();
-        }*/
+        }
         if (this.props.productList.length === 0) {
             this.props.fetchOrderLines();
         }
@@ -149,6 +149,17 @@ class Claim extends Component {
         }
         this.setState({ selectedPersonList: updateList });
         this.setState({ personOrderedBySelection: updateOrderedList });
+    }
+
+    removeAllPerson = () => {
+        let obj = this.state.selectedPersonList;
+        for(let o in obj) {
+            obj[o] = false;
+        }
+        this.setState({
+            personOrderedBySelection: [],
+            selectedPersonList: obj,
+        })
     }
 
     addMethodProduct = (product) => {
@@ -299,6 +310,7 @@ class Claim extends Component {
                     addMethod={this.addMethodPerson}
                     removeMethod={this.removeMethodPerson}
                     addAll={this.addAllPerson}
+                    removeAllPerson={this.removeAllPerson}
                 />;
             case 1:
                 return <Step2
@@ -325,6 +337,7 @@ class Claim extends Component {
                     dates={this.props.dates}
                     getSelectedDate={this.getSelectedDate}
                     selectedDate={this.state.selectedDate}
+                    mvaCodes={this.props.mvaCodes}
                 />;
             default:
                 return 'Uknown stepIndex';
@@ -408,7 +421,13 @@ class Claim extends Component {
     }
 
     render() {
-        if (this.props.productList.length > 0 && this.props.allGroupsList.length > 0  && this.props.customerList.length > 0 && JSON.stringify(this.props.selectedProductList) !== "{}") {
+        if (this.props.productList.length > 0 && 
+            this.props.allGroupsList.length > 0  && 
+            this.props.customerList.length > 0 &&
+            this.props.mvaCodes.length > 0 && 
+            JSON.stringify(this.props.selectedProductList) !== "{}"
+        
+        ) {
             return (this.renderPosts());
         } else {
             return (<LoadingProgress />);

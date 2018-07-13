@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import ClaimTabs from './claimTabs/ClaimTabs';
@@ -20,29 +20,32 @@ const styles = theme => ({
 
 class Claims extends Component {
 
-    constructor(props){
+    constructor(props) {
         super(props);
         this.state = {
         }
     }
 
     componentDidMount() {
-        this.props.fetchPayments().then(()=>{
+        this.props.fetchPayments().then(() => {
             console.log("fetched again");
         });
+        if (this.props.mvaCodes === undefined || this.props.mvaCodes.length === 0) {
+            this.props.fetchMvaCodes();
+        }
     }
 
-    renderPosts(){
+    renderPosts() {
         const { classes } = this.props;
         return (
             <div className={classes.root}>
-                <ClaimTabs testDataFordring={this.props.payments}/>
+                <ClaimTabs testDataFordring={this.props.payments} mvaCodes={this.props.mvaCodes} />
             </div>
         )
     }
 
     render() {
-        if (this.props.payments.length > 0) {
+        if (this.props.payments.length > 0 && this.props.mvaCodes !== undefined && this.props.mvaCodes.length > 0) {
             return (this.renderPosts());
         } else {
             return (<LoadingProgress />);

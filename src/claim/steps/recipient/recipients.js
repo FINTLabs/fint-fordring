@@ -73,8 +73,8 @@ class Step1 extends Component {
     resolve = (obj, path) => {
         path = path.split('.');
         var current = obj;
-        while(path.length) {
-            if(typeof current !== 'object') return undefined;
+        while (path.length) {
+            if (typeof current !== 'object') return undefined;
             current = current[path.shift()];
         }
         return current;
@@ -93,7 +93,7 @@ class Step1 extends Component {
             }
             this.setState({ sortedPersonList: array.sort(compare) });
         } else {
-            function compare(a, b){
+            function compare(a, b) {
                 if (sortKeyArray.map(f => this.resolve(a, f)).join(" ") < sortKeyArray.map(f => this.resolve(b, f)).join(" ")) {
                     return -1 * order; //order is either -1 or 1
                 }
@@ -117,7 +117,10 @@ class Step1 extends Component {
                 {this.checkIfNoneAreSelected(this.props.selectedPersonList) ? (
                     <SelectedPerson
                         orderedBySelection={this.props.orderedBySelection}
-                        removeMethod={this.props.removeMethod} />
+                        removeMethod={this.props.removeMethod}
+                        removeAllPerson={this.props.removeAllPerson}
+                    />
+
                 ) : (<div />)}
                 {this.state.searchMethod === 0 ? (
                     <SearchResultGroup

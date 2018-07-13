@@ -42,7 +42,7 @@ class ClaimDialog extends React.Component {
         >
           
           <DialogContent className={classes.size}>
-              <ClaimTemplate data={this.props.claim}/>
+              <ClaimTemplate data={this.props.claim} mvaCodes={this.props.mvaCodes}/>
           </DialogContent>
           <DialogActions>
             <Button onClick={this.props.close} color="primary">

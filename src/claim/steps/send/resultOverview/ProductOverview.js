@@ -59,10 +59,11 @@ class ProductOverview extends Component {
                     <Table className={classes.table}>
                         <TableHead>
                             <TableRow>
-                                <TableCell className={classes.fixedHeader} /*onClick={() => this.triggerSort("productName", false)}*/>Produkt</TableCell>
-                                <TableCell className={classes.fixedHeader} /*onClick={() => this.triggerSort("producer", false)}*/>Kode</TableCell>
-                                <TableCell className={classes.fixedHeader} /*onClick={() => this.triggerSort("model", false)}*/>Antall</TableCell>
-                                <TableCell className={classes.fixedHeader} /*onClick={() => this.triggerSort("price", true)}*/>Enhetspris</TableCell>
+                                <TableCell className={classes.fixedHeader}>Produkt</TableCell>
+                                <TableCell className={classes.fixedHeader}>Produktkode</TableCell>
+                                <TableCell className={classes.fixedHeader}>Antall</TableCell>
+                                <TableCell className={classes.fixedHeader}>Nettopris</TableCell>
+                                <TableCell className={classes.fixedHeader}>Nettototal</TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
@@ -73,15 +74,23 @@ class ProductOverview extends Component {
                                         <TableCell>{n.kode}</TableCell>
                                         <TableCell>{this.props.selectedProductList[n.kode]}</TableCell>
                                         <TableCell>{n.pris},-</TableCell>
+                                        <TableCell>{n.pris*this.props.selectedProductList[n.kode]},-</TableCell>
                                     </TableRow>
                                 );
                             })}
-                            <TableRow key="final row">
-                                        <TableCell></TableCell>
-                                        <TableCell colSpan={2}><b>Total pris per elev:</b></TableCell>
-                                        <TableCell><b>{this.props.checkPricePerCustomer(this.props.productOrderedBySelection)},-</b></TableCell>
-                                    </TableRow>
-                        </TableBody>
+                            <TableRow key="almost final row">
+                            <TableCell></TableCell>
+                            <TableCell></TableCell>
+                            <TableCell colSpan={2}><b>Total pris per elev uten mva:</b></TableCell>
+                            <TableCell><b>{this.props.checkPricePerCustomer(this.props.productOrderedBySelection)},-</b></TableCell>
+                        </TableRow>
+                        <TableRow key="final row">
+                            <TableCell></TableCell>
+                            <TableCell></TableCell>
+                            <TableCell colSpan={2}><b>inkl. mva:</b></TableCell>
+                            <TableCell><b>{(this.props.checkPricePerCustomer(this.props.productOrderedBySelection) * (1 + (this.props.mvaCodes[0].kode/100))).toFixed(2)},-</b></TableCell>
+                        </TableRow>
+            </TableBody>
                     </Table>
                 ) : (<div/>)}
             </div>

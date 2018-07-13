@@ -6,6 +6,8 @@ import Paper from '@material-ui/core/Paper';
 import Button from "@material-ui/core/Button";
 import { ExpandMore } from '@material-ui/icons';
 import { ExpandLess } from '@material-ui/icons';
+import GridList from '@material-ui/core/GridList';
+import GridListTile from '@material-ui/core/GridListTile';
 
 const styles = theme => ({
   root: {
@@ -46,8 +48,8 @@ class SelectedPerson extends React.Component {
     if (height !== prevState.height) {
       this.setState({ height });
     }
-    if(height <= 128 && this.state.expanded) {
-      this.setState({expanded: false});
+    if (height <= 128 && this.state.expanded) {
+      this.setState({ expanded: false });
     }
   }
   componentDidMount() {
@@ -61,7 +63,7 @@ class SelectedPerson extends React.Component {
   render() {
     const { classes } = this.props;
 
-  
+
     let expandStyle = {
       maxHeight: 'none'
     }
@@ -71,9 +73,18 @@ class SelectedPerson extends React.Component {
 
     return (
       <Paper>
-        <p style={{fontSize:16, marginTop: 100}}>Valgte personer</p>
-        <Button style={{position: 'relative', right: '5%', top: '5%'}} onClick={() => this.removeAllFromSelectedList()}>Fjern alle</Button>
-        <div className={classes.root} style={this.state.expanded ? (expandStyle): (notExpandedStyle)}
+        <div style={{marginTop: 10}}>
+          <GridList cellHeight={50} className={classes.gridList} cols={6}>
+            <GridListTile key="1" cols={1}>
+            </GridListTile>
+            <GridListTile key="2" cols={4}>
+              <p style={{ fontSize: 16 }}>Valgte personer</p> </GridListTile>
+            <GridListTile key="3" cols={1}>
+              <Button onClick={this.props.removeAllPerson}>Fjern alle</Button>
+            </GridListTile>
+          </GridList>
+        </div>
+        <div className={classes.root} style={this.state.expanded ? (expandStyle) : (notExpandedStyle)}
           id={"chipContainer"}>
           {this.props.orderedBySelection.map(n => {
             let avatar = null;
@@ -89,7 +100,7 @@ class SelectedPerson extends React.Component {
             );
           })}
         </div>
-        {(this.state.height > 128) ? (<Button onClick={() => this.handleExpand()}>{this.state.expanded?(<ExpandLess/>):(<ExpandMore/>)}</Button>) : (<div />)}
+        {(this.state.height > 128) ? (<Button onClick={() => this.handleExpand()}>{this.state.expanded ? (<ExpandLess />) : (<ExpandMore />)}</Button>) : (<div />)}
       </Paper>
     );
   }

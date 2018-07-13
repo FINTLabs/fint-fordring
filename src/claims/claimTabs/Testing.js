@@ -124,7 +124,8 @@ class RowItem extends React.Component {
                 <div className="heading">
                     <div className="col">{this.props.id}</div>
                     <div className="col">{this.props.name}</div>
-                    <div className="col">{this.props.details}</div>             <div className="col">{this.props.state}</div>
+                    <div className="col">{this.props.details}</div>
+                    <div className="col">{this.props.state}</div>
                 </div>
                 <RowContent open={this.state.open} />
                 {this.props.children}

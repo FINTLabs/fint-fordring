@@ -371,7 +371,12 @@ class Main extends Component {
                                 customerList={this.state.customerListNoBasicGroup}
                                 payments={this.state.payments} />}
                             />
-                            <Route path='/betalinger' render={(routeProps) => <Claims {...routeProps} fetchPayments={this.fetchPayments} payments={this.state.payments} />} />
+                            <Route path='/betalinger' render={(routeProps) => <Claims {...routeProps}
+                                fetchPayments={this.fetchPayments}
+                                payments={this.state.payments}
+                                fetchMvaCodes={this.fetchMvaCodes}
+                                mvaCodes={this.state.mvaCodes}
+                            />} />
                             <Route path='/ny-betaling' render={(routeProps) => <Claim {...routeProps}
                                 customerList={this.state.customerList}
                                 productList={this.state.productList}

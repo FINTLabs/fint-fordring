@@ -70,11 +70,10 @@ class TableClaims extends React.Component {
     render() {
 
         const { classes } = this.props;
-        
 
         return (
             <Paper className={classes.root}>
-                <ClaimDialog open={this.state.open} close={this.handleClose} claim={this.state.currentClaim}/>
+                <ClaimDialog open={this.state.open} close={this.handleClose} claim={this.state.currentClaim} mvaCodes={this.props.mvaCodes}/>
                 <Table className={classes.table}>
                     {this.props.searchFilter.length > 0 && this.props.listOfClaims.length > 0 ?(<TableHead>
                     <TableRow>

@@ -93,16 +93,16 @@ class SearchResultProduct extends Component {
                                 (this.state.sort === 1) ? (<svg className={classes.rotate} height="12" width="12" viewBox="3 5 24 24" aria-hidden="true"><path d="M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z"></path></svg>) : (<svg height="12" width="12" viewBox="-3 -5 24 24" aria-hidden="true"><path d="M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z"></path></svg>)
                             ) : (<svg height="12" width="12" viewBox="-3 -5 24 24" aria-hidden="true"></svg>)}
                             </TableCell>
-                            <TableCell className={classes.fixedHeader} onClick={() => this.triggerSort(["kode"], false, "producer")}>Produkt Kode {(this.state.last === "producer") ? (
+                            <TableCell className={classes.fixedHeader} onClick={() => this.triggerSort(["kode"], false, "producer")}>Produktkode {(this.state.last === "producer") ? (
                                 (this.state.sort === 1) ? (<svg className={classes.rotate} height="12" width="12" viewBox="3 5 24 24" aria-hidden="true"><path d="M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z"></path></svg>) : (<svg height="12" width="12" viewBox="-3 -5 24 24" aria-hidden="true"><path d="M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z"></path></svg>)
                             ) : (<svg height="12" width="12" viewBox="-3 -5 24 24" aria-hidden="true"></svg>)}
                             </TableCell>
                             <TableCell className={classes.fixedHeader}>Antall</TableCell>
-                            <TableCell className={classes.fixedHeader} onClick={() => this.triggerSort(["pris"], true, "price")}>Pris {(this.state.last === "price") ? (
+                            <TableCell className={classes.fixedHeader} onClick={() => this.triggerSort(["pris"], true, "price")}>Nettopris {(this.state.last === "price") ? (
                                 (this.state.sort === 1) ? (<svg className={classes.rotate} height="12" width="12" viewBox="3 5 24 24" aria-hidden="true"><path d="M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z"></path></svg>) : (<svg height="12" width="12" viewBox="-3 -5 24 24" aria-hidden="true"><path d="M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z"></path></svg>)
                             ) : (<svg height="12" width="12" viewBox="-3 -5 24 24" aria-hidden="true"></svg>)}
                             </TableCell>
-                            <TableCell className={classes.fixedHeader}>Total</TableCell>
+                            <TableCell className={classes.fixedHeader}>Nettototal</TableCell>
                             <TableCell className={classes.fixedHeader}></TableCell>
                         </TableRow>
                     </TableHead>

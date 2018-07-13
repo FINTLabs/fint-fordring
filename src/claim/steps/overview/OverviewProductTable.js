@@ -37,19 +37,19 @@ class OverviewProductTable extends React.Component {
                     <TableHead>
                         <TableRow>
                             <TableCell>
-                                Varer
+                                Produkt
           </TableCell>
                             <TableCell>
-                                Nettopris
-          </TableCell>
-                            <TableCell>
-                                MVA
+                                Produktkode
           </TableCell>
                             <TableCell>
                                 Antall
           </TableCell>
                             <TableCell>
-                                Nettobeløp
+                                Nettopris
+          </TableCell>
+                            <TableCell>
+                                Nettototal
           </TableCell>
                         </TableRow>
                     </TableHead>
@@ -62,13 +62,13 @@ class OverviewProductTable extends React.Component {
                                         {n.orderLine.navn}
                                     </TableCell>
                                     <TableCell>
-                                        {n.orderLine.pris},-
+                                        {n.orderLine.kode}
                                     </TableCell>
                                     <TableCell>
-                                        25%
-              </TableCell>
-                                    <TableCell>
                                         {n.amount}
+                                    </TableCell>
+                                    <TableCell>
+                                        {n.orderLine.pris},-
                                     </TableCell>
                                     <TableCell>
                                         {n.orderLine.pris * n.amount},-
@@ -76,6 +76,18 @@ class OverviewProductTable extends React.Component {
                                 </TableRow>
                             );
                         })}
+                        <TableRow>
+                            <TableCell>
+                            </TableCell>
+                            <TableCell>
+                            </TableCell>
+                            <TableCell colSpan={2}>
+                                <b>Total uten mva:</b>
+                            </TableCell>
+                            <TableCell>
+                                <b>{data[0].fakturagrunnlag.netto / 100},-</b>
+                            </TableCell>
+                        </TableRow>
                         <TableRow>
                             <TableCell>
                             </TableCell>
