@@ -61,9 +61,9 @@ class ClaimTemplate extends React.Component {
 
     return (
       <div className={classes.root}>
-        <Dialog onClose={this.handleClose} aria-labelledby="simple-dialog-title" open={this.state.open} >
+        <Dialog onClose={this.handleClose} aria-labelledby="simple-dialog-title" open={this.state.open}>
           <DialogContent>
-            <div>
+            <div style={{wordWrap: "break-word", maxWidth: 400}}>
               {this.state.descriptionDialogContent}
             </div>
           </DialogContent>
@@ -104,7 +104,7 @@ class ClaimTemplate extends React.Component {
                       Produkt
                 </TableCell>
                     <TableCell>
-                      Produktkode
+                      Beskrivelse
                 </TableCell>
                     <TableCell>
                       Antall

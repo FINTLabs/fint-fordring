@@ -32,7 +32,7 @@ class Overview extends Component {
                     <div>
                         <GridList cellHeight={50} className={classes.gridList} cols={6}>
                             <GridListTile key="1" cols={2}>
-                                <p>Antall faktura sendt: {this.props.lastSentClaim.length}</p>
+                                <p>Antall fakturaer sendt: {this.props.lastSentClaim.length}</p>
                             </GridListTile>
                             <GridListTile key="2" cols={2}>
                                 <p>Leveringsdato: {new Date(this.props.lastSentClaim[0].fakturagrunnlag.leveringsdato).toLocaleDateString()}</p>
