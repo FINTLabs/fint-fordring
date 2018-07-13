@@ -8,6 +8,7 @@ import TableRow from '@material-ui/core/TableRow';
 import { withStyles } from '@material-ui/core/styles';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
+import Paper from '@material-ui/core/Paper';
 
 const styles = theme => ({
   root: {
@@ -36,22 +37,29 @@ class ClaimTemplate extends React.Component {
     return (
       <div className={classes.root}>
         <GridList cellHeight={140} className={classes.gridList} cols={6}>
+        <Paper style={{margin: 10, width: '30%', paddingLeft: 7}}>
           <GridListTile key="1" cols={2}>
             <p>{data.kunde.navn.etternavn}, {data.kunde.navn.fornavn} {data.kunde.navn.mellomnavn}</p>
             <p>Tlf: {data.kunde.kontaktinformasjon.mobiltelefonnummer | data.kunde.kontaktinformasjon.telefonnummer}</p>
             <p>E-post: {data.kunde.kontaktinformasjon.epostadresse} </p>
           </GridListTile>
+          </Paper>
+          <Paper style={{margin: 10, width: '30%', paddingLeft: 7}}>
           <GridListTile key="2" cols={2}>
             <p>Adresse: {data.kunde.postadresse.adresselinje.join(", ")}</p>
             <p>Postnummer: {data.kunde.postadresse.postnummer}</p>
             <p>Poststed: {data.kunde.postadresse.poststed}</p>
           </GridListTile>
+          </Paper>
+          <Paper style={{margin: 10, width: '30%', paddingLeft: 7}}>
           <GridListTile key="3" cols={2}>
             <p>Fakturanr: {data.numberOrdrenummer}</p>
             <p>Leveringsdato: {new Date(data.fakturagrunnlag.leveringsdato).toLocaleDateString()}</p>
             <p>Forfallsdato: {new Date(data.fakturagrunnlag.forfallsdato).toLocaleDateString()}</p>
           </GridListTile>
+          </Paper>
           <GridListTile key="5" cols={6} style={{ height: "!important" }}>
+            <Paper style={{margin: 10}}>
             <Table>
               <TableHead>
                 <TableRow>
@@ -108,6 +116,7 @@ class ClaimTemplate extends React.Component {
                 </TableRow>
               </TableBody>
             </Table>
+            </Paper>
           </GridListTile>
         </GridList>
         <div className={classes.size}>

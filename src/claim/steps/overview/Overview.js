@@ -5,6 +5,7 @@ import OverviewProductTable from './OverviewProductTable';
 import { Divider } from "@material-ui/core";
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
+import Paper from '@material-ui/core/Paper';
 
 const styles = theme => ({
     root: {
@@ -26,12 +27,12 @@ class Overview extends Component {
         const { classes } = this.props;
 
         return (
-            <div className={classes.root}>
+            <Paper className={classes.root}>
                 {(this.props.lastSentClaim.length !== undefined) ? (
                     <div>
                         <GridList cellHeight={50} className={classes.gridList} cols={6}>
                             <GridListTile key="1" cols={2}>
-                                <p>Ordrenummer: {this.props.lastSentClaim[0].numberOrdrenummer} - {this.props.lastSentClaim[this.props.lastSentClaim.length - 1].numberOrdrenummer}</p>
+                                <p>Antall faktura sendt: {this.props.lastSentClaim.length}</p>
                             </GridListTile>
                             <GridListTile key="2" cols={2}>
                                 <p>Leveringsdato: {new Date(this.props.lastSentClaim[0].fakturagrunnlag.leveringsdato).toLocaleDateString()}</p>
@@ -50,7 +51,7 @@ class Overview extends Component {
                             {this.props.lastSentClaim.message || "error"}
                         </div>
                     )}
-            </div>
+            </Paper>
         );
     }
 }

@@ -66,7 +66,6 @@ class ClaimTabs extends React.Component {
       if (isNaN(val)) {
         if (val.length >= 3) {
 
-          console.log(claimList[2222].status === selectedTab || selectedTab === "alle",claimList[2222].status, selectedTab )
           filteredClaimArr = claimList.filter(betaling =>
             (betaling.status === selectedTab || selectedTab === "alle") &&
             (betaling.kunde.navn.fornavn + " " +

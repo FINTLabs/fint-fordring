@@ -17,7 +17,7 @@ import ChangeProductDialog from './ChangeProductDialog';
 const styles = theme => ({
     root: {
         width: '100%',
-        maxHeight: 250,
+        maxHeight: 270,
         overflowX: 'auto',
         marginTop: theme.spacing.unit,
     },

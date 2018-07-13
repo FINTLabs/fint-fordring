@@ -359,8 +359,10 @@ class Claim extends Component {
                         (this.state.lastSentClaim.length !== 0) ? (
                             <div>
                                 <Overview lastSentClaim={this.state.lastSentClaim} />
-                                <Button onClick={this.handleReset}>Send ny betaling</Button>
-                                <Link to="/betalinger" style={{ textDecoration: 'none' }}><Button>Gå til sendte betalinger</Button></Link>
+                                <div style={{margin: 10}}>
+                                    <Button variant="raised" color="primary" className={classes.backButton} onClick={this.handleReset}>Send ny betaling</Button>
+                                    <Link to="/betalinger" style={{ textDecoration: 'none' }}><Button variant="raised" color="primary">Gå til sendte betalinger</Button></Link>
+                                </div>
                                 <Snackbar
                                     anchorOrigin={{ vertical, horizontal }}
                                     open={open}
@@ -406,7 +408,7 @@ class Claim extends Component {
     }
 
     render() {
-        if (this.props.productList.length > 0 && /*this.props.allGroupsList.length > 0  &&*/ this.props.customerList.length > 0 && JSON.stringify(this.props.selectedProductList) !== "{}") {
+        if (this.props.productList.length > 0 && this.props.allGroupsList.length > 0  && this.props.customerList.length > 0 && JSON.stringify(this.props.selectedProductList) !== "{}") {
             return (this.renderPosts());
         } else {
             return (<LoadingProgress />);

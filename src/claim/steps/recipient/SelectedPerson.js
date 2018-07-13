@@ -71,6 +71,8 @@ class SelectedPerson extends React.Component {
 
     return (
       <Paper>
+        <p style={{fontSize:16, marginTop: 100}}>Valgte personer</p>
+        <Button style={{position: 'relative', right: '5%', top: '5%'}} onClick={() => this.removeAllFromSelectedList()}>Fjern alle</Button>
         <div className={classes.root} style={this.state.expanded ? (expandStyle): (notExpandedStyle)}
           id={"chipContainer"}>
           {this.props.orderedBySelection.map(n => {

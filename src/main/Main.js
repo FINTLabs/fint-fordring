@@ -260,7 +260,7 @@ class Main extends Component {
                 console.log("customerlist")
                 this.setState({ selectedPersonList: JSON.parse(JSON.stringify(initialPersonSelectedState)) });
             });
-            /*GroupApi.fetchAllCustomerGroups(orgId).then(data => {
+            GroupApi.fetchAllCustomerGroups(orgId).then(data => {
                 console.log(data, "alle");
                 if (data === undefined || data.length === undefined) {
                     this.setState({ fetchedValueIsUndefined: true });
@@ -275,7 +275,7 @@ class Main extends Component {
                         this.setState({ allGroupsList: allGroupsListCopy });
                     }
                 }
-            });*/
+            });
         });
     }
 
