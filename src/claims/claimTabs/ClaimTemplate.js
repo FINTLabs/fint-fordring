@@ -76,16 +76,11 @@ class ClaimTemplate extends React.Component {
         <GridList cellHeight={140} className={classes.gridList} cols={6}>
           <Paper style={{ margin: 10, width: '30%', paddingLeft: 7 }}>
             <GridListTile key="1" cols={2}>
-              <p>{data.kunde.navn.etternavn}, {data.kunde.navn.fornavn} {data.kunde.navn.mellomnavn}</p>
-              <p>Tlf: {data.kunde.kontaktinformasjon.mobiltelefonnummer | data.kunde.kontaktinformasjon.telefonnummer}</p>
-              <p>E-post: {data.kunde.kontaktinformasjon.epostadresse} </p>
+              <p>{data.kunde.navn}</p>
             </GridListTile>
           </Paper>
           <Paper style={{ margin: 10, width: '30%', paddingLeft: 7 }}>
             <GridListTile key="2" cols={2}>
-              <p>Adresse: {data.kunde.postadresse.adresselinje.join(", ")}</p>
-              <p>Postnummer: {data.kunde.postadresse.postnummer}</p>
-              <p>Poststed: {data.kunde.postadresse.poststed}</p>
             </GridListTile>
           </Paper>
           <Paper style={{ margin: 10, width: '30%', paddingLeft: 7 }}>

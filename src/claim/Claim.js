@@ -100,7 +100,7 @@ class Claim extends Component {
 
     addMethodPerson = (person) => {
         let updateList = this.state.selectedPersonList;
-        updateList[person["kundenummer"]] = true;
+        updateList[person["kundeid"]] = true;
         this.setState({ selectedPersonList: updateList });
 
         let updateOrderedList = this.state.personOrderedBySelection;
@@ -110,7 +110,7 @@ class Claim extends Component {
 
     removeMethodPerson = (person) => {
         let updateList = this.state.selectedPersonList;
-        updateList[person["kundenummer"]] = false;
+        updateList[person["kundeid"]] = false;
         this.setState({ selectedPersonList: updateList });
 
         let updateOrderedList = this.state.personOrderedBySelection;
@@ -128,18 +128,18 @@ class Claim extends Component {
         let updateOrderedList = this.state.personOrderedBySelection;
         let list = (group.kundeliste) ? (group.kundeliste) : (group);
         for (let i = 0; i < list.length; i++) {
-            if (!updateList[list[i]["kundenummer"]]) {
+            if (!updateList[list[i]["kundeid"]]) {
                 allIsSelected = true;
                 updateOrderedList.push(list[i]);
             }
         }
         if (allIsSelected) {
             for (let i = 0; i < list.length; i++) {
-                updateList[list[i]["kundenummer"]] = true;
+                updateList[list[i]["kundeid"]] = true;
             }
         } else {
             for (let i = 0; i < list.length; i++) {
-                updateList[list[i]["kundenummer"]] = false;
+                updateList[list[i]["kundeid"]] = false;
                 for (let j = 0; j < updateOrderedList.length; j++) {
                     if (JSON.stringify(updateOrderedList[j]) === JSON.stringify(list[i])) {
                         updateOrderedList.splice(j, 1);

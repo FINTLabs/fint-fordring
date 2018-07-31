@@ -96,7 +96,7 @@ class SearchResultGroup extends React.Component {
     howManySelected = (selectedArrayObject, checkArray) => {
         let counter = 0;
         for (let i = 0; i < checkArray.length; i++) {
-            if (selectedArrayObject[checkArray[i].kundenummer] === true) {
+            if (selectedArrayObject[checkArray[i].kundeid] === true) {
                 counter++
             }
         }
@@ -125,16 +125,8 @@ class SearchResultGroup extends React.Component {
                                     <Table className={classes.table}>
                                         <TableHead>
                                             <TableRow>
-                                                <TableCell className={classes.fixedHeader} onClick={() => this.triggerSort(["navn.fornavn", "navn.mellomnavn", "navn.etternavn"], false, n.kundeliste, "fornavn")}>
-                                                    Fornavn {(this.state.last === "fornavn") ? (
-                                                        (this.state.sort === 1) ? (<svg className={classes.rotate} height="12" width="12" viewBox="3 5 24 24" aria-hidden="true">
-                                                            <path d="M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z"></path></svg>) : (
-                                                                <svg height="12" width="12" viewBox="-3 -5 24 24" aria-hidden="true">
-                                                                    <path d="M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z"></path></svg>))
-                                                        : (<svg height="12" width="12" viewBox="-3 -5 24 24" aria-hidden="true"></svg>)}
-                                                </TableCell>
-                                                <TableCell className={classes.fixedHeader} onClick={() => this.triggerSort(["navn.etternavn", "navn.fornavn", "navn.mellomnavn"], false, n.kundeliste, "etternavn")}>
-                                                    Etternavn {(this.state.last === "etternavn") ? (
+                                                <TableCell className={classes.fixedHeader} onClick={() => this.triggerSort(["navn"], false, n.kundeliste, "navn")}>
+                                                    Navn {(this.state.last === "navn") ? (
                                                         (this.state.sort === 1) ? (<svg className={classes.rotate} height="12" width="12" viewBox="3 5 24 24" aria-hidden="true">
                                                             <path d="M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z"></path></svg>) : (
                                                                 <svg height="12" width="12" viewBox="-3 -5 24 24" aria-hidden="true">
@@ -164,12 +156,11 @@ class SearchResultGroup extends React.Component {
                                         <TableBody>
                                             {n.kundeliste.map(m => {
                                                 return (
-                                                    <TableRow key={m.kundenummer}>
-                                                        <TableCell>{m.navn.fornavn} {m.navn.mellomnavn}</TableCell>
-                                                        <TableCell>{m.navn.etternavn}</TableCell>
+                                                    <TableRow key={m.kundeid}>
+                                                        <TableCell>{m.navn}</TableCell>
                                                         <TableCell>{m.klassenavn}</TableCell>
                                                         <TableCell>
-                                                            {!this.props.selectedPersonList[m.kundenummer] ? (
+                                                            {!this.props.selectedPersonList[m.kundeid] ? (
                                                                 <Button variant="fab" className={classes.actionButton} color="secondary" aria-label="add" onClick={() => this.props.addMethod(m)}>
                                                                     <Add className={classes.actionButtonIcon} />
                                                                 </Button>

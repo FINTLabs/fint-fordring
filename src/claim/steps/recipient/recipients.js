@@ -25,7 +25,7 @@ class Step1 extends Component {
         let list = (group.kundeliste) ? (group.kundeliste) : (group);
 
         for (let i = 0; i < list.length; i++) {
-            if (!this.props.selectedPersonList[list[i]["kundenummer"]]) {
+            if (!this.props.selectedPersonList[list[i]["kundeid"]]) {
                 allIsSelected = true;
             }
         }
@@ -53,12 +53,7 @@ class Step1 extends Component {
                 filteredGroupArr = this.props.testDataGruppe.filter(e => e.navn.toLowerCase().indexOf(val) !== -1);
             } else {
                 filteredGroupArr = this.props.testDataPerson.filter(e =>
-                    (e.navn.fornavn + " " +
-                        ((e.navn.mellomnavn) ?
-                            (e.navn.mellomnavn + " ") :
-                            (""))
-                        + e.navn.etternavn
-                        + e.klassenavn).toLowerCase().indexOf(val) !== -1
+                    (e.navn + " " + e.klassenavn).toLowerCase().indexOf(val) !== -1
                 );
             }
             if (filteredGroupArr.length === 0) {

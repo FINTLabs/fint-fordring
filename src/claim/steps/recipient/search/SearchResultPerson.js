@@ -73,16 +73,8 @@ class ResultTablePerson extends Component {
                 <Table className={classes.table}>
                     <TableHead>
                     {(this.props.searchFilter.length > 0)?(<TableRow>
-                            <TableCell className={classes.fixedHeader} onClick={() => this.triggerSort(["navn.fornavn", "navn.mellomnavn", "navn.etternavn"], false, "fornavn")}>
-                                Fornavn {(this.state.last === "fornavn") ? (
-                                    (this.state.sort === 1) ? (<svg className={classes.rotate} height="12" width="12" viewBox="3 5 24 24" aria-hidden="true">
-                                        <path d="M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z"></path></svg>) : (
-                                            <svg height="12" width="12" viewBox="-3 -5 24 24" aria-hidden="true">
-                                                <path d="M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z"></path></svg>)) :
-                                    (<svg height="12" width="12" viewBox="-3 -5 24 24" aria-hidden="true"></svg>)}
-                            </TableCell>
-                            <TableCell className={classes.fixedHeader} onClick={() => this.triggerSort(["navn.etternavn", "navn.fornavn", "navn.mellomnavn"], false, "etternavn")}>
-                                Etternavn {(this.state.last === "etternavn") ? (
+                            <TableCell className={classes.fixedHeader} onClick={() => this.triggerSort(["navn"], false, "navn")}>
+                                Navn {(this.state.last === "navn") ? (
                                     (this.state.sort === 1) ? (<svg className={classes.rotate} height="12" width="12" viewBox="3 5 24 24" aria-hidden="true">
                                         <path d="M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z"></path></svg>) : (
                                             <svg height="12" width="12" viewBox="-3 -5 24 24" aria-hidden="true">
@@ -113,12 +105,11 @@ class ResultTablePerson extends Component {
                         {this.props.testDataPerson.map(n => {
                             if (this.props.searchFilter.indexOf(n) !== -1) {
                                 return (
-                                    <TableRow key={n.kundenummer}>
-                                        <TableCell>{n.navn.fornavn} {n.navn.mellomnavn}</TableCell>
-                                        <TableCell>{n.navn.etternavn}</TableCell>
+                                    <TableRow key={n.kundeid}>
+                                        <TableCell>{n.navn}</TableCell>
                                         <TableCell>{n.klassenavn}</TableCell>
                                         <TableCell>
-                                            {!this.props.selectedPersonList[n.kundenummer] ? (
+                                            {!this.props.selectedPersonList[n.kundeid] ? (
                                                 <Button mini variant="fab" color="secondary" aria-label="add" onClick={() => this.props.addMethod(n)}
                                                     className={classes.actionButton}>
                                                     <Add className={classes.actionButtonIcon} />

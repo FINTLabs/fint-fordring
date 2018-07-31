@@ -71,8 +71,8 @@ class OverviewPersonChip extends React.Component {
           {this.props.lastSentClaim.map(n => {
             return (
               <Chip
-                key={n.kunde.kundenummer}
-                label={n.kunde.navn.fornavn + ((n.kunde.navn.mellomnavn) ? (" " + n.kunde.navn.mellomnavn + " ") : (" ")) + n.kunde.navn.etternavn + ": " + (n.numberOrdrenummer)}
+                key={n.kunde.kundeid}
+                label={n.kunde.navn + ": " + (n.numberOrdrenummer)}
                 className={classes.chip}
               />
             );

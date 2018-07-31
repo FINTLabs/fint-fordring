@@ -91,9 +91,9 @@ class SelectedPerson extends React.Component {
 
             return (
               <Chip
-                key={n.kundenummer}
+                key={n.kundeid}
                 avatar={avatar}
-                label={n.navn.fornavn + ((n.navn.mellomnavn) ? (" " + n.navn.mellomnavn + " ") : (" ")) + n.navn.etternavn + " | " + n.klassenavn}
+                label={n.navn + " | " + n.klassenavn}
                 onDelete={() => this.props.removeMethod(n)}
                 className={classes.chip}
               />

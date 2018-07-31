@@ -93,7 +93,7 @@ class TableClaims extends React.Component {
                                 <path d="M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z"></path></svg>)):
                                 (<svg height="12" width="12" viewBox="-3 -5 24 24" aria-hidden="true"></svg>)}
                             </TableCell>
-                            <TableCell onClick={() => this.props.triggerSort(["kunde.navn.etternavn", "kunde.navn.fornavn", "kunde.navn.mellomnavn"], false, "navn")}>
+                            <TableCell onClick={() => this.props.triggerSort(["kunde.navn"], false, "navn")}>
                                 Navn {(this.props.last === "navn")?(
                                 (this.props.sort === 1) ? (<svg className={classes.rotate} height="12" width="12" viewBox="3 5 24 24" aria-hidden="true">
                                 <path d="M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z"></path></svg>):(
@@ -128,7 +128,7 @@ class TableClaims extends React.Component {
                                 <TableRow key={index} onClick={()=> this.handleClickOpen(n)}>
                                     {this.getStatus(n.status,classes.green,classes.yellow,classes.red)}
                                     <TableCell>{n.numberOrdrenummer}</TableCell>
-                                    <TableCell>{n.kunde.navn.etternavn}, {n.kunde.navn.fornavn} {n.kunde.navn.mellomnavn}</TableCell>
+                                    <TableCell>{n.kunde.navn}</TableCell>
                                     <TableCell>{n.fakturagrunnlag.total}</TableCell>
                                     <TableCell>{n.restBelop}</TableCell>
                                 </TableRow>

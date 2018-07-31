@@ -67,9 +67,7 @@ class ClaimTabs extends React.Component {
         if (val.length >= 3) {
           filteredClaimArr = claimList.filter(betaling =>
             (betaling.status === selectedTab || selectedTab === "alle") &&
-            (betaling.kunde.navn.fornavn + " " +
-              ((betaling.kunde.navn.mellomnavn) ? (betaling.kunde.navn.mellomnavn + " ") : (""))
-              + betaling.kunde.navn.etternavn).toLowerCase().indexOf(val) !== -1
+            betaling.kunde.navn.toLowerCase().indexOf(val) !== -1
           );
           if (filteredClaimArr.length === 0) {
             this.setState({ searchMessage: "Ingen søkeresultater" });

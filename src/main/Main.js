@@ -239,10 +239,10 @@ class Main extends Component {
             }
             this.setState({ basicGroupList: data })
         }).then(data => {
-            let basisGruppeKundenummer = {};
+            let basisGruppekundeid = {};
             for (let i = 0; i < this.state.basicGroupList.length; i++) {
                 for (let j = 0; j < this.state.basicGroupList[i]["kundeliste"].length; j++) {
-                    basisGruppeKundenummer[this.state.basicGroupList[i]["kundeliste"][j]["kundenummer"]] = this.state.basicGroupList[i]["navn"];
+                    basisGruppekundeid[this.state.basicGroupList[i]["kundeliste"][j]] = this.state.basicGroupList[i]["navn"];
                 }
             };
             CustomerApi.fetchCustomers(orgId).then(data => {
@@ -254,8 +254,8 @@ class Main extends Component {
                 this.setState({ customerList: data })
             }).then(() => {
                 this.state.customerList.forEach(person => {
-                    initialPersonSelectedState[person["kundenummer"]] = false;
-                    person["klassenavn"] = (basisGruppeKundenummer[person["kundenummer"]] || "ingen klasse");
+                    initialPersonSelectedState[person["kundeid"]] = false;
+                    person["klassenavn"] = (basisGruppekundeid[person["kundeid"]] || "ingen klasse");
                 });
                 console.log("customerlist")
                 this.setState({ selectedPersonList: JSON.parse(JSON.stringify(initialPersonSelectedState)) });
@@ -271,7 +271,7 @@ class Main extends Component {
                 for (let i = 0; i < this.state.allGroupsList.length; i++) {
                     for (let j = 0; j < this.state.allGroupsList[i]["kundeliste"].length; j++) {
                         let allGroupsListCopy = this.state.allGroupsList;
-                        allGroupsListCopy[i]["kundeliste"][j]["klassenavn"] = basisGruppeKundenummer[this.state.allGroupsList[i]["kundeliste"][j]["kundenummer"]];
+                        allGroupsListCopy[i]["kundeliste"][j]["klassenavn"] = basisGruppekundeid[this.state.allGroupsList[i]["kundeliste"][j]];
                         this.setState({ allGroupsList: allGroupsListCopy });
                     }
                 }
