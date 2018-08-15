@@ -6,6 +6,7 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import { withStyles } from '@material-ui/core/styles';
+import Amount from "../../../common/Amount";
 
 const styles = theme => ({
     root: {
@@ -68,10 +69,10 @@ class OverviewProductTable extends React.Component {
                                         {n.amount}
                                     </TableCell>
                                     <TableCell>
-                                        {n.orderLine.pris},-
+                                        <Amount>{n.orderLine.pris}</Amount>
                                     </TableCell>
                                     <TableCell>
-                                        {n.orderLine.pris * n.amount},-
+                                        <Amount>{n.orderLine.pris * n.amount}</Amount>
                                     </TableCell>
                                 </TableRow>
                             );
@@ -85,7 +86,7 @@ class OverviewProductTable extends React.Component {
                                 <b>Total uten mva:</b>
                             </TableCell>
                             <TableCell>
-                                <b>{data[0].fakturagrunnlag.netto / 100},-</b>
+                                <b><Amount>{data[0].fakturagrunnlag.netto}</Amount></b>
                             </TableCell>
                         </TableRow>
                         <TableRow>
@@ -97,7 +98,7 @@ class OverviewProductTable extends React.Component {
                                 <b>Total inkl. mva:</b>
                             </TableCell>
                             <TableCell>
-                                <b>{data[0].fakturagrunnlag.total / 100},-</b>
+                                <b><Amount>{data[0].fakturagrunnlag.total}</Amount></b>
                             </TableCell>
                         </TableRow>
                     </TableBody>

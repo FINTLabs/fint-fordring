@@ -12,6 +12,7 @@ import { Add } from '@material-ui/icons';
 import { Remove } from '@material-ui/icons';
 import TextField from '@material-ui/core/TextField';
 import ChangeProductDialog from './ChangeProductDialog';
+import Amount from "../../../../common/Amount";
 
 
 const styles = theme => ({
@@ -122,8 +123,8 @@ class SearchResultProduct extends Component {
                                         onBlur={this.handleLeaveInput(n)}
                                         value={this.props.selectedProductList[n.kode]} />
                                     </TableCell>
-                                    <TableCell>{n.pris},-</TableCell>
-                                    <TableCell>{this.props.selectedProductList[n.kode] * n.pris},-</TableCell>
+                                    <TableCell><Amount>{n.pris}</Amount></TableCell>
+                                    <TableCell><Amount>{this.props.selectedProductList[n.kode] * n.pris}</Amount></TableCell>
                                     <TableCell> <div style={{display: 'table-cell'}}>
                                         <ChangeProductDialog changeProduct={this.props.changeProduct} currentProduct={n}/>
                                         </div>

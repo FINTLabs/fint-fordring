@@ -11,6 +11,7 @@ import { CheckCircle } from '@material-ui/icons';
 import { Cancel } from '@material-ui/icons';
 import { RemoveCircle } from '@material-ui/icons';
 import ClaimDialog from './ClaimDialog';
+import Amount from "../../common/Amount";
 
 
 const styles = theme => ({
@@ -129,8 +130,8 @@ class TableClaims extends React.Component {
                                     {this.getStatus(n.status,classes.green,classes.yellow,classes.red)}
                                     <TableCell>{n.numberOrdrenummer}</TableCell>
                                     <TableCell>{n.kunde.navn.etternavn}, {n.kunde.navn.fornavn} {n.kunde.navn.mellomnavn}</TableCell>
-                                    <TableCell>{n.fakturagrunnlag.total}</TableCell>
-                                    <TableCell>{n.restBelop}</TableCell>
+                                    <TableCell><Amount>{n.fakturagrunnlag.total}</Amount></TableCell>
+                                    <TableCell><Amount>{n.restBelop}</Amount></TableCell>
                                 </TableRow>
                             );
                         })}

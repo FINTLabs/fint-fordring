@@ -11,9 +11,9 @@ import GridListTile from '@material-ui/core/GridListTile';
 import Paper from '@material-ui/core/Paper';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
-import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogActions from '@material-ui/core/DialogActions';
 import Button from '@material-ui/core/Button';
+import Amount from "../../common/Amount";
 
 
 const styles = theme => ({
@@ -131,10 +131,10 @@ class ClaimTemplate extends React.Component {
                           {n.antall}
                         </TableCell>
                         <TableCell>
-                          {n.pris},-
+                            <Amount>{n.pris}</Amount>
                         </TableCell>
                         <TableCell>
-                          {n.pris * n.antall},-
+                            <Amount>{n.pris * n.antall}</Amount>
                       </TableCell>
                       </TableRow>
                     );
@@ -149,7 +149,7 @@ class ClaimTemplate extends React.Component {
                       <b>Total uten mva:</b>
                     </TableCell>
                     <TableCell>
-                      <b>{data.fakturagrunnlag.netto / 100},-</b>
+                        <b><Amount>{data.fakturagrunnlag.netto}</Amount></b>
                     </TableCell>
                   </TableRow>
                   <TableRow>
@@ -161,7 +161,7 @@ class ClaimTemplate extends React.Component {
                       <b>Total inkl. mva:</b>
                     </TableCell>
                     <TableCell>
-                      <b>{data.fakturagrunnlag.total / 100},-</b>
+                        <b><Amount>{data.fakturagrunnlag.total}</Amount></b>
                     </TableCell>
                   </TableRow>
                 </TableBody>

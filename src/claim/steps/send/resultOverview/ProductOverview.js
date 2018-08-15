@@ -6,6 +6,7 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
+import Amount from "../../../../common/Amount";
 
 
 const styles = theme => ({
@@ -73,8 +74,8 @@ class ProductOverview extends Component {
                                         <TableCell>{n.navn}</TableCell>
                                         <TableCell>{n.kode}</TableCell>
                                         <TableCell>{this.props.selectedProductList[n.kode]}</TableCell>
-                                        <TableCell>{n.pris},-</TableCell>
-                                        <TableCell>{n.pris*this.props.selectedProductList[n.kode]},-</TableCell>
+                                        <TableCell><Amount>{n.pris}</Amount></TableCell>
+                                        <TableCell><Amount>{n.pris*this.props.selectedProductList[n.kode]}</Amount></TableCell>
                                     </TableRow>
                                 );
                             })}
@@ -82,13 +83,13 @@ class ProductOverview extends Component {
                             <TableCell></TableCell>
                             <TableCell></TableCell>
                             <TableCell colSpan={2}><b>Total pris per elev uten mva:</b></TableCell>
-                            <TableCell><b>{this.props.checkPricePerCustomer(this.props.productOrderedBySelection)},-</b></TableCell>
+                                <TableCell><b><Amount>{this.props.checkPricePerCustomer(this.props.productOrderedBySelection)}</Amount></b></TableCell>
                         </TableRow>
                         <TableRow key="final row">
                             <TableCell></TableCell>
                             <TableCell></TableCell>
                             <TableCell colSpan={2}><b>inkl. mva:</b></TableCell>
-                            <TableCell><b>{(this.props.checkPricePerCustomer(this.props.productOrderedBySelection) * (1 + (this.props.mvaCodes[0].kode/100))).toFixed(2)},-</b></TableCell>
+                            <TableCell><b><Amount>{(this.props.checkPricePerCustomer(this.props.productOrderedBySelection) * (1 + (this.props.mvaCodes[0].kode/100)))}</Amount></b></TableCell>
                         </TableRow>
             </TableBody>
                     </Table>
