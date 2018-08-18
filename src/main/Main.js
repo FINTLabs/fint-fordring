@@ -71,8 +71,8 @@ let initialProductSelectedState = {};
 
 class Main extends Component {
 
-    constructor() {
-        super();
+    constructor(props, context) {
+        super(props, context);
         this.state = {
 
             //states for personer

@@ -2,7 +2,7 @@
   "name": "fint-fording",
   "version": "0.1.0",
   "private": true,
-  "proxy": "https://betaling-beta.felleskomponent.no/",
+  "proxy": "http://localhost:8080",
   "dependencies": {
     "@material-ui/core": "^1.2.1",
     "@material-ui/icons": "^1.1.0",
