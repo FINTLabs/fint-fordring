@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
+import {withStyles} from '@material-ui/core/styles';
 import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
@@ -9,11 +9,10 @@ import Step1 from "./steps/recipient/recipients";
 import Step2 from "./steps/order/orders";
 import Step3 from "./steps/send/send";
 import Snackbar from '@material-ui/core/Snackbar';
-import { Prompt } from "react-router-dom";
+import {Link, Prompt} from "react-router-dom";
 import PaymentApi from '../api/PaymentApi';
 import LoadingProgress from '../common/LoadingProgress';
 import Overview from './steps/overview/Overview';
-import { Link } from "react-router-dom";
 
 const styles = theme => ({
     root: {
@@ -77,7 +76,7 @@ class Claim extends Component {
         if (this.props.employers.length === 0) {
             this.props.fetchEmployers();
         }
-        if(this.props.mvaCodes.length === 0) {
+        if (this.props.mvaCodes.length === 0) {
             this.props.fetchMvaCodes();
         }
         if (this.props.productList.length === 0) {
@@ -101,17 +100,17 @@ class Claim extends Component {
     addMethodPerson = (person) => {
         let updateList = this.state.selectedPersonList;
         updateList[person["kundenummer"]] = true;
-        this.setState({ selectedPersonList: updateList });
+        this.setState({selectedPersonList: updateList});
 
         let updateOrderedList = this.state.personOrderedBySelection;
         updateOrderedList.push(person);
-        this.setState({ personOrderedBySelection: updateOrderedList });
+        this.setState({personOrderedBySelection: updateOrderedList});
     }
 
     removeMethodPerson = (person) => {
         let updateList = this.state.selectedPersonList;
         updateList[person["kundenummer"]] = false;
-        this.setState({ selectedPersonList: updateList });
+        this.setState({selectedPersonList: updateList});
 
         let updateOrderedList = this.state.personOrderedBySelection;
         for (let i = 0; i < updateOrderedList.length; i++) {
@@ -119,7 +118,7 @@ class Claim extends Component {
                 updateOrderedList.splice(i, 1);
             }
         }
-        this.setState({ personOrderedBySelection: updateOrderedList });
+        this.setState({personOrderedBySelection: updateOrderedList});
     };
 
     addAllPerson = (group) => {
@@ -147,13 +146,13 @@ class Claim extends Component {
                 }
             }
         }
-        this.setState({ selectedPersonList: updateList });
-        this.setState({ personOrderedBySelection: updateOrderedList });
+        this.setState({selectedPersonList: updateList});
+        this.setState({personOrderedBySelection: updateOrderedList});
     }
 
     removeAllPerson = () => {
         let obj = this.state.selectedPersonList;
-        for(let o in obj) {
+        for (let o in obj) {
             obj[o] = false;
         }
         this.setState({
@@ -165,17 +164,17 @@ class Claim extends Component {
     addMethodProduct = (product) => {
         let updateList = this.state.selectedProductList;
         updateList[product["kode"]] = 1;
-        this.setState({ selectedProductList: updateList });
+        this.setState({selectedProductList: updateList});
 
         let updateOrderedList = this.state.productOrderedBySelection;
         updateOrderedList.push(product);
-        this.setState({ productOrderedBySelection: updateOrderedList });
+        this.setState({productOrderedBySelection: updateOrderedList});
     }
 
     removeMethodProduct = (product) => {
         let updateList = this.state.selectedProductList;
         updateList[product["kode"]] = 0;
-        this.setState({ selectedProductList: updateList });
+        this.setState({selectedProductList: updateList});
 
         let updateOrderedList = this.state.productOrderedBySelection;
         for (let i = 0; i < updateOrderedList.length; i++) {
@@ -183,11 +182,11 @@ class Claim extends Component {
                 updateOrderedList.splice(i, 1);
             }
         }
-        this.setState({ productOrderedBySelection: updateOrderedList });
+        this.setState({productOrderedBySelection: updateOrderedList});
     }
 
     handleNext = () => {
-        const { activeStep } = this.state;
+        const {activeStep} = this.state;
         this.setState({
             activeStep: activeStep + 1,
         });
@@ -195,7 +194,7 @@ class Claim extends Component {
 
 
     handleBack = () => {
-        const { activeStep } = this.state;
+        const {activeStep} = this.state;
         this.setState({
             activeStep: activeStep - 1,
         });
@@ -208,11 +207,11 @@ class Claim extends Component {
     };
 
     handleClose = () => {
-        this.setState({ open: false });
+        this.setState({open: false});
     };
 
     handleFinish = state => () => {
-        this.setState({ open: true, ...state });
+        this.setState({open: true, ...state});
         this.handleNext();
         this.sendClaim();
         //reinitialize state as it is to begin with
@@ -226,7 +225,7 @@ class Claim extends Component {
     };
 
     handleCloseSnack = () => {
-        this.setState({ open: false });
+        this.setState({open: false});
     }
 
     sendClaim = () => {
@@ -267,7 +266,7 @@ class Claim extends Component {
             paymentCopy.forEach(payment => {
                 payment["numberOrdrenummer"] = Number(payment["ordrenummer"].substr(indexOfFirstDigit));
             });
-            this.setState({ lastSentClaim: data }, () => {
+            this.setState({lastSentClaim: data}, () => {
                 console.log(data);
             });
         });
@@ -279,7 +278,7 @@ class Claim extends Component {
         if (targetValue <= 0 && targetValue !== "") {
             this.removeMethodProduct(product);
         }
-        this.setState({ selectedProductList: updateList });
+        this.setState({selectedProductList: updateList});
     }
 
     setInputAmountProductToNumber = (product) => {
@@ -288,11 +287,11 @@ class Claim extends Component {
             this.removeMethodProduct(product);
         }
         updateList[product.kode] = Number(updateList[product.kode]);
-        this.setState({ selectedProductList: updateList });
+        this.setState({selectedProductList: updateList});
     }
 
     getSelectedDate = (date) => {
-        this.setState({ selectedDate: date }, () => {
+        this.setState({selectedDate: date}, () => {
             console.log(this.state.selectedDate);
         });
     }
@@ -345,10 +344,10 @@ class Claim extends Component {
     }
 
     renderPosts() {
-        const { classes } = this.props;
+        const {classes} = this.props;
         const steps = getSteps();
-        const { activeStep } = this.state;
-        const { vertical, horizontal, open } = this.state;
+        const {activeStep} = this.state;
+        const {vertical, horizontal, open} = this.state;
 
         return (
             <div className={classes.root}>
@@ -358,7 +357,7 @@ class Claim extends Component {
                         location.pathname !== this.props.location.pathname ? ("Hvis du forlater denne siden vil alle usendte endringer slettes") : (true)
                     }
                 />
-                <Stepper activeStep={activeStep} >
+                <Stepper activeStep={activeStep}>
                     {steps.map(label => {
                         return (
                             <Step key={label}>
@@ -371,13 +370,16 @@ class Claim extends Component {
                     {this.state.activeStep === steps.length ? (
                         (this.state.lastSentClaim.length !== 0) ? (
                             <div>
-                                <Overview lastSentClaim={this.state.lastSentClaim} />
+                                <Overview lastSentClaim={this.state.lastSentClaim}/>
                                 <div style={{margin: 10}}>
-                                    <Button variant="raised" color="primary" className={classes.backButton} onClick={this.handleReset}>Send ny betaling</Button>
-                                    <Link to="/betalinger" style={{ textDecoration: 'none' }}><Button variant="raised" color="primary">Gå til sendte betalinger</Button></Link>
+                                    <Button variant="raised" color="primary" className={classes.backButton}
+                                            onClick={this.handleReset}>Send ny betaling</Button>
+                                    <Link to="/betalinger" style={{textDecoration: 'none'}}><Button variant="raised"
+                                                                                                    color="primary">Gå
+                                        til sendte betalinger</Button></Link>
                                 </div>
                                 <Snackbar
-                                    anchorOrigin={{ vertical, horizontal }}
+                                    anchorOrigin={{vertical, horizontal}}
                                     open={open}
                                     autoHideDuration={6000}
                                     onClose={this.handleCloseSnack}
@@ -388,49 +390,52 @@ class Claim extends Component {
                                 />
                             </div>
                         ) : (
-                                <LoadingProgress />)
+                            <LoadingProgress/>)
                     ) : (
+                        <div>
+                            <div className={classes.instructions}>{this.getStepContent(activeStep)}</div>
+                            {/*changed from "Typography tag to div tag to avoid warnings in console, not sure if it breaks something*/}
                             <div>
-                                <div className={classes.instructions}>{this.getStepContent(activeStep)}</div>
-                                {/*changed from "Typography tag to div tag to avoid warnings in console, not sure if it breaks something*/}
-                                <div>
-                                    <Button
-                                        disabled={activeStep === 0}
-                                        onClick={this.handleBack}
-                                        className={classes.backButton}
-                                    >
-                                        Tilbake
+                                <Button
+                                    disabled={activeStep === 0}
+                                    onClick={this.handleBack}
+                                    className={classes.backButton}
+                                >
+                                    Tilbake
                                 </Button>
-                                    {activeStep === steps.length - 1 ? (
-                                        <Button disabled={!(this.state.personOrderedBySelection.length > 0 && this.state.productOrderedBySelection.length > 0 && this.state.selectedDate !== "")} variant="raised" color="primary" onClick={this.handleFinish({ vertical: 'bottom', horizontal: 'right' })}>
-                                            Send
-                                        </Button>) : (
-                                            <Button variant="raised" color="primary" onClick={this.handleNext}>
-                                                Neste
+                                {activeStep === steps.length - 1 ? (
+                                    <Button
+                                        disabled={!(this.state.personOrderedBySelection.length > 0 && this.state.productOrderedBySelection.length > 0 && this.state.selectedDate !== "")}
+                                        variant="raised" color="primary"
+                                        onClick={this.handleFinish({vertical: 'bottom', horizontal: 'right'})}>
+                                        Send
+                                    </Button>) : (
+                                    <Button variant="raised" color="primary" onClick={this.handleNext}>
+                                        Neste
                                     </Button>)}
-                                    {/*<Button variant="raised" color="primary" onClick={this.handleNext}>
+                                {/*<Button variant="raised" color="primary" onClick={this.handleNext}>
                                         {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
                                     </Button>*/}
 
-                                </div>
                             </div>
-                        )}
+                        </div>
+                    )}
                 </div>
             </div>
         );
     }
 
     render() {
-        if (this.props.productList.length > 0 && 
-            this.props.allGroupsList.length > 0  && 
+        if (this.props.productList.length > 0 &&
+            this.props.allGroupsList.length > 0 &&
             this.props.customerList.length > 0 &&
-            this.props.mvaCodes.length > 0 && 
+            this.props.mvaCodes.length > 0 &&
             JSON.stringify(this.props.selectedProductList) !== "{}"
-        
+
         ) {
             return (this.renderPosts());
         } else {
-            return (<LoadingProgress />);
+            return (<LoadingProgress/>);
         }
 
     }
