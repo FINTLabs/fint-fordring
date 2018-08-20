@@ -29,7 +29,6 @@ class SearchBox extends Component {
     }
 
     updateSearch = (event) => {
-        console.log(this.props.selectedTab);
         this.setState({ search: event.target.value }, () => {
             if (this.state.search === "") {
                 this.props.getSearchInput(this.state.search.toLowerCase(), this.props.listOfClaims, this.props.selectedTab);

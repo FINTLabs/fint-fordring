@@ -69,7 +69,6 @@ class ChangeProductDialog extends React.Component {
 
     handleNumberFieldChange = (event) => {
         if (Number(event.target.value) >= 0) {
-            console.log(event.target.value);
             this.setState({ priceFieldContent: event.target.value });
         } else {
             this.setState({ priceFieldContent: "0" });

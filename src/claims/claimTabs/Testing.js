@@ -106,7 +106,6 @@ class RowItem extends React.Component {
     }
 
     toggleRow(e) {
-        console.log('toggleRow');
 
         this.setState({ open: !this.state.open });
     }
@@ -179,7 +178,6 @@ class Table extends React.Component {
     //   handleScroll(e) {
 
     //     let scrollTop = e.srcElement.body.scrollTop;
-    //     console.log('scroll...', scrollTop, this.state.headerOffset);
 
 
 
@@ -195,7 +193,6 @@ class Table extends React.Component {
         
 
 
-        console.log('store:', store.headerOffset);
 
 
         // this.setState({headerOffset:ReactDOM.findDOMNode(this.refs.header)});
@@ -256,9 +253,6 @@ class App extends React.Component {
         //HOW DO WE GET THE REFS HERE FOR THE ITEM OFFSET?
 
         //itemTranslate = Math.min(0, scrollTop/3 - 60);
-        console.log('app scroll...', scrollTop, store.headerOffset);
-        // console.log('reactdom: ', ReactDOM.findDOMNode(this.refs.header), this.refs);
-        // console.log(ReactDOM.findDOMNode(this.refs.header));
 
         if (scrollTop >= store.headerOffset) {
             this.setState({
@@ -272,11 +266,9 @@ class App extends React.Component {
     }
 
     componentDidMount() {
-        console.log('app did mount');
         window.addEventListener('scroll', this.handleScroll.bind(this));
 
         //does not work from here...
-        // console.log('reactdom: ', ReactDOM.findDOMNode(this.refs.header), this.refs);
         // this.setState({tableHeader:ReactDOM.findDOMNode(this.refs.header)});
     }
 

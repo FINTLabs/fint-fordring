@@ -5,23 +5,21 @@ import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
 import Button from '@material-ui/core/Button';
-import Step1 from "./steps/recipient/recipients";
+import Recipients from "./steps/recipient/Recipients";
 import Step2 from "./steps/order/orders";
 import Step3 from "./steps/send/send";
 import Snackbar from '@material-ui/core/Snackbar';
 import {Link, Prompt} from "react-router-dom";
-import PaymentApi from '../api/PaymentApi';
+import PaymentApi from '../data/api/PaymentApi';
 import LoadingProgress from '../common/LoadingProgress';
 import Overview from './steps/overview/Overview';
+import ClaimNavigation from "./ClaimNavigation";
 
 const styles = theme => ({
     root: {
         width: '90%',
         marginTop: '65px',
         minWidth: 350
-    },
-    backButton: {
-        marginRight: theme.spacing.unit,
     },
     instructions: {
         marginTop: theme.spacing.unit,
@@ -79,9 +77,11 @@ class Claim extends Component {
         if (this.props.mvaCodes.length === 0) {
             this.props.fetchMvaCodes();
         }
+        /*
         if (this.props.productList.length === 0) {
             this.props.fetchOrderLines();
         }
+        */
         if (this.props.customerList.length === 0 || this.props.allGroupsList.length === 0) {
             this.props.fetchCustomerGroupsFromBasisgruppe().then(() => {
                 this.setState({
@@ -248,7 +248,6 @@ class Claim extends Component {
             listOfProductPackage.push(obj);
         }
 
-        console.log(listOfProductPackage, this.state.personOrderedBySelection);
 
         PaymentApi.setPayment(
             orgId,
@@ -267,7 +266,6 @@ class Claim extends Component {
                 payment["numberOrdrenummer"] = Number(payment["ordrenummer"].substr(indexOfFirstDigit));
             });
             this.setState({lastSentClaim: data}, () => {
-                console.log(data);
             });
         });
     }
@@ -291,15 +289,13 @@ class Claim extends Component {
     }
 
     getSelectedDate = (date) => {
-        this.setState({selectedDate: date}, () => {
-            console.log(this.state.selectedDate);
-        });
+        this.setState({selectedDate: date});
     }
 
     getStepContent = (stepIndex) => {
         switch (stepIndex) {
             case 0:
-                return <Step1
+                return <Recipients
                     //data
                     orderedBySelection={this.state.personOrderedBySelection}
                     selectedPersonList={this.state.selectedPersonList}
@@ -392,33 +388,18 @@ class Claim extends Component {
                         ) : (
                             <LoadingProgress/>)
                     ) : (
-                        <div>
+                        <React.Fragment>
                             <div className={classes.instructions}>{this.getStepContent(activeStep)}</div>
-                            {/*changed from "Typography tag to div tag to avoid warnings in console, not sure if it breaks something*/}
-                            <div>
-                                <Button
-                                    disabled={activeStep === 0}
-                                    onClick={this.handleBack}
-                                    className={classes.backButton}
-                                >
-                                    Tilbake
-                                </Button>
-                                {activeStep === steps.length - 1 ? (
-                                    <Button
-                                        disabled={!(this.state.personOrderedBySelection.length > 0 && this.state.productOrderedBySelection.length > 0 && this.state.selectedDate !== "")}
-                                        variant="raised" color="primary"
-                                        onClick={this.handleFinish({vertical: 'bottom', horizontal: 'right'})}>
-                                        Send
-                                    </Button>) : (
-                                    <Button variant="raised" color="primary" onClick={this.handleNext}>
-                                        Neste
-                                    </Button>)}
-                                {/*<Button variant="raised" color="primary" onClick={this.handleNext}>
-                                        {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
-                                    </Button>*/}
-
-                            </div>
-                        </div>
+                            <ClaimNavigation
+                                activeStep={activeStep}
+                                handleFinish={this.handleFinish}
+                                handleNext={this.handleNext}
+                                personOrderedBySelection={this.props.personOrderedBySelection}
+                                productOrderedBySelection={this.props.productOrderedBySelection}
+                                selectedDate={this.state.selectedDate}
+                                steps={steps}
+                            />
+                        </React.Fragment>
                     )}
                 </div>
             </div>

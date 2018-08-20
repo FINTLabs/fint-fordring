@@ -53,7 +53,6 @@ class ResultTablePerson extends Component {
     }
 
     triggerSort = (val, isNumber, sortKey) => {
-        console.log(this.state);
         this.props.sortMethod(
             this.props.testDataPerson,
             (this.state.sort === -1 && this.state.last === sortKey) ?

@@ -1,19 +1,18 @@
 class GroupApi {
-    static fetchAllCustomerGroups(orgId) {
+    static fetchAllCustomerGroups() {
         const url = '/api/group';
         return fetch(url, {
             method: "GET",
-            headers: new Headers({ 'x-org-id': orgId })
-        }).then(result => {
-            return result.json();
-        }).catch(error => console.log(error));
+        })
+            .then(result => Promise.all([result, result.json()]))
+            .catch(error => console.log(error));
     }
 
     static fetchCustomerGroupsFromBasisgruppe(orgId) {
         const url = '/api/group/basisgruppe';
         return fetch(url, {
             method: "GET",
-            headers: new Headers({ 'x-org-id': orgId })
+            headers: new Headers({'x-org-id': orgId})
         }).then(result => {
             return result.json();
         }).catch(error => console.log(error));
@@ -23,7 +22,7 @@ class GroupApi {
         const url = '/api/group/kontaktlarergruppe';
         return fetch(url, {
             method: "GET",
-            headers: new Headers({ 'x-org-id': orgId })
+            headers: new Headers({'x-org-id': orgId})
         }).then(result => {
             return result.json();
         }).catch(error => console.log(error));
@@ -33,7 +32,7 @@ class GroupApi {
         const url = '/api/group/undervisningsgruppe';
         return fetch(url, {
             method: "GET",
-            headers: new Headers({ 'x-org-id': orgId })
+            headers: new Headers({'x-org-id': orgId})
         }).then(result => {
             return result.json();
         }).catch(error => console.log(error));

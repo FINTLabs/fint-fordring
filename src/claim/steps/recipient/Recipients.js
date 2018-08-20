@@ -8,7 +8,7 @@ import SearchResultGroup from "./search/SearchResultGroup";
 
 const styles = theme => ({});
 
-class Step1 extends Component {
+class Recipients extends Component {
 
     constructor(props) {
         super(props);
@@ -151,4 +151,4 @@ class Step1 extends Component {
     }
 }
 
-export default withStyles(styles)(Step1);
+export default withStyles(styles)(Recipients);

@@ -4,9 +4,9 @@ class MeApi {
         return fetch(url, {
             method: "GET",
             headers: new Headers({'x-org-id': orgId})
-        }).then(result => {
-            return result.json();
-        }).catch(error => console.log(error));
+        })
+            .then(result => Promise.all([result, result.json()]))
+            .catch(error => console.log(error));
     }
 }
 

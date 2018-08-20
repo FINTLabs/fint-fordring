@@ -27,15 +27,16 @@ class Claims extends Component {
     }
 
     componentDidMount() {
+        /*
         this.props.fetchPayments().then(() => {
-            console.log("fetched again");
         });
         if (this.props.mvaCodes === undefined || this.props.mvaCodes.length === 0) {
             this.props.fetchMvaCodes();
         }
+        */
     }
 
-    renderPosts() {
+    renderPayments() {
         const { classes } = this.props;
         return (
             <div className={classes.root}>
@@ -45,8 +46,8 @@ class Claims extends Component {
     }
 
     render() {
-        if (this.props.payments.length > 0 && this.props.mvaCodes !== undefined && this.props.mvaCodes.length > 0) {
-            return (this.renderPosts());
+        if (this.props.payments && this.props.mvaCodes) {
+            return (this.renderPayments());
         } else {
             return (<LoadingProgress />);
         }

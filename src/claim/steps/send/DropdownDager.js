@@ -16,7 +16,6 @@ const styles = theme => ({
 class DropdownDager extends React.Component {
 
   handleSelectChange = (event) => {
-    console.log(event.target.value)
     this.props.getSelectedDate(event.target.value)
 }
 

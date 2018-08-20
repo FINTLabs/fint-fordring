@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import {withStyles} from "@material-ui/core";
 import PropTypes from "prop-types";
-import LoadingProgress from '../common/LoadingProgress';
 import DashboardCards from "./DashboardCards";
 
 
@@ -15,32 +14,26 @@ const styles = theme => ({
 
 class Dashboard extends Component {
 
-    componentDidMount() {
-        this.props.fetchPayments();
-        this.props.fetchCustomers();
-    }
-
     render() {
-        const {payments, customerList} = this.props;
-        if (payments.length >= 0 && customerList.length >= 0) {
-            const {classes} = this.props;
-            return (
-                <div className={classes.root}>
-                    <DashboardCards customerCount={customerList.length} paymentCount={payments.length}/>
-                </div>
-            );
-        } else {
-            return (<LoadingProgress/>);
-        }
+        const {paymentCount, customerCount} = this.props;
+        const {classes} = this.props;
+        return (
+            <div className={classes.root}>
+                <DashboardCards customerCount={customerCount} paymentCount={paymentCount}/>
+            </div>
+        );
     }
 }
 
-Dashboard.propTypes = {
-  classes: PropTypes.object.isRequired,
-  customerList: PropTypes.array.isRequired,
-  fetchCustomers: PropTypes.func.isRequired,
-  fetchPayments: PropTypes.func.isRequired,
-  payments: PropTypes.array.isRequired
+Dashboard.defaultProps = {
+    customerCount: 0,
+    paymentCount: 0
 };
 
+Dashboard.propTypes = {
+    classes: PropTypes.object.isRequired,
+    customerCount: PropTypes.number.isRequired,
+    paymentCount: PropTypes.number.isRequired
+};
 export default withStyles(styles)(Dashboard);
+

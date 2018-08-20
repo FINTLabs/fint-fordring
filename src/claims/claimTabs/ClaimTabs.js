@@ -61,7 +61,8 @@ class ClaimTabs extends React.Component {
 
   getSearchInput = (val, claimList, selectedTab) => {
     let filteredClaimArr = [];
-    this.setState({ searchMessage: "" });
+      console.log("filteredClaimArr", filteredClaimArr);
+      this.setState({ searchMessage: "" });
     if (val !== "") {
       if (isNaN(val)) {
         if (val.length >= 3) {
@@ -71,6 +72,7 @@ class ClaimTabs extends React.Component {
               ((betaling.kunde.navn.mellomnavn) ? (betaling.kunde.navn.mellomnavn + " ") : (""))
               + betaling.kunde.navn.etternavn).toLowerCase().indexOf(val) !== -1
           );
+          console.log("filteredClaimArr", filteredClaimArr);
           if (filteredClaimArr.length === 0) {
             this.setState({ searchMessage: "Ingen søkeresultater" });
           }
@@ -78,10 +80,15 @@ class ClaimTabs extends React.Component {
           this.setState({ searchMessage: "Søkeordet for navn må minst være 3 bokstaver" });
         }
       } else {
-        filteredClaimArr = claimList.filter(betaling =>
-          (betaling.status === selectedTab || selectedTab === "alle") &&
-          betaling.numberOrdrenummer === Number(val));
-        if (filteredClaimArr.length === 0) {
+        filteredClaimArr = claimList.filter(betaling => {
+          console.log("betaling", betaling.ordrenummer);
+          return (betaling.status === selectedTab || selectedTab === "alle")
+            && betaling.ordrenummer === `fakeno${val}`;
+      });
+          console.log("claimList", claimList);
+          console.log("filteredClaimArr", filteredClaimArr);
+
+          if (filteredClaimArr.length === 0) {
           this.setState({ searchMessage: "Ingen søkeresultater" });
         }
       }

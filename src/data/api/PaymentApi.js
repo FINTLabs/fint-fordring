@@ -1,18 +1,13 @@
 class PaymentApi {
 
-    static fetchPayments(orgId) {
+    static fetchPayments() {
         const url = '/api/payment';
         return fetch(url, {
             method: "GET",
             credentials: 'same-origin',
-            //headers: new Headers({'x-org-id': orgId})
-        }).then(result => {
-            return result.json();
-        }).catch(
-            error => {
-                console.log(error)
-            }
-        );
+        })
+            .then(result => Promise.all([result, result.json()]))
+            .catch(error => console.log(error));
     }
 
     static getPaymentsByOrderNumber(orgId, number) {

@@ -55,7 +55,6 @@ class OverviewProductTable extends React.Component {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {console.log(data)}
                         {data[0].varelinjer.map((n, index) => {
                             return (
                                 <TableRow key={index}>
