@@ -10,6 +10,7 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import IconButton from '@material-ui/core/IconButton';
 import { Settings } from '@material-ui/icons';
+import Amount from "../../../../common/Amount";
 
 const styles = theme => ({
     settingsButton: {
@@ -60,7 +61,7 @@ class ChangeProductDialog extends React.Component {
         let price = !isNaN(document.getElementById("price").valueAsNumber) ? (document.getElementById("price").valueAsNumber) : (false);
 
         //changeProduct ligger i Main
-        this.props.changeProduct(this.props.currentProduct, description, price);
+        this.props.changeProduct(this.props.currentProduct, description, price*100);
     };
 
     handleTextFieldChange = (event) => {
@@ -111,7 +112,7 @@ class ChangeProductDialog extends React.Component {
                             type="number"
                             className={classes.textFieldNumber}
                             value={this.state.priceFieldContent}
-                            placeholder={"" + this.props.currentProduct.pris}
+                            placeholder={Amount.currency(this.props.currentProduct.pris)}
                             onChange={this.handleNumberFieldChange}
                         />
                     </DialogContent>

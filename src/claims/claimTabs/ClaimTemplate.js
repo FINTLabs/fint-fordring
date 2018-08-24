@@ -76,7 +76,8 @@ class ClaimTemplate extends React.Component {
         <GridList cellHeight={140} className={classes.gridList} cols={6}>
           <Paper style={{ margin: 10, width: '30%', paddingLeft: 7 }}>
             <GridListTile key="1" cols={2}>
-              <p>{data.kunde.navn.etternavn}, {data.kunde.navn.fornavn} {data.kunde.navn.mellomnavn}</p>
+              <p>Ordrenummer: {data.ordrenummer}</p>
+              <p>{data.kunde.fulltNavn}</p>
               <p>Tlf: {data.kunde.kontaktinformasjon.mobiltelefonnummer | data.kunde.kontaktinformasjon.telefonnummer}</p>
               <p>E-post: {data.kunde.kontaktinformasjon.epostadresse} </p>
             </GridListTile>
@@ -90,7 +91,7 @@ class ClaimTemplate extends React.Component {
           </Paper>
           <Paper style={{ margin: 10, width: '30%', paddingLeft: 7 }}>
             <GridListTile key="3" cols={2}>
-              <p>Fakturanr: {data.numberOrdrenummer}</p>
+              <p>Fakturanummer: {data.fakturanummer}</p>
               <p>Leveringsdato: {new Date(data.fakturagrunnlag.leveringsdato).toLocaleDateString()}</p>
               <p>Forfallsdato: {new Date(data.fakturagrunnlag.forfallsdato).toLocaleDateString()}</p>
             </GridListTile>
@@ -164,6 +165,18 @@ class ClaimTemplate extends React.Component {
                         <b><Amount>{data.fakturagrunnlag.total}</Amount></b>
                     </TableCell>
                   </TableRow>
+                    <TableRow>
+                        <TableCell>
+                        </TableCell>
+                        <TableCell>
+                        </TableCell>
+                        <TableCell colSpan={2}>
+                            <b>Gjenstående:</b>
+                        </TableCell>
+                        <TableCell>
+                            <b><Amount>{data.restBelop}</Amount></b>
+                        </TableCell>
+                    </TableRow>
                 </TableBody>
               </Table>
             </Paper>

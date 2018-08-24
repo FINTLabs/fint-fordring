@@ -80,7 +80,7 @@ class ClaimTabs extends React.Component {
       } else {
         filteredClaimArr = claimList.filter(betaling =>
           (betaling.status === selectedTab || selectedTab === "alle") &&
-          betaling.numberOrdrenummer === Number(val));
+          betaling.ordrenummer === Number(val));
         if (filteredClaimArr.length === 0) {
           this.setState({ searchMessage: "Ingen søkeresultater" });
         }

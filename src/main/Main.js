@@ -114,13 +114,7 @@ class Main extends Component {
             }
             if (data.length !== this.state.payments.length) {
                 let paymentCopy = data;
-                //tenker at alle fakturaer har samme orgId
-                let orgIdString = paymentCopy[0].ordrenummer;
-                let firstDigit = orgIdString.match(/\d/);
-                let indexOfFirstDigit = orgIdString.indexOf(firstDigit);
                 paymentCopy.forEach(payment => {
-                    payment["numberOrdrenummer"] = Number(payment["ordrenummer"].substr(indexOfFirstDigit));
-
                     if (Number(payment.restBelop) === 0) {
                         payment["status"] = "betalt";
                     } else if (Number(payment.restBelop) !== payment["fakturagrunnlag"]["total"]) {

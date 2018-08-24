@@ -72,7 +72,7 @@ class OverviewPersonChip extends React.Component {
             return (
               <Chip
                 key={n.kunde.kundenummer}
-                label={n.kunde.navn.fornavn + ((n.kunde.navn.mellomnavn) ? (" " + n.kunde.navn.mellomnavn + " ") : (" ")) + n.kunde.navn.etternavn + ": " + (n.numberOrdrenummer)}
+                label={n.kunde.navn.fornavn + ((n.kunde.navn.mellomnavn) ? (" " + n.kunde.navn.mellomnavn + " ") : (" ")) + n.kunde.navn.etternavn + ": " + (n.ordrenummer)}
                 className={classes.chip}
               />
             );

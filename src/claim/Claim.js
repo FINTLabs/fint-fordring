@@ -258,14 +258,6 @@ class Claim extends Component {
             employer,
             timeFrameDueDate
         ).then(data => {
-            let paymentCopy = data;
-            //tenker at alle fakturaer har samme orgId
-            let orgIdString = paymentCopy[0].ordrenummer;
-            let firstDigit = orgIdString.match(/\d/);
-            let indexOfFirstDigit = orgIdString.indexOf(firstDigit);
-            paymentCopy.forEach(payment => {
-                payment["numberOrdrenummer"] = Number(payment["ordrenummer"].substr(indexOfFirstDigit));
-            });
             this.setState({lastSentClaim: data}, () => {
                 console.log(data);
             });
