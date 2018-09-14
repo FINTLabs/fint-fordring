@@ -63,7 +63,7 @@ const styles = theme => ({
     }
 });
 
-let orgId = "fake.no";
+let orgId = "fintlabs.no";
 
 //is needed to initialize data on reset
 let initialPersonSelectedState = {};

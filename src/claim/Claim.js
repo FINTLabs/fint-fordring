@@ -35,7 +35,7 @@ function getSteps() {
 
 //wcag test
 
-let orgId = "fake.no";
+let orgId = "fintlabs.no";
 
 
 class Claim extends Component {
